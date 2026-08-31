@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Video — Jeff Brown Yachts</title>
+<meta name="description" content="Watch Jeff Brown Yachts videos: yacht walkthroughs, brand films, event recaps, and interviews." />
+<link rel="icon" href="assets/jby_logo.svg" />
+<link rel="stylesheet" href="assets/fonts.css" />
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body data-kc="videos" data-hero="1">
+
+<div data-site-header></div>
+
+<!-- GRADIENT HERO + FLOATING VIDEO -->
+<section class="video-hero">
+  <div class="wrap">
+    <nav class="dh-crumbs" aria-label="Breadcrumb"><ol>
+      <li><a href="index.html#all">Knowledge Center</a></li><li class="sep">/</li>
+      <li><a href="index.html#videos">Videos</a></li><li class="sep">/</li>
+      <li aria-current="page" id="v-crumb">Video</li>
+    </ol></nav>
+  </div>
+</section>
+<div class="video-stage reveal in"><div class="videoframe"><iframe id="v-frame" src="" title="Jeff Brown Yachts video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div>
+
+<!-- TITLE + SUBTITLE + DESCRIPTION -->
+<section class="video-body">
+  <div class="vb-inner">
+    <h1 id="v-title">Jeff Brown Yachts video</h1>
+    <p class="v-sub" id="v-desc"></p>
+    <p class="v-desc-long" id="v-long">Filmed with Jeff Brown Yachts. This video is part of our ongoing series covering the yachts we represent, the events we host on the water, and the people behind the brand. Every walkthrough, brand film, and interview is produced to give you a genuine feel for each vessel before you ever step aboard. Get in touch to learn more, check current availability, or arrange a private viewing with our team.</p>
+  </div>
+</section>
+
+<!-- MORE VIDEOS -->
+<section class="sec grey">
+  <div class="wrap">
+    <div class="row-head">
+      <div class="rh-text"><h2 class="h-sm">More videos</h2></div>
+      <a class="link-arrow" href="index.html#videos" data-tab="videos">All videos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></a>
+    </div>
+    <div class="media-grid cols-3">
+      <a class="card vcard" href="video.html?v=-jKF--eEPcs"><div class="thumb"><img src="assets/img/vessel-axopar.jpg" alt="" /><video muted loop playsinline preload="none"><source src="assets/video/hover.mp4" type="video/mp4"></video><span class="badge">Walkthrough</span></div><h3>Axopar 38 Complete Walkthrough</h3><p>A full tour of the Axopar 38, available now at JBY.</p></a>
+      <a class="card vcard" href="video.html?v=-klt9lROx2Q"><div class="thumb"><img src="assets/img/brand-sirena.jpg" alt="" /><video muted loop playsinline preload="none"><source src="assets/video/hover.mp4" type="video/mp4"></video><span class="badge">Walkthrough</span></div><h3>Sirena 60 Walkthrough with Jeff Brown Yachts</h3><p>A tour of the long-range Sirena 60.</p></a>
+      <a class="card vcard" href="video.html?v=bcRRfGyM40s"><div class="thumb"><img src="assets/img/ev_riva.jpg" alt="" /><video muted loop playsinline preload="none"><source src="assets/video/hover.mp4" type="video/mp4"></video><span class="badge">Interview</span></div><h3>Riva Yachts Make Waves in California</h3><p>An exclusive interview with Jeff Brown.</p></a>
+    </div>
+  </div>
+</section>
+
+<div data-site-cta></div>
+<div data-site-footer></div>
+
+<script>
+/* Video detail — populate from ?v=<youtube id> */
+(function(){
+  var V = {
+    "w0ptcR-tTSQ":{t:"2026 Riva Aquariva Special with Jeff Brown Yachts",d:"A first look at the latest Riva Aquariva Special."},
+    "fQSTb3oAKzA":{t:"Axopar 37 XC: The Best All-Weather Boat Under $500K?",d:"A full walkthrough of the Axopar 37 XC."},
+    "-jKF--eEPcs":{t:"Axopar 38 Complete Walkthrough",d:"A full tour of the Axopar 38, available now at Jeff Brown Yachts."},
+    "-klt9lROx2Q":{t:"Sirena 60 Walkthrough with Jeff Brown Yachts",d:"A tour of the long-range Sirena 60."},
+    "Qdw6NAXoP4w":{t:"Pardo 50 Walkthrough Tour",d:"Inside the elegant Pardo 50 day boat."},
+    "bcRRfGyM40s":{t:"Riva Yachts Make Waves in California",d:"An exclusive interview with Jeff Brown."},
+    "dWhl8WauQQw":{t:"Jeff Brown Yachts at the Seattle Boat Show",d:"Highlights from the Axopar display in Seattle."},
+    "TO-hFcdKXWA":{t:"Axopar Education: Setting Up Fuel on an Axopar 37",d:"A practical how-to from the Jeff Brown Yachts team."},
+    "UK9PYInX22U":{t:"Axopar & BRABUS Carolinas Adventure",d:"Recap of the invite-only coastal run created by Jeff and Karen Brown."}
+  };
+  function param(n){ var m=new RegExp("[?&]"+n+"=([^&]+)").exec(location.search); return m?decodeURIComponent(m[1]):""; }
+  var id = param("v"); if(!V[id]) id = "w0ptcR-tTSQ";
+  var v = V[id];
+  document.getElementById("v-frame").src = "https://www.youtube.com/embed/"+id+"?rel=0";
+  document.getElementById("v-crumb").textContent = v.t;
+  document.getElementById("v-title").textContent = v.t;
+  document.getElementById("v-desc").textContent = v.d;
+  document.title = v.t + " — Jeff Brown Yachts";
+})();
+</script>
+<script src="assets/app.js"></script>
+</body>
+</html>

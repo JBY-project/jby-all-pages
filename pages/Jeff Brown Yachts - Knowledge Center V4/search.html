@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Search — Jeff Brown Yachts</title>
+<meta name="description" content="Search the Jeff Brown Yachts Knowledge Center: videos, past events, and insights & news." />
+<link rel="icon" href="assets/jby_logo.svg" />
+<link rel="stylesheet" href="assets/fonts.css" />
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body data-kc="search" data-hero="1">
+
+<div data-site-header></div>
+
+<!-- COMPACT NAVY HERO: breadcrumb + search bar -->
+<section class="kc-hero sub">
+  <div class="kc-hero-bg"><img src="assets/img/hero-detail.jpg" alt="" /></div>
+  <nav class="kc-crumbs" aria-label="Breadcrumb"><ol>
+    <li><a href="index.html#all">Knowledge Center</a></li><li class="sep">/</li>
+    <li aria-current="page">Search</li>
+  </ol></nav>
+  <div class="kc-hero-inner">
+    <form class="searchbar" action="search.html" method="get" role="search" aria-label="Search the Knowledge Center">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" name="query" id="sr-input" placeholder="Search stories, videos, events, and insights..." aria-label="Search" />
+      <button type="submit" class="btn btn-md btn-solid"><span>Search</span></button>
+    </form>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="sec">
+  <div class="wrap" id="sr-wrap">
+    <p class="sr-count" id="sr-loading">Searching…</p>
+  </div>
+</section>
+
+<div data-site-cta></div>
+<div data-site-footer></div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

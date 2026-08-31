@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Event Recap — Jeff Brown Yachts</title>
+<meta name="description" content="Recaps from Jeff Brown Yachts boat shows, concours, and owner rendezvous: photos and video from the day." />
+<link rel="icon" href="assets/jby_logo.svg" />
+<link rel="stylesheet" href="assets/fonts.css" />
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body data-kc="events" data-hero="1">
+
+<div data-site-header></div>
+
+<!-- GRADIENT HERO + FLOATING PHOTO -->
+<section class="video-hero">
+  <div class="wrap">
+    <nav class="dh-crumbs" aria-label="Breadcrumb"><ol>
+      <li><a href="index.html#all">Knowledge Center</a></li><li class="sep">/</li>
+      <li><a href="index.html#events">Past Events</a></li><li class="sep">/</li>
+      <li aria-current="page" id="e-crumb">Event</li>
+    </ol></nav>
+  </div>
+</section>
+<div class="video-stage reveal in"><div class="videoframe"><img id="e-hero" src="" alt="" /></div></div>
+
+<!-- TITLE + META + DESCRIPTION -->
+<section class="video-body">
+  <div class="vb-inner">
+    <h1 id="e-title">Event Recap</h1>
+    <p class="v-sub" id="e-meta"></p>
+    <p class="v-desc-long" id="e-desc"></p>
+  </div>
+</section>
+
+<!-- GALLERY: Photos then Videos -->
+<section class="ev-galleries">
+  <div class="evgal" id="gal-photos" aria-label="Event photos"></div>
+  <div class="evgal" id="gal-videos" aria-label="Event videos"></div>
+</section>
+
+<div data-site-cta></div>
+<div data-site-footer></div>
+
+<!-- LIGHTBOX (photo / video viewer) -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lb-btn lb-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <button class="lb-btn lb-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m15 6-6 6 6 6"/></svg></button>
+  <button class="lb-btn lb-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m9 6 6 6-6 6"/></svg></button>
+  <div class="lb-stage"><div class="lb-media" id="lb-media"></div><span class="lb-count"></span></div>
+</div>
+
+<script>
+/* Event detail — populate from ?e=<slug> */
+(function(){
+  var PHOTOS = ["consult-overlook.jpg","brand-riva.webp","brand-axopar.jpg","brand-wally.jpg","brand-pershing.jpg","hero-detail.jpg","card_crew.jpg"];
+  var VIDS = [
+    {id:"w0ptcR-tTSQ",img:"brand-riva.webp"},
+    {id:"-jKF--eEPcs",img:"brand-axopar.jpg"},
+    {id:"UK9PYInX22U",img:"brand-wally.jpg"},
+    {id:"dWhl8WauQQw",img:"band.jpg"}
+  ];
+  var E = {
+    "lake-tahoe":{t:"Lake Tahoe Concours d'Elegance",d:"August 2026",l:"Lake Tahoe, CA",img:"ev_pebble.jpg",vid:"",
+      desc:"Jeff Brown Yachts hosted the Riva hospitality tent at the Lake Tahoe Concours d'Elegance, where Riva was the featured marque for 2026. Owners and guests joined our team on the water for private walkthroughs and first looks at the fleet."},
+    "san-diego":{t:"San Diego International Boat Show",d:"June 2026",l:"San Diego, CA",img:"marina-sandiego.jpg",vid:"",
+      desc:"Jeff Brown Yachts returned to the San Diego International Boat Show on our home waters at Shelter Island, with a curated line-up of the brands we represent and our specialists on hand throughout the show."},
+    "miami":{t:"Miami International Boat Show",d:"February 2026",l:"Miami, FL",img:"brand-pershing.jpg",vid:"",
+      desc:"Jeff Brown Yachts brought a curated line-up to the Miami International Boat Show across its new 2026 in-water venues, with private tours and sea trials arranged throughout the week."},
+    "mid-atlantic":{t:"Mid-Atlantic Boat Show",d:"February 2026",l:"Baltimore, MD",img:"brand-axopar.jpg",vid:"",
+      desc:"Jeff Brown Yachts showed the largest selection of Axopars at the Mid-Atlantic Boat Show, giving visitors a close look at the range across a single, focused display."},
+    "charleston":{t:"Charleston Boat Show",d:"January 2026",l:"Charleston, SC",img:"marina-newport.jpg",vid:"",
+      desc:"Jeff Brown Yachts joined the Charleston Boat Show, close to our newest East Coast office, and welcomed local owners and prospective buyers aboard."},
+    "fort-lauderdale":{t:"Fort Lauderdale International Boat Show",d:"October 2025",l:"Fort Lauderdale, FL",img:"event_flibs.jpg",vid:"",
+      desc:"A standout week for Jeff Brown Yachts at the world's largest in-water boat show, with private tours across the fleet and our team on the docks throughout."},
+    "sausalito":{t:"Sausalito Boat Show (4th Annual)",d:"September 2025",l:"Sausalito, CA",img:"ev_sausalito.jpg",vid:"",
+      desc:"Jeff Brown Yachts joined the 4th Annual Sausalito Boat Show at Clipper Yacht Harbor on the bay, with Axopar and BRABUS on the water for the weekend."},
+    "carolinas":{t:"Axopar & BRABUS Carolinas Adventure",d:"July 2024",l:"The Carolinas",img:"brand-axopar.jpg",vid:"UK9PYInX22U",
+      desc:"An invite-only coastal journey created by Jeff and Karen Brown, part of the Axopar & BRABUS Adventure series, with a small group of owners running the fleet along the Carolina coast."}
+  };
+  function param(n){ var m=new RegExp("[?&]"+n+"=([^&]+)").exec(location.search); return m?decodeURIComponent(m[1]):""; }
+  var slug = param("e"); if(!E[slug]) slug = "fort-lauderdale";
+  var e = E[slug];
+
+  document.getElementById("e-hero").src = "assets/img/"+e.img;
+  document.getElementById("e-crumb").textContent = e.t;
+  document.getElementById("e-title").textContent = e.t;
+  document.getElementById("e-meta").textContent = e.d + " · " + e.l;
+  document.getElementById("e-desc").textContent = e.desc;
+  document.title = e.t + " — Jeff Brown Yachts";
+
+  function esc(s){ return String(s).replace(/"/g,"&quot;"); }
+  var chev = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">';
+  var arrows = '<button class="eg-arrow prev" aria-label="Previous">'+chev+'<path d="m15 6-6 6 6 6"/></svg></button>'
+             + '<button class="eg-arrow next" aria-label="Next">'+chev+'<path d="m9 6 6 6-6 6"/></svg></button>';
+
+  /* Photos gallery */
+  var pt = PHOTOS.map(function(im,i){
+    return '<button class="eg-thumb'+(i===0?' active':'')+'" data-full="assets/img/'+im+'"><img src="assets/img/'+im+'" alt="" /></button>';
+  }).join("");
+  document.getElementById("gal-photos").innerHTML =
+    '<div class="eg-hero"><img src="assets/img/'+PHOTOS[0]+'" alt="" /></div>'
+    + arrows
+    + '<div class="eg-word">Photos</div>'
+    + '<div class="eg-thumbs">'+pt+'</div>';
+
+  /* Videos gallery — event recap first (if any), then a shared set */
+  var vids = VIDS.slice();
+  if(e.vid && !vids.some(function(v){return v.id===e.vid;})) vids.unshift({id:e.vid,img:e.img});
+  var vt = vids.map(function(v,i){
+    return '<button class="eg-thumb'+(i===0?' active':'')+'" data-full="assets/img/'+v.img+'" data-vid="'+v.id+'"><img src="assets/img/'+v.img+'" alt="" /></button>';
+  }).join("");
+  document.getElementById("gal-videos").innerHTML =
+    '<div class="eg-hero"><img src="assets/img/'+vids[0].img+'" alt="" /></div>'
+    + '<button class="eg-play" type="button" aria-label="Play video"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>'
+    + arrows
+    + '<div class="eg-word">Videos</div>'
+    + '<div class="eg-thumbs">'+vt+'</div>';
+})();
+</script>
+<script src="assets/app.js"></script>
+</body>
+</html>

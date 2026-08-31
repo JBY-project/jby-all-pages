@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Knowledge Center — Jeff Brown Yachts</title>
+<meta name="description" content="The Jeff Brown Yachts Knowledge Center: videos, past events, and stories from the JBY world." />
+<link rel="icon" href="assets/jby_logo.svg" />
+<link rel="stylesheet" href="assets/fonts.css" />
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body data-kc="latest" data-hero="1">
+
+<div data-site-header></div>
+
+<!-- COMPACT HERO (internal page): breadcrumb + title + search -->
+<section class="kc-hero home">
+  <div class="kc-hero-inner">
+    <h1 class="reveal in">Knowledge Center</h1>
+    <p class="reveal in d1">Videos, past events, and stories from Jeff Brown Yachts.</p>
+    <form class="searchbar reveal in d2" action="search.html" method="get" role="search" aria-label="Search the Knowledge Center">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" name="query" placeholder="Search stories, videos, events, and insights..." aria-label="Search" />
+      <button type="submit" class="btn btn-md btn-solid"><span>Search</span></button>
+    </form>
+  </div>
+</section>
+
+<div data-site-kcnav></div>
+
+<div class="hub-panels">
+
+  <!-- ===================== LATEST (unified feed) ===================== -->
+  <div class="hub-panel active" id="panel-latest">
+    <section class="sec">
+      <div class="wrap">
+        <div class="ugrid" id="grid-latest"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===================== VIDEOS ===================== -->
+  <div class="hub-panel" id="panel-videos">
+    <section class="sec">
+      <div class="wrap">
+        <div class="chips" data-chips="grid-videos" data-axis="cat" role="tablist" aria-label="Filter videos">
+          <button class="chip on" data-val="all">All</button>
+          <button class="chip" data-val="walkthroughs">Walkthroughs</button>
+          <button class="chip" data-val="brand-films">Brand Films</button>
+          <button class="chip" data-val="event-recaps">Event Recaps</button>
+          <button class="chip" data-val="interviews">Interviews</button>
+          <button class="chip" data-val="behind-the-scenes">Behind the Scenes</button>
+        </div>
+        <div class="ugrid" id="grid-videos"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===================== PAST EVENTS ===================== -->
+  <div class="hub-panel" id="panel-events">
+    <section class="sec">
+      <div class="wrap">
+        <div class="chips" data-chips="grid-events" data-axis="region" role="tablist" aria-label="Filter events by region">
+          <button class="chip on" data-val="all">All</button>
+          <button class="chip" data-val="west">West Coast</button>
+          <button class="chip" data-val="east">East Coast</button>
+        </div>
+        <div class="ugrid" id="grid-events"></div>
+        <div class="sec-foot"><a class="btn btn-md btn-ghost-navy" href="https://ywteamyw.github.io/jby-events/v3-filters.html" target="_blank" rel="noopener">View Upcoming Events <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></a></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===================== INSIGHTS & NEWS ===================== -->
+  <div class="hub-panel" id="panel-insights">
+    <section class="sec">
+      <div class="wrap">
+        <div class="chips" data-chips="grid-insights" data-axis="cat" role="tablist" aria-label="Filter insights">
+          <button class="chip on" data-val="all">All</button>
+          <button class="chip" data-val="news">News</button>
+          <button class="chip" data-val="adventures">Adventures</button>
+          <button class="chip" data-val="owner">Owner Stories</button>
+          <button class="chip" data-val="insights">Insights</button>
+        </div>
+        <div class="ugrid" id="grid-insights"></div>
+      </div>
+    </section>
+  </div>
+
+</div>
+
+<div data-site-cta></div>
+<div data-site-footer></div>
+
+<script>
+/* Knowledge Center — unified content model (variant 2) */
+(function(){
+  var ITEMS = [
+    /* ---- Videos ---- */
+    {k:"video",href:"video.html?v=w0ptcR-tTSQ",img:"brand-riva.webp",t:"2026 Riva Aquariva Special with Jeff Brown Yachts",cat:"brand-films",meta:"Brand Film"},
+    {k:"video",href:"video.html?v=fQSTb3oAKzA",img:"vessel-axopar.jpg",t:"Axopar 37 XC: The Best All-Weather Boat Under $500K?",cat:"walkthroughs",meta:"Walkthrough"},
+    {k:"video",href:"video.html?v=-jKF--eEPcs",img:"brand-axopar.jpg",t:"Axopar 38 Complete Walkthrough",cat:"walkthroughs",meta:"Walkthrough"},
+    {k:"video",href:"video.html?v=-klt9lROx2Q",img:"brand-sirena.jpg",t:"Sirena 60 Walkthrough with Jeff Brown Yachts",cat:"walkthroughs",meta:"Walkthrough"},
+    {k:"video",href:"video.html?v=Qdw6NAXoP4w",img:"vessel-pershing2.jpg",t:"Pardo 50 Walkthrough Tour",cat:"walkthroughs",meta:"Walkthrough"},
+    {k:"video",href:"video.html?v=bcRRfGyM40s",img:"ev_riva.jpg",t:"Riva Yachts Make Waves in California",cat:"interviews",meta:"Interview"},
+    {k:"video",href:"video.html?v=dWhl8WauQQw",img:"marina-newport.jpg",t:"Jeff Brown Yachts at the Seattle Boat Show",cat:"event-recaps",meta:"Event Recap"},
+    {k:"video",href:"video.html?v=TO-hFcdKXWA",img:"card_service.jpg",t:"Axopar Education: Setting Up Fuel on an Axopar 37",cat:"behind-the-scenes",meta:"Behind the Scenes"},
+    /* ---- Past Events ---- */
+    {k:"event",href:"event.html?e=lake-tahoe",img:"ev_pebble.jpg",t:"Lake Tahoe Concours d'Elegance",brand:"riva",meta:"Aug 2026 · Lake Tahoe",region:"west"},
+    {k:"event",href:"event.html?e=san-diego",img:"marina-sandiego.jpg",t:"San Diego International Boat Show",brand:"axopar",meta:"Jun 2026 · San Diego",region:"west"},
+    {k:"event",href:"event.html?e=miami",img:"vessel-pershing.jpg",t:"Miami International Boat Show",brand:"pershing",meta:"Feb 2026 · Miami",region:"east"},
+    {k:"event",href:"event.html?e=mid-atlantic",img:"vessel-axopar.jpg",t:"Mid-Atlantic Boat Show",brand:"axopar",meta:"Feb 2026 · Baltimore",region:"east"},
+    {k:"event",href:"event.html?e=charleston",img:"marina-newport.jpg",t:"Charleston Boat Show",brand:"axopar",meta:"Jan 2026 · Charleston",region:"east"},
+    {k:"event",href:"event.html?e=fort-lauderdale",img:"event_flibs.jpg",t:"Fort Lauderdale International Boat Show",brand:"brabus",meta:"Oct 2025 · Fort Lauderdale",region:"east"},
+    {k:"event",href:"event.html?e=sausalito",img:"ev_sausalito.jpg",t:"Sausalito Boat Show (4th Annual)",brand:"brabus",meta:"Sep 2025 · Sausalito",region:"west"},
+    {k:"event",href:"event.html?e=carolinas",img:"vessel-brabus.jpg",t:"Axopar & BRABUS Carolinas Adventure",brand:"axopar",meta:"Jul 2024 · Carolinas",region:"east"},
+    /* ---- Insights & News (articles) ---- */
+    {k:"article",href:"article.html?a=pershing-us-dealer",img:"brand-pershing.jpg",t:"Pershing Names Jeff Brown Yachts Exclusive US Dealer",cat:"news",meta:"October 28, 2025 · 3 min read"},
+    {k:"article",href:"article.html?a=viggen",img:"marina-sandiego.jpg",t:"Owner Feature: Joe Dagostino's J/105 \"Viggen\"",cat:"owner",meta:"August 5, 2025 · 5 min read"},
+    {k:"article",href:"article.html?a=salish-sea",img:"ev_sausalito.jpg",t:"Cruising the Salish Sea: A Pacific Northwest Adventure",cat:"adventures",meta:"June 20, 2025 · 6 min read"},
+    {k:"article",href:"article.html?a=deniz-ozcakir",img:"consult-overlook.jpg",t:"Deniz Ozcakir Named Head of Sales & Marketing",cat:"news",meta:"April 7, 2025 · 2 min read"},
+    {k:"article",href:"article.html?a=pardo-west-coast",img:"brand-axopar.jpg",t:"Pardo Yachts Names JBY Exclusive US West Coast Dealer",cat:"news",meta:"March 12, 2025 · 2 min read"},
+    {k:"article",href:"article.html?a=charleston-office",img:"marina-newport.jpg",t:"Jeff Brown Yachts Opens a New Office in Charleston",cat:"news",meta:"October 1, 2024 · 2 min read"},
+    {k:"article",href:"article.html?a=riva-west-coast",img:"ev_riva.jpg",t:"Riva Names Jeff Brown Yachts Exclusive West Coast Dealer",cat:"news",meta:"September 16, 2024 · 3 min read"},
+    {k:"article",href:"article.html?a=carolinas-adventure",img:"vessel-brabus.jpg",t:"The Axopar & BRABUS Carolinas Adventure",cat:"adventures",meta:"July 18, 2024 · 6 min read"},
+    {k:"article",href:"article.html?a=brabus-shadow-500",img:"vessel-brabus.jpg",t:"Showcasing the BRABUS Shadow 500 on the West Coast",cat:"insights",meta:"June 29, 2024 · 3 min read"},
+    {k:"article",href:"article.html?a=modern-luxury",img:"lifestyle-expertise.jpg",t:"Jeff Brown: Modern Luxury \"Power Players\" Spotlight",cat:"insights",meta:"May 27, 2022 · 4 min read"}
+  ];
+  var BADGE = {video:"Video", event:"Past Event", article:"Article"};
+  var CAL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v3M16 3v3"/></svg>';
+  var PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+  function card(it){
+    /* Same footprint for every card; the on-image cue + meta differ by type. */
+    var onimg = "", meta = it.meta;
+    if(it.k==="video"){
+      onimg = '<video muted loop playsinline preload="none"><source src="assets/video/hover.mp4" type="video/mp4"></video>'
+            + '<span class="uc-play">'+PLAY+'</span>';
+    } else if(it.k==="event"){
+      var p = it.meta.split(" · ");          /* "Aug 2026 · Lake Tahoe" */
+      onimg = '<span class="uc-date">'+CAL+p[0]+'</span>';
+      meta  = p[1] || it.meta;               /* location shows below */
+    }
+    return '<a class="ucard uc-'+it.k+'" data-k="'+it.k+'" data-cat="'+(it.cat||"")+'" data-brand="'+(it.brand||"")+'" data-region="'+(it.region||"")+'" href="'+it.href+'">'
+      + '<div class="uc-thumb"><img src="assets/img/'+it.img+'" alt="" />'+onimg+'<span class="uc-badge">'+BADGE[it.k]+'</span></div>'
+      + '<div class="uc-body"><h3>'+it.t+'</h3><p class="uc-meta">'+meta+'</p></div></a>';
+  }
+  function bindHover(root){
+    root.querySelectorAll(".ucard").forEach(function(c){
+      var v = c.querySelector("video"); if(!v || c.dataset.hb) return; c.dataset.hb="1";
+      c.addEventListener("mouseenter", function(){ try{ v.currentTime=0; var p=v.play(); if(p&&p.catch)p.catch(function(){}); }catch(e){} });
+      c.addEventListener("mouseleave", function(){ try{ v.pause(); }catch(e){} });
+    });
+  }
+  function render(id, list){ var el=document.getElementById(id); if(!el)return; el.innerHTML=list.map(card).join(""); bindHover(el); }
+
+  /* Latest = a mixed feed (round-robin across the three types) */
+  function latest(){
+    var v=ITEMS.filter(function(i){return i.k==="video";});
+    var e=ITEMS.filter(function(i){return i.k==="event";});
+    var a=ITEMS.filter(function(i){return i.k==="article";});
+    var out=[], i=0, max=Math.max(v.length,e.length,a.length);
+    for(; i<max; i++){ if(a[i])out.push(a[i]); if(v[i])out.push(v[i]); if(e[i])out.push(e[i]); }
+    return out;
+  }
+  render("grid-latest",  latest());
+  render("grid-videos",  ITEMS.filter(function(i){return i.k==="video";}));
+  render("grid-events",  ITEMS.filter(function(i){return i.k==="event";}));
+  render("grid-insights",ITEMS.filter(function(i){return i.k==="article";}));
+
+  /* Horizontal chip filters (within a tab) */
+  document.querySelectorAll(".chips[data-chips]").forEach(function(bar){
+    var grid = document.getElementById(bar.getAttribute("data-chips"));
+    var axis = bar.getAttribute("data-axis");
+    if(!grid) return;
+    bar.querySelectorAll(".chip").forEach(function(ch){
+      ch.addEventListener("click", function(){
+        bar.querySelectorAll(".chip").forEach(function(x){ x.classList.remove("on"); });
+        ch.classList.add("on");
+        var val = ch.getAttribute("data-val");
+        grid.querySelectorAll(".ucard").forEach(function(c){
+          c.style.display = (val==="all" || c.getAttribute("data-"+axis)===val) ? "" : "none";
+        });
+      });
+    });
+  });
+})();
+</script>
+<script src="assets/app.js"></script>
+</body>
+</html>
