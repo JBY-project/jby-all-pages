@@ -1,0 +1,7 @@
+{
+  "name": "JBY About Pages Generator",
+  "id": "jby-about-pages-generator",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": ["figma"]
+}

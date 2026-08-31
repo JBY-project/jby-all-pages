@@ -1,0 +1,1863 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jeff Brown Yachts | About, Team, Locations & Contact</title>
+  <meta name="description" content="Clickable concept for Jeff Brown Yachts About, Team, Broker Profiles, Locations, Office Pages, and Contact experience.">
+  <style>
+    :root {
+      --ink: #111315;
+      --text: #364047;
+      --muted: #68747b;
+      --line: #e4e8e9;
+      --paper: #ffffff;
+      --soft: #f4f7f7;
+      --mist: #eaf3f2;
+      --sea: #006f78;
+      --sea-dark: #064b51;
+      --red: #e23d35;
+      --gold: #b9975b;
+      --shadow: 0 22px 56px rgba(10, 24, 28, .13);
+      --soft-shadow: 0 14px 34px rgba(10, 24, 28, .09);
+      --max: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body.nav-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .skip-link {
+      position: fixed;
+      left: 18px;
+      top: 18px;
+      z-index: 200;
+      transform: translateY(-150%);
+      padding: 12px 16px;
+      background: var(--ink);
+      color: var(--paper);
+      font-weight: 850;
+      transition: transform .18s ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 100;
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 0 clamp(18px, 4vw, 54px);
+      color: var(--paper);
+      border-bottom: 1px solid rgba(255, 255, 255, .2);
+      transition: background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .topbar.is-solid,
+    .topbar.nav-active {
+      color: var(--ink);
+      background: rgba(255, 255, 255, .94);
+      border-color: rgba(17, 19, 21, .1);
+      box-shadow: 0 12px 34px rgba(8, 20, 24, .08);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+      min-width: max-content;
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .crest {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(15px, 2vw, 30px);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .nav a {
+      opacity: .84;
+      transition: color .18s ease, opacity .18s ease;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible,
+    .nav a.is-active {
+      color: var(--red);
+      opacity: 1;
+      outline: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .menu-button {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid currentColor;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .menu-button span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      margin: 4px auto;
+      background: currentColor;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 0 22px;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease, border-color .18s ease;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, .13);
+      outline: 0;
+    }
+
+    .btn.dark {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .btn.sea {
+      border-color: var(--sea);
+      background: var(--sea);
+      color: var(--paper);
+    }
+
+    .btn.light {
+      border-color: rgba(255, 255, 255, .84);
+      background: rgba(255, 255, 255, .12);
+      color: var(--paper);
+    }
+
+    .btn.text {
+      min-height: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--sea);
+      box-shadow: none;
+    }
+
+    .btn.text:hover {
+      transform: none;
+      color: var(--red);
+      box-shadow: none;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.is-active {
+      display: block;
+    }
+
+    .hero {
+      min-height: 680px;
+      display: grid;
+      align-items: end;
+      padding: 150px clamp(22px, 5vw, 68px) 70px;
+      color: var(--paper);
+      background:
+        linear-gradient(90deg, rgba(4, 17, 20, .9), rgba(4, 17, 20, .48) 58%, rgba(4, 17, 20, .18)),
+        var(--hero-image, url("https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=2200&q=82")) center / cover;
+    }
+
+    .hero.compact {
+      min-height: 480px;
+    }
+
+    .hero-inner {
+      width: min(780px, 100%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      color: rgba(255, 255, 255, .82);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: var(--red);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    .hero h1 {
+      max-width: 760px;
+      margin-bottom: 18px;
+      font-size: clamp(42px, 6vw, 86px);
+      line-height: .98;
+      font-weight: 780;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin-bottom: 30px;
+      color: rgba(255, 255, 255, .84);
+      font-size: clamp(17px, 1.6vw, 21px);
+      line-height: 1.62;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .section {
+      padding: clamp(64px, 8vw, 108px) clamp(22px, 5vw, 68px);
+    }
+
+    .section.soft {
+      background: var(--soft);
+    }
+
+    .section.mist {
+      background: var(--mist);
+    }
+
+    .container {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .74fr) minmax(260px, .36fr);
+      gap: clamp(28px, 4vw, 70px);
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      color: var(--sea);
+      font-size: 12px;
+      font-weight: 880;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: var(--red);
+    }
+
+    h2 {
+      margin-bottom: 16px;
+      font-size: clamp(30px, 4vw, 56px);
+      line-height: 1.05;
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin-bottom: 10px;
+      font-size: 21px;
+      line-height: 1.2;
+    }
+
+    p {
+      color: var(--text);
+      line-height: 1.68;
+    }
+
+    .lede {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .stat {
+      min-height: 145px;
+      padding: 26px;
+      background: var(--paper);
+    }
+
+    .stat strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--sea-dark);
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 760;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .feature-grid,
+    .office-grid,
+    .team-grid,
+    .listing-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .feature-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .office-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .team-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .listing-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .feature,
+    .office-card,
+    .person-card,
+    .listing-card,
+    .contact-panel,
+    .profile-panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .feature {
+      padding: 26px;
+    }
+
+    .feature b,
+    .mini-label {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--sea);
+      font-size: 12px;
+      font-weight: 880;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .feature p,
+    .office-card p,
+    .person-card p,
+    .listing-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .image-frame {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: #d8e1e1;
+    }
+
+    .image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .35s ease;
+    }
+
+    .office-card:hover img,
+    .person-card:hover img,
+    .listing-card:hover img {
+      transform: scale(1.035);
+    }
+
+    .card-body {
+      padding: 22px;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 14px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: var(--soft);
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, .82fr) minmax(310px, .48fr);
+      gap: clamp(28px, 5vw, 70px);
+      align-items: start;
+    }
+
+    .story-panel {
+      padding: clamp(28px, 4vw, 52px);
+      color: var(--paper);
+      background:
+        linear-gradient(rgba(5, 34, 38, .72), rgba(5, 34, 38, .72)),
+        url("https://images.unsplash.com/photo-1518098268026-4e89f1a2cd8e?auto=format&fit=crop&w=1600&q=82") center / cover;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .story-panel p,
+    .story-panel .lede {
+      color: rgba(255, 255, 255, .84);
+    }
+
+    .brand-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .brand-chip {
+      padding: 9px 12px;
+      border: 1px solid rgba(255, 255, 255, .28);
+      color: rgba(255, 255, 255, .86);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .about-copy {
+      display: grid;
+      grid-template-columns: minmax(0, .82fr) minmax(300px, .42fr);
+      gap: clamp(30px, 5vw, 74px);
+      align-items: start;
+    }
+
+    .about-copy p {
+      margin-bottom: 18px;
+      font-size: 17px;
+    }
+
+    .note-panel {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+    }
+
+    .note-panel p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .quiet-list {
+      display: grid;
+      gap: 12px;
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .quiet-list li {
+      display: grid;
+      grid-template-columns: 126px 1fr;
+      gap: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .quiet-list b {
+      color: var(--ink);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .location-preview {
+      display: grid;
+      grid-template-columns: minmax(0, .7fr) minmax(320px, .5fr);
+      gap: clamp(28px, 4vw, 58px);
+      align-items: center;
+    }
+
+    .office-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 24px 0 0;
+    }
+
+    .office-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 780;
+    }
+
+    .region-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .region-card {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    .region-card h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .region-card p {
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .region-card .office-chips {
+      margin-top: 0;
+    }
+
+    .team-paths {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .team-path {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .team-path p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .team-editorial {
+      display: grid;
+      grid-template-columns: minmax(0, .74fr) minmax(300px, .42fr);
+      gap: clamp(30px, 5vw, 70px);
+      align-items: center;
+    }
+
+    .team-image {
+      min-height: 430px;
+      border-radius: 8px;
+      background:
+        linear-gradient(rgba(4, 17, 20, .18), rgba(4, 17, 20, .18)),
+        url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=82") center / cover;
+      box-shadow: var(--shadow);
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .filter {
+      min-height: 38px;
+      padding: 0 15px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .filter.is-active {
+      border-color: var(--sea);
+      background: var(--sea);
+      color: var(--paper);
+    }
+
+    .profile-layout {
+      display: grid;
+      grid-template-columns: minmax(280px, .38fr) minmax(0, .72fr);
+      gap: 26px;
+      align-items: start;
+    }
+
+    .profile-panel {
+      position: sticky;
+      top: 96px;
+    }
+
+    .profile-info {
+      padding: 24px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+      margin: 22px 0;
+      padding: 0;
+      list-style: none;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .contact-list b {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .detail-band {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin: 28px 0;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .detail-band div {
+      padding: 20px;
+      background: var(--paper);
+    }
+
+    .detail-band b {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--sea-dark);
+    }
+
+    .map-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .76fr) minmax(320px, .42fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .map-panel {
+      position: relative;
+      min-height: 520px;
+      overflow: hidden;
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(0, 111, 120, .74), rgba(185, 151, 91, .34)),
+        url("https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1800&q=80") center / cover;
+      box-shadow: var(--shadow);
+    }
+
+    .map-panel::after {
+      content: "";
+      position: absolute;
+      inset: 24px;
+      border: 1px solid rgba(255, 255, 255, .36);
+      pointer-events: none;
+    }
+
+    .pin {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 3px solid var(--paper);
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 0 9px rgba(226, 61, 53, .2);
+    }
+
+    .pin span {
+      position: absolute;
+      left: 16px;
+      top: -12px;
+      min-width: max-content;
+      padding: 6px 8px;
+      background: rgba(17, 19, 21, .82);
+      color: var(--paper);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .office-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .office-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: center;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    .office-row strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .office-row span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .office-detail {
+      display: grid;
+      grid-template-columns: minmax(0, .78fr) minmax(300px, .42fr);
+      gap: 26px;
+      align-items: start;
+    }
+
+    .info-box {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .info-box + .info-box {
+      margin-top: 18px;
+    }
+
+    .service-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .service-list li {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+      color: var(--text);
+      font-weight: 720;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .78fr) minmax(300px, .44fr);
+      gap: 26px;
+      align-items: start;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 780;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    textarea {
+      min-height: 132px;
+      resize: vertical;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .form-note {
+      display: none;
+      grid-column: 1 / -1;
+      padding: 14px 16px;
+      border: 1px solid rgba(0, 111, 120, .22);
+      border-radius: 8px;
+      background: var(--mist);
+      color: var(--sea-dark);
+      font-weight: 760;
+    }
+
+    .cta-band {
+      padding: clamp(46px, 7vw, 78px) clamp(22px, 5vw, 68px);
+      color: var(--paper);
+      background:
+        linear-gradient(90deg, rgba(4, 17, 20, .88), rgba(4, 17, 20, .62)),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=82") center / cover;
+    }
+
+    .cta-inner {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, .8fr) auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .cta-band h2 {
+      margin-bottom: 8px;
+    }
+
+    .cta-band p {
+      margin-bottom: 0;
+      color: rgba(255, 255, 255, .82);
+    }
+
+    .footer {
+      padding: 38px clamp(22px, 5vw, 68px);
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .footer-inner {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      justify-content: space-between;
+      color: rgba(255, 255, 255, .72);
+      font-size: 13px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-weight: 760;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    @media (max-width: 1040px) {
+      .feature-grid,
+      .team-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .office-grid,
+      .listing-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .stats,
+      .detail-band {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 860px) {
+      .menu-button {
+        display: block;
+      }
+
+      .nav {
+        position: fixed;
+        inset: 76px 0 auto;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 12px 22px 24px;
+        color: var(--ink);
+        background: rgba(255, 255, 255, .98);
+        border-bottom: 1px solid var(--line);
+        box-shadow: 0 18px 36px rgba(0, 0, 0, .12);
+      }
+
+      .nav.is-open {
+        display: flex;
+      }
+
+      .nav a {
+        padding: 15px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .header-actions .btn {
+        display: none;
+      }
+
+      .section-head,
+      .split,
+      .about-copy,
+      .location-preview,
+      .team-editorial,
+      .profile-layout,
+      .map-layout,
+      .office-detail,
+      .contact-grid,
+      .cta-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-panel {
+        position: static;
+      }
+
+      .map-panel {
+        min-height: 420px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        min-height: 590px;
+        padding-top: 124px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .feature-grid,
+      .office-grid,
+      .team-grid,
+      .listing-grid,
+      .team-paths,
+      .region-grid,
+      .stats,
+      .detail-band,
+      .service-list,
+      form {
+        grid-template-columns: 1fr;
+      }
+
+      .brand-mark span:last-child {
+        display: none;
+      }
+
+      .pin span {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar" id="topbar">
+    <a class="brand-mark" href="#about" aria-label="Jeff Brown Yachts home">
+      <span class="crest">JBY</span>
+      <span>Jeff Brown Yachts</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="#about" data-route-link="about">About</a>
+      <a href="#team" data-route-link="team">Team & Brokers</a>
+      <a href="#locations" data-route-link="locations">Locations</a>
+      <a href="#contact" data-route-link="contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn light" href="#contact">Start a Conversation</a>
+      <button class="menu-button" id="menuButton" type="button" aria-label="Open menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page is-active" id="page-about" aria-labelledby="about-title">
+      <div class="hero" style="--hero-image:url('https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=2200&q=82')">
+        <div class="hero-inner">
+          <div class="eyebrow">About JBY</div>
+          <h1 id="about-title">A boutique yacht dealership with coast-to-coast reach.</h1>
+          <p>Jeff Brown Yachts brings new yacht sales, brokerage, service, and yacht management together through a team of specialists in leading boating markets.</p>
+          <div class="actions">
+            <a class="btn sea" href="#team">Meet the Team</a>
+            <a class="btn light" href="#locations">Find an Office</a>
+          </div>
+        </div>
+      </div>
+
+      <section class="section">
+        <div class="container">
+          <div class="about-copy">
+            <div>
+              <span class="kicker">Company</span>
+              <h2>Built for yacht buyers, sellers, and owners who expect a more personal experience.</h2>
+              <p>Jeff Brown Yachts is a luxury yacht dealership and brokerage company headquartered in San Diego with offices across key boating markets in California, the Pacific Northwest, Hawaii, and the East Coast. The company represents a carefully selected portfolio of premium yacht brands while also supporting clients through brokerage, service, and ownership guidance.</p>
+              <p>What makes JBY different is the way the business combines boutique attention with a wider office network. Clients work with people who understand their local water, their boating goals, and the practical details that come after the sale, from private showings and trade-in conversations to service coordination and long-term support.</p>
+            </div>
+            <aside class="note-panel">
+              <span class="mini-label">Why Clients Choose JBY</span>
+              <p>A dedicated team, serious inventory, respected brand relationships, and local offices that make the buying and ownership process easier to navigate.</p>
+              <ul class="quiet-list">
+                <li><b>New Yachts</b><span>Premium brands and model guidance.</span></li>
+                <li><b>Brokerage</b><span>Buying and selling with market context.</span></li>
+                <li><b>Service</b><span>Maintenance, diagnostics, and owner support.</span></li>
+                <li><b>Ownership</b><span>Trade-ins, upgrades, and long-term planning.</span></li>
+              </ul>
+            </aside>
+          </div>
+          <div class="stats" style="margin-top:38px">
+            <div class="stat"><strong>Fastest</strong><span>Growing luxury yacht dealership in the U.S.</span></div>
+            <div class="stat"><strong>72</strong><span>New & brokerage yachts in current inventory</span></div>
+            <div class="stat"><strong>2 Coasts</strong><span>California, Pacific Northwest, Hawaii & Carolinas</span></div>
+            <div class="stat"><strong>Exclusive</strong><span>Mid-Atlantic dealer for Axopar & BRABUS Marine</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section soft">
+        <div class="container location-preview">
+          <div>
+            <span class="kicker">Our Locations</span>
+            <h2>Local offices in the markets where clients boat, buy, and service.</h2>
+            <p class="lede">From San Diego and Newport Harbor to Seattle, Hawaii, and the Carolinas, JBY's office network connects clients with local specialists who understand their market and their water.</p>
+            <p>Choose a region for a faster path to the right office, or open the full locations page for the complete map, addresses, hours, services, and local teams.</p>
+            <div class="region-grid">
+              <article class="region-card">
+                <h3>California</h3>
+                <p>Southern and Northern California brokerage, service, and private showings.</p>
+                <div class="office-chips">
+                  <a class="office-chip" href="#office-san-diego">San Diego</a>
+                  <a class="office-chip" href="#office-newport-harbor">Newport Harbor</a>
+                  <a class="office-chip" href="#office-marina-del-rey">Marina del Rey</a>
+                  <a class="office-chip" href="#office-sausalito">Sausalito</a>
+                </div>
+              </article>
+              <article class="region-card">
+                <h3>Pacific Northwest</h3>
+                <p>Adventure boating, cruising guidance, and local support in Seattle.</p>
+                <div class="office-chips">
+                  <a class="office-chip" href="#office-seattle">Seattle</a>
+                </div>
+              </article>
+              <article class="region-card">
+                <h3>Hawaii</h3>
+                <p>Island clients, coastal cruising, and regional owner support.</p>
+                <div class="office-chips">
+                  <a class="office-chip" href="#office-kona">Kona</a>
+                </div>
+              </article>
+              <article class="region-card">
+                <h3>East Coast</h3>
+                <p>Brokerage and service access in the Carolinas and Mid-Atlantic markets.</p>
+                <div class="office-chips">
+                  <a class="office-chip" href="#office-wrightsville-beach">Wrightsville Beach</a>
+                  <a class="office-chip" href="#office-charleston">Charleston</a>
+                </div>
+              </article>
+            </div>
+            <div class="card-actions">
+              <a class="btn sea" href="#locations">View All Locations</a>
+              <a class="btn text" href="#contact">Contact an Office</a>
+            </div>
+          </div>
+          <aside class="map-panel" style="min-height:420px">
+            <span class="pin" style="left:13%;top:55%"><span>San Diego</span></span>
+            <span class="pin" style="left:18%;top:52%"><span>Newport</span></span>
+            <span class="pin" style="left:15%;top:47%"><span>Marina del Rey</span></span>
+            <span class="pin" style="left:17%;top:36%"><span>Sausalito</span></span>
+            <span class="pin" style="left:20%;top:24%"><span>Seattle</span></span>
+            <span class="pin" style="left:55%;top:68%"><span>Kona</span></span>
+            <span class="pin" style="left:78%;top:50%"><span>Wrightsville</span></span>
+            <span class="pin" style="left:83%;top:57%"><span>Charleston</span></span>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container team-editorial">
+          <div class="team-image" aria-label="Jeff Brown Yachts team"></div>
+          <div>
+            <span class="kicker">Our Team</span>
+            <h2>Experienced people make the difference.</h2>
+            <p class="lede">JBY brings together yacht brokers, service specialists, leadership, marketing, and client support so every inquiry reaches someone with the right experience.</p>
+            <p>Whether a client is comparing models, preparing a yacht for sale, scheduling service, or simply deciding where to begin, the JBY team is built to make the next step clear.</p>
+            <ul class="quiet-list">
+              <li><b>Sales</b><span>For yacht search, brokerage, valuation, and private showings.</span></li>
+              <li><b>Service</b><span>For maintenance, diagnostics, yard work, and after-sale care.</span></li>
+              <li><b>Support</b><span>For office coordination, brand questions, and general inquiries.</span></li>
+            </ul>
+            <div class="card-actions" style="margin-top:28px">
+              <a class="btn sea" href="#team">Meet the Full Team</a>
+              <a class="btn text" href="#contact">Ask Who to Contact</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="page" id="page-team" aria-labelledby="team-title">
+      <div class="hero compact" style="--hero-image:url('https://images.unsplash.com/photo-1517639493569-5666a7b2f494?auto=format&fit=crop&w=2200&q=82')">
+        <div class="hero-inner">
+          <div class="eyebrow">Team & Brokers</div>
+          <h1 id="team-title">Find the person who knows your water, yacht, and next move.</h1>
+          <p>Meet the sales professionals, service specialists, leadership, and marketing team behind Jeff Brown Yachts.</p>
+        </div>
+      </div>
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="kicker">People</span>
+              <h2>Team directory with broker-specific yacht listings.</h2>
+            </div>
+            <p class="lede">Whether you are searching for a yacht, preparing to sell, scheduling service, or planning your next ownership step, our team is here to help with practical experience and direct local support.</p>
+          </div>
+          <div class="filters" id="teamFilters" aria-label="Team filters"></div>
+          <div class="team-grid" id="teamGrid"></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="page" id="page-profile" aria-live="polite"></section>
+
+    <section class="page" id="page-locations" aria-labelledby="locations-title">
+      <div class="hero compact" style="--hero-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2200&q=82')">
+        <div class="hero-inner">
+          <div class="eyebrow">Locations</div>
+          <h1 id="locations-title">Offices designed for local discovery and local trust.</h1>
+          <p>Find a Jeff Brown Yachts office near your boating market and connect with the local team for sales, service, brokerage, or private viewings.</p>
+        </div>
+      </div>
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="kicker">Office Finder</span>
+              <h2>Map overview plus scannable office cards.</h2>
+            </div>
+            <p class="lede">Keep the map, but pair it with cards that expose the practical details: address, phone, office type, and a clear “View Office” action.</p>
+          </div>
+          <div class="map-layout">
+            <div class="map-panel" aria-label="Stylized office map">
+              <span class="pin" style="left:13%;top:55%"><span>San Diego</span></span>
+              <span class="pin" style="left:18%;top:52%"><span>Newport</span></span>
+              <span class="pin" style="left:15%;top:47%"><span>Marina del Rey</span></span>
+              <span class="pin" style="left:17%;top:36%"><span>Sausalito</span></span>
+              <span class="pin" style="left:20%;top:24%"><span>Seattle</span></span>
+              <span class="pin" style="left:55%;top:68%"><span>Kona</span></span>
+              <span class="pin" style="left:78%;top:50%"><span>Wrightsville</span></span>
+              <span class="pin" style="left:83%;top:57%"><span>Charleston</span></span>
+            </div>
+            <div class="office-list" id="officeList"></div>
+          </div>
+        </div>
+      </section>
+      <section class="section soft">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="kicker">All Offices</span>
+              <h2>Explore each office and the team behind it.</h2>
+            </div>
+            <p class="lede">Every office page includes the details clients actually need: address, hours, phone, available services, local team members, featured listings, and directions.</p>
+          </div>
+          <div class="office-grid" id="officeGrid"></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="page" id="page-office" aria-live="polite"></section>
+
+    <section class="page" id="page-contact" aria-labelledby="contact-title">
+      <div class="hero compact" style="--hero-image:url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&w=2200&q=82')">
+        <div class="hero-inner">
+          <div class="eyebrow">General Contact</div>
+          <h1 id="contact-title">One form for every buyer, seller, owner, and service request.</h1>
+          <p>Tell us what you are looking for and the right JBY team member will follow up with next steps.</p>
+        </div>
+      </div>
+      <section class="section">
+        <div class="container contact-grid">
+          <div class="contact-panel">
+            <div class="card-body">
+              <span class="kicker">How Can We Help?</span>
+              <h2>Route the inquiry to the right team.</h2>
+              <form id="contactForm">
+                <label>Full Name<input required placeholder="Full name"></label>
+                <label>Email<input required type="email" placeholder="name@example.com"></label>
+                <label>Mobile<input placeholder="Phone number"></label>
+                <label>Preferred Location<select><option>San Diego</option><option>Newport Harbor</option><option>Marina del Rey</option><option>Sausalito</option><option>Seattle</option><option>Kona</option><option>Wrightsville Beach</option><option>Charleston</option><option>Not sure yet</option></select></label>
+                <label>Brand Interest<select><option>General</option><option>Axopar</option><option>BRABUS</option><option>Riva</option><option>Wally</option><option>Sirena Yachts</option><option>Pershing</option><option>Jeanneau</option></select></label>
+                <label>Inquiry Type<select><option>General Inquiry</option><option>Schedule Viewing</option><option>Request Price</option><option>Sell My Yacht</option><option>Service</option><option>Yacht Management</option><option>Financing</option></select></label>
+                <label class="full">Comments<textarea placeholder="Tell us what you are looking for."></textarea></label>
+                <div class="form-note" id="formNote">Thank you. Your inquiry has been received and a member of the Jeff Brown Yachts team will follow up shortly.</div>
+                <button class="btn sea" type="submit">Submit Inquiry</button>
+              </form>
+            </div>
+          </div>
+          <aside>
+            <div class="info-box">
+              <span class="mini-label">Fast Path</span>
+              <h3>Not sure who to contact?</h3>
+              <p>Share a few details and we will connect you with the right office, broker, service specialist, or ownership advisor.</p>
+            </div>
+            <div class="info-box">
+              <span class="mini-label">Primary Phone</span>
+              <h3>(619) 222-9899</h3>
+              <p>Call the main office for general questions, appointment requests, private showings, or help reaching a specific location.</p>
+            </div>
+            <div class="info-box">
+              <span class="mini-label">Next Steps</span>
+              <h3>What happens next</h3>
+              <p>A JBY team member reviews your inquiry and follows up with relevant yacht options, office contacts, or service availability.</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <section class="cta-band">
+    <div class="cta-inner">
+      <div>
+        <h2>Ready to start a conversation?</h2>
+        <p>Connect with the Jeff Brown Yachts team to explore available yachts, discuss selling your boat, or schedule service support.</p>
+      </div>
+      <div class="actions">
+        <a class="btn light" href="#team">View Brokers</a>
+        <a class="btn sea" href="#contact">Contact Page</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="brand-mark">
+        <span class="crest">JBY</span>
+        <span>Jeff Brown Yachts</span>
+      </div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#team">Team</a>
+        <a href="#locations">Locations</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const offices = [
+      {
+        id: "san-diego",
+        name: "San Diego",
+        type: "Main Office",
+        address: "2330 Shelter Island Drive, Suite 105, San Diego, CA 92106",
+        shortAddress: "Shelter Island Drive, San Diego",
+        phone: "619-222-9899",
+        email: "info@jeffbrownyachts.com",
+        hours: "Monday - Friday: 8am - 5pm. Weekends and private viewings by appointment.",
+        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+        intro: "A flagship brokerage office on Shelter Island for new yacht sales, premium brokerage, and client consultations.",
+        services: ["New yacht sales", "Brokerage", "Private showings", "Yacht management"],
+        listings: ["sirena-60", "wally-58", "axopar-45"]
+      },
+      {
+        id: "san-diego-marina",
+        name: "San Diego Marina & Boatyard",
+        type: "Service Office",
+        address: "2614 Shelter Island Drive, Suite A, San Diego, CA 92106",
+        shortAddress: "San Diego Marina",
+        phone: "619-222-9899",
+        email: "service@jeffbrownyachts.com",
+        hours: "Service appointments available Monday - Friday.",
+        image: "https://images.unsplash.com/photo-1534008897995-27a23e859048?auto=format&fit=crop&w=1200&q=80",
+        intro: "A service-forward location for certified technicians, yard coordination, detailing, and after-sale support.",
+        services: ["Certified service", "Detailing", "Yard coordination", "After-sale support"],
+        listings: []
+      },
+      {
+        id: "newport-harbor",
+        name: "Newport Harbor",
+        type: "Sales Office",
+        address: "3101 West Coast Highway, Suite 130, Newport Beach, CA 92663",
+        shortAddress: "West Coast Highway, Newport Beach",
+        phone: "949-524-3143",
+        email: "info@jeffbrownyachts.com",
+        hours: "Monday - Saturday: 9am - 5pm. Sundays by appointment.",
+        image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80",
+        intro: "A Newport Harbor office for Orange County yacht buyers, sellers, and brand-led discovery.",
+        services: ["Luxury brokerage", "Brand consultation", "Sell your yacht", "Private viewings"],
+        listings: ["riva-66", "pardo-60", "wally-48"]
+      },
+      {
+        id: "marina-del-rey",
+        name: "Marina del Rey",
+        type: "Sales Office",
+        address: "13900 Marquesas Way, Marina del Rey, CA 90292",
+        shortAddress: "Esprit Marina del Rey",
+        phone: "310-295-9236",
+        email: "info@jeffbrownyachts.com",
+        hours: "Private viewings available by appointment.",
+        image: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=1200&q=80",
+        intro: "A Southern California location for yacht sales, brokerage, and client services in a premier marina setting.",
+        services: ["Brokerage", "Client services", "Private showings", "Brand consultation"],
+        listings: ["axopar-29", "brabus-500"]
+      },
+      {
+        id: "sausalito",
+        name: "Sausalito",
+        type: "Bay Area Office",
+        address: "300B Harbor Drive, Sausalito, CA 94965",
+        shortAddress: "Clipper Yacht Harbor",
+        phone: "510-701-4880",
+        email: "info@jeffbrownyachts.com",
+        hours: "Monday - Friday: 9am - 5pm. Weekends by appointment.",
+        image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80",
+        intro: "A Bay Area brokerage office serving boaters around San Francisco Bay and Northern California.",
+        services: ["Brokerage", "Service coordination", "Northern California guidance", "Private viewings"],
+        listings: ["axopar-38", "sirena-48"]
+      },
+      {
+        id: "seattle",
+        name: "Seattle",
+        type: "Pacific Northwest Office",
+        address: "2288 W Commodore Way, Suite 110, Seattle, WA 98199",
+        shortAddress: "Salmon Bay Marine Center",
+        phone: "206-274-5257",
+        email: "info@jeffbrownyachts.com",
+        hours: "Monday - Friday: 9am - 5pm. Private showings by appointment.",
+        image: "https://images.unsplash.com/photo-1502175353174-a7a70e73b362?auto=format&fit=crop&w=1200&q=80",
+        intro: "A Pacific Northwest base for cruising clients, adventure boaters, and service coordination.",
+        services: ["New yacht sales", "Brokerage", "Service coordination", "Adventure boating"],
+        listings: ["axopar-37", "brabus-900"]
+      },
+      {
+        id: "kona",
+        name: "Kona",
+        type: "Hawaii Office",
+        address: "73-4539 Iki Place Kailua, Kona, HI 96740",
+        shortAddress: "Kailua-Kona, Hawaii",
+        phone: "808-989-8305",
+        email: "info@jeffbrownyachts.com",
+        hours: "Private consultations by appointment.",
+        image: "https://images.unsplash.com/photo-1505852679233-d9fd70aff56d?auto=format&fit=crop&w=1200&q=80",
+        intro: "A Hawaii office for island clients, coastal cruising, and regional yacht guidance.",
+        services: ["Brokerage", "Island consultation", "Private showings", "Owner support"],
+        listings: ["axopar-28"]
+      },
+      {
+        id: "wrightsville-beach",
+        name: "Wrightsville Beach",
+        type: "East Coast Office",
+        address: "100 Keel Street, Wrightsville Beach, NC 28480",
+        shortAddress: "Wrightsville Beach, North Carolina",
+        phone: "910-679-4158",
+        email: "info@jeffbrownyachts.com",
+        hours: "Monday - Friday: 9am - 5pm. Weekends by appointment.",
+        image: "https://images.unsplash.com/photo-1468413253725-0d5181091126?auto=format&fit=crop&w=1200&q=80",
+        intro: "An East Coast office for sales, brokerage, and national service coordination.",
+        services: ["Brokerage", "Service", "Yard support", "Private showings"],
+        listings: ["four-winns-35", "jeanneau-40"]
+      },
+      {
+        id: "charleston",
+        name: "Charleston",
+        type: "South Carolina Office",
+        address: "49 Immigration Street, Suite 101F, Charleston, SC 29403",
+        shortAddress: "Seabreeze Marina",
+        phone: "843-277-0777",
+        email: "info@jeffbrownyachts.com",
+        hours: "Private viewings available by appointment.",
+        image: "https://images.unsplash.com/photo-1515263487990-61b07816b324?auto=format&fit=crop&w=1200&q=80",
+        intro: "A growing Charleston office supporting South Carolina boaters with sales, service, and brokerage expertise.",
+        services: ["Brokerage", "Service", "Axopar consultation", "BRABUS consultation"],
+        listings: ["axopar-45-charleston"]
+      }
+    ];
+
+    const listings = {
+      "sirena-60": { title: "2026 Sirena 60", price: "Call for Price", location: "San Diego, CA", image: "https://images.unsplash.com/photo-1562281302-809108fd533c?auto=format&fit=crop&w=900&q=80" },
+      "wally-58": { title: "2024 Wally power58X", price: "Call for Price", location: "San Diego, CA", image: "https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=900&q=80" },
+      "axopar-45": { title: "2026 Axopar 45 XC", price: "Call for Price", location: "San Diego, CA", image: "https://images.unsplash.com/photo-1540946485063-a40da27545f8?auto=format&fit=crop&w=900&q=80" },
+      "riva-66": { title: "2024 Riva 66 Ribelle", price: "Call for Price", location: "Newport Beach, CA", image: "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=900&q=80" },
+      "pardo-60": { title: "2023 Pardo Endurance 60", price: "$2,250,000", location: "Newport Beach, CA", image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=900&q=80" },
+      "wally-48": { title: "2023 Wally tender48", price: "Call for Price", location: "Newport Beach, CA", image: "https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&w=900&q=80" },
+      "axopar-29": { title: "2026 Axopar 29 XC", price: "$329,000", location: "Marina del Rey, CA", image: "https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?auto=format&fit=crop&w=900&q=80" },
+      "brabus-500": { title: "2023 BRABUS Shadow 500", price: "$329,000", location: "Southern California", image: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=900&q=80" },
+      "axopar-38": { title: "2026 Axopar 38 Cross Cabin", price: "$589,000", location: "Sausalito, CA", image: "https://images.unsplash.com/photo-1534008897995-27a23e859048?auto=format&fit=crop&w=900&q=80" },
+      "sirena-48": { title: "2026 Sirena 48", price: "Call for Price", location: "Sausalito, CA", image: "https://images.unsplash.com/photo-1518098268026-4e89f1a2cd8e?auto=format&fit=crop&w=900&q=80" },
+      "axopar-37": { title: "2025 Axopar 37 XC", price: "$434,678", location: "Seattle, WA", image: "https://images.unsplash.com/photo-1502175353174-a7a70e73b362?auto=format&fit=crop&w=900&q=80" },
+      "brabus-900": { title: "BRABUS Shadow 900 XC", price: "Call for Price", location: "Seattle, WA", image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80" },
+      "axopar-28": { title: "2021 Axopar 28 Cabin", price: "$164,900", location: "Kona, HI", image: "https://images.unsplash.com/photo-1505852679233-d9fd70aff56d?auto=format&fit=crop&w=900&q=80" },
+      "four-winns-35": { title: "2025 Four Winns 35", price: "Call for Price", location: "Wrightsville Beach, NC", image: "https://images.unsplash.com/photo-1468413253725-0d5181091126?auto=format&fit=crop&w=900&q=80" },
+      "jeanneau-40": { title: "2024 Jeanneau 40", price: "$399,000", location: "Wrightsville Beach, NC", image: "https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?auto=format&fit=crop&w=900&q=80" },
+      "axopar-45-charleston": { title: "2026 Axopar 45 XC", price: "Call for Price", location: "Charleston, SC", image: "https://images.unsplash.com/photo-1515263487990-61b07816b324?auto=format&fit=crop&w=900&q=80" }
+    };
+
+    const people = [
+      { id: "jeff-brown", name: "Jeff Brown", role: "Owner", category: "Leadership", office: "San Diego", email: "jeff@jeffbrownyachts.com", phone: "619-709-0697", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=80", bio: "Founder-level relationship builder with deep marine industry experience and a strong focus on premium ownership journeys.", yachts: ["sirena-60", "wally-58", "axopar-45"] },
+      { id: "allen-jones", name: "Allen Jones", role: "Sales Professional & Mari~Time Manager", category: "Sales", office: "Newport Harbor", email: "allen@jeffbrownyachts.com", phone: "949-630-2306", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80", bio: "A Newport Harbor sales specialist who connects clients with premium brokerage, new yachts, and ownership support.", yachts: ["riva-66", "pardo-60", "wally-48"] },
+      { id: "ryan-anderson", name: "Ryan Anderson", role: "Sales Professional", category: "Sales", office: "San Diego", email: "ryan@jeffbrownyachts.com", phone: "619-708-8603", image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=80", bio: "San Diego broker focused on matching buyers with coastal cruising, performance, and family boating opportunities.", yachts: ["sirena-60", "axopar-45", "wally-58"] },
+      { id: "tommy-casias", name: "Tommy Casias", role: "Sales Manager", category: "Sales", office: "Seattle", email: "tommy@jeffbrownyachts.com", phone: "206-387-0331", image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=900&q=80", bio: "Pacific Northwest sales leader for clients who want practical expertise, cruising context, and premium boat access.", yachts: ["axopar-37", "brabus-900"] },
+      { id: "pete-mccormick", name: "Pete McCormick", role: "Sales Professional", category: "Sales", office: "Sausalito", email: "pete@jeffbrownyachts.com", phone: "510-701-4880", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=900&q=80", bio: "Bay Area yacht broker with local-water knowledge and a clear consultative sales path.", yachts: ["axopar-38", "sirena-48"] },
+      { id: "nate-evans", name: "Nate Evans", role: "Sales Professional", category: "Sales", office: "Charleston", email: "nate@jeffbrownyachts.com", phone: "910-612-7651", image: "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?auto=format&fit=crop&w=900&q=80", bio: "Charleston sales contact for South Carolina buyers and owners exploring new yachts, service, and brokerage.", yachts: ["axopar-45-charleston"] },
+      { id: "annie-snyder", name: "Annie Snyder", role: "Lead Service Technician, Mercury Certified", category: "Service", office: "San Diego Marina & Boatyard", email: "service@jeffbrownyachts.com", phone: "619-222-9899", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=80", bio: "Mercury-certified lead service technician supporting owners with diagnostics, maintenance coordination, repowers, and after-sale care from the San Diego marina and boatyard team.", yachts: [] },
+      { id: "melina-monninger", name: "Melina Monninger", role: "Marketing Manager", category: "Marketing", office: "San Diego", email: "melina@jeffbrownyachts.com", phone: "619-222-9899", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80", bio: "Marketing lead supporting campaigns, events, brand storytelling, and inventory promotion across the JBY footprint.", yachts: [] }
+    ];
+
+    const pages = ["about", "team", "profile", "locations", "office", "contact"];
+    const teamFilters = ["All", "Sales", "Service", "Leadership", "Marketing"];
+
+    const nav = document.getElementById("nav");
+    const menuButton = document.getElementById("menuButton");
+    const topbar = document.getElementById("topbar");
+    const teamGrid = document.getElementById("teamGrid");
+    const teamFiltersEl = document.getElementById("teamFilters");
+    const officeGrid = document.getElementById("officeGrid");
+    const officeList = document.getElementById("officeList");
+    const profilePage = document.getElementById("page-profile");
+    const officePage = document.getElementById("page-office");
+
+    let activeTeamFilter = "All";
+
+    function listingCard(id) {
+      const item = listings[id];
+      if (!item) return "";
+      return `
+        <article class="listing-card">
+          <div class="image-frame"><img src="${item.image}" alt="${item.title}"></div>
+          <div class="card-body">
+            <span class="mini-label">${item.location}</span>
+            <h3>${item.title}</h3>
+            <p>${item.price}</p>
+            <div class="card-actions">
+              <a class="btn text" href="#contact">Request Details</a>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderTeamFilters() {
+      teamFiltersEl.innerHTML = teamFilters.map(filter => `
+        <button class="filter ${filter === activeTeamFilter ? "is-active" : ""}" type="button" data-filter="${filter}">${filter}</button>
+      `).join("");
+    }
+
+    function renderTeam() {
+      renderTeamFilters();
+      const filtered = activeTeamFilter === "All" ? people : people.filter(person => person.category === activeTeamFilter);
+      teamGrid.innerHTML = filtered.map(person => `
+        <article class="person-card">
+          <a href="#profile-${person.id}" aria-label="View ${person.name}">
+            <div class="image-frame"><img src="${person.image}" alt="${person.name}"></div>
+            <div class="card-body">
+              <ul class="meta-row">
+                <li class="pill">${person.category}</li>
+                <li class="pill">${person.office}</li>
+              </ul>
+              <h3>${person.name}</h3>
+              <p>${person.role}</p>
+              <div class="card-actions">
+                <span class="btn text">View Profile</span>
+              </div>
+            </div>
+          </a>
+        </article>
+      `).join("");
+    }
+
+    function renderOffices() {
+      officeGrid.innerHTML = offices.map(office => `
+        <article class="office-card">
+          <a href="#office-${office.id}" aria-label="View ${office.name} office">
+            <div class="image-frame"><img src="${office.image}" alt="${office.name} office"></div>
+            <div class="card-body">
+              <ul class="meta-row">
+                <li class="pill">${office.type}</li>
+                <li class="pill">${office.phone}</li>
+              </ul>
+              <h3>${office.name}</h3>
+              <p>${office.address}</p>
+              <div class="card-actions">
+                <span class="btn text">View Office</span>
+              </div>
+            </div>
+          </a>
+        </article>
+      `).join("");
+
+      officeList.innerHTML = offices.map(office => `
+        <a class="office-row" href="#office-${office.id}">
+          <span><strong>${office.name}</strong><span>${office.shortAddress}</span></span>
+          <span class="pill">View</span>
+        </a>
+      `).join("");
+    }
+
+    function renderProfile(personId) {
+      const person = people.find(item => item.id === personId) || people.find(item => item.id === "allen-jones");
+      const hasYachts = person.yachts.length > 0;
+      profilePage.innerHTML = `
+        <div class="hero compact" style="--hero-image:url('${person.image}')">
+          <div class="hero-inner">
+            <div class="eyebrow">${person.category === "Sales" ? "Broker Profile" : "Team Profile"}</div>
+            <h1>${person.name}</h1>
+            <p>${person.role} · ${person.office}</p>
+            <div class="actions">
+              <a class="btn sea" href="#contact">Contact ${person.name.split(" ")[0]}</a>
+              <a class="btn light" href="#team">Back to Team</a>
+            </div>
+          </div>
+        </div>
+        <section class="section">
+          <div class="container profile-layout">
+            <aside class="profile-panel">
+              <div class="image-frame"><img src="${person.image}" alt="${person.name}"></div>
+              <div class="profile-info">
+                <ul class="meta-row">
+                  <li class="pill">${person.category}</li>
+                  <li class="pill">${person.office}</li>
+                </ul>
+                <h3>${person.name}</h3>
+                <p>${person.role}</p>
+                <ul class="contact-list">
+                  <li><b>Email</b><a href="mailto:${person.email}">${person.email}</a></li>
+                  <li><b>Phone</b><a href="tel:${person.phone.replace(/[^0-9]/g, "")}">${person.phone}</a></li>
+                  <li><b>Office</b>${person.office}</li>
+                </ul>
+                <a class="btn sea" href="#contact">Start Inquiry</a>
+              </div>
+            </aside>
+            <div>
+              <span class="kicker">${hasYachts ? "Sales Expertise" : "Role & Support"}</span>
+              <h2>${hasYachts ? "Yacht guidance backed by current inventory." : "Certified service support for JBY owners."}</h2>
+              <p class="lede">${person.bio}</p>
+              <div class="detail-band">
+                <div><b>Primary Role</b><span>${person.role}</span></div>
+                <div><b>Office</b><span>${person.office}</span></div>
+                <div><b>Best CTA</b><span>${hasYachts ? "Ask about a yacht" : "Request service support"}</span></div>
+              </div>
+              ${hasYachts ? `
+                <span class="kicker">Current Yachts</span>
+                <h2>Yachts represented by ${person.name.split(" ")[0]}</h2>
+                <div class="listing-grid">${person.yachts.map(listingCard).join("")}</div>
+              ` : `
+                <span class="kicker">Service Expertise</span>
+                <h2>Maintenance, diagnostics, and owner support.</h2>
+                <ul class="service-list">
+                  <li>Mercury-certified service support</li>
+                  <li>Maintenance and diagnostics</li>
+                  <li>Yard and appointment coordination</li>
+                  <li>After-sale owner care</li>
+                </ul>
+              `}
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderOffice(officeId) {
+      const office = offices.find(item => item.id === officeId) || offices[0];
+      const officePeople = people.filter(person => person.office === office.name || person.office.includes(office.name));
+      officePage.innerHTML = `
+        <div class="hero compact" style="--hero-image:url('${office.image}')">
+          <div class="hero-inner">
+            <div class="eyebrow">Office Page</div>
+            <h1>${office.name} Yacht Brokerage</h1>
+            <p>${office.intro}</p>
+            <div class="actions">
+              <a class="btn sea" href="#contact">Contact Office</a>
+              <a class="btn light" href="#locations">All Locations</a>
+            </div>
+          </div>
+        </div>
+        <section class="section">
+          <div class="container office-detail">
+            <div>
+              <span class="kicker">Local Landing Page</span>
+              <h2>Visit our ${office.name} office.</h2>
+              <p class="lede">${office.intro} Contact the local team for private showings, brokerage guidance, ownership support, and service availability.</p>
+              <ul class="service-list">
+                ${office.services.map(service => `<li>${service}</li>`).join("")}
+              </ul>
+              ${officePeople.length ? `
+                <div style="margin-top:46px">
+                  <span class="kicker">Local Team</span>
+                  <h2>Team at ${office.name}</h2>
+                  <div class="team-grid">${officePeople.map(person => `
+                    <article class="person-card">
+                      <a href="#profile-${person.id}">
+                        <div class="image-frame"><img src="${person.image}" alt="${person.name}"></div>
+                        <div class="card-body">
+                          <span class="mini-label">${person.category}</span>
+                          <h3>${person.name}</h3>
+                          <p>${person.role}</p>
+                        </div>
+                      </a>
+                    </article>
+                  `).join("")}</div>
+                </div>
+              ` : ""}
+              ${office.listings.length ? `
+                <div style="margin-top:46px">
+                  <span class="kicker">Local Listings</span>
+                  <h2>Yachts connected to ${office.name}</h2>
+                  <div class="listing-grid">${office.listings.map(listingCard).join("")}</div>
+                </div>
+              ` : ""}
+            </div>
+            <aside>
+              <div class="info-box">
+                <span class="mini-label">${office.type}</span>
+                <h3>${office.name}</h3>
+                <ul class="contact-list">
+                  <li><b>Address</b>${office.address}</li>
+                  <li><b>Phone</b><a href="tel:${office.phone.replace(/[^0-9]/g, "")}">${office.phone}</a></li>
+                  <li><b>Email</b><a href="mailto:${office.email}">${office.email}</a></li>
+                  <li><b>Hours</b>${office.hours}</li>
+                </ul>
+                <div class="actions">
+                  <a class="btn sea" href="#contact">Contact</a>
+                  <a class="btn text" href="https://maps.google.com/?q=${encodeURIComponent(office.address)}" target="_blank" rel="noreferrer">Get Directions</a>
+                </div>
+              </div>
+              <div class="info-box">
+                <span class="mini-label">Local Expertise</span>
+                <h3>${office.name} yachts for sale</h3>
+                <p>Explore yacht opportunities near ${office.name}, speak with local specialists, and arrange a private viewing with the Jeff Brown Yachts team.</p>
+              </div>
+            </aside>
+          </div>
+        </section>
+      `;
+    }
+
+    function setRoute() {
+      const hash = (window.location.hash || "#about").replace("#", "");
+      let route = hash;
+
+      if (hash.startsWith("profile-")) {
+        route = "profile";
+        renderProfile(hash.replace("profile-", ""));
+      }
+
+      if (hash.startsWith("office-")) {
+        route = "office";
+        renderOffice(hash.replace("office-", ""));
+      }
+
+      if (!pages.includes(route)) {
+        route = "about";
+      }
+
+      pages.forEach(page => {
+        const el = document.getElementById(`page-${page}`);
+        if (el) el.classList.toggle("is-active", page === route);
+      });
+
+      document.querySelectorAll("[data-route-link]").forEach(link => {
+        const linkRoute = link.dataset.routeLink;
+        const active = linkRoute === route || (route === "profile" && linkRoute === "team") || (route === "office" && linkRoute === "locations");
+        link.classList.toggle("is-active", active);
+      });
+
+      nav.classList.remove("is-open");
+      document.body.classList.remove("nav-open");
+      topbar.classList.remove("nav-active");
+      menuButton.setAttribute("aria-expanded", "false");
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    renderTeam();
+    renderOffices();
+
+    teamFiltersEl.addEventListener("click", event => {
+      const button = event.target.closest("[data-filter]");
+      if (!button) return;
+      activeTeamFilter = button.dataset.filter;
+      renderTeam();
+    });
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = nav.classList.toggle("is-open");
+      document.body.classList.toggle("nav-open", isOpen);
+      topbar.classList.toggle("nav-active", isOpen);
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    document.getElementById("contactForm").addEventListener("submit", event => {
+      event.preventDefault();
+      document.getElementById("formNote").style.display = "block";
+    });
+
+    window.addEventListener("hashchange", setRoute);
+    window.addEventListener("scroll", () => {
+      topbar.classList.toggle("is-solid", window.scrollY > 8);
+    });
+
+    setRoute();
+  </script>
+</body>
+</html>

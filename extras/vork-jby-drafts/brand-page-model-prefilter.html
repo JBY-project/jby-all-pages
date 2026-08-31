@@ -1,0 +1,1251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Axopar Model Selector | Jeff Brown Yachts</title>
+  <meta name="description" content="Brand page prototype with 14 model cards that prefilter selected yacht listings.">
+  <style>
+    :root {
+      --ink: #101315;
+      --text: #394247;
+      --muted: #6b747b;
+      --line: #e3e7e8;
+      --paper: #fff;
+      --soft: #f5f7f7;
+      --sea: #006d75;
+      --sea-soft: #e7f3f3;
+      --red: #e23a34;
+      --shadow: 0 18px 42px rgba(10, 22, 26, .1);
+      --max: 1280px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 92px;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(18px, 4vw, 56px);
+      background: rgba(255, 255, 255, .94);
+      border-bottom: 1px solid rgba(16, 19, 21, .08);
+      backdrop-filter: blur(16px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .crest {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      font-size: 16px;
+      font-weight: 950;
+      letter-spacing: 0;
+    }
+
+    .nav {
+      display: flex;
+      gap: clamp(14px, 2vw, 30px);
+      color: #30363a;
+      font-size: 12px;
+      font-weight: 780;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .nav a:hover {
+      color: var(--sea);
+    }
+
+    .btn {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform .18s ease, background .18s ease, color .18s ease, border-color .18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn.dark {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .btn.sea {
+      border-color: var(--sea);
+      background: var(--sea);
+      color: var(--paper);
+    }
+
+    .btn.light {
+      border-color: rgba(255, 255, 255, .76);
+      background: rgba(255, 255, 255, .08);
+      color: var(--paper);
+    }
+
+    .hero {
+      min-height: 660px;
+      display: grid;
+      align-items: end;
+      padding: 146px clamp(22px, 5vw, 68px) 66px;
+      color: var(--paper);
+      background:
+        linear-gradient(90deg, rgba(4, 18, 21, .9), rgba(4, 18, 21, .48) 58%, rgba(4, 18, 21, .12)),
+        url("https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=2200&q=82") center / cover;
+    }
+
+    .hero-inner {
+      width: min(780px, 100%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      color: rgba(255, 255, 255, .8);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 32px;
+      height: 2px;
+      background: var(--red);
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 20px;
+      font-size: clamp(52px, 8vw, 104px);
+      line-height: .86;
+      font-weight: 950;
+      letter-spacing: -.02em;
+      text-transform: uppercase;
+      transform: skew(-9deg);
+    }
+
+    .logo span {
+      width: clamp(14px, 2vw, 25px);
+      height: clamp(38px, 5vw, 70px);
+      background: var(--red);
+      transform: skew(-7deg);
+    }
+
+    .hero h1 {
+      margin: 0 0 18px;
+      font-size: clamp(36px, 5vw, 72px);
+      line-height: .99;
+      letter-spacing: -.02em;
+      font-weight: 760;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 0 0 30px;
+      color: rgba(255, 255, 255, .82);
+      font-size: clamp(16px, 1.6vw, 20px);
+      line-height: 1.62;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .section {
+      padding: clamp(60px, 8vw, 102px) clamp(22px, 5vw, 68px);
+    }
+
+    .soft {
+      background: var(--soft);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .wrap {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+    }
+
+    .section-head {
+      max-width: 820px;
+      margin-bottom: 34px;
+    }
+
+    .section-head.center {
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .kicker {
+      margin: 0 0 12px;
+      color: var(--sea);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: clamp(32px, 4vw, 58px);
+      line-height: 1.02;
+      letter-spacing: -.02em;
+      font-weight: 760;
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--text);
+      font-size: clamp(16px, 1.5vw, 19px);
+      line-height: 1.72;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: clamp(34px, 6vw, 80px);
+      align-items: center;
+    }
+
+    .intro-copy p {
+      margin: 0 0 18px;
+      color: var(--text);
+      line-height: 1.78;
+    }
+
+    .fact-panel {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .fact {
+      min-height: 132px;
+      padding: 22px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 24px rgba(10, 22, 26, .06);
+    }
+
+    .fact span {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .fact strong {
+      display: block;
+      font-size: 30px;
+      line-height: 1;
+      letter-spacing: -.02em;
+    }
+
+    .selector-shell {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 26px;
+      align-items: start;
+    }
+
+    .selector-info {
+      position: sticky;
+      top: 96px;
+      padding: 26px;
+      background: var(--ink);
+      color: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .selector-info h3 {
+      margin: 0 0 12px;
+      font-size: 28px;
+      line-height: 1.1;
+    }
+
+    .selector-info p {
+      margin: 0 0 22px;
+      color: rgba(255, 255, 255, .74);
+      line-height: 1.62;
+    }
+
+    .selector-stats {
+      display: grid;
+      gap: 1px;
+      margin-bottom: 22px;
+      background: rgba(255, 255, 255, .12);
+      border: 1px solid rgba(255, 255, 255, .12);
+    }
+
+    .selector-stat {
+      padding: 14px;
+      background: rgba(255, 255, 255, .06);
+    }
+
+    .selector-stat span {
+      display: block;
+      margin-bottom: 5px;
+      color: rgba(255, 255, 255, .52);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .selector-stat b {
+      font-size: 16px;
+    }
+
+    .model-toolbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .model-toolbar p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .model-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .model-card {
+      min-height: 258px;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      overflow: hidden;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      cursor: pointer;
+      text-align: left;
+      box-shadow: 0 10px 22px rgba(10, 22, 26, .05);
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+
+    .model-card:hover,
+    .model-card.active {
+      transform: translateY(-3px);
+      border-color: rgba(0, 109, 117, .45);
+      box-shadow: var(--shadow);
+    }
+
+    .model-card.active {
+      outline: 2px solid var(--sea);
+      outline-offset: -2px;
+    }
+
+    .model-image {
+      aspect-ratio: 1.72;
+      background: var(--image) center / cover;
+    }
+
+    .model-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+    }
+
+    .model-body small {
+      margin-bottom: 8px;
+      color: var(--sea);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .model-body h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .model-body p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.48;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: auto;
+    }
+
+    .pill {
+      padding: 6px 8px;
+      background: var(--sea-soft);
+      color: #203133;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 850;
+    }
+
+    .listing-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .listing-head .section-head {
+      margin: 0;
+    }
+
+    .listing-state {
+      min-width: 260px;
+      padding: 18px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 22px rgba(10, 22, 26, .05);
+    }
+
+    .listing-state span {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .listing-state b {
+      display: block;
+      font-size: 22px;
+    }
+
+    .listing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .listing-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 24px rgba(10, 22, 26, .06);
+      overflow: hidden;
+    }
+
+    .listing-image {
+      position: relative;
+      aspect-ratio: 1.55;
+      background: var(--image) center / cover;
+    }
+
+    .badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 7px 10px;
+      background: rgba(255, 255, 255, .94);
+      color: var(--ink);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .listing-body {
+      padding: 18px;
+    }
+
+    .listing-body h3 {
+      min-height: 44px;
+      margin: 0 0 8px;
+      font-size: 17px;
+      line-height: 1.32;
+    }
+
+    .listing-body p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .price {
+      display: block;
+      margin-bottom: 14px;
+      font-size: 24px;
+      font-weight: 760;
+      letter-spacing: -.02em;
+    }
+
+    .mini {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .mini b {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    .empty {
+      display: none;
+      padding: 34px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .trust {
+      padding: 28px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 24px rgba(10, 22, 26, .06);
+    }
+
+    .trust span {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      margin-bottom: 18px;
+      background: var(--sea-soft);
+      color: var(--sea);
+      border-radius: 50%;
+      font-weight: 900;
+    }
+
+    .trust h3 {
+      margin: 0 0 10px;
+      font-size: 21px;
+    }
+
+    .trust p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .cta {
+      color: var(--paper);
+      background:
+        linear-gradient(90deg, rgba(7, 45, 50, .96), rgba(7, 45, 50, .68)),
+        url("https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=2200&q=82") center / cover;
+    }
+
+    .cta .wrap {
+      max-width: 840px;
+      margin-left: clamp(0px, 5vw, 80px);
+    }
+
+    .cta .lead {
+      color: rgba(255, 255, 255, .78);
+    }
+
+    .footer {
+      padding: 34px clamp(22px, 5vw, 68px);
+      background: #101315;
+      color: rgba(255, 255, 255, .72);
+    }
+
+    .footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .sticky {
+      position: fixed;
+      left: 50%;
+      bottom: 16px;
+      z-index: 80;
+      transform: translateX(-50%);
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      background: rgba(255, 255, 255, .95);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .sticky.visible {
+      display: flex;
+    }
+
+    .sticky span {
+      padding: 0 10px;
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      display: none;
+      place-items: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, .58);
+    }
+
+    .modal.open {
+      display: grid;
+    }
+
+    .modal-panel {
+      width: min(620px, 100%);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .modal-head h2 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    .close {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      padding: 24px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      color: #394146;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid #cfd6d9;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    input,
+    select {
+      min-height: 44px;
+      padding: 0 12px;
+    }
+
+    textarea {
+      min-height: 110px;
+      padding: 12px;
+      resize: vertical;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 150;
+      display: none;
+      padding: 14px 18px;
+      background: var(--ink);
+      color: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .toast.visible {
+      display: block;
+    }
+
+    @media (max-width: 1180px) {
+      .nav {
+        display: none;
+      }
+
+      .intro-grid,
+      .selector-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .selector-info {
+        position: static;
+      }
+
+      .model-grid,
+      .listing-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .header {
+        height: 68px;
+      }
+
+      .brand small {
+        display: none;
+      }
+
+      .hero {
+        min-height: 610px;
+        padding-top: 118px;
+      }
+
+      .fact-panel,
+      .model-grid,
+      .listing-grid,
+      .trust-grid,
+      .form {
+        grid-template-columns: 1fr;
+      }
+
+      .listing-head,
+      .model-toolbar,
+      .footer .wrap {
+        display: block;
+      }
+
+      .model-toolbar .btn,
+      .listing-head .btn {
+        margin-top: 16px;
+      }
+
+      .sticky {
+        left: 12px;
+        right: 12px;
+        transform: none;
+        justify-content: space-between;
+      }
+
+      .sticky span {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="#top" aria-label="Jeff Brown Yachts home">
+      <span class="crest">JB</span>
+      <small>Jeff Brown Yachts</small>
+    </a>
+    <nav class="nav" aria-label="Page navigation">
+      <a href="#brand">Brand</a>
+      <a href="#models">14 Models</a>
+      <a href="#listings">Prefilled Listings</a>
+      <a href="#why">Why JBY</a>
+    </nav>
+    <button class="btn js-open-modal" type="button">Contact</button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow">Model-led brand page</div>
+        <div class="logo" aria-label="Axopar">Axopar <span></span></div>
+        <h1>Choose a model first. See matching listings instantly.</h1>
+        <p>This version is still a brand page, but it is useful for brands with a large lineup. The user picks one of 14 model variants and the availability block below pre-fills automatically.</p>
+        <div class="actions">
+          <a class="btn dark" href="#models">Choose Model</a>
+          <a class="btn light" href="#listings">View Availability</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="brand">
+      <div class="wrap intro-grid">
+        <div class="intro-copy">
+          <p class="kicker">Why this layout works</p>
+          <h2>It gives model choice without turning the page into a full catalog.</h2>
+          <p>Filters can feel too heavy on a brand page, but a large lineup still needs structure. This approach uses the model cards themselves as the only filter. The interaction is obvious: pick a model, and the listings below become relevant.</p>
+          <p>The user does not need to understand all inventory parameters. They only need to answer one easy question first: which model direction interests me?</p>
+        </div>
+        <div class="fact-panel">
+          <div class="fact">
+            <span>Model cards</span>
+            <strong>14</strong>
+          </div>
+          <div class="fact">
+            <span>Interaction</span>
+            <strong>1 click</strong>
+          </div>
+          <div class="fact">
+            <span>Listings</span>
+            <strong>Auto</strong>
+          </div>
+          <div class="fact">
+            <span>UX goal</span>
+            <strong>Clarity</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft" id="models">
+      <div class="wrap">
+        <div class="section-head center">
+          <p class="kicker">Model Selector</p>
+          <h2>Fourteen model options, one simple selection.</h2>
+          <p class="lead">The cards are compact enough to scan, but each one still explains the model's role. Selecting a model updates the summary and prefilters the listings.</p>
+        </div>
+
+        <div class="selector-shell">
+          <aside class="selector-info" aria-live="polite">
+            <p class="kicker" style="color: #96e0e2;">Selected model</p>
+            <h3 id="selectedName">All Axopar models</h3>
+            <p id="selectedDesc">Showing selected availability across the Axopar lineup. Choose a specific model card to prefill the listings below.</p>
+            <div class="selector-stats">
+              <div class="selector-stat">
+                <span>Length</span>
+                <b id="selectedLength">22-45 ft</b>
+              </div>
+              <div class="selector-stat">
+                <span>Best for</span>
+                <b id="selectedUse">Explore all use cases</b>
+              </div>
+              <div class="selector-stat">
+                <span>Listings found</span>
+                <b id="selectedCount">12 available</b>
+              </div>
+            </div>
+            <div class="actions">
+              <a class="btn sea" href="#listings">See Matching Listings</a>
+              <button class="btn light js-open-modal" type="button">Ask Expert</button>
+            </div>
+          </aside>
+
+          <div>
+            <div class="model-toolbar">
+              <p>Click a model to prefill listings. Use "All models" to reset the page back to curated availability.</p>
+              <button class="btn" type="button" id="showAll">All Models</button>
+            </div>
+            <div class="model-grid" id="modelGrid"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="listings">
+      <div class="wrap">
+        <div class="listing-head">
+          <div class="section-head">
+            <p class="kicker">Prefilled Listings</p>
+            <h2 id="listingTitle">Available Axopar yachts</h2>
+            <p class="lead" id="listingLead">These listings are curated examples. When a user selects a model above, this section updates automatically.</p>
+          </div>
+          <div class="listing-state">
+            <span>Current selection</span>
+            <b id="currentSelection">All models</b>
+          </div>
+        </div>
+
+        <div class="listing-grid" id="listingGrid"></div>
+        <div class="empty" id="emptyState">
+          There are no visible listings for this exact model in the prototype. In production, this state should offer incoming inventory, custom build guidance, or an expert inquiry.
+          <br><br>
+          <button class="btn sea js-open-modal" type="button">Request Availability</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft" id="why">
+      <div class="wrap">
+        <div class="section-head center">
+          <p class="kicker">Why this is better than filters here</p>
+          <h2>The model card becomes the filter.</h2>
+          <p class="lead">This gives users a guided path without making the brand page feel like search results.</p>
+        </div>
+        <div class="trust-grid">
+          <article class="trust">
+            <span>1</span>
+            <h3>Low cognitive load</h3>
+            <p>The user only chooses a model. They do not need to deal with price, length, year, location, and condition filters immediately.</p>
+          </article>
+          <article class="trust">
+            <span>2</span>
+            <h3>Better for large lineups</h3>
+            <p>Fourteen models are too many for a plain row, but they work well as compact cards with clear model roles.</p>
+          </article>
+          <article class="trust">
+            <span>3</span>
+            <h3>Cleaner conversion</h3>
+            <p>The page can show matching availability, then push the user to a full inventory page or expert consultation only when needed.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta">
+      <div class="wrap">
+        <p class="kicker" style="color: #96e0e2;">Next step</p>
+        <h2>Need help choosing between similar Axopar models?</h2>
+        <p class="lead">The model selector narrows the page. JBY expertise should close the gap between interest and the right boat.</p>
+        <div class="actions">
+          <button class="btn sea js-open-modal" type="button">Get Expert Guidance</button>
+          <a class="btn light" href="#models">Back to Models</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="brand">
+        <span class="crest" style="border-color: rgba(255,255,255,.6);">JB</span>
+        <small>Jeff Brown Yachts</small>
+      </div>
+      <div>Prototype: 14 model cards with prefilled listings.</div>
+    </div>
+  </footer>
+
+  <div class="sticky" id="stickyBar">
+    <span id="stickyLabel">All models</span>
+    <a class="btn" href="#listings">Listings</a>
+    <button class="btn sea js-open-modal" type="button">Ask JBY</button>
+  </div>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <h2 id="modalTitle">Ask JBY about Axopar</h2>
+        <button class="close" type="button" id="closeModal" aria-label="Close">x</button>
+      </div>
+      <form class="form" id="leadForm">
+        <div class="field">
+          <label for="firstName">First name</label>
+          <input id="firstName" name="firstName" required>
+        </div>
+        <div class="field">
+          <label for="lastName">Last name</label>
+          <input id="lastName" name="lastName" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required>
+        </div>
+        <div class="field">
+          <label for="interest">Interest</label>
+          <select id="interest" name="interest"></select>
+        </div>
+        <div class="field full">
+          <label for="message">Message</label>
+          <textarea id="message" name="message">I would like help choosing an Axopar model and checking current availability.</textarea>
+        </div>
+        <div class="actions full">
+          <button class="btn sea" type="submit">Send Inquiry</button>
+          <button class="btn" type="button" id="cancelModal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Prototype form submitted.</div>
+
+  <script>
+    const images = [
+      "https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=900&q=82",
+      "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=900&q=82",
+      "https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&w=900&q=82",
+      "https://images.unsplash.com/photo-1534008897995-27a23e859048?auto=format&fit=crop&w=900&q=82",
+      "https://images.unsplash.com/photo-1564419320461-6870880221ad?auto=format&fit=crop&w=900&q=82",
+      "https://images.unsplash.com/photo-1540946485063-a40da27545f8?auto=format&fit=crop&w=900&q=82"
+    ];
+
+    const models = [
+      { id: "axopar-22-spyder", name: "Axopar 22 Spyder", range: "22", length: "22 ft", use: "Open day boating", desc: "Compact open layout for quick trips, watersports, and low-friction ownership.", image: images[3] },
+      { id: "axopar-22-t-top", name: "Axopar 22 T-Top", range: "22", length: "22 ft", use: "Shade + day use", desc: "A compact day boat with extra shade and more comfortable all-day usability.", image: images[4] },
+      { id: "axopar-25-cross-top", name: "Axopar 25 Cross Top", range: "25", length: "25 ft", use: "Weekend utility", desc: "A practical step up for weekend plans, guests, and flexible deck use.", image: images[2] },
+      { id: "axopar-25-cross-bow", name: "Axopar 25 Cross Bow", range: "25", length: "25 ft", use: "Social day boat", desc: "Forward seating emphasis for social day boating and easy coastal runs.", image: images[5] },
+      { id: "axopar-29-ccx", name: "Axopar 29 CCX", range: "29", length: "29 ft", use: "Fishing + utility", desc: "A center-console style direction for active owners who want open working space.", image: images[0] },
+      { id: "axopar-29-sun-top", name: "Axopar 29 Sun Top", range: "29", length: "29 ft", use: "All-round adventure", desc: "The flexible middle-ground model for active days, guests, and longer routes.", image: images[2] },
+      { id: "axopar-29-cross-cabin", name: "Axopar 29 Cross Cabin", range: "29", length: "29 ft", use: "Weather protection", desc: "A more protected version for shoulder seasons, longer runs, and mixed weather.", image: images[1] },
+      { id: "axopar-37-spyder", name: "Axopar 37 Spyder", range: "37", length: "37 ft", use: "Open performance", desc: "Open-air Axopar 37 performance for owners who want space and speed.", image: images[5] },
+      { id: "axopar-37-sun-top", name: "Axopar 37 Sun Top", range: "37", length: "37 ft", use: "Adventure cruising", desc: "A strong all-round choice for longer days, routes, guests, and coastal cruising.", image: images[1] },
+      { id: "axopar-37-cross-cabin", name: "Axopar 37 Cross Cabin", range: "37", length: "37 ft", use: "Overnight + weather", desc: "The protected Axopar 37 direction for offshore runs and overnight capability.", image: images[0] },
+      { id: "axopar-45-sun-top", name: "Axopar 45 Sun Top", range: "45", length: "45 ft", use: "Flagship social", desc: "A flagship open-social layout with more space, presence, and cruising comfort.", image: images[2] },
+      { id: "axopar-45-cross-top", name: "Axopar 45 Cross Top", range: "45", length: "45 ft", use: "Protected flagship", desc: "More cover, more range, and more confidence for longer cruising days.", image: images[1] },
+      { id: "axopar-45-cross-cabin", name: "Axopar 45 Cross Cabin", range: "45", length: "45 ft", use: "Luxury adventure", desc: "The most substantial Axopar direction for serious adventure and comfort.", image: images[0] },
+      { id: "brabus-shadow", name: "BRABUS Shadow", range: "BRABUS", length: "37-45 ft", use: "Performance luxury", desc: "A more exclusive performance-luxury expression built around Axopar platforms.", image: images[5] }
+    ];
+
+    const listings = [
+      { modelId: "axopar-22-spyder", title: "2024 Axopar 22 Spyder", location: "San Diego, CA", price: "$74,900", year: "2024", length: "22 ft", status: "Available", image: images[3] },
+      { modelId: "axopar-22-t-top", title: "2025 Axopar 22 T-Top", location: "Newport Beach, CA", price: "$92,500", year: "2025", length: "22 ft", status: "Incoming", image: images[4] },
+      { modelId: "axopar-25-cross-top", title: "2024 Axopar 25 Cross Top", location: "Newport Beach, CA", price: "$120,000", year: "2024", length: "25 ft", status: "Value Pick", image: images[2] },
+      { modelId: "axopar-29-ccx", title: "2025 Axopar 29 CCX", location: "Seattle, WA", price: "$248,500", year: "2025", length: "29 ft", status: "New Arrival", image: images[0] },
+      { modelId: "axopar-29-sun-top", title: "2025 Axopar 29 Sun Top", location: "Charleston, SC", price: "$270,808", year: "2025", length: "29 ft", status: "In Stock", image: images[2] },
+      { modelId: "axopar-29-cross-cabin", title: "2025 Axopar 29 Cross Cabin", location: "Seattle, WA", price: "$289,000", year: "2025", length: "29 ft", status: "Featured", image: images[1] },
+      { modelId: "axopar-37-spyder", title: "2023 Axopar 37 Spyder", location: "San Diego, CA", price: "$310,000", year: "2023", length: "37 ft", status: "Pre-Owned", image: images[5] },
+      { modelId: "axopar-37-sun-top", title: "2023 Axopar 37 Sun Top", location: "San Diego, CA", price: "$329,000", year: "2023", length: "37 ft", status: "Price Reduced", image: images[1] },
+      { modelId: "axopar-37-cross-cabin", title: "2025 Axopar 37 XC Cross Cabin Wet Bar", location: "Seattle, WA", price: "$349,000", year: "2025", length: "37 ft", status: "Featured", image: images[0] },
+      { modelId: "axopar-45-sun-top", title: "2026 Axopar 45 Sun Top", location: "Wrightsville Beach, NC", price: "Request Price", year: "2026", length: "45 ft", status: "Incoming", image: images[2] },
+      { modelId: "axopar-45-cross-top", title: "2026 Axopar 45 Cross Top", location: "Charleston, SC", price: "Request Price", year: "2026", length: "45 ft", status: "Build Slot", image: images[1] },
+      { modelId: "axopar-45-cross-cabin", title: "2026 Axopar 45 XC Cross Cabin", location: "Wrightsville Beach, NC", price: "$912,956", year: "2026", length: "45 ft", status: "Incoming", image: images[0] },
+      { modelId: "brabus-shadow", title: "2026 BRABUS Shadow 1200 Cross Top", location: "Seattle, WA", price: "$998,000", year: "2026", length: "45 ft", status: "Limited", image: images[5] }
+    ];
+
+    const modelGrid = document.querySelector("#modelGrid");
+    const listingGrid = document.querySelector("#listingGrid");
+    const selectedName = document.querySelector("#selectedName");
+    const selectedDesc = document.querySelector("#selectedDesc");
+    const selectedLength = document.querySelector("#selectedLength");
+    const selectedUse = document.querySelector("#selectedUse");
+    const selectedCount = document.querySelector("#selectedCount");
+    const listingTitle = document.querySelector("#listingTitle");
+    const listingLead = document.querySelector("#listingLead");
+    const currentSelection = document.querySelector("#currentSelection");
+    const emptyState = document.querySelector("#emptyState");
+    const stickyLabel = document.querySelector("#stickyLabel");
+    const interest = document.querySelector("#interest");
+
+    function listingCount(modelId) {
+      return modelId === "all" ? listings.length : listings.filter(item => item.modelId === modelId).length;
+    }
+
+    function renderModels() {
+      modelGrid.innerHTML = models.map(model => `
+        <button class="model-card" type="button" data-model-id="${model.id}">
+          <div class="model-image" style="--image: url('${model.image}');"></div>
+          <div class="model-body">
+            <small>${model.use}</small>
+            <h3>${model.name}</h3>
+            <p>${model.desc}</p>
+            <div class="pills">
+              <span class="pill">${model.length}</span>
+              <span class="pill">${listingCount(model.id)} listing${listingCount(model.id) === 1 ? "" : "s"}</span>
+            </div>
+          </div>
+        </button>
+      `).join("");
+
+      modelGrid.querySelectorAll(".model-card").forEach(card => {
+        card.addEventListener("click", () => selectModel(card.dataset.modelId));
+      });
+    }
+
+    function renderListings(modelId) {
+      const visible = modelId === "all" ? listings : listings.filter(item => item.modelId === modelId);
+      emptyState.style.display = visible.length ? "none" : "block";
+      listingGrid.innerHTML = visible.map(item => `
+        <article class="listing-card">
+          <div class="listing-image" style="--image: url('${item.image}');">
+            <span class="badge">${item.status}</span>
+          </div>
+          <div class="listing-body">
+            <h3>${item.title}</h3>
+            <p>${item.location}</p>
+            <span class="price">${item.price}</span>
+            <div class="mini">
+              <div><b>${item.length}</b>Length</div>
+              <div><b>${item.year}</b>Year</div>
+              <div><b>${models.find(model => model.id === item.modelId)?.range || "Axopar"}</b>Range</div>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function selectModel(modelId) {
+      const model = models.find(item => item.id === modelId);
+      document.querySelectorAll(".model-card").forEach(card => {
+        card.classList.toggle("active", card.dataset.modelId === modelId);
+      });
+
+      if (!model) {
+        selectedName.textContent = "All Axopar models";
+        selectedDesc.textContent = "Showing selected availability across the Axopar lineup. Choose a specific model card to prefill the listings below.";
+        selectedLength.textContent = "22-45 ft";
+        selectedUse.textContent = "Explore all use cases";
+        selectedCount.textContent = `${listingCount("all")} available`;
+        listingTitle.textContent = "Available Axopar yachts";
+        listingLead.textContent = "These listings are curated examples. When a user selects a model above, this section updates automatically.";
+        currentSelection.textContent = "All models";
+        stickyLabel.textContent = "All models";
+        interest.value = "Help me choose an Axopar model";
+        renderListings("all");
+        return;
+      }
+
+      const count = listingCount(model.id);
+      selectedName.textContent = model.name;
+      selectedDesc.textContent = model.desc;
+      selectedLength.textContent = model.length;
+      selectedUse.textContent = model.use;
+      selectedCount.textContent = `${count} available`;
+      listingTitle.textContent = `${model.name} listings`;
+      listingLead.textContent = `The listings below are prefilled for ${model.name}. This gives the user a relevant inventory result without adding catalog filters to the brand page.`;
+      currentSelection.textContent = model.name;
+      stickyLabel.textContent = model.name;
+      interest.value = model.name;
+      renderListings(model.id);
+    }
+
+    function populateInterest() {
+      interest.innerHTML = [
+        `<option>Help me choose an Axopar model</option>`,
+        ...models.map(model => `<option>${model.name}</option>`),
+        `<option>Request full Axopar inventory</option>`
+      ].join("");
+    }
+
+    document.querySelector("#showAll").addEventListener("click", () => selectModel("all"));
+
+    const modal = document.querySelector("#modal");
+    const toast = document.querySelector("#toast");
+
+    document.querySelectorAll(".js-open-modal").forEach(button => {
+      button.addEventListener("click", () => {
+        modal.classList.add("open");
+        document.querySelector("#firstName").focus();
+      });
+    });
+
+    function closeModal() {
+      modal.classList.remove("open");
+    }
+
+    document.querySelector("#closeModal").addEventListener("click", closeModal);
+    document.querySelector("#cancelModal").addEventListener("click", closeModal);
+    modal.addEventListener("click", event => {
+      if (event.target === modal) closeModal();
+    });
+
+    document.querySelector("#leadForm").addEventListener("submit", event => {
+      event.preventDefault();
+      closeModal();
+      toast.classList.add("visible");
+      setTimeout(() => toast.classList.remove("visible"), 2600);
+    });
+
+    const stickyBar = document.querySelector("#stickyBar");
+    window.addEventListener("scroll", () => {
+      stickyBar.classList.toggle("visible", window.scrollY > 760);
+    });
+
+    populateInterest();
+    renderModels();
+    renderListings("all");
+  </script>
+</body>
+</html>

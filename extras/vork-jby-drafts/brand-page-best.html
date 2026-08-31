@@ -1,0 +1,1319 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Axopar Yachts | Jeff Brown Yachts Brand Page</title>
+  <meta name="description" content="Explore Axopar yachts at Jeff Brown Yachts. Compare model families, learn which Axopar fits your boating style, and view selected available inventory.">
+  <style>
+    :root {
+      --ink: #111315;
+      --text: #394146;
+      --muted: #6c747a;
+      --line: #e5e8ea;
+      --paper: #ffffff;
+      --soft: #f5f7f7;
+      --sea: #006d75;
+      --sea-dark: #074a50;
+      --red: #e23933;
+      --sand: #c6a56a;
+      --shadow: 0 20px 46px rgba(12, 25, 29, .11);
+      --max: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(18px, 4vw, 56px);
+      background: rgba(255, 255, 255, .94);
+      border-bottom: 1px solid rgba(17, 19, 21, .08);
+      backdrop-filter: blur(16px);
+    }
+
+    .jby {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .crest {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      font-size: 16px;
+      font-weight: 950;
+      letter-spacing: 0;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(14px, 2vw, 30px);
+      color: #30363a;
+      font-size: 12px;
+      font-weight: 760;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .main-nav a:hover {
+      color: var(--sea);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 20px;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn.dark {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .btn.sea {
+      border-color: var(--sea);
+      background: var(--sea);
+      color: var(--paper);
+    }
+
+    .btn.light {
+      border-color: rgba(255, 255, 255, .78);
+      background: rgba(255, 255, 255, .08);
+      color: var(--paper);
+    }
+
+    .hero {
+      min-height: 670px;
+      display: grid;
+      align-items: end;
+      padding: 145px clamp(22px, 5vw, 68px) 64px;
+      color: var(--paper);
+      background:
+        linear-gradient(90deg, rgba(4, 17, 20, .88), rgba(4, 17, 20, .44) 56%, rgba(4, 17, 20, .12)),
+        url("https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=2200&q=82") center / cover;
+    }
+
+    .hero-inner {
+      width: min(760px, 100%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      color: rgba(255, 255, 255, .8);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 32px;
+      height: 2px;
+      background: var(--red);
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 20px;
+      font-size: clamp(52px, 8vw, 104px);
+      line-height: .86;
+      font-weight: 950;
+      letter-spacing: -.02em;
+      text-transform: uppercase;
+      transform: skew(-9deg);
+    }
+
+    .brand-logo span {
+      width: clamp(14px, 2vw, 25px);
+      height: clamp(38px, 5vw, 70px);
+      background: var(--red);
+      transform: skew(-7deg);
+    }
+
+    .hero h1 {
+      margin: 0 0 18px;
+      font-size: clamp(36px, 5vw, 72px);
+      line-height: .99;
+      letter-spacing: -.02em;
+      font-weight: 760;
+    }
+
+    .hero p {
+      max-width: 640px;
+      margin: 0 0 30px;
+      color: rgba(255, 255, 255, .82);
+      font-size: clamp(16px, 1.6vw, 20px);
+      line-height: 1.62;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .quick-facts {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .facts-row {
+      width: min(var(--max), calc(100% - 44px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .fact {
+      padding: 26px clamp(18px, 3vw, 34px);
+      border-right: 1px solid rgba(255, 255, 255, .12);
+    }
+
+    .fact:last-child {
+      border-right: 0;
+    }
+
+    .fact span {
+      display: block;
+      margin-bottom: 8px;
+      color: rgba(255, 255, 255, .52);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .fact strong {
+      display: block;
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1;
+      font-weight: 720;
+      letter-spacing: -.02em;
+    }
+
+    .section {
+      padding: clamp(62px, 8vw, 104px) clamp(22px, 5vw, 68px);
+    }
+
+    .soft {
+      background: var(--soft);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .wrap {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+    }
+
+    .section-head {
+      max-width: 780px;
+      margin-bottom: 34px;
+    }
+
+    .section-head.center {
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .kicker {
+      margin: 0 0 12px;
+      color: var(--sea);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: clamp(32px, 4vw, 58px);
+      line-height: 1.02;
+      letter-spacing: -.02em;
+      font-weight: 760;
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--text);
+      font-size: clamp(16px, 1.5vw, 19px);
+      line-height: 1.72;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: clamp(34px, 6vw, 80px);
+      align-items: center;
+    }
+
+    .story-copy p {
+      margin: 0 0 18px;
+      color: var(--text);
+      line-height: 1.78;
+    }
+
+    .story-media {
+      position: relative;
+      min-height: 520px;
+      background: url("https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=1400&q=82") center / cover;
+      box-shadow: var(--shadow);
+    }
+
+    .story-note {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      padding: 22px;
+      background: rgba(255, 255, 255, .94);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, .12);
+    }
+
+    .story-note b {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .story-note span {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .model-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .model-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 360px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 24px rgba(10, 22, 26, .06);
+      overflow: hidden;
+      cursor: pointer;
+      text-align: left;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .model-card:hover,
+    .model-card.active {
+      transform: translateY(-3px);
+      border-color: rgba(0, 109, 117, .38);
+      box-shadow: var(--shadow);
+    }
+
+    .model-card.active {
+      outline: 2px solid var(--sea);
+      outline-offset: -2px;
+    }
+
+    .model-image {
+      aspect-ratio: 1.4;
+      background: var(--image) center / cover;
+    }
+
+    .model-body {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      padding: 18px;
+    }
+
+    .model-body small {
+      margin-bottom: 10px;
+      color: var(--sea);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .model-body h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .model-body p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.58;
+      font-size: 14px;
+    }
+
+    .model-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .pill {
+      padding: 7px 9px;
+      background: #eef4f4;
+      color: #223034;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .advisor-note {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      margin-top: 22px;
+      padding: 22px 24px;
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .advisor-note p {
+      margin: 0;
+      color: rgba(255, 255, 255, .76);
+      line-height: 1.55;
+    }
+
+    .use-cases {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .use-card {
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+      color: var(--paper);
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, .05), rgba(0, 0, 0, .72)),
+        var(--image) center / cover;
+      box-shadow: var(--shadow);
+    }
+
+    .use-card h3 {
+      margin: 0 0 10px;
+      font-size: 25px;
+    }
+
+    .use-card p {
+      margin: 0;
+      color: rgba(255, 255, 255, .78);
+      line-height: 1.58;
+    }
+
+    .listing-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    .listing-head .section-head {
+      margin: 0;
+    }
+
+    .listing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .listing-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 24px rgba(10, 22, 26, .06);
+      overflow: hidden;
+    }
+
+    .listing-image {
+      position: relative;
+      aspect-ratio: 1.45;
+      background: var(--image) center / cover;
+    }
+
+    .badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 7px 10px;
+      background: rgba(255, 255, 255, .94);
+      color: var(--ink);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .listing-body {
+      padding: 18px;
+    }
+
+    .listing-body h3 {
+      margin: 0 0 8px;
+      min-height: 44px;
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .listing-body p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .price {
+      display: block;
+      margin-bottom: 14px;
+      font-size: 24px;
+      font-weight: 760;
+      letter-spacing: -.02em;
+    }
+
+    .mini {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .mini b {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .trust-card {
+      padding: 28px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 24px rgba(10, 22, 26, .06);
+    }
+
+    .trust-card span {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      margin-bottom: 18px;
+      background: #e8f4f4;
+      color: var(--sea-dark);
+      border-radius: 50%;
+      font-weight: 900;
+    }
+
+    .trust-card h3 {
+      margin: 0 0 10px;
+      font-size: 21px;
+    }
+
+    .trust-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: clamp(30px, 6vw, 74px);
+      align-items: start;
+    }
+
+    details {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 24px rgba(10, 22, 26, .05);
+    }
+
+    details + details {
+      margin-top: 12px;
+    }
+
+    summary {
+      padding: 22px 24px;
+      cursor: pointer;
+      font-weight: 780;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      float: right;
+      color: var(--sea);
+      font-size: 24px;
+      line-height: 18px;
+    }
+
+    details[open] summary::after {
+      content: "-";
+    }
+
+    details p {
+      margin: 0;
+      padding: 0 24px 24px;
+      color: var(--muted);
+      line-height: 1.68;
+    }
+
+    .final-cta {
+      color: var(--paper);
+      background:
+        linear-gradient(90deg, rgba(6, 45, 50, .96), rgba(6, 45, 50, .7)),
+        url("https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&w=2200&q=82") center / cover;
+    }
+
+    .final-cta .wrap {
+      max-width: 820px;
+      margin-left: clamp(0px, 5vw, 80px);
+    }
+
+    .final-cta .lead {
+      color: rgba(255, 255, 255, .78);
+    }
+
+    .footer {
+      padding: 34px clamp(22px, 5vw, 68px);
+      background: #101315;
+      color: rgba(255, 255, 255, .72);
+    }
+
+    .footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .sticky {
+      position: fixed;
+      left: 50%;
+      bottom: 16px;
+      z-index: 80;
+      transform: translateX(-50%);
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      background: rgba(255, 255, 255, .95);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .sticky.visible {
+      display: flex;
+    }
+
+    .sticky span {
+      padding: 0 10px;
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      display: none;
+      place-items: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, .58);
+    }
+
+    .modal.open {
+      display: grid;
+    }
+
+    .modal-panel {
+      width: min(620px, 100%);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .modal-head h2 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    .close {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      padding: 24px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      color: #394146;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid #cfd6d9;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    input,
+    select {
+      min-height: 44px;
+      padding: 0 12px;
+    }
+
+    textarea {
+      min-height: 110px;
+      padding: 12px;
+      resize: vertical;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 150;
+      display: none;
+      padding: 14px 18px;
+      background: var(--ink);
+      color: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .toast.visible {
+      display: block;
+    }
+
+    @media (max-width: 1120px) {
+      .main-nav {
+        display: none;
+      }
+
+      .story-grid,
+      .faq-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .model-grid,
+      .listing-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .facts-row,
+      .trust-grid,
+      .use-cases {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .site-header {
+        height: 68px;
+      }
+
+      .jby small {
+        display: none;
+      }
+
+      .hero {
+        min-height: 610px;
+        padding-top: 118px;
+      }
+
+      .facts-row,
+      .model-grid,
+      .listing-grid,
+      .trust-grid,
+      .use-cases,
+      .form {
+        grid-template-columns: 1fr;
+      }
+
+      .fact {
+        border-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, .12);
+      }
+
+      .listing-head,
+      .advisor-note,
+      .footer .wrap {
+        display: block;
+      }
+
+      .listing-head .btn,
+      .advisor-note .btn {
+        margin-top: 18px;
+      }
+
+      .story-media {
+        min-height: 430px;
+      }
+
+      .sticky {
+        left: 12px;
+        right: 12px;
+        transform: none;
+        justify-content: space-between;
+      }
+
+      .sticky span {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="#top" class="jby" aria-label="Jeff Brown Yachts home">
+      <span class="crest">JB</span>
+      <small>Jeff Brown Yachts</small>
+    </a>
+    <nav class="main-nav" aria-label="Brand page navigation">
+      <a href="#story">Brand</a>
+      <a href="#models">Models</a>
+      <a href="#available">Available</a>
+      <a href="#jby">Why JBY</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <button class="btn js-open-modal" type="button">Contact</button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow">Authorized Axopar dealer</div>
+        <div class="brand-logo" aria-label="Axopar">Axopar <span></span></div>
+        <h1>Finnish adventure boats for active days on the water.</h1>
+        <p>Explore the Axopar brand, compare the model range, and connect with Jeff Brown Yachts for current availability, incoming boats, and model guidance.</p>
+        <div class="actions">
+          <a class="btn dark" href="#models">Explore Models</a>
+          <a class="btn light" href="#available">See Available Yachts</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="quick-facts" aria-label="Axopar key facts">
+      <div class="facts-row">
+        <div class="fact">
+          <span>Founded</span>
+          <strong>2014</strong>
+        </div>
+        <div class="fact">
+          <span>Origin</span>
+          <strong>Finland</strong>
+        </div>
+        <div class="fact">
+          <span>Model range</span>
+          <strong>22-45 ft</strong>
+        </div>
+        <div class="fact">
+          <span>Best for</span>
+          <strong>Adventure</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="story">
+      <div class="wrap story-grid">
+        <div class="story-copy">
+          <p class="kicker">About Axopar</p>
+          <h2>Purpose-built boats for owners who want more from every day on the water.</h2>
+          <p>Axopar is known for practical Scandinavian design, efficient hulls, modular layouts, and a driving experience built around real use. The boats feel less like traditional luxury objects and more like capable tools for exploring coastlines, islands, marinas, and weekend routes.</p>
+          <p>Use this page to understand the model families first, then move into current availability when you are ready to compare real boats.</p>
+          <p>Jeff Brown Yachts can help you choose the right size, layout, cabin type, delivery timing, and ownership path for how you actually plan to boat.</p>
+        </div>
+        <div class="story-media" aria-label="Axopar style yacht photo">
+          <div class="story-note">
+            <b>Axopar advantage</b>
+            <span>Axopar is built around usable space, efficient performance, and layouts that adapt to day boating, adventure cruising, and longer weekends.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft" id="models">
+      <div class="wrap">
+        <div class="section-head center">
+          <p class="kicker">Model Range</p>
+          <h2>Compare Axopar models before you browse inventory.</h2>
+          <p class="lead">These are model families, not listings. Start here to understand size, use case, and ownership fit, then continue to available boats below.</p>
+        </div>
+
+        <div class="model-grid" id="modelGrid">
+          <button class="model-card active" type="button" data-model="Axopar 22">
+            <div class="model-image" style="--image: url('https://images.unsplash.com/photo-1534008897995-27a23e859048?auto=format&fit=crop&w=900&q=80');"></div>
+            <div class="model-body">
+              <small>Compact day boat</small>
+              <h3>Axopar 22</h3>
+              <p>Easy to handle, quick to use, and ideal for short coastal runs, watersports, and simple day boating.</p>
+              <div class="model-specs">
+                <span class="pill">22 ft</span>
+                <span class="pill">Day use</span>
+              </div>
+            </div>
+          </button>
+
+          <button class="model-card" type="button" data-model="Axopar 25">
+            <div class="model-image" style="--image: url('https://images.unsplash.com/photo-1564419320461-6870880221ad?auto=format&fit=crop&w=900&q=80');"></div>
+            <div class="model-body">
+              <small>Weekend utility</small>
+              <h3>Axopar 25</h3>
+              <p>A practical step up for buyers who want more space, comfort, and flexibility without moving into a large boat.</p>
+              <div class="model-specs">
+                <span class="pill">25 ft</span>
+                <span class="pill">Weekend</span>
+              </div>
+            </div>
+          </button>
+
+          <button class="model-card" type="button" data-model="Axopar 29">
+            <div class="model-image" style="--image: url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&w=900&q=80');"></div>
+            <div class="model-body">
+              <small>All-rounder</small>
+              <h3>Axopar 29</h3>
+              <p>The clearest middle-ground model for active owners who want more capability and weather protection options.</p>
+              <div class="model-specs">
+                <span class="pill">29 ft</span>
+                <span class="pill">Versatile</span>
+              </div>
+            </div>
+          </button>
+
+          <button class="model-card" type="button" data-model="Axopar 37">
+            <div class="model-image" style="--image: url('https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=900&q=80');"></div>
+            <div class="model-body">
+              <small>Offshore adventure</small>
+              <h3>Axopar 37</h3>
+              <p>For longer days, rougher water, overnight ability, and owners who want a serious adventure platform.</p>
+              <div class="model-specs">
+                <span class="pill">37 ft</span>
+                <span class="pill">Overnight</span>
+              </div>
+            </div>
+          </button>
+
+          <button class="model-card" type="button" data-model="Axopar 45">
+            <div class="model-image" style="--image: url('https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=900&q=80');"></div>
+            <div class="model-body">
+              <small>Flagship</small>
+              <h3>Axopar 45</h3>
+              <p>The largest Axopar direction: more presence, more range, more comfort, and a stronger cruising profile.</p>
+              <div class="model-specs">
+                <span class="pill">45 ft</span>
+                <span class="pill">Flagship</span>
+              </div>
+            </div>
+          </button>
+        </div>
+
+        <div class="advisor-note">
+          <p id="modelNote">Selected: Axopar 22. Best for buyers who want a simple, agile day boat with low friction ownership.</p>
+          <button class="btn sea js-open-modal" type="button">Get Model Guidance</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head center">
+          <p class="kicker">Choose by lifestyle</p>
+          <h2>Match the model family to the way you boat.</h2>
+          <p class="lead">Axopar buyers often start with lifestyle: quick day runs, longer adventure routes, or more protected overnight comfort.</p>
+        </div>
+        <div class="use-cases">
+          <article class="use-card" style="--image: url('https://images.unsplash.com/photo-1540946485063-a40da27545f8?auto=format&fit=crop&w=1000&q=80');">
+            <h3>Day Runs</h3>
+            <p>Quick trips, watersports, marina hopping, and simple ownership. Start with Axopar 22 or 25.</p>
+          </article>
+          <article class="use-card" style="--image: url('https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?auto=format&fit=crop&w=1000&q=80');">
+            <h3>Adventure Cruising</h3>
+            <p>Longer routes, mixed weather, guests, gear, and flexible layouts. Start with Axopar 29 or 37.</p>
+          </article>
+          <article class="use-card" style="--image: url('https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=1000&q=80');">
+            <h3>Overnight Comfort</h3>
+            <p>More protection, cabins, and extended cruising. Start with Axopar 37 or 45.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft" id="available">
+      <div class="wrap">
+        <div class="listing-head">
+          <div class="section-head">
+            <p class="kicker">Available Axopar Inventory</p>
+            <h2>Current and incoming boats from Jeff Brown Yachts.</h2>
+            <p class="lead">These cards are listings, separate from the model range above. Use them to compare real availability, location, year, status, and price.</p>
+          </div>
+          <button class="btn dark js-open-modal" type="button">Request Full Axopar Inventory</button>
+        </div>
+
+        <div class="listing-grid">
+          <article class="listing-card">
+            <div class="listing-image" style="--image: url('https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=900&q=82');">
+              <span class="badge">Featured</span>
+            </div>
+            <div class="listing-body">
+              <h3>2025 Axopar 37 XC Cross Cabin Wet Bar</h3>
+              <p>Seattle, WA</p>
+              <span class="price">$349,000</span>
+              <div class="mini">
+                <div><b>37 ft</b>Length</div>
+                <div><b>2025</b>Year</div>
+                <div><b>New</b>Status</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="listing-card">
+            <div class="listing-image" style="--image: url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&w=900&q=82');">
+              <span class="badge">In stock</span>
+            </div>
+            <div class="listing-body">
+              <h3>2025 Axopar 29 Sun Top</h3>
+              <p>Charleston, SC</p>
+              <span class="price">$270,808</span>
+              <div class="mini">
+                <div><b>29 ft</b>Length</div>
+                <div><b>2025</b>Year</div>
+                <div><b>New</b>Status</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="listing-card">
+            <div class="listing-image" style="--image: url('https://images.unsplash.com/photo-1534008897995-27a23e859048?auto=format&fit=crop&w=900&q=82');">
+              <span class="badge">Value pick</span>
+            </div>
+            <div class="listing-body">
+              <h3>2024 Axopar 25 Cross Top</h3>
+              <p>Newport Beach, CA</p>
+              <span class="price">$120,000</span>
+              <div class="mini">
+                <div><b>25 ft</b>Length</div>
+                <div><b>2024</b>Year</div>
+                <div><b>Pre-owned</b>Status</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="listing-card">
+            <div class="listing-image" style="--image: url('https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=900&q=82');">
+              <span class="badge">Incoming</span>
+            </div>
+            <div class="listing-body">
+              <h3>2026 Axopar 45 XC Cross Cabin</h3>
+              <p>Wrightsville Beach, NC</p>
+              <span class="price">Request Price</span>
+              <div class="mini">
+                <div><b>45 ft</b>Length</div>
+                <div><b>2026</b>Year</div>
+                <div><b>Incoming</b>Status</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="jby">
+      <div class="wrap">
+        <div class="section-head center">
+          <p class="kicker">Why Jeff Brown Yachts</p>
+          <h2>Model guidance, availability, and ownership support in one place.</h2>
+          <p class="lead">Jeff Brown Yachts helps you move from early model research to a confident purchase decision with regional knowledge, inventory guidance, and support beyond the sale.</p>
+        </div>
+        <div class="trust-grid">
+          <article class="trust-card">
+            <span>1</span>
+            <h3>Model guidance</h3>
+            <p>Compare model size, layout, cabin type, delivery timing, and use case with a team that understands the full Axopar range.</p>
+          </article>
+          <article class="trust-card">
+            <span>2</span>
+            <h3>Regional knowledge</h3>
+            <p>Advice is matched to how clients actually boat across California, the Pacific Northwest, Hawaii, and the Carolinas.</p>
+          </article>
+          <article class="trust-card">
+            <span>3</span>
+            <h3>Ownership support</h3>
+            <p>Commissioning, delivery, service direction, trade-in, and brokerage support make the purchase feel managed.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft" id="faq">
+      <div class="wrap faq-grid">
+        <div>
+          <p class="kicker">FAQ</p>
+          <h2>Model research and inventory, clearly separated.</h2>
+        </div>
+        <div>
+          <details open>
+            <summary>Are the model cards available boats?</summary>
+            <p>No. The model cards explain the Axopar model families and help you understand which size and layout may fit your boating style.</p>
+          </details>
+          <details>
+            <summary>Where do I see actual boats for sale?</summary>
+            <p>The Available Axopar Inventory section shows selected current or incoming boats. For the complete list, request full inventory or contact Jeff Brown Yachts.</p>
+          </details>
+          <details>
+            <summary>Can Jeff Brown Yachts help me choose a model?</summary>
+            <p>Yes. The team can help compare model size, cabin type, deck layout, delivery timing, intended use, and ownership needs.</p>
+          </details>
+          <details>
+            <summary>Can I ask about boats that are not listed here?</summary>
+            <p>Yes. Inventory changes, and some incoming or off-market opportunities may require a direct conversation with the team.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section final-cta">
+      <div class="wrap">
+        <p class="kicker" style="color: #98e0e2;">Next step</p>
+        <h2>Let JBY help you choose the right Axopar.</h2>
+        <p class="lead">Ask about model comparison, current availability, incoming inventory, trade-ins, and sea trial opportunities.</p>
+        <div class="actions">
+          <button class="btn sea js-open-modal" type="button">Get Expert Guidance</button>
+          <a class="btn light" href="#models">Review Models</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="jby">
+        <span class="crest" style="border-color: rgba(255,255,255,.6);">JB</span>
+        <small>Jeff Brown Yachts</small>
+      </div>
+      <div>Explore Axopar models and availability with Jeff Brown Yachts.</div>
+    </div>
+  </footer>
+
+  <div class="sticky" id="stickyBar">
+    <span>Axopar guidance</span>
+    <a class="btn" href="#models">Models</a>
+    <button class="btn sea js-open-modal" type="button">Ask JBY</button>
+  </div>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <h2 id="modalTitle">Ask JBY about Axopar</h2>
+        <button class="close" type="button" id="closeModal" aria-label="Close">x</button>
+      </div>
+      <form class="form" id="leadForm">
+        <div class="field">
+          <label for="firstName">First name</label>
+          <input id="firstName" name="firstName" required>
+        </div>
+        <div class="field">
+          <label for="lastName">Last name</label>
+          <input id="lastName" name="lastName" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required>
+        </div>
+        <div class="field">
+          <label for="interest">Interest</label>
+          <select id="interest" name="interest">
+            <option>Help me choose an Axopar model</option>
+            <option>Current Axopar availability</option>
+            <option>Axopar 29</option>
+            <option>Axopar 37</option>
+            <option>Axopar 45</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="message">Message</label>
+          <textarea id="message" name="message">I would like expert guidance on Axopar models and availability.</textarea>
+        </div>
+        <div class="actions full">
+          <button class="btn sea" type="submit">Send Inquiry</button>
+          <button class="btn" type="button" id="cancelModal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Thanks. Your Axopar inquiry has been received.</div>
+
+  <script>
+    const notes = {
+      "Axopar 22": "Selected: Axopar 22. Best for buyers who want a simple, agile day boat with low friction ownership.",
+      "Axopar 25": "Selected: Axopar 25. Best for buyers who want weekend flexibility without moving into a large boat.",
+      "Axopar 29": "Selected: Axopar 29. Best for buyers who want the clearest all-round Axopar experience.",
+      "Axopar 37": "Selected: Axopar 37. Best for longer routes, rougher water, weather protection, and overnight use.",
+      "Axopar 45": "Selected: Axopar 45. Best for flagship comfort, range, and a more substantial cruising profile."
+    };
+
+    const modelCards = document.querySelectorAll(".model-card");
+    const modelNote = document.querySelector("#modelNote");
+
+    modelCards.forEach(card => {
+      card.addEventListener("click", () => {
+        modelCards.forEach(item => item.classList.remove("active"));
+        card.classList.add("active");
+        modelNote.textContent = notes[card.dataset.model];
+      });
+    });
+
+    const modal = document.querySelector("#modal");
+    const toast = document.querySelector("#toast");
+
+    document.querySelectorAll(".js-open-modal").forEach(button => {
+      button.addEventListener("click", () => {
+        modal.classList.add("open");
+        document.querySelector("#firstName").focus();
+      });
+    });
+
+    function closeModal() {
+      modal.classList.remove("open");
+    }
+
+    document.querySelector("#closeModal").addEventListener("click", closeModal);
+    document.querySelector("#cancelModal").addEventListener("click", closeModal);
+    modal.addEventListener("click", event => {
+      if (event.target === modal) closeModal();
+    });
+
+    document.querySelector("#leadForm").addEventListener("submit", event => {
+      event.preventDefault();
+      closeModal();
+      toast.classList.add("visible");
+      setTimeout(() => toast.classList.remove("visible"), 2600);
+    });
+
+    const stickyBar = document.querySelector("#stickyBar");
+    window.addEventListener("scroll", () => {
+      stickyBar.classList.toggle("visible", window.scrollY > 720);
+    });
+  </script>
+</body>
+</html>

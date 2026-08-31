@@ -1,0 +1,2356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jeff Brown Yachts Site Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16181a;
+  --mut:#6b7280;
+  --paper:#f3f5f7;
+  --white:#ffffff;
+  --line:#e2e6ea;
+  --teal:#3e5a6c;
+  --teal-d:#334b5b;
+  --green:#1f7a3d;
+  --red:#c0392b;
+  --maxw:1320px;
+  --r:6px;
+  --shadow:0 6px 24px rgba(22,24,26,.07);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--paper);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 40px}
+@media(max-width:760px){.wrap{padding:0 20px}}
+
+/* ---------- Typography ---------- */
+.d1,.d2,.d3,.d4{font-family:'Jost',sans-serif;font-weight:300;text-transform:uppercase;line-height:1.15}
+.d1{font-size:clamp(34px,4.6vw,58px);letter-spacing:.06em}
+.d2{font-size:clamp(26px,3vw,38px);letter-spacing:.08em}
+.d3{font-size:clamp(19px,2vw,25px);letter-spacing:.09em}
+.d4{font-size:16px;letter-spacing:.12em}
+.eyebrow{font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--mut)}
+.lead{font-size:16px;color:#3a4148;max-width:680px}
+.muted{color:var(--mut)}
+.center{text-align:center}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding:13px 26px;border:1px solid var(--ink);background:transparent;color:var(--ink);border-radius:3px;transition:.2s;white-space:nowrap}
+.btn:hover{background:var(--ink);color:#fff}
+.btn--solid{background:var(--teal);border-color:var(--teal);color:#fff}
+.btn--solid:hover{background:var(--teal-d);border-color:var(--teal-d)}
+.btn--white{border-color:#fff;color:#fff}
+.btn--white:hover{background:#fff;color:var(--ink)}
+.btn--whitefill{background:#fff;border-color:#fff;color:var(--ink)}
+.btn--whitefill:hover{background:transparent;color:#fff}
+.btn--sm{padding:10px 18px;font-size:12px}
+.btn--block{width:100%}
+.textlink{font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:2px;transition:.2s}
+.textlink:hover{color:var(--teal);border-color:var(--teal)}
+
+/* ---------- Header ---------- */
+header{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:36px;height:84px;max-width:var(--maxw);margin:0 auto;padding:0 40px}
+.logo{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.logo-mark{width:54px;height:54px;border:2.5px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Jost',sans-serif;font-weight:500;font-size:11px;letter-spacing:.05em;position:relative}
+.logo-mark span{font-size:15px}
+.logo-ring{position:absolute;inset:3px;border:1px solid var(--ink);border-radius:50%}
+.menu{display:flex;gap:6px;flex:1}
+.menu>li{position:relative}
+.menu>li>a{display:flex;align-items:center;gap:6px;font-family:'Jost',sans-serif;font-size:13.5px;letter-spacing:.13em;text-transform:uppercase;padding:32px 12px;transition:.2s}
+.menu>li>a:hover{color:var(--teal)}
+.menu>li>a .chev{transition:.25s}
+.menu>li:hover>a .chev{transform:rotate(180deg)}
+.chev{width:9px;height:9px;border-right:1.4px solid currentColor;border-bottom:1.4px solid currentColor;transform:rotate(45deg);margin-top:-4px}
+.drop{position:absolute;top:100%;left:-14px;min-width:280px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);padding:18px 0;opacity:0;visibility:hidden;transform:translateY(8px);transition:.22s;border-radius:0 0 var(--r) var(--r)}
+.menu>li:hover .drop{opacity:1;visibility:visible;transform:translateY(0)}
+.drop a{display:block;padding:9px 26px;font-size:14px;color:#2c3338;transition:.15s}
+.drop a:hover{background:var(--paper);color:var(--teal);padding-left:31px}
+.drop .drop-label{padding:6px 26px 8px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+.drop .drop-sep{height:1px;background:var(--line);margin:10px 26px}
+.drop--wide{min-width:560px;display:flex;padding:26px 8px}
+.drop--wide>div{flex:1;padding:0 18px}
+.nav-actions{display:flex;align-items:center;gap:16px;margin-left:auto}
+.search-btn{width:42px;height:42px;border:1px solid var(--line);background:#fff;border-radius:3px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.search-btn:hover{border-color:var(--ink)}
+.burger{display:none;width:42px;height:42px;border:1px solid var(--line);background:#fff;border-radius:3px;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.burger i{display:block;width:18px;height:1.6px;background:var(--ink)}
+@media(max-width:1100px){
+  .menu,.nav .btn{display:none}
+  .burger{display:flex}
+  .nav{height:68px;padding:0 20px;gap:16px}
+}
+.m-menu{display:none;position:fixed;inset:68px 0 0 0;background:#fff;z-index:190;overflow:auto;padding:24px 20px 60px}
+.m-menu.open{display:block}
+.m-menu a{display:block;padding:13px 4px;border-bottom:1px solid var(--line);font-family:'Jost',sans-serif;font-size:15px;letter-spacing:.12em;text-transform:uppercase}
+.m-menu .m-sub a{font-family:'Inter';text-transform:none;letter-spacing:0;font-size:14px;color:#3a4148;padding-left:18px}
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs-bar{background:#fff;border-bottom:1px solid var(--line)}
+.crumbs{display:flex;align-items:center;flex-wrap:wrap;gap:10px;padding:13px 0;font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.crumbs a{color:var(--mut);transition:.15s;display:flex;align-items:center;gap:10px}
+.crumbs a:hover{color:var(--teal)}
+.crumbs .sep{color:#c4cad1;font-size:11px}
+.crumbs .cur{color:var(--ink)}
+
+/* ---------- Image placeholders ---------- */
+.ph{position:relative;overflow:hidden;background:#cfd8de;display:block}
+.ph::after{content:attr(data-label);position:absolute;left:12px;bottom:10px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.85);background:rgba(22,24,26,.35);padding:4px 10px;border-radius:2px;backdrop-filter:blur(2px)}
+.ph--sea{background:linear-gradient(180deg,#9fc2d8 0%,#6e9cb8 38%,#3f6c88 62%,#2c4f66 100%)}
+.ph--sunset{background:linear-gradient(180deg,#e8c9a8 0%,#d9a988 30%,#8e9bae 60%,#4a617a 100%)}
+.ph--marina{background:linear-gradient(160deg,#7fb0c6 0%,#4f7f9b 45%,#33586f 100%)}
+.ph--dark{background:linear-gradient(180deg,#10181f 0%,#1d2c38 55%,#27404f 100%)}
+.ph--studio{background:linear-gradient(180deg,#fbfcfd 0%,#eef1f4 70%,#dde3e8 100%)}
+.ph--interior{background:linear-gradient(160deg,#b9a791 0%,#8a7a66 50%,#5d5347 100%)}
+.ph--people{background:linear-gradient(160deg,#c6d4dc 0%,#90a8b6 50%,#5f7c8e 100%)}
+.ph--map{background:linear-gradient(180deg,#eef3f5 0%,#dce8ec 100%)}
+.ph .boat{position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);width:62%;opacity:.85}
+.ph .boat--dark{opacity:.5}
+.ph .horizon{position:absolute;left:0;right:0;top:52%;height:1px;background:rgba(255,255,255,.35)}
+
+/* ---------- Sections / layout helpers ---------- */
+.page{display:none}
+.page.active{display:block}
+section{padding:74px 0}
+section.tight{padding:48px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:36px;flex-wrap:wrap}
+.grid{display:grid;gap:26px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1000px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;min-height:480px;display:flex;align-items:center;color:#fff}
+.hero .ph-bg{position:absolute;inset:0}
+.hero .ph-bg::after{display:none}
+.hero-inner{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:70px 40px;width:100%}
+.hero-inner h1{max-width:760px;margin-bottom:18px;font-weight:200}
+.hero-inner p{max-width:560px;margin-bottom:30px;font-size:16px;color:rgba(255,255,255,.92)}
+.hero-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,18,24,.55) 0%,rgba(10,18,24,.18) 55%,rgba(10,18,24,0) 100%)}
+@media(max-width:760px){.hero{min-height:420px}.hero-inner{padding:54px 20px}}
+
+/* ---------- Cards: listings ---------- */
+.lcard{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:.25s}
+.lcard:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(22,24,26,.12)}
+.lcard .ph{aspect-ratio:16/10}
+.lbadge{position:absolute;top:12px;left:12px;background:#fff;font-size:11.5px;font-weight:500;padding:5px 11px;border-radius:2px;color:var(--ink);z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.lbadge--red{background:var(--red);color:#fff}
+.lcard-b{padding:16px 18px 20px}
+.lcard-b .loc{font-size:12.5px;color:var(--mut);margin-bottom:6px}
+.lcard-b .ttl{font-size:15px;font-weight:600;margin-bottom:8px}
+.lcard-b .price{font-size:18px;font-weight:700;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.lcard-b .price em{font-style:normal;font-size:12px;font-weight:500;color:var(--green)}
+
+/* ---------- Cards: events ---------- */
+.ecard{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.ecard .ph{aspect-ratio:16/8.5}
+.ecard-b{padding:20px 22px 24px;display:flex;flex-direction:column;flex:1}
+.ecard-b h3{font-family:'Jost',sans-serif;font-weight:400;font-size:17px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;line-height:1.35}
+.erow{display:flex;justify-content:space-between;gap:14px;font-size:13px;padding:6px 0;border-bottom:1px dotted var(--line)}
+.erow span:first-child{color:var(--mut)}
+.erow span:last-child{font-weight:600;text-align:right}
+.ecard-b .btn{margin-top:18px}
+
+/* ---------- Spec / fact tiles ---------- */
+.fact{background:#fff;border-radius:var(--r);padding:20px 24px;box-shadow:var(--shadow)}
+.fact .k{font-size:12.5px;color:var(--mut);margin-bottom:6px}
+.fact .v{font-size:17px;font-weight:600}
+.tag{display:inline-block;background:#e9edf0;border-radius:20px;padding:6px 15px;font-size:12.5px;color:#3a4148;margin:0 6px 8px 0}
+
+/* ---------- CTA band ---------- */
+.cta-band{background:var(--teal);color:#fff;text-align:center;padding:84px 24px}
+.cta-band h2{font-weight:200;margin-bottom:12px}
+.cta-band p{color:rgba(255,255,255,.75);margin-bottom:30px}
+
+/* ---------- Footer ---------- */
+footer{background:#eceff2;padding:64px 0 44px;border-top:1px solid var(--line)}
+.f-grid{display:grid;grid-template-columns:1.1fr 1fr 1.3fr;gap:44px}
+@media(max-width:900px){.f-grid{grid-template-columns:1fr}}
+.f-label{font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:12px}
+.f-links{display:flex;flex-wrap:wrap;gap:4px 8px;margin-top:22px;font-family:'Jost',sans-serif;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+.f-links a:hover{color:var(--teal)}
+.f-links .sl{color:#b6bdc4}
+.f-block{margin-bottom:26px}
+.f-block a{font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.soc{display:flex;gap:12px;margin-top:8px}
+.soc a{width:30px;height:30px;border-radius:4px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;transition:.2s}
+.soc a:hover{background:var(--teal)}
+.totop{position:fixed;right:26px;bottom:26px;width:44px;height:44px;background:var(--ink);color:#fff;border:none;border-radius:4px;font-size:16px;z-index:150;opacity:0;visibility:hidden;transition:.25s}
+.totop.show{opacity:1;visibility:visible}
+.totop:hover{background:var(--teal)}
+
+/* ---------- Tabs / pagination / filters ---------- */
+.tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:40px}
+.tabs button{background:none;border:none;border-bottom:2px solid transparent;font-family:'Jost',sans-serif;font-size:14.5px;letter-spacing:.06em;padding:12px 18px;color:var(--mut);transition:.2s}
+.tabs button.on{color:var(--ink);border-color:var(--ink)}
+.tabs button:hover{color:var(--ink)}
+.spec-row{display:flex;justify-content:space-between;gap:18px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
+.spec-row span:first-child{color:var(--mut)}
+.spec-row span:last-child{font-weight:500;text-align:right}
+.eq-list{list-style:none;margin:0;padding:0}
+.eq-list li{position:relative;padding:6px 0 6px 22px;font-size:14px;color:#3a4654;border-bottom:1px solid var(--line)}
+.eq-list li:before{content:"";position:absolute;left:0;top:13px;width:9px;height:9px;border-right:1.5px solid var(--teal);border-bottom:1.5px solid var(--teal);transform:rotate(45deg)}
+.tabpanel{display:none}
+.tabpanel.on{display:block}
+.vcard{display:block;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;transition:.2s}
+.vcard:hover{border-color:var(--teal);transform:translateY(-2px)}
+.vcard .vb{padding:16px 18px}
+.subnav{position:sticky;top:64px;z-index:30;background:rgba(243,245,247,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.subnav .wrap{display:flex;gap:6px;flex-wrap:wrap;overflow-x:auto}
+.subnav a{font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);padding:14px 14px;border-bottom:2px solid transparent;white-space:nowrap;transition:.2s}
+.subnav a:hover{color:var(--ink)}
+.mgal{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:200px;gap:12px}
+.mgal .ph{border-radius:8px;height:100%}
+.mgal .g-wide{grid-column:span 2}
+.mgal .g-tall{grid-row:span 2}
+@media(max-width:860px){.mgal{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}.mgal .g-wide{grid-column:span 2}.subnav{top:56px}}
+/* ---- events page ---- */
+.play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.85);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;transition:.25s;cursor:pointer}
+.play:after{content:"";border-left:18px solid #fff;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px}
+.play:hover{background:rgba(255,255,255,.28);transform:translate(-50%,-50%) scale(1.06)}
+.play.sm{width:54px;height:54px}
+.play.sm:after{border-left:13px solid #fff;border-top:8px solid transparent;border-bottom:8px solid transparent}
+.reel{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;-webkit-overflow-scrolling:touch}
+.reel::-webkit-scrollbar{height:6px}
+.reel::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+.film{flex:0 0 360px;max-width:360px;scroll-snap-align:start}
+.film .fimg{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:16/9;margin-bottom:12px}
+.film .dur{position:absolute;right:10px;bottom:10px;background:rgba(16,22,28,.8);color:#fff;font-size:11px;letter-spacing:.05em;padding:3px 8px;border-radius:4px}
+.ev{display:grid;grid-template-columns:1.15fr 1fr;gap:38px;align-items:center;padding:30px 0;border-bottom:1px solid var(--line)}
+.ev:first-child{padding-top:0}
+.ev .eimg{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:16/10}
+.ev:nth-child(even) .eimg{order:2}
+.chip{display:inline-block;background:#eef2f5;color:var(--teal);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:20px;margin-bottom:14px}
+.mosaic{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:12px}
+.mosaic .ph{border-radius:8px;height:100%}
+.mosaic .t-wide{grid-column:span 2}
+.mosaic .t-tall{grid-row:span 2}
+@media(max-width:860px){
+  .ev{grid-template-columns:1fr;gap:18px}
+  .ev:nth-child(even) .eimg{order:0}
+  .film{flex-basis:300px}
+  .mosaic{grid-template-columns:repeat(2,1fr);grid-auto-rows:130px}
+  .mosaic .t-wide{grid-column:span 2}
+}
+.pager{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:44px;font-family:'Jost',sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.pager a{padding:8px 13px;border-radius:3px;color:var(--mut)}
+.pager a.on{background:var(--ink);color:#fff}
+.pager a:hover:not(.on){color:var(--ink)}
+.filters{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:34px}
+.filters select,.filters input{font-family:'Inter';font-size:14px;padding:11px 14px;border:1px solid var(--line);border-radius:3px;background:#fff;color:var(--ink);min-width:170px}
+.filters input{flex:1;min-width:220px}
+
+/* ---------- Forms ---------- */
+.form-card{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:30px}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+@media(max-width:640px){.f-row{grid-template-columns:1fr}}
+.f-field{display:flex;flex-direction:column}
+.f-field input,.f-field select,.f-field textarea{border:none;border-bottom:1px solid #c8ced4;padding:10px 2px;font-family:'Inter';font-size:14px;background:transparent;color:var(--ink);outline:none;transition:.2s}
+.f-field input:focus,.f-field select:focus,.f-field textarea:focus{border-color:var(--teal)}
+.note{border-left:3px solid #c87f3d;padding:10px 14px;font-size:12.5px;color:var(--mut);margin-top:16px;background:#faf7f3}
+
+/* ---------- Service split rows ---------- */
+.svc-row{display:grid;grid-template-columns:1.1fr 1fr;gap:54px;align-items:center;margin-bottom:70px}
+.svc-row:nth-child(even){direction:rtl}
+.svc-row>*{direction:ltr}
+.svc-row .ph{aspect-ratio:16/10;border-radius:var(--r)}
+.svc-row h3{margin-bottom:14px}
+.svc-row p{color:#3a4148;margin-bottom:22px;max-width:480px}
+@media(max-width:860px){.svc-row{grid-template-columns:1fr;gap:24px;margin-bottom:48px}}
+
+/* ---------- Overlay tiles (services offer grid) ---------- */
+.otile{position:relative;border-radius:var(--r);overflow:hidden;min-height:330px;display:flex;align-items:flex-end;color:#fff}
+.otile .ph{position:absolute;inset:0}
+.otile .ph::after{display:none}
+.otile-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,16,22,0) 35%,rgba(10,16,22,.72) 100%)}
+.otile-b{position:relative;z-index:2;padding:26px}
+.otile-b h3{font-family:'Jost',sans-serif;font-weight:300;font-size:19px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.otile-b p{font-size:13.5px;color:rgba(255,255,255,.85);margin-bottom:16px;max-width:380px}
+
+/* ---------- Misc ---------- */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center}
+@media(max-width:860px){.split{grid-template-columns:1fr}}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:end}
+@media(max-width:900px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.steps{grid-template-columns:1fr}}
+.step{background:linear-gradient(180deg,#efeae2,#f7f4ee);border-radius:var(--r);padding:28px 24px 30px}
+.step .n{font-family:'Jost',sans-serif;font-size:26px;font-weight:300;margin-bottom:10px}
+.step h4{font-family:'Jost',sans-serif;font-weight:400;font-size:17px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.step p{font-size:13.5px;color:#4a5158}
+.step:nth-child(1){min-height:220px}.step:nth-child(2){min-height:280px}.step:nth-child(3){min-height:340px}.step:nth-child(4){min-height:400px}
+@media(max-width:900px){.step{min-height:auto!important}}
+.check li{position:relative;padding:7px 0 7px 28px;font-size:14px;color:#2c3338}
+.check li::before{content:'✓';position:absolute;left:0;top:7px;color:var(--teal);font-weight:700}
+.loc-list{display:flex;flex-direction:column}
+.loc-item{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 4px;border-bottom:1px solid var(--line);transition:.15s}
+.loc-item:hover{padding-left:10px;color:var(--teal)}
+.loc-item .nm{font-family:'Jost',sans-serif;font-size:14.5px;letter-spacing:.12em;text-transform:uppercase}
+.loc-item .hrs{font-size:12.5px;color:var(--mut)}
+.pin{width:12px;height:12px;background:var(--ink);border-radius:50% 50% 50% 0;transform:rotate(-45deg);position:absolute}
+.proto-note{background:#fff7e8;border:1px dashed #d8b66a;color:#7a5d22;font-size:12.5px;padding:10px 16px;border-radius:4px;margin:18px auto 0;max-width:var(--maxw)}
+.search-overlay{position:fixed;inset:0;background:rgba(12,16,20,.55);z-index:300;display:none;align-items:flex-start;justify-content:center;padding-top:14vh;backdrop-filter:blur(3px)}
+.search-overlay.open{display:flex}
+.search-box{background:#fff;border-radius:var(--r);width:min(640px,92vw);padding:30px}
+.search-box input{width:100%;border:none;border-bottom:2px solid var(--ink);font-family:'Jost';font-size:22px;letter-spacing:.04em;padding:8px 2px;outline:none}
+.search-box .hint{font-size:12.5px;color:var(--mut);margin-top:14px}
+@media(max-width:860px){.hide-mobile{display:none!important}.gal{grid-template-columns:1fr!important}}
+</style>
+</head>
+<body>
+
+<!-- ================= SVG DEFS ================= -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="yacht" viewBox="0 0 200 60">
+      <path d="M8 44 L192 44 L176 54 L26 54 Z" fill="currentColor"/>
+      <path d="M40 44 L44 30 L140 30 L168 44 Z" fill="currentColor" opacity=".85"/>
+      <path d="M60 30 L66 20 L120 20 L132 30 Z" fill="currentColor" opacity=".7"/>
+      <rect x="88" y="8" width="3" height="12" fill="currentColor" opacity=".7"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <nav class="nav">
+    <a href="#/" class="logo" aria-label="Jeff Brown Yachts Home">
+      <div class="logo-mark"><div class="logo-ring"></div><span>JBY</span></div>
+    </a>
+    <ul class="menu">
+      <li>
+        <a href="#/for-sale">For Sale <i class="chev"></i></a>
+        <div class="drop drop--wide">
+          <div>
+            <div class="drop-label">By Category</div>
+            <a href="#/for-sale">All Vessels for Sale</a>
+            <a href="#/for-sale">New Vessels</a>
+            <a href="#/for-sale">Pre-Owned Vessels</a>
+            <a href="#/for-sale">Recently Added</a>
+            <a href="#/for-sale">Price Reduced</a>
+          </div>
+          <div>
+            <div class="drop-label">By Location</div>
+            <a href="#/for-sale">San Diego, CA</a>
+            <a href="#/for-sale">Newport Beach, CA</a>
+            <a href="#/for-sale">Sausalito, CA</a>
+            <a href="#/for-sale">Seattle, WA</a>
+            <a href="#/for-sale">Wrightsville Beach, NC</a>
+            <a href="#/for-sale">Charleston, SC</a>
+            <a href="#/for-sale">Kailua-Kona, HI</a>
+          </div>
+        </div>
+      </li>
+      <li>
+        <a href="#/brands">Brands <i class="chev"></i></a>
+        <div class="drop">
+          <a href="#/brands">All Brands</a>
+          <div class="drop-sep"></div>
+          <a href="#/brand">Axopar</a>
+          <a href="#/brand">Brabus Marine</a>
+          <a href="#/brand">Four Winns</a>
+          <a href="#/brand">Jeanneau</a>
+          <a href="#/brand">Pardo Yachts</a>
+          <a href="#/brand">Pershing</a>
+          <a href="#/brand">Riva</a>
+          <a href="#/brand">Sirena Yachts</a>
+          <a href="#/brand">Wally</a>
+        </div>
+      </li>
+      <li>
+        <a href="#/services">Services <i class="chev"></i></a>
+        <div class="drop">
+          <a href="#/services">All Services</a>
+          <div class="drop-sep"></div>
+          <a href="#/yacht-management">Yacht Management</a>
+          <a href="#/service-maintenance">Service &amp; Maintenance</a>
+          <a href="#/sell-your-yacht">Sell Your Yacht</a>
+          <a href="#/co-ownership">Co-Ownership · MARI~TIME</a>
+          <a href="#/financing">Financing</a>
+          <a href="#/insurance">Insurance</a>
+        </div>
+      </li>
+      <li>
+        <a href="#/events">Experiences <i class="chev"></i></a>
+        <div class="drop">
+          <a href="#/events">Events &amp; Boat Shows</a>
+          <a href="#/experiences">Private Experiences</a>
+        </div>
+      </li>
+      <li>
+        <a href="#/about">About JBY <i class="chev"></i></a>
+        <div class="drop">
+          <a href="#/about">Our Story</a>
+          <a href="#/team">Our Team</a>
+          <a href="#/locations">Locations</a>
+          <a href="#/news">News</a>
+          <a href="#/contact">Contact Us</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="search-btn" id="searchBtn" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5.2" stroke="#16181a" stroke-width="1.5"/><path d="M11 11l4 4" stroke="#16181a" stroke-width="1.5"/></svg>
+      </button>
+      <a href="#/contact" class="btn btn--sm">Contact Us</a>
+      <button class="burger" id="burgerBtn" aria-label="Menu"><i></i><i></i><i></i></button>
+    </div>
+  </nav>
+</header>
+
+<!-- mobile menu -->
+<div class="m-menu" id="mMenu">
+  <a href="#/for-sale">For Sale</a>
+  <a href="#/brands">Brands</a>
+  <div class="m-sub"><a href="#/brand">Axopar</a><a href="#/brand">Riva</a><a href="#/brand">Brabus Marine</a><a href="#/brand">Pershing</a></div>
+  <a href="#/services">Services</a>
+  <div class="m-sub">
+    <a href="#/yacht-management">Yacht Management</a>
+    <a href="#/service-maintenance">Service &amp; Maintenance</a>
+    <a href="#/sell-your-yacht">Sell Your Yacht</a>
+    <a href="#/co-ownership">Co-Ownership · MARI~TIME</a>
+    <a href="#/financing">Financing</a>
+    <a href="#/insurance">Insurance</a>
+  </div>
+  <a href="#/events">Events &amp; Boat Shows</a>
+  <a href="#/experiences">Private Experiences</a>
+  <a href="#/about">About JBY</a>
+  <div class="m-sub"><a href="#/team">Our Team</a><a href="#/locations">Locations</a><a href="#/news">News</a></div>
+  <a href="#/contact">Contact Us</a>
+</div>
+
+<!-- search overlay -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-box">
+    <input type="text" placeholder="Search yachts, brands, events…" id="searchInput">
+    <div class="hint">Try: “Axopar 37”, “Riva”, “Newport Beach Boat Show” · Press Esc to close</div>
+  </div>
+</div>
+
+<!-- ================= BREADCRUMBS ================= -->
+<div class="crumbs-bar" id="crumbsBar" style="display:none">
+  <div class="wrap"><nav class="crumbs" id="crumbs" aria-label="Breadcrumb"></nav></div>
+</div>
+
+<main>
+
+<!-- ============================================================
+     PAGE: HOME
+============================================================ -->
+<div class="page" id="page-home">
+
+  <div class="hero" style="min-height:600px">
+    <div class="ph ph--dark ph-bg" data-label="Hero video · yacht aerial at dusk">
+      <svg class="boat boat--dark" style="width:34%;top:30%;left:72%;color:#dfe9ef"><use href="#yacht"/></svg>
+    </div>
+    <div class="hero-veil"></div>
+    <div class="hero-inner">
+      <div style="position:absolute;top:38px;right:40px;width:300px;background:rgba(16,22,28,.78);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:16px 18px;backdrop-filter:blur(4px)" class="hide-mobile">
+        <div class="eyebrow" style="color:rgba(255,255,255,.6);margin-bottom:10px">Upcoming events</div>
+        <a href="#/event" style="display:flex;gap:12px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:13px"><span style="background:#c0392b;border-radius:3px;padding:4px 8px;font-size:11px;text-align:center;line-height:1.2">Apr<br><b>26</b></span><span>La Jolla Concours d'Elegance<br><span style="color:rgba(255,255,255,.55);font-size:11.5px">Ellen Browning Scripps Park</span></span></a>
+        <a href="#/event" style="display:flex;gap:12px;padding:8px 0;font-size:13px"><span style="background:#c0392b;border-radius:3px;padding:4px 8px;font-size:11px;text-align:center;line-height:1.2">Apr<br><b>26</b></span><span>Lowcountry Axopar Adventure<br><span style="color:rgba(255,255,255,.55);font-size:11.5px">Georgetown, SC</span></span></a>
+      </div>
+      <h1 class="d1">The right yacht exists. The right relationship makes it yours.</h1>
+      <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <a href="#/for-sale" class="btn btn--whitefill">View Available Yachts</a>
+        <a href="#/contact" class="btn btn--white">Get Expert Guidance</a>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="d2">Yachts for Sale</h2>
+        <a href="#/for-sale" class="btn btn--sm">View Catalog</a>
+      </div>
+      <div class="grid g3" data-listings="3"></div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="d2">Upcoming Events &amp; Private Experiences</h2>
+        <a href="#/events" class="btn btn--sm">View All Events</a>
+      </div>
+      <div class="grid g3" data-events="3"></div>
+    </div>
+  </section>
+
+  <div class="hero" style="min-height:520px;margin-top:30px">
+    <div class="ph ph--dark ph-bg" data-label="Photo · owner at the helm, golden hour"></div>
+    <div class="hero-veil"></div>
+    <div class="hero-inner">
+      <h2 class="d2" style="margin-bottom:16px">Built Around the Owner</h2>
+      <p style="max-width:520px;color:rgba(255,255,255,.85);margin-bottom:26px">Jeff Brown Yachts brings together personal guidance, represented brand expertise, and a relationship-led approach that supports clients from first conversation through ownership.</p>
+      <a href="#/contact" class="btn btn--white">Request a Consultation</a>
+    </div>
+  </div>
+
+  <div class="hero" style="min-height:460px">
+    <div class="ph ph--dark ph-bg" data-label="Photo · boat wake spiral, top view"></div>
+    <div class="hero-veil"></div>
+    <div class="hero-inner">
+      <h2 class="d2" style="margin-bottom:16px">Access to World-Class Brands</h2>
+      <p style="max-width:520px;color:rgba(255,255,255,.85);margin-bottom:26px">From adventure-driven day boating to long-range cruising and iconic Italian craft, JBY helps clients find the right brand, model, and ownership path for the way they want to be on the water.</p>
+      <a href="#/brands" class="btn btn--white">View All Brands</a>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <h2 class="d2 center" style="margin-bottom:42px">The Builders We Represent</h2>
+      <div class="grid g4" id="homeBrands"></div>
+    </div>
+  </section>
+
+  <section style="padding-top:10px">
+    <div class="wrap">
+      <h2 class="d2 center" style="margin-bottom:42px">Support for Every Stage of Ownership</h2>
+
+      <a href="#/yacht-management" class="otile" style="min-height:420px;margin-bottom:26px">
+        <div class="ph ph--people" data-label="Photo · owner on flybridge with manager"></div>
+        <div class="otile-veil"></div>
+        <div class="otile-b">
+          <h3>Yacht Management</h3>
+          <p>End-to-end support for operations, crew, service, and ownership logistics, handled with expert oversight.</p>
+          <span class="btn btn--white btn--sm">Explore Yacht Management</span>
+        </div>
+      </a>
+
+      <div class="grid g2" style="margin-bottom:26px">
+        <a href="#/service-maintenance" class="otile">
+          <div class="ph ph--people" data-label="Photo · technician at the slip"></div>
+          <div class="otile-veil"></div>
+          <div class="otile-b">
+            <h3>Service &amp; Maintenance</h3>
+            <p>Reliable yacht service and maintenance coordination, certified technicians, mobile and boatyard support.</p>
+            <span class="btn btn--white btn--sm">Explore Service &amp; Maintenance</span>
+          </div>
+        </a>
+        <a href="#/sell-your-yacht" class="otile">
+          <div class="ph ph--people" data-label="Photo · broker meeting on deck"></div>
+          <div class="otile-veil"></div>
+          <div class="otile-b">
+            <h3>Sell Your Yacht</h3>
+            <p>Strategic pricing, marketing, and expert brokerage to position your yacht with the right qualified buyers.</p>
+            <span class="btn btn--white btn--sm">Explore Selling Services</span>
+          </div>
+        </a>
+      </div>
+
+      <a href="#/co-ownership" class="otile" style="min-height:360px;margin-bottom:26px">
+        <div class="ph ph--dark" data-label="Photo · couple boarding superyacht"></div>
+        <div class="otile-veil"></div>
+        <div class="otile-b">
+          <h3>Co-Ownership · MARI~TIME</h3>
+          <p>Flexible access to premium boating experiences with less complexity, commitment, and ownership responsibility.</p>
+          <span class="btn btn--white btn--sm">Explore MARI~TIME</span>
+        </div>
+      </a>
+
+      <div class="grid g2">
+        <a href="#/financing" class="otile" style="min-height:280px">
+          <div class="ph ph--interior" data-label="Photo · financing consultation"></div>
+          <div class="otile-veil"></div>
+          <div class="otile-b">
+            <h3>Financing</h3>
+            <p>Explore financing options through YachtWay, tailored to your purchase and ownership goals.</p>
+            <span class="btn btn--white btn--sm">Continue to YachtWay</span>
+          </div>
+        </a>
+        <a href="#/insurance" class="otile" style="min-height:280px">
+          <div class="ph ph--interior" data-label="Photo · owner reviewing coverage"></div>
+          <div class="otile-veil"></div>
+          <div class="otile-b">
+            <h3>Insurance</h3>
+            <p>Explore yacht coverage on YachtWay, tailored to your vessel and your cruising plans.</p>
+            <span class="btn btn--white btn--sm">Continue to YachtWay</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:14px">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="d2">Visit Us</h2>
+        <a href="#/locations" class="btn btn--sm">View All</a>
+      </div>
+      <div class="split" style="align-items:start">
+        <div class="loc-list" id="homeLocations"></div>
+        <div class="ph ph--map" data-label="Interactive map · 7 home ports" style="aspect-ratio:4/3;border-radius:6px" id="homeMap"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <h2 class="d2">Get Expert Guidance</h2>
+    <p>Tell us what the water means to you. We'll take it from there.</p>
+    <a href="#/contact" class="btn btn--white">Book a Consultation</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: FOR SALE · CATALOG  (нова сторінка)
+============================================================ -->
+<div class="page" id="page-for-sale">
+  <section class="tight">
+    <div class="wrap">
+      <div class="sec-head" style="margin-bottom:26px">
+        <div>
+          <h1 class="d2">Vessels for Sale</h1>
+          <p class="muted" style="margin-top:8px">24 vessels available · New &amp; pre-owned across 7 home ports</p>
+        </div>
+        <a href="#/sell-your-yacht" class="btn btn--sm">Sell Your Yacht</a>
+      </div>
+      <div class="filters">
+        <input type="text" placeholder="Search by model, brand, keyword…">
+        <select><option>All Brands</option><option>Axopar</option><option>Brabus</option><option>Riva</option><option>Pershing</option><option>Sirena</option><option>Wally</option></select>
+        <select><option>All Locations</option><option>San Diego, CA</option><option>Newport Beach, CA</option><option>Seattle, WA</option><option>Sausalito, CA</option><option>Charleston, SC</option></select>
+        <select><option>Condition: All</option><option>New</option><option>Pre-Owned</option></select>
+        <select><option>Price: Any</option><option>Up to $500K</option><option>$500K – $1M</option><option>$1M – $3M</option><option>$3M+</option></select>
+        <select><option>Sort: Newest</option><option>Price: Low to High</option><option>Price: High to Low</option><option>Length</option></select>
+      </div>
+      <div class="grid g3" data-listings="9"></div>
+      <div class="pager">
+        <a href="#/for-sale">‹ Back</a><a class="on" href="#/for-sale">1</a><a href="#/for-sale">2</a><a href="#/for-sale">3</a><a href="#/for-sale">4</a><a href="#/for-sale">Next ›</a>
+      </div>
+    </div>
+  </section>
+  <div class="cta-band">
+    <h2 class="d2">Get Expert Guidance</h2>
+    <p>Tell us what the water means to you. We'll take it from there.</p>
+    <a href="#/contact" class="btn btn--white">Book a Consultation</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: LISTING DETAIL  (за макетом Listing_Page)
+============================================================ -->
+<div class="page" id="page-listing">
+  <section class="tight" style="padding-top:30px">
+    <div class="wrap">
+      <!-- gallery -->
+      <div style="display:grid;grid-template-columns:2.2fr 1fr 1fr;gap:10px;margin-bottom:34px" class="gal">
+        <div class="ph ph--sea" data-label="Main photo · Riva 110' bow aerial" style="grid-row:span 2;aspect-ratio:auto;min-height:380px;border-radius:6px">
+          <a href="#/event" class="lbadge" style="top:14px;left:14px">Miami International Boat Show, Thu, Sep 17 at 1:30pm ›</a>
+          <svg class="boat" style="color:#f2f6f8;width:55%"><use href="#yacht"/></svg>
+        </div>
+        <div class="ph ph--sea" data-label="Running shot" style="border-radius:6px;min-height:185px"></div>
+        <div class="ph ph--sunset" data-label="Stern view" style="border-radius:6px;min-height:185px"></div>
+        <div class="ph ph--interior" data-label="Salon" style="border-radius:6px;min-height:185px"></div>
+        <div class="ph ph--sea" data-label="Aerial" style="border-radius:6px;min-height:185px;position:relative">
+          <span style="position:absolute;inset:auto 10px 10px auto;z-index:2"><span class="btn btn--white btn--sm">See All Media</span></span>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.8fr 1fr;gap:44px" class="split">
+        <div>
+          <h1 class="d2">2023 Riva 110' "Dolcevita" for Sale</h1>
+          <p class="muted" style="margin:6px 0 18px">Launch name: Lady Georgia · San Diego, CA · Pre-Owned · Engine hours 400 +2 · Available in 2 mo. · Viewed (>200) times</p>
+          <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:6px">
+            <span style="font-size:26px;font-weight:700">$2,500,000 – $6,000,000</span>
+            <em style="font-style:normal;color:var(--green);font-size:13px;font-weight:600">Price reduced: $11,000</em>
+            <span class="muted" style="font-size:13px">US tax paid · Under warranty</span>
+          </div>
+          <p style="font-size:13.5px;margin-bottom:26px">Est: $111,000/mo. <a class="textlink" href="#/financing">Get Pre-Qualified</a> &nbsp; <a class="textlink" href="#/contact">Get Price Alert</a></p>
+
+          <div class="grid g4" style="gap:14px;margin-bottom:34px">
+            <div class="fact"><div class="k">Boat type</div><div class="v">Motor Yacht +2</div></div>
+            <div class="fact"><div class="k">Year</div><div class="v">2024</div></div>
+            <div class="fact"><div class="k">Length</div><div class="v">75.85 FT</div></div>
+            <div class="fact"><div class="k">Guests / Cabins</div><div class="v">42 / 4</div></div>
+            <div class="fact"><div class="k">Drive type</div><div class="v">V-Drive</div></div>
+            <div class="fact"><div class="k">HP / Engine</div><div class="v">2000 HP</div></div>
+            <div class="fact"><div class="k">Cruise / Top speed</div><div class="v">24 / 32 KN</div></div>
+            <div class="fact"><div class="k">Fuel type</div><div class="v">Diesel</div></div>
+          </div>
+
+          <h2 class="d3" style="margin-bottom:14px">Vessel Description</h2>
+          <p style="margin-bottom:12px"><b>Dealer highlight:</b> Discover the blend of design, performance, and finish aboard Dolcevita, a striking example of the renowned Riva flagship range.</p>
+          <p class="muted" style="margin-bottom:12px">New teak decking · Freshly painted hull · Engine just serviced</p>
+          <p style="margin-bottom:18px">Discover the design and performance of Dolcevita, a yacht from the Riva 110 series, now available for sale. Built by the renowned Italian shipyard, this flybridge yacht offers a refined experience on the water.</p>
+          <a class="textlink" href="#/listing">Read More</a>
+
+          <div style="margin:30px 0 0;display:flex;flex-wrap:wrap;gap:0 6px"><span class="tag">Eco</span><span class="tag">Socialising</span><span class="tag">Performance</span></div>
+        </div>
+
+        <!-- request form -->
+        <div>
+          <div class="form-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+              <span class="muted" style="font-size:13px">Earliest slot:<br><b style="color:var(--ink)">September 4 at 19:00</b></span>
+              <a class="textlink" href="#/contact">Schedule a Tour</a>
+            </div>
+            <div class="f-row"><div class="f-field"><input placeholder="First name"></div><div class="f-field"><input placeholder="Last name"></div></div>
+            <div class="f-row"><div class="f-field"><input placeholder="Email address"></div><div class="f-field"><input placeholder="Phone"></div></div>
+            <div class="f-field" style="margin-bottom:22px"><textarea rows="2" placeholder="Message"></textarea></div>
+            <button class="btn btn--solid btn--block" style="margin-bottom:12px">Request Information</button>
+            <button class="btn btn--block">Show Phone Number</button>
+            <p class="muted" style="font-size:12.5px;margin-top:16px">Est: $111,000/mo. <a class="textlink" href="#/financing" style="font-size:11px">Get Pre-Qualified</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <div class="sec-head"><h2 class="d3">2023 Riva 110 Range Calculator</h2><span class="muted" style="font-size:12.5px">Nautili powered by YachtWay</span></div>
+      <div class="ph ph--map" data-label="Range map · interactive radius from current port" style="aspect-ratio:21/9;border-radius:6px"></div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <div class="sec-head"><h2 class="d3">3D Tour</h2><a href="#/listing" class="btn btn--sm">See All Media</a></div>
+      <div class="ph ph--interior" data-label="Matterport 3D tour · salon &amp; cabins" style="aspect-ratio:21/9;border-radius:6px"></div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <h2 class="d3" style="margin-bottom:20px">Technical Specifications</h2>
+      <div class="tabs" style="justify-content:flex-start">
+        <button class="on">General</button><button>Accommodation</button><button>Engines</button><button>Tanks</button><button>Measurements</button><button>Features</button><button>Extra Details</button><button>Rigging</button>
+      </div>
+      <div class="grid g3" style="gap:14px">
+        <div class="fact"><div class="k">Country of Origin</div><div class="v">Italy</div></div>
+        <div class="fact"><div class="k">Vessel Designer</div><div class="v">Italiana Design</div></div>
+        <div class="fact"><div class="k">Boat type</div><div class="v">Motor Yacht / Flybridge</div></div>
+        <div class="fact"><div class="k">Current / Launch Name</div><div class="v">Luna Mare</div></div>
+        <div class="fact"><div class="k">Hull Material</div><div class="v">Composite</div></div>
+        <div class="fact"><div class="k">Hull Number</div><div class="v">1545257362</div></div>
+      </div>
+      <p class="muted" style="font-size:12px;margin-top:16px">Information on this listing is provided in good faith by YachtWay and the listing broker/dealer, but accuracy is not guaranteed. All details are subject to change and buyers should independently verify specifications, condition, and availability before purchase.</p>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <h2 class="d3" style="margin-bottom:24px">Live Stream Tour Events</h2>
+      <div class="grid g3">
+        <div class="ecard"><div class="ecard-b"><h3>Live Stream</h3>
+          <div class="erow"><span>Date:</span><span>Thu, Sep 17 at 1:00pm</span></div>
+          <div class="erow"><span>Presenter:</span><span>Logan Parker</span></div>
+          <div class="erow"><span>Language:</span><span>English</span></div>
+          <button class="btn btn--sm" style="margin-top:18px">Join Live on YachtWay</button></div></div>
+        <div class="ecard"><div class="ecard-b"><h3>Live Stream</h3>
+          <div class="erow"><span>Date:</span><span>Thu, Sep 17 at 1:00pm</span></div>
+          <div class="erow"><span>Presenter:</span><span>Logan Parker</span></div>
+          <div class="erow"><span>Language:</span><span>English</span></div>
+          <button class="btn btn--sm" style="margin-top:18px">Add to Calendar</button></div></div>
+        <div class="ecard"><div class="ecard-b"><h3>Live Stream</h3>
+          <div class="erow"><span>Date:</span><span>Thu, Sep 17 at 1:00pm</span></div>
+          <div class="erow"><span>Presenter:</span><span>Logan Parker</span></div>
+          <div class="erow"><span>Language:</span><span>English</span></div>
+          <button class="btn btn--sm" style="margin-top:18px">Add to Calendar</button></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <h2 class="d3" style="margin-bottom:24px">In-Person Tour Events</h2>
+      <div class="grid g3" data-events="2"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:6px;box-shadow:var(--shadow);padding:22px 28px;margin-top:30px;flex-wrap:wrap;gap:16px">
+        <span class="d4">Download PDF for 2023 Riva 110'</span>
+        <button class="btn btn--sm">Download PDF</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <h2 class="d3" style="margin-bottom:24px">Loan Calculator</h2>
+      <div class="split" style="background:#fff;border-radius:6px;box-shadow:var(--shadow);padding:34px;align-items:center">
+        <div>
+          <div class="f-field" style="margin-bottom:22px"><label class="muted" style="font-size:12.5px">Vessel Price</label><input value="$ 2,500,000"></div>
+          <div class="f-field" style="margin-bottom:22px"><label class="muted" style="font-size:12.5px">Your Down Payment</label><input value="$ 800,000 · 32 %"></div>
+          <label class="muted" style="font-size:12.5px">Loan Term</label>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 22px">
+            <button class="btn btn--sm">120 months / 10 yrs</button><button class="btn btn--sm btn--solid">180 months / 15 yrs</button><button class="btn btn--sm">240 months / 20 yrs</button>
+          </div>
+          <div class="f-field"><label class="muted" style="font-size:12.5px">Interest Rate</label><input value="7.5 %"></div>
+        </div>
+        <div class="center">
+          <div class="eyebrow" style="margin-bottom:8px">Monthly payment</div>
+          <div style="font-size:46px;font-weight:700;margin-bottom:8px">$24,400</div>
+          <p class="muted" style="font-size:12.5px;margin-bottom:22px">Estimated payment does not include taxes, insurance, or maintenance costs.</p>
+          <button class="btn btn--solid">Apply Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <h2 class="d3" style="margin-bottom:24px">Other Listings</h2>
+      <div class="grid g4" data-listings="4"></div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <h2 class="d2">Get Expert Guidance</h2>
+    <p>Tell us what the water means to you. We'll take it from there.</p>
+    <a href="#/contact" class="btn btn--white">Book a Consultation</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: BRANDS OVERVIEW  (нова сторінка)
+============================================================ -->
+<div class="page" id="page-brands">
+  <div class="hero" style="min-height:380px">
+    <div class="ph ph--dark ph-bg" data-label="Hero · fleet lineup at anchor"></div>
+    <div class="hero-veil"></div>
+    <div class="hero-inner">
+      <h1 class="d1">The Builders We Represent</h1>
+      <p>Nine world-class shipyards, one relationship. From adventure-driven day boats to iconic Italian flagships.</p>
+    </div>
+  </div>
+  <section>
+    <div class="wrap">
+      <div class="grid g3" id="brandsGrid"></div>
+    </div>
+  </section>
+  <div class="cta-band">
+    <h2 class="d2">Not sure which brand fits you?</h2>
+    <p>Tell us how you want to be on the water. We'll match the builder to the life you have in mind.</p>
+    <a href="#/contact" class="btn btn--white">Get Expert Guidance</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: BRAND · AXOPAR  (за макетом Brand_Page; шаблон для всіх брендів)
+============================================================ -->
+<div class="page" id="page-brand">
+  <div class="hero" style="min-height:440px">
+    <div class="ph ph--sea ph-bg" data-label="Brand hero · Axopar running, mountains behind">
+      <svg class="boat" style="color:#eef4f7;width:36%;left:70%;top:48%"><use href="#yacht"/></svg>
+    </div>
+    <div class="hero-veil"></div>
+    <div class="hero-inner">
+      <h1 class="d1" style="letter-spacing:.18em">Axopar<span style="color:#c0392b">▮</span></h1>
+      <p>Finnish engineering meets Mediterranean spirit. Every Axopar is built for the owner who demands capability without compromise.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <a href="#/for-sale" class="btn btn--whitefill">View Axopar Yachts</a>
+        <a href="#/contact" class="btn btn--white">Get Expert Guidance</a>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="split" style="align-items:start">
+        <div>
+          <h2 class="d2" style="margin-bottom:22px">About Axopar Yachts</h2>
+          <p style="margin-bottom:14px">Founded in 2014 by yacht industry veterans, Axopar emerged from a simple ambition: to build performance day boats that married Nordic precision with genuine offshore capability. Based in Helsinki, Finland, the brand has grown from a bold concept into one of the fastest-growing boat builders in Europe.</p>
+          <p style="margin-bottom:24px">Every Axopar is engineered with a single-minded focus on the owner experience, from the thoughtfully designed storage solutions to the open, convertible deck layouts that adapt to any day on the water.</p>
+          <p class="muted" style="font-size:13px;margin-bottom:10px">Great for:</p>
+          <div style="margin-bottom:18px"><span class="tag">Eco</span><span class="tag">Socialising</span><span class="tag">Performance</span><span class="tag">Cruising</span><span class="tag">Adventure</span></div>
+          <p class="muted" style="font-size:13px;margin-bottom:10px">Vessel types:</p>
+          <div><span class="tag">Center console</span><span class="tag">Express cruiser</span><span class="tag">Flybridge</span><span class="tag">Sport fishing</span><span class="tag">Browrider</span><span class="tag">Performance</span><span class="tag">Monohull</span></div>
+        </div>
+        <div class="grid g2" style="gap:14px;align-content:start">
+          <div class="fact"><div class="k">Price Range</div><div class="v">$385K – $4.2M</div></div>
+          <div class="fact"><div class="k">Year Range</div><div class="v">2014 – 2026</div></div>
+          <div class="fact"><div class="k">Models in production</div><div class="v">42</div></div>
+          <div class="fact"><div class="k">Official Website</div><div class="v"><a class="textlink" style="font-size:13px" href="#/brand">axopar.com</a></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="wrap">
+      <h2 class="d2 center" style="margin-bottom:34px">Axopar Models</h2>
+      <div class="tabs">
+        <button class="on">Axopar 45</button><button>Axopar 38</button><button>Axopar 37</button><button>Axopar 29</button><button>Axopar 25</button><button>Axopar 22</button><button>AX/E 100% Electric</button>
+      </div>
+      <div class="ph ph--studio" data-label="Model render · Axopar 45 XC studio profile" style="aspect-ratio:21/8;border-radius:6px;margin-bottom:30px">
+        <svg class="boat" style="color:#9fb0bb;width:52%"><use href="#yacht"/></svg>
+      </div>
+      <div class="center"><a href="#/model?axopar-45" class="btn">View Model Info</a></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="d2">Listings Axopar Yachts</h2>
+        <a href="#/for-sale" class="btn btn--sm">View Full Listing</a>
+      </div>
+      <div class="grid g3" data-listings="6"></div>
+      <div class="pager">
+        <a href="#/brand">‹ Back</a><a class="on" href="#/brand">1</a><a href="#/brand">2</a><a href="#/brand">3</a><a href="#/brand">4</a><a href="#/brand">Next ›</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <h2 class="d2">Get Expert Guidance</h2>
+    <p>Tell us what the water means to you. We'll take it from there.</p>
+    <a href="#/contact" class="btn btn--white">Book a Consultation</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: MODEL INFO · AXOPAR 45  (нова сторінка)
+============================================================ -->
+<div class="page" id="page-model">
+  <div id="modelRoot"></div>
+</div>
+
+<!-- ============================================================
+     PAGE: SERVICES OVERVIEW  (нова сторінка)
+============================================================ -->
+<div class="page" id="page-services">
+  <div class="hero" style="min-height:380px">
+    <div class="ph ph--dark ph-bg" data-label="Hero · boatyard travel lift at dusk"></div>
+    <div class="hero-veil"></div>
+    <div class="hero-inner">
+      <h1 class="d1">Services</h1>
+      <p>Support for every stage of ownership, from the first sea trial to the day you sell, and every season in between.</p>
+    </div>
+  </div>
+  <section>
+    <div class="wrap">
+      <div class="grid g3">
+        <a href="#/yacht-management" class="otile"><div class="ph ph--people" data-label="Yacht management"></div><div class="otile-veil"></div><div class="otile-b"><h3>Yacht Management</h3><p>End-to-end vessel management with 24/7 support across 7 US ports.</p><span class="textlink" style="color:#fff;border-color:#fff">Explore</span></div></a>
+        <a href="#/service-maintenance" class="otile"><div class="ph ph--people" data-label="Service &amp; maintenance"></div><div class="otile-veil"></div><div class="otile-b"><h3>Service &amp; Maintenance</h3><p>Certified marine technicians, OEM-authorized service, mobile and boatyard support.</p><span class="textlink" style="color:#fff;border-color:#fff">Explore</span></div></a>
+        <a href="#/sell-your-yacht" class="otile"><div class="ph ph--people" data-label="Sell your yacht"></div><div class="otile-veil"></div><div class="otile-b"><h3>Sell Your Yacht</h3><p>Prepare, list, market, negotiate, and close with a licensed and bonded brokerage team.</p><span class="textlink" style="color:#fff;border-color:#fff">Explore</span></div></a>
+        <a href="#/co-ownership" class="otile"><div class="ph ph--dark" data-label="MARI~TIME co-ownership"></div><div class="otile-veil"></div><div class="otile-b"><h3>Co-Ownership · MARI~TIME</h3><p>Premium boating with less complexity, commitment, and responsibility.</p><span class="textlink" style="color:#fff;border-color:#fff">Explore</span></div></a>
+        <a href="#/financing" class="otile"><div class="ph ph--interior" data-label="Financing"></div><div class="otile-veil"></div><div class="otile-b"><h3>Financing</h3><p>Purchase financing options through YachtWay, tailored to your goals.</p><span class="textlink" style="color:#fff;border-color:#fff">Explore</span></div></a>
+        <a href="#/insurance" class="otile"><div class="ph ph--interior" data-label="Insurance"></div><div class="otile-veil"></div><div class="otile-b"><h3>Insurance</h3><p>Coverage tailored to your vessel and your cruising plans.</p><span class="textlink" style="color:#fff;border-color:#fff">Explore</span></div></a>
+      </div>
+    </div>
+  </section>
+  <div class="cta-band">
+    <h2 class="d2">Get Expert Guidance</h2>
+    <p>Tell us what the water means to you. We'll take it from there.</p>
+    <a href="#/contact" class="btn btn--white">Book a Consultation</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: YACHT MANAGEMENT  (за макетом Yacht_Management)
+============================================================ -->
+<div class="page" id="page-yacht-management">
+  <div class="hero">
+    <div class="ph ph--sunset ph-bg" data-label="Hero · family on aft deck at sunset"></div>
+    <div class="hero-veil"></div>
+    <div class="hero-inner">
+      <h1 class="d1">Yacht Management</h1>
+      <p>End-to-end vessel management so you maximize time on the water. 24/7 support across 7 US ports.</p>
+      <a href="#/contact" class="btn btn--whitefill">Request a Consultation</a>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <h2 class="d2 center" style="margin-bottom:54px">What We Offer</h2>
+      <div class="svc-row">
+        <div class="ph ph--marina" data-label="Photo · Riva tender at the dock"></div>
+        <div><h3 class="d3">Marine &amp; Boatyard Services</h3><p>From haul-outs and repairs to refits and general marine work, we coordinate trusted service through certified yards, suppliers, and vetted marine partners.</p><a href="#/contact" class="btn btn--sm">Request a Service</a></div>
+      </div>
+      <div class="svc-row">
+        <div class="ph ph--interior" data-label="Photo · helm electronics check"></div>
+        <div><h3 class="d3">Service &amp; Maintenance</h3><p>Scheduled maintenance, mobile service, and technical support help keep your yacht ready for every journey, with certified technicians available directly at your slip when needed.</p><a href="#/contact" class="btn btn--sm">Request a Service</a></div>
+      </div>
+      <div class="svc-row">
+        <div class="ph ph--marina" data-label="Photo · owners at home berth"></div>
+        <div><h3 class="d3">Berthing</h3><p>We coordinate slip management and home-port logistics, helping owners keep every arrival, departure, and service touchpoint organized and seamless.</p><a href="#/contact" class="btn btn--sm">Request a Service</a></div>
+      </div>
+      <div class="svc-row">
+        <div class="ph ph--sea" data-label="Photo · crew serving guests aft"></div>
+        <div><h3 class="d3">Crew Management</h3><p>From sourcing and vetting to ongoing coordination, we help manage captains and crew around the needs of your vessel for consistent year-round support.</p><a href="#/contact" class="btn btn--sm">Request a Service</a></div>
+      </div>
+      <div class="svc-row">
+        <div class="ph ph--marina" data-label="Photo · travel lift, hull in slings"></div>
+        <div><h3 class="d3">Delivery</h3><p>Licensed captains coordinate local and long-range deliveries, with careful planning around timing, routing, transport, and safe yacht movement.</p><a href="#/contact" class="btn btn--sm">Request a Service</a></div>
+      </div>
+      <div class="svc-row">
+        <div class="ph ph--interior" data-label="Photo · engine bay diagnostics"></div>
+        <div><h3 class="d3">Warranty &amp; Upgrades</h3><p>OEM warranty claims, system upgrades, and manufacturer coordination are managed through our trusted service network, helping keep your yacht optimized and supported.</p><a href="#/contact" class="btn btn--sm">Request a Service</a></div>
+      </div>
+      <div class="svc-row">
+        <div class="ph ph--people" data-label="Photo · surveyor walkthrough"></div>
+        <div><h3 class="d3">Survey</h3><p>We coordinate pre-purchase and pre-sale surveys with certified marine surveyors and trusted specialists, so owners and buyers can move forward with confidence.</p><a href="#/contact" class="btn btn--sm">Request a Service</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#fff;border-top:1px solid var(--line)">
+    <div class="wrap">
+      <h2 class="d2 center" style="margin-bottom:50px">From Handoff to<br>Hands-Free Ownership</h2>
+      <div class="grid g3">
+        <div><div style="border-top:1px solid var(--ink);padding-top:18px"><div class="d4" style="margin-bottom:12px">01 · Assessment &amp; Planning</div><p class="muted" style="font-size:13.5px">We begin by understanding your vessel, usage patterns, ownership preferences, service history, and operational needs. From there, we define the right level of management support.</p></div></div>
+        <div style="margin-top:34px"><div style="border-top:1px solid var(--ink);padding-top:18px"><div class="d4" style="margin-bottom:12px">02 · Custom Program Setup</div><p class="muted" style="font-size:13.5px">We build a tailored management program around your yacht, including crew coordination, service schedules, warranties, budgets, reporting, and trusted vendor support.</p></div></div>
+        <div style="margin-top:68px"><div style="border-top:1px solid var(--ink);padding-top:18px"><div class="d4" style="margin-bottom:12px">03 · Ongoing Management</div><p class="muted" style="font-size:13.5px">Your dedicated Yacht Manager oversees day-to-day coordination, service needs, owner updates, and financial reporting, so you can enjoy your yacht without the operational burden.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <h2 class="d2">Get Expert Guidance</h2>
+    <p>Tell us what the water means to you. We'll take it from there.</p>
+    <a href="#/contact" class="btn btn--white">Book a Consultation</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: SERVICE & MAINTENANCE  (за макетом Service_Maintenance)
+============================================================ -->
+<div class="page" id="page-service-maintenance">
+  <div class="hero">
+    <div class="ph ph--marina ph-bg" data-label="Hero · technician beside Brabus hull"></div>
+    <div class="hero-veil"></div>
+    <div class="hero-inner">
+      <h1 class="d1">Service &amp; Maintenance</h1>
+      <p>Certified marine technicians, OEM-authorized service, mobile and boatyard support.</p>
+      <a href="#/contact" class="btn btn--whitefill">Request a Consultation</a>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <h2 class="d2 center" style="margin-bottom:44px">What We Offer</h2>
+      <div class="grid g2">
+        <div class="otile"><div class="ph ph--marina" data-label="Haul-out in travel lift"></div><div class="otile-veil"></div><div class="otile-b"><h3>Marine &amp; Boatyard Services</h3><p>Haul-outs, repairs, refits, and general marine works through our certified service network.</p><a href="#/contact" class="btn btn--white btn--sm">Request a Service</a></div></div>
+        <div class="otile"><div class="ph ph--marina" data-label="Mobile service at the slip"></div><div class="otile-veil"></div><div class="otile-b"><h3>Service &amp; Maintenance</h3><p>Certified technicians come directly to your slip, so service can be completed without a boatyard visit.</p><a href="#/contact" class="btn btn--white btn--sm">Request a Service</a></div></div>
+        <div class="otile"><div class="ph ph--interior" data-label="Helm upgrade install"></div><div class="otile-veil"></div><div class="otile-b"><h3>Warranty &amp; Upgrades</h3><p>OEM warranty claims, system upgrades, and manufacturer coordination through our trusted network.</p><a href="#/contact" class="btn btn--white btn--sm">Request a Service</a></div></div>
+        <div class="otile"><div class="ph ph--marina" data-label="Overland yacht transport"></div><div class="otile-veil"></div><div class="otile-b"><h3>Delivery</h3><p>Licensed captains coordinate local and long-range deliveries with careful planning and safe movement.</p><a href="#/contact" class="btn btn--white btn--sm">Request a Service</a></div></div>
+        <div class="otile"><div class="ph ph--people" data-label="Captain with owner on swim platform"></div><div class="otile-veil"></div><div class="otile-b"><h3>Crew &amp; Captain</h3><p>Captain and crew sourcing, vetting, and coordination around the needs of your vessel.</p><a href="#/contact" class="btn btn--white btn--sm">Request a Service</a></div></div>
+        <div class="otile"><div class="ph ph--people" data-label="Survey walkthrough on deck"></div><div class="otile-veil"></div><div class="otile-b"><h3>Survey</h3><p>Pre-purchase and pre-sale surveys with certified marine surveyors and trusted specialists.</p><a href="#/contact" class="btn btn--white btn--sm">Request a Service</a></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight" style="background:#fff;border-top:1px solid var(--line)">
+    <div class="wrap">
+      <div class="sec-head"><h2 class="d2">Seven Home Ports Across the US</h2><a href="#/locations" class="btn btn--sm">View All</a></div>
+      <div class="split" style="align-items:start">
+        <div class="loc-list" id="svcLocations"></div>
+        <div class="ph ph--map" data-label="Map · service network, 7 ports" style="aspect-ratio:4/3;border-radius:6px" id="svcMap"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head"><h2 class="d2">Bespoke Service. 30+ Years of Expertise.</h2><a href="#/contact" class="btn btn--sm">Request a Service</a></div>
+      <div class="split" style="align-items:start">
+        <div>
+          <p style="margin-bottom:20px">For more than three decades, Jeff Brown has been immersed in every aspect of the marine industry, from yacht repair and refits to maintenance, optimization, and global deliveries. That depth of experience shapes every client relationship at JBY.</p>
+          <ul class="check">
+            <li>Service &amp; warranty department on staff</li>
+            <li>Licensed brokers and bonded agents</li>
+            <li>Mobile service + full boatyard capability</li>
+          </ul>
+        </div>
+        <div class="ph ph--marina" data-label="Photo · San Diego marina HQ building" style="aspect-ratio:16/10;border-radius:6px"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <h2 class="d2">Get Expert Guidance</h2>
+    <p>Tell us what the water means to you. We'll take it from there.</p>
+    <a href="#/contact" class="btn btn--white">Book a Consultation</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: SELL YOUR YACHT  (за макетом Sell_your_yacht)
+============================================================ -->
+<div class="page" id="page-sell-your-yacht">
+  <div class="hero">
+    <div class="ph ph--people ph-bg" data-label="Hero · broker &amp; owner with tablet on deck"></div>
+    <div class="hero-veil"></div>
+    <div class="hero-inner">
+      <h1 class="d1">Sell Your Yacht</h1>
+      <p>Jeff Brown Yachts helps owners prepare, list, market, negotiate, and close with a licensed and bonded brokerage team across key coastal offices.</p>
+      <a href="#/contact" class="btn btn--whitefill">Get a Valuation</a>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2 class="d2" style="margin-bottom:10px">Experience and Full-Service Support</h2>
+          <p class="lead">Jeff Brown Yachts combines personalized brokerage guidance with broad market exposure, professional listing support, and hands-on coordination through the sale.</p>
+        </div>
+        <a href="#/contact" class="btn btn--sm">Request a Service</a>
+      </div>
+      <div class="grid g4" style="gap:16px">
+        <div class="fact"><div class="v" style="margin-bottom:6px">Licensed</div><p class="muted" style="font-size:13px">Licensed and bonded yacht sales professionals you can trust from first consultation to closing.</p></div>
+        <div class="fact"><div class="v" style="margin-bottom:6px">30 years in industry</div><p class="muted" style="font-size:13px">Three decades of yacht sales, service, refits, deliveries, and ownership support experience.</p></div>
+        <div class="fact"><div class="v" style="margin-bottom:6px">Full service</div><p class="muted" style="font-size:13px">Brokerage, service, warranty, and delivery guidance handled with personal coordination.</p></div>
+        <div class="fact"><div class="v" style="margin-bottom:6px">Premium brands</div><p class="muted" style="font-size:13px">Representing Riva, Sirena, Axopar, Pershing, Wally, and other premium yacht brands.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <h2 class="d2 center" style="margin-bottom:46px">A Proven Four-Step Selling Process</h2>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><h4>Prep</h4><p>Review valuation, market analysis, staging, detailing, survey recommendations, repairs, and listing agreement setup.</p></div>
+        <div class="step"><div class="n">2</div><h4>Listing</h4><p>Create professional photography, drone footage, 360 tours, written descriptions, MLS exposure, international listings, and website placement.</p></div>
+        <div class="step"><div class="n">3</div><h4>Cultivate</h4><p>Generate and follow up with leads, organize private and virtual showings, facilitate offers, and provide regular seller updates.</p></div>
+        <div class="step"><div class="n">4</div><h4>Sold</h4><p>Support contract management, negotiation, taxes, duties, documentation, transport, delivery, final handover, and after-sales support.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="split">
+        <div class="ph ph--sunset" data-label="Photo · sellers with broker, dockside" style="aspect-ratio:4/3.4;border-radius:6px"></div>
+        <div>
+          <h2 class="d2" style="margin-bottom:16px">Give Your Yacht the Exposure It Deserves.</h2>
+          <p style="margin-bottom:20px">Your listing is prepared with professional content and distributed through the channels buyers and brokers use to find serious opportunities.</p>
+          <ul class="check">
+            <li>Professional photography, drone footage, 360 tours, and a compelling visual library.</li>
+            <li>Professionally written descriptions and a featured placement on the Jeff Brown Yachts website.</li>
+            <li>MLS and international listings, including YachtWorld, Boat Trader, and other relevant marketplaces.</li>
+            <li>Digital, print, and social advertising supported by CRM lead follow-up.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <div class="split" style="align-items:center">
+        <div>
+          <h2 class="d2" style="margin-bottom:14px">Find the Right Starting Point</h2>
+          <p class="lead">Request a personalized market review. A broker will help you understand pricing, preparation, timing, and next steps.</p>
+        </div>
+        <div class="form-card">
+          <div class="f-row"><div class="f-field"><input placeholder="Name"></div><div class="f-field"><input placeholder="Phone"></div></div>
+          <div class="f-field" style="margin-bottom:18px"><input placeholder="Make / Model"></div>
+          <div class="f-field" style="margin-bottom:24px"><textarea rows="2" placeholder="Message"></textarea></div>
+          <button class="btn btn--solid btn--block">Request Valuation</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     PAGE: CO-OWNERSHIP MARI~TIME  (нова сторінка)
+============================================================ -->
+<div class="page" id="page-co-ownership">
+  <div class="hero">
+    <div class="ph ph--dark ph-bg" data-label="Hero · couple boarding at blue hour"></div>
+    <div class="hero-veil"></div>
+    <div class="hero-inner">
+      <p class="eyebrow" style="color:rgba(255,255,255,.7);margin-bottom:10px">Co-Ownership Program</p>
+      <h1 class="d1">MARI~TIME</h1>
+      <p>Flexible access to premium boating experiences with less complexity, commitment, and ownership responsibility.</p>
+      <a href="#/contact" class="btn btn--whitefill">Request Program Details</a>
+    </div>
+  </div>
+  <section>
+    <div class="wrap">
+      <div class="grid g3" style="margin-bottom:64px">
+        <div class="fact"><div class="v" style="margin-bottom:6px">¼ – ½ share</div><p class="muted" style="font-size:13px">Own exactly the share of the season you will actually use, on a professionally managed vessel.</p></div>
+        <div class="fact"><div class="v" style="margin-bottom:6px">Turn-key days</div><p class="muted" style="font-size:13px">Arrive, board, go. Fueling, cleaning, and maintenance are handled before and after every trip.</p></div>
+        <div class="fact"><div class="v" style="margin-bottom:6px">Clear exit</div><p class="muted" style="font-size:13px">Defined buy-out and resale terms from day one, supported by our brokerage team.</p></div>
+      </div>
+      <div class="svc-row">
+        <div class="ph ph--sea" data-label="Photo · Axopar day trip with friends"><svg class="boat" style="color:#eef4f7"><use href="#yacht"/></svg></div>
+        <div><h3 class="d3">How It Works</h3><p>Choose a vessel and share size, reserve days through the MARI~TIME app, and let our management team handle everything operational. You get the boat, the days, and the memories, without the overhead.</p><a href="#/contact" class="btn btn--sm">Talk to the Program Team</a></div>
+      </div>
+      <div class="svc-row">
+        <div class="ph ph--marina" data-label="Photo · managed fleet at home port"></div>
+        <div><h3 class="d3">Managed by JBY</h3><p>Every MARI~TIME vessel is maintained by the same certified technicians and yacht managers who support our full-ownership clients across all seven home ports.</p><a href="#/yacht-management" class="btn btn--sm">About Yacht Management</a></div>
+      </div>
+    </div>
+  </section>
+  <div class="cta-band">
+    <h2 class="d2">Is Co-Ownership Right for You?</h2>
+    <p>A fifteen-minute call is usually enough to find out. No commitment, just clarity.</p>
+    <a href="#/contact" class="btn btn--white">Book a Call</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: FINANCING  (нова сторінка)
+============================================================ -->
+<div class="page" id="page-financing">
+  <div class="hero" style="min-height:360px">
+    <div class="ph ph--interior ph-bg" data-label="Hero · financing consultation onboard"></div>
+    <div class="hero-veil"></div>
+    <div class="hero-inner">
+      <h1 class="d1">Financing</h1>
+      <p>Explore financing options through YachtWay, tailored to your purchase and ownership goals.</p>
+      <a href="#/contact" class="btn btn--whitefill">Get Pre-Qualified</a>
+    </div>
+  </div>
+  <section>
+    <div class="wrap">
+      <div class="split" style="align-items:start">
+        <div>
+          <h2 class="d2" style="margin-bottom:18px">Marine Financing, Simplified</h2>
+          <p style="margin-bottom:18px">Through our partnership with YachtWay, buyers get access to competitive marine lending, from first-time day boats to multi-million-dollar flagships.</p>
+          <ul class="check">
+            <li>Pre-qualification with no impact on your credit score.</li>
+            <li>Terms from 10 to 20 years on new and pre-owned vessels.</li>
+            <li>Refinancing options for current owners.</li>
+            <li>One point of contact from application to closing.</li>
+          </ul>
+        </div>
+        <div class="form-card">
+          <div class="eyebrow" style="margin-bottom:16px">Quick estimate</div>
+          <div class="f-row"><div class="f-field"><label class="muted" style="font-size:12px">Vessel price</label><input value="$ 850,000"></div><div class="f-field"><label class="muted" style="font-size:12px">Down payment</label><input value="20 %"></div></div>
+          <div class="f-row"><div class="f-field"><label class="muted" style="font-size:12px">Term</label><select><option>180 months / 15 yrs</option><option>120 months / 10 yrs</option><option>240 months / 20 yrs</option></select></div><div class="f-field"><label class="muted" style="font-size:12px">Rate</label><input value="7.5 %"></div></div>
+          <div class="center" style="margin:18px 0 22px"><div class="eyebrow">Est. monthly payment</div><div style="font-size:38px;font-weight:700">$6,300</div></div>
+          <button class="btn btn--solid btn--block">Continue on YachtWay</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     PAGE: INSURANCE  (нова сторінка)
+============================================================ -->
+<div class="page" id="page-insurance">
+  <div class="hero" style="min-height:360px">
+    <div class="ph ph--interior ph-bg" data-label="Hero · owner reviewing coverage at nav station"></div>
+    <div class="hero-veil"></div>
+    <div class="hero-inner">
+      <h1 class="d1">Insurance</h1>
+      <p>Explore yacht coverage on YachtWay, tailored to your vessel and your cruising plans.</p>
+      <a href="#/contact" class="btn btn--whitefill">Get a Quote</a>
+    </div>
+  </div>
+  <section>
+    <div class="wrap">
+      <div class="grid g3">
+        <div class="fact"><div class="v" style="margin-bottom:6px">Hull &amp; machinery</div><p class="muted" style="font-size:13px">Agreed-value coverage for the vessel, engines, and onboard systems.</p></div>
+        <div class="fact"><div class="v" style="margin-bottom:6px">Liability</div><p class="muted" style="font-size:13px">Protection &amp; indemnity coverage scaled to vessel size and use.</p></div>
+        <div class="fact"><div class="v" style="margin-bottom:6px">Cruising range</div><p class="muted" style="font-size:13px">Navigation limits matched to where you actually go, from coastal to offshore.</p></div>
+      </div>
+      <div class="center" style="margin-top:44px"><a href="#/contact" class="btn btn--solid">Continue to YachtWay</a></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     PAGE: EVENTS & BOAT SHOWS  (за макетом Events)
+============================================================ -->
+<div class="page" id="page-events">
+  <!-- CINEMATIC FEATURED FILM -->
+  <div class="hero" style="min-height:520px">
+    <div class="ph ph--dark ph-bg" data-label="Featured film · sea trial at golden hour">
+      <svg class="boat" style="color:rgba(255,255,255,.28);width:46%;left:50%;top:46%"><use href="#yacht"/></svg>
+    </div>
+    <div class="hero-veil"></div>
+    <div class="play" onclick="document.getElementById('eventFilmsHd').scrollIntoView({behavior:'smooth'})"></div>
+    <div class="hero-inner">
+      <p class="eyebrow" style="color:rgba(255,255,255,.7);margin-bottom:10px">Experiences · Events &amp; Boat Shows</p>
+      <h1 class="d1">Life at JBY</h1>
+      <p>More than boat shows. Sea trials at golden hour, owner rendezvous off the islands, and first looks at the yachts before anyone else. Here is where it happens.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <a href="#upcoming" class="btn btn--whitefill" onclick="document.getElementById('upcoming').scrollIntoView({behavior:'smooth'});return false;">See What Is Coming Up</a>
+        <a href="#/contact" class="btn btn--white">Request an Invitation</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILM REEL (past-event lifestyle) -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head"><h2 class="d3" id="eventFilmsHd">From Our Last Season</h2><a href="#/contact" class="btn btn--sm">Get on the List</a></div>
+      <p class="lead" style="margin-bottom:28px">A look back at the days that make this more than a transaction. Press play.</p>
+      <div class="reel" id="eventFilms"></div>
+    </div>
+  </section>
+
+  <!-- UPCOMING (editorial rows) -->
+  <section class="tight" style="background:#fff;border-top:1px solid var(--line)" id="upcoming">
+    <div class="wrap">
+      <h2 class="d2" style="margin-bottom:8px">Upcoming Events</h2>
+      <p class="lead" style="margin-bottom:36px">Boat shows, model premiers, sea trials, and owner gatherings across our seven home ports.</p>
+      <div id="eventList"></div>
+      <div class="pager" style="margin-top:18px">
+        <a href="#/events">‹ Back</a><a class="on" href="#/events">1</a><a href="#/events">2</a><a href="#/events">Next ›</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAST SEASON GALLERY -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head"><h2 class="d3">Relive the Season</h2><a href="#/news" class="btn btn--sm">Read the Stories</a></div>
+      <div class="mosaic">
+        <div class="ph ph--sea t-wide t-tall" data-label="Owner rendezvous, raft-up"></div>
+        <div class="ph ph--sunset" data-label="Sunset on the bay"></div>
+        <div class="ph ph--marina" data-label="Docks at the boat show"></div>
+        <div class="ph ph--dark t-wide" data-label="Riva evening preview"></div>
+        <div class="ph ph--interior" data-label="Aboard the 45"></div>
+        <div class="ph ph--studio" data-label="Walkthrough tour"></div>
+        <div class="ph ph--people t-wide" data-label="Owners and friends of JBY"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVITATION CTA -->
+  <div class="cta-band">
+    <h2 class="d2">Be First Aboard</h2>
+    <p>Private previews and owner events are invitation-led and fill quickly. Tell us your home port and we will make sure you hear about the next one first.</p>
+    <a href="#/contact" class="btn btn--white">Request an Invitation</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: EVENT DETAIL  (за макетом Event_page)
+============================================================ -->
+<div class="page" id="page-event">
+  <section class="tight" style="padding-top:30px">
+    <div class="wrap">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:26px">
+        <a href="#/events" class="textlink">‹ Back</a>
+        <a href="#/event" class="textlink">Share Event ↗</a>
+      </div>
+      <div style="display:grid;grid-template-columns:1.8fr 1fr;gap:44px" class="split">
+        <div>
+          <h1 class="d2" style="margin-bottom:8px">Novamarine Model Unveiling in Miami · September 17, 2025</h1>
+          <p class="muted" style="margin-bottom:22px">123 Maple Avenue, Springfield, Illinois, USA</p>
+          <div style="font-size:14px;margin-bottom:8px"><b style="display:inline-block;width:52px">Mon:</b> 09:00 AM – 05:00 PM</div>
+          <div style="font-size:14px;margin-bottom:14px"><b style="display:inline-block;width:52px">Tue:</b> 12:00 AM – 05:00 PM</div>
+          <a class="textlink" href="#/event">View More</a>
+
+          <h2 class="d3" style="margin:44px 0 24px">Vessels on Display</h2>
+          <div class="grid g2" data-listings="2"></div>
+
+          <h2 class="d3" style="margin:48px 0 18px">Description</h2>
+          <p style="margin-bottom:14px">The annual Oceanic Boat Show brings the industry together for a weekend on the water. This year features a wide range of vessels, from motor yachts to sailing boats, all equipped with current technology. The event takes place at Marina Bay, a fitting backdrop for owners and industry professionals alike.</p>
+          <p style="margin-bottom:14px">Attendees can explore the latest in marine design and technology through interactive exhibits and live demonstrations. Builders and designers on site share where boating is headed next. Whether you are a seasoned owner or new to the water, there is something worth seeing.</p>
+          <p style="margin-bottom:14px">In addition to the impressive lineup of boats, the Oceanic Boat Show will feature a series of seminars and workshops led by experts in the field. Topics will range from sustainable boating practices to investment opportunities in the marine industry. Don't miss the chance to network with fellow boating aficionados and discover new ventures.</p>
+          <p>In the evening, private events take place aboard a selection of the yachts on display, with food, wine, and the chance to meet industry leaders and fellow owners. It is more than a boat show. It is a gathering of the people who care most about being on the water.</p>
+        </div>
+        <div>
+          <div class="form-card">
+            <div class="f-row"><div class="f-field"><input placeholder="First name*"></div><div class="f-field"><input placeholder="Last name*"></div></div>
+            <div class="f-row"><div class="f-field"><input placeholder="Email address*"></div><div class="f-field"><input placeholder="Phone*"></div></div>
+            <div class="f-row"><div class="f-field"><select><option>Vessel interested</option><option>2023 Axopar 37 XC</option><option>2018 Sea Ray Sundancer 510</option></select></div><div class="f-field"><input placeholder="Number of guests"></div></div>
+            <div class="f-field" style="margin-bottom:22px"><textarea rows="2" placeholder="Additional details"></textarea></div>
+            <button class="btn btn--solid btn--block">RSVP</button>
+            <div class="note">Please note: RSVP-ing reserves a time slot to view the yacht at the show, but it does not include entry to the show itself. For ticket information, please visit the official show organizer's website.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="cta-band">
+    <h2 class="d2">Get Expert Guidance</h2>
+    <p>Tell us what the water means to you. We'll take it from there.</p>
+    <a href="#/contact" class="btn btn--white">Book a Consultation</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: PRIVATE EXPERIENCES  (нова сторінка)
+============================================================ -->
+<div class="page" id="page-experiences">
+  <div class="hero">
+    <div class="ph ph--sunset ph-bg" data-label="Hero · private sea trial at golden hour"></div>
+    <div class="hero-veil"></div>
+    <div class="hero-inner">
+      <h1 class="d1">Private Experiences</h1>
+      <p>Sea trials, owner rendezvous, and destination events, curated for clients and friends of JBY.</p>
+      <a href="#/contact" class="btn btn--whitefill">Request an Invitation</a>
+    </div>
+  </div>
+  <section>
+    <div class="wrap">
+      <div class="svc-row">
+        <div class="ph ph--sea" data-label="Photo · private sea trial, two boats"><svg class="boat" style="color:#eef4f7"><use href="#yacht"/></svg></div>
+        <div><h3 class="d3">Private Sea Trials</h3><p>One-on-one time on the water with the exact model you are considering. No crowds, no clock. Available from all seven home ports.</p><a href="#/contact" class="btn btn--sm">Book a Sea Trial</a></div>
+      </div>
+      <div class="svc-row">
+        <div class="ph ph--sunset" data-label="Photo · owners rendezvous raft-up"></div>
+        <div><h3 class="d3">Owner Rendezvous</h3><p>Seasonal raft-ups and coastal runs with fellow JBY owners, from the San Juan Islands to the Sea of Cortez. Routes planned, slips reserved, dinners booked.</p><a href="#/contact" class="btn btn--sm">See This Season's Routes</a></div>
+      </div>
+      <div class="svc-row">
+        <div class="ph ph--dark" data-label="Photo · evening unveiling event"></div>
+        <div><h3 class="d3">Model Unveilings &amp; Previews</h3><p>Be first aboard new arrivals from Riva, Axopar, Brabus, and more. Private evening previews before models reach the public docks.</p><a href="#/events" class="btn btn--sm">View Upcoming Events</a></div>
+      </div>
+    </div>
+  </section>
+  <div class="cta-band">
+    <h2 class="d2">Get Expert Guidance</h2>
+    <p>Tell us what the water means to you. We'll take it from there.</p>
+    <a href="#/contact" class="btn btn--white">Book a Consultation</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: ABOUT JBY  (нова сторінка)
+============================================================ -->
+<div class="page" id="page-about">
+  <div class="hero">
+    <div class="ph ph--dark ph-bg" data-label="Hero · Jeff at the helm, Shelter Island behind"></div>
+    <div class="hero-veil"></div>
+    <div class="hero-inner">
+      <h1 class="d1">Built on Relationships,<br>Not Transactions</h1>
+      <p>Headquartered in San Diego, Jeff Brown Yachts has set the benchmark for excellence in yacht sales and service across the US coasts.</p>
+    </div>
+  </div>
+  <section>
+    <div class="wrap">
+      <div class="split" style="align-items:start;margin-bottom:70px">
+        <div>
+          <h2 class="d2" style="margin-bottom:20px">Our Story</h2>
+          <p style="margin-bottom:14px">After a 25-year career building one of the most successful yacht dealerships in the western United States, Jeff and Karen Brown changed course and opened a bespoke brokerage on a smaller scale for a boutique experience.</p>
+          <p style="margin-bottom:14px">That smaller operation grew into something larger than planned. Today JBY represents an elite lineup of brands, including Riva, Wally, Pershing, Sirena, Brabus, Axopar, Jeanneau, and Four Winns, across seven home ports, while keeping the personal, one-on-one approach it was founded on.</p>
+          <p>Every client works directly with a licensed, bonded agent. Every yacht is supported by our own service and warranty department. That's the benchmark.</p>
+        </div>
+        <div class="ph ph--marina" data-label="Photo · 2330 Shelter Island Drive HQ" style="aspect-ratio:4/3;border-radius:6px"></div>
+      </div>
+      <div class="grid g4" style="gap:16px">
+        <div class="fact center"><div class="v" style="font-size:30px">30+</div><div class="k">years in the industry</div></div>
+        <div class="fact center"><div class="v" style="font-size:30px">9</div><div class="k">world-class brands</div></div>
+        <div class="fact center"><div class="v" style="font-size:30px">7</div><div class="k">home ports across the US</div></div>
+        <div class="fact center"><div class="v" style="font-size:30px">500+</div><div class="k">yachts sold &amp; serviced</div></div>
+      </div>
+    </div>
+  </section>
+  <section class="tight" style="background:#fff;border-top:1px solid var(--line)">
+    <div class="wrap">
+      <h2 class="d2 center" style="margin-bottom:14px">What Owners Say</h2>
+      <p class="muted center" style="margin-bottom:44px">A relationship-led approach, in our clients' words.</p>
+      <div class="grid g3">
+        <div class="fact"><p style="font-size:14px;margin-bottom:14px">"We purchased a pre-owned Axopar 28 from Jeff, and we had a great experience. He was very knowledgeable and committed to making the purchase process easy."</p><div class="k">Axopar 28 owner · San Diego</div></div>
+        <div class="fact"><p style="font-size:14px;margin-bottom:14px">"I have known Jeff Brown for well over 20 years and bought 2 boats from him. Extremely knowledgeable, service-oriented, and a pleasure to work with."</p><div class="k">Repeat client · Seattle</div></div>
+        <div class="fact"><p style="font-size:14px;margin-bottom:14px">"I trust Jeff's integrity and professional counsel in all boating needs. I recommend him to anyone needing sound advice in buying or selling boats."</p><div class="k">Brokerage client · Newport Beach</div></div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <div class="grid g3">
+        <a href="#/team" class="otile" style="min-height:280px"><div class="ph ph--people" data-label="Team photo"></div><div class="otile-veil"></div><div class="otile-b"><h3>Our Team</h3><p>Meet the brokers, technicians, and managers behind JBY.</p></div></a>
+        <a href="#/locations" class="otile" style="min-height:280px"><div class="ph ph--map" data-label="Locations map"></div><div class="otile-veil"></div><div class="otile-b"><h3>Locations</h3><p>Seven home ports, from Seattle to Charleston.</p></div></a>
+        <a href="#/news" class="otile" style="min-height:280px"><div class="ph ph--dark" data-label="News collage"></div><div class="otile-veil"></div><div class="otile-b"><h3>News</h3><p>Dealership announcements, new models, and milestones.</p></div></a>
+      </div>
+    </div>
+  </section>
+  <div class="cta-band">
+    <h2 class="d2">Get Expert Guidance</h2>
+    <p>Tell us what the water means to you. We'll take it from there.</p>
+    <a href="#/contact" class="btn btn--white">Book a Consultation</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: TEAM  (нова сторінка)
+============================================================ -->
+<div class="page" id="page-team">
+  <section class="tight">
+    <div class="wrap">
+      <h1 class="d2" style="margin-bottom:10px">Our Team</h1>
+      <p class="lead" style="margin-bottom:40px">Licensed brokers, certified technicians, and yacht managers across seven home ports. Every one of them a boater first.</p>
+      <div class="tabs" style="justify-content:flex-start">
+        <button class="on">All</button><button>San Diego</button><button>Newport Harbor</button><button>Seattle</button><button>Sausalito</button><button>East Coast</button>
+      </div>
+      <div class="grid g3" id="teamGrid"></div>
+    </div>
+  </section>
+  <div class="cta-band">
+    <h2 class="d2">Join the Team</h2>
+    <p>We're always looking for enthusiastic, experienced marine professionals.</p>
+    <a href="#/contact" class="btn btn--white">See Open Roles</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: TEAM MEMBER PROFILE  (нова сторінка)
+============================================================ -->
+<div class="page" id="page-member">
+  <section class="tight" style="padding-top:30px">
+    <div class="wrap">
+      <div class="split" style="grid-template-columns:0.95fr 1.4fr;gap:48px;align-items:start">
+        <!-- LEFT: portrait + office -->
+        <div>
+          <div class="ph ph--people" id="mbPhoto" data-label="Portrait" style="aspect-ratio:4/4.7;border-radius:8px;margin-bottom:18px">
+            <svg class="boat" style="color:rgba(255,255,255,.5);width:42%"><use href="#yacht"/></svg>
+          </div>
+          <div class="form-card" id="mbOffice"></div>
+        </div>
+        <!-- RIGHT: name, role, bio -->
+        <div>
+          <div class="k" id="mbRole" style="margin-bottom:8px">Role</div>
+          <h1 class="d2" style="margin-bottom:8px" id="mbName">Name</h1>
+          <p class="muted" id="mbMeta" style="margin-bottom:22px"></p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:30px">
+            <a href="#/contact" class="btn btn--solid">Contact <span id="mbContactName">this broker</span></a>
+            <a href="mailto:" id="mbEmailBtn" class="btn">Send an Email</a>
+          </div>
+          <p class="muted" id="mbSince" style="font-size:13px;letter-spacing:.04em;text-transform:uppercase;border-top:1px solid var(--line);padding-top:22px;margin-bottom:30px"></p>
+          <h2 class="d3" style="margin-bottom:14px">About</h2>
+          <div id="mbBio"></div>
+          <div class="k" style="margin:26px 0 12px">Specialties</div>
+          <div id="mbTags" style="display:flex;flex-wrap:wrap;gap:0 6px"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- yachts represented (sellers only) -->
+  <section class="tight" id="mbYachtsSection" style="background:#fff">
+    <div class="wrap">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;margin-bottom:8px">
+        <h2 class="d2" id="mbYachtsHd">Yachts Represented</h2>
+        <a href="#/for-sale" class="textlink">View All Listings</a>
+      </div>
+      <p class="lead" id="mbYachtsSub" style="margin-bottom:34px"></p>
+      <div class="grid g3" id="mbYachts"></div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <h2 class="d2">Work With <span id="mbContactName2">the Team</span></h2>
+    <p>Tell us what you are looking for and we will match you with the right yacht and the right person.</p>
+    <a href="#/contact" class="btn btn--white">Get in Touch</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: OFFICE  (нова сторінка · профіль окремого офісу)
+============================================================ -->
+<div class="page" id="page-office">
+  <section class="tight" style="padding-top:30px">
+    <div class="wrap">
+      <div class="split" style="align-items:start;gap:48px">
+        <div>
+          <div class="k" id="ofType" style="margin-bottom:8px">Office</div>
+          <h1 class="d2" style="margin-bottom:22px" id="ofName">Office</h1>
+          <div class="grid g2" id="ofInfo" style="gap:18px 28px;margin-bottom:26px"></div>
+          <div id="ofServes" style="margin-bottom:30px"></div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <a href="#/contact" class="btn btn--solid">Book a Consultation</a>
+            <a href="mailto:" id="ofEmailBtn" class="btn">Email This Office</a>
+          </div>
+        </div>
+        <div class="ph ph--map" id="ofMap" data-label="Map" style="aspect-ratio:4/3;border-radius:6px;position:sticky;top:110px"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight" id="ofYachtsSection" style="background:#fff">
+    <div class="wrap">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;margin-bottom:8px">
+        <h2 class="d2" id="ofYachtsHd">Yachts Listed at This Office</h2>
+        <a href="#/for-sale" class="textlink">View All Listings</a>
+      </div>
+      <p class="lead" id="ofYachtsSub" style="margin-bottom:34px"></p>
+      <div class="grid g3" id="ofYachts"></div>
+      <div class="pager" id="ofYachtsPager"><a href="#" class="on">1</a><a href="#">2</a><a href="#">Next ›</a></div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <h2 class="d2" id="ofTeamHd" style="margin-bottom:8px">Team at This Office</h2>
+      <p class="lead" id="ofTeamSub" style="margin-bottom:34px"></p>
+      <div class="grid g3" id="ofTeam"></div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <h2 class="d2" id="ofCtaHd">Plan a Visit</h2>
+    <p id="ofCtaSub">Stop by the dock or schedule a private viewing. Our team is glad to show you around.</p>
+    <a href="#/contact" class="btn btn--white">Contact This Office</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: LOCATIONS  (нова сторінка)
+============================================================ -->
+<div class="page" id="page-locations">
+  <section class="tight">
+    <div class="wrap">
+      <h1 class="d2" style="margin-bottom:10px">Locations</h1>
+      <p class="lead" style="margin-bottom:40px">Seven home ports across the US, with bespoke brokerage and full service wherever you keep your boat.</p>
+      <div class="split" style="align-items:start;margin-bottom:54px">
+        <div class="ph ph--map" data-label="Interactive map · all locations" style="aspect-ratio:4/3;border-radius:6px;position:sticky;top:110px" id="locPageMap"></div>
+        <div class="grid" style="gap:16px" id="locCards"></div>
+      </div>
+    </div>
+  </section>
+  <div class="cta-band">
+    <h2 class="d2">Closest Port Not Listed?</h2>
+    <p>Our mobile service and delivery teams cover the full West and East coasts.</p>
+    <a href="#/contact" class="btn btn--white">Contact Us</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE: NEWS  (нова сторінка)
+============================================================ -->
+<div class="page" id="page-news">
+  <section class="tight">
+    <div class="wrap">
+      <h1 class="d2" style="margin-bottom:40px">News</h1>
+      <div class="grid g3">
+        <a href="#/news" class="ecard"><div class="ph ph--sea" data-label="Riva 82 Diva arrival"></div><div class="ecard-b"><div class="eyebrow" style="margin-bottom:10px">Jun 2026 · Dealership</div><h3>JBY Named Exclusive Riva Dealer for the West Coast</h3><p class="muted" style="font-size:13.5px">Distribution, sales, and service for the iconic Riva range across California, Oregon, Washington, and Hawaii.</p><span class="textlink" style="margin-top:auto;padding-top:18px;align-self:flex-start">Read More</span></div></a>
+        <a href="#/news" class="ecard"><div class="ph ph--studio" data-label="Axopar 38XC studio"><svg class="boat" style="color:#9fb0bb"><use href="#yacht"/></svg></div><div class="ecard-b"><div class="eyebrow" style="margin-bottom:10px">May 2026 · New Model</div><h3>The New Axopar 38XC: A Heritage Reimagined</h3><p class="muted" style="font-size:13.5px">West Coast premier scheduled for Newport Beach · private previews now booking.</p><span class="textlink" style="margin-top:auto;padding-top:18px;align-self:flex-start">Read More</span></div></a>
+        <a href="#/news" class="ecard"><div class="ph ph--people" data-label="New hires, PNW team"></div><div class="ecard-b"><div class="eyebrow" style="margin-bottom:10px">Apr 2026 · Team</div><h3>JBY Expands Pacific Northwest Service Team</h3><p class="muted" style="font-size:13.5px">New certified technicians join the Seattle office as service demand grows.</p><span class="textlink" style="margin-top:auto;padding-top:18px;align-self:flex-start">Read More</span></div></a>
+        <a href="#/news" class="ecard"><div class="ph ph--sunset" data-label="Swan 60 THOR"></div><div class="ecard-b"><div class="eyebrow" style="margin-bottom:10px">Mar 2026 · Brokerage</div><h3>New Owner for Swan 60 THOR</h3><p class="muted" style="font-size:13.5px">A landmark brokerage sale closes after a two-coast marketing campaign.</p><span class="textlink" style="margin-top:auto;padding-top:18px;align-self:flex-start">Read More</span></div></a>
+        <a href="#/news" class="ecard"><div class="ph ph--dark" data-label="Sirena 48 evening preview"></div><div class="ecard-b"><div class="eyebrow" style="margin-bottom:10px">Feb 2026 · Events</div><h3>Big News Coming from Sirena Yachts</h3><p class="muted" style="font-size:13.5px">Join Jeff Brown for private tours and a closer look at the latest yachts coming to market.</p><span class="textlink" style="margin-top:auto;padding-top:18px;align-self:flex-start">Read More</span></div></a>
+        <a href="#/news" class="ecard"><div class="ph ph--marina" data-label="MARI~TIME fleet"></div><div class="ecard-b"><div class="eyebrow" style="margin-bottom:10px">Jan 2026 · Programs</div><h3>MARI~TIME Co-Ownership Expands to Charleston</h3><p class="muted" style="font-size:13.5px">The shared-ownership program adds its first East Coast fleet.</p><span class="textlink" style="margin-top:auto;padding-top:18px;align-self:flex-start">Read More</span></div></a>
+      </div>
+      <div class="pager"><a href="#/news">‹ Back</a><a class="on" href="#/news">1</a><a href="#/news">2</a><a href="#/news">Next ›</a></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     PAGE: CONTACT  (нова сторінка)
+============================================================ -->
+<div class="page" id="page-contact">
+  <section class="tight">
+    <div class="wrap">
+      <h1 class="d2" style="margin-bottom:10px">Contact Us</h1>
+      <p class="lead" style="margin-bottom:40px">Tell us what the water means to you. A broker from your nearest home port will reply within one business day.</p>
+      <div class="split" style="align-items:start">
+        <div class="form-card">
+          <div class="f-row"><div class="f-field"><input placeholder="First name*"></div><div class="f-field"><input placeholder="Last name*"></div></div>
+          <div class="f-row"><div class="f-field"><input placeholder="Email address*"></div><div class="f-field"><input placeholder="Phone"></div></div>
+          <div class="f-row">
+            <div class="f-field"><select><option>I am interested in…</option><option>Buying a yacht</option><option>Selling my yacht</option><option>Service and maintenance</option><option>Yacht management</option><option>MARI~TIME co-ownership</option><option>Events and experiences</option></select></div>
+            <div class="f-field"><select><option>Preferred location</option><option>San Diego, CA</option><option>Newport Harbor, CA</option><option>Sausalito, CA</option><option>Seattle, WA</option><option>Wrightsville Beach, NC</option><option>Charleston, SC</option><option>Kailua-Kona, HI</option></select></div>
+          </div>
+          <div class="f-field" style="margin-bottom:24px"><textarea rows="3" placeholder="Message"></textarea></div>
+          <button class="btn btn--solid btn--block">Send Message</button>
+          <p class="muted" style="font-size:12.5px;margin-top:14px">A broker from your nearest home port will reply within one business day.</p>
+        </div>
+        <div>
+          <div style="border:1px solid var(--line);border-radius:8px;padding:22px;margin-bottom:18px">
+            <div class="k" style="margin-bottom:8px">Flagship Office</div>
+            <div class="v" style="margin-bottom:8px">San Diego Main Office</div>
+            <p class="muted" style="font-size:13.5px;margin-bottom:4px">2330 Shelter Island Drive, Suite 105, San Diego, CA 92106</p>
+            <p class="muted" style="font-size:13.5px;margin-bottom:4px"><a class="textlink" href="tel:+16192229899">+1 619-222-9899</a> · <a class="textlink" href="mailto:jeff@jeffbrownyachts.com">jeff@jeffbrownyachts.com</a></p>
+            <p class="muted" style="font-size:13.5px">Monday to Friday, 8am to 5pm. Weekends by appointment.</p>
+          </div>
+          <div class="ph ph--map" data-label="Map · Shelter Island, San Diego" style="aspect-ratio:16/9;border-radius:8px;margin-bottom:18px"><span class="pin" style="left:50%;top:54%"></span></div>
+          <div class="k" style="margin-bottom:10px">Or Reach an Office Directly</div>
+          <div class="loc-list" id="contactOffices"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <div class="logo-mark" style="margin-bottom:20px"><div class="logo-ring"></div><span>JBY</span></div>
+        <div class="f-links">
+          <a href="#/">Home</a><span class="sl">/</span>
+          <a href="#/for-sale">For Sale</a><span class="sl">/</span>
+          <a href="#/brands">Brands</a><span class="sl">/</span>
+          <a href="#/services">Services</a><span class="sl">/</span>
+          <a href="#/events">Experiences</a><span class="sl">/</span>
+          <a href="#/about">About JBY</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-block"><div class="f-label">Contact Us</div><a href="#/contact">+1 619-222-9899</a></div>
+        <div class="f-block"><div class="f-label">Email</div><a href="#/contact">jeff@jeffbrownyachts.com</a></div>
+      </div>
+      <div>
+        <div class="f-block"><div class="f-label">Address</div><a href="#/locations" style="text-transform:uppercase;font-size:13px">2330 Shelter Island Drive, Suite 105<br>San Diego, CA 92106</a></div>
+        <div class="f-block"><div class="f-label">Social Media</div>
+          <div class="soc"><a href="#/" aria-label="Instagram">IG</a><a href="#/" aria-label="Facebook">f</a><a href="#/" aria-label="YouTube">▶</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="totop" id="toTop" aria-label="Back to top">↑</button>
+
+<script>
+/* ===================== DATA ===================== */
+const LISTINGS = [
+  {loc:'Seattle, WA',  ttl:'2023 Axopar 37 XC Cross Cabin Wet Bar',   price:'$349,000', red:'Price Reduced: $5,000', ph:'ph--sea'},
+  {loc:'Kirkland, WA', ttl:'2018 Sea Ray Sundancer 510 Signature',    price:'$680,000', red:'', ph:'ph--sea'},
+  {loc:'San Diego, CA',ttl:'2023 Riva 110\u2032 "Dolcevita"',         price:'$6,000,000', red:'Price Reduced: $11,000', ph:'ph--sunset'},
+  {loc:'Newport Beach, CA', ttl:'2024 Brabus Shadow 900 XC',          price:'$1,150,000', red:'', ph:'ph--dark'},
+  {loc:'Sausalito, CA',ttl:'2022 Sirena 68 Long-Range Flybridge',     price:'$3,890,000', red:'', ph:'ph--marina'},
+  {loc:'Charleston, SC',ttl:'2021 Pershing 8X',                       price:'$5,750,000', red:'Price Reduced: $150,000', ph:'ph--sea'},
+  {loc:'Kailua-Kona, HI',ttl:'2023 Wally WHY200',                     price:'Price on request', red:'', ph:'ph--dark'},
+  {loc:'San Diego, CA',ttl:'2025 Axopar 29 Sun-Top (New)',            price:'$298,000', red:'', ph:'ph--studio'},
+  {loc:'Seattle, WA',  ttl:'2020 Jeanneau NC 37',                     price:'$415,000', red:'', ph:'ph--marina'}
+];
+const EVENTS = [
+  {ttl:'Newport Beach International Boat Show', kind:'Boat Show', chip:'Apr 16 to 19', loc:'Newport Beach, CA', date:'Thu, Apr 16 – Sun, Apr 19', time:'8:00am – 8:00pm', ph:'ph--sunset', lbl:'Aerial · Newport harbor at dusk', desc:'Four days on the water with the full JBY lineup, from Axopar adventure boats to the Riva flagship range.'},
+  {ttl:'Axopar 38 West Coast Premier', kind:'Model Premier', chip:'Apr 17', loc:'Newport Beach, CA', date:'Fri, Apr 17', time:'8:00am – 8:00pm', ph:'ph--sea', lbl:'Axopar 38 at anchor, still water', desc:'The first West Coast look at the new Axopar 38, with private deck tours running throughout the day.'},
+  {ttl:'Port City Marina Boat Show', kind:'Boat Show', chip:'Apr 17 to 19', loc:'Wilmington, NC', date:'Fri, Apr 17 – Sun, Apr 19', time:'8:00am – 8:00pm', ph:'ph--marina', lbl:'Aerial · marina docks full', desc:'The East Coast team brings the brokerage fleet dockside for a long weekend on the Cape Fear River.'},
+  {ttl:'Riva Private Evening Preview', kind:'Owner Event', chip:'May 9', loc:'San Diego, CA', date:'Fri, May 9', time:'6:00pm – 9:00pm', ph:'ph--dark', lbl:'Riva on the dock at night', desc:'An after-hours preview of the latest Riva arrivals on Shelter Island. By invitation, with a small guest list.'},
+  {ttl:'MARI~TIME Owner Rendezvous', kind:'Rendezvous', chip:'Jun 21 to 22', loc:'Catalina Island, CA', date:'Sat, Jun 21 – Sun, Jun 22', time:'All weekend', ph:'ph--sea', lbl:'Raft-up off Catalina', desc:'A weekend raft-up for co-owners and friends of JBY in a quiet cove off Catalina. Slips and dinners arranged.'},
+  {ttl:'Sirena 48 Sea Trial Day', kind:'Sea Trial', chip:'Jul 12', loc:'Newport Harbor, CA', date:'Sat, Jul 12', time:'9:00am – 4:00pm', ph:'ph--sunset', lbl:'Sirena 48 underway', desc:'Back-to-back sea trials of the Sirena 48. Reserve a one-on-one slot on the water with a JBY specialist.'}
+];
+const FILMS = [
+  {ttl:'Cannes to Capri: Owner Rendezvous', dur:'3:12', ph:'ph--sea', lbl:'Film · coastal cruise, Mediterranean'},
+  {ttl:'Riva 82 Diva, West Coast Debut', dur:'2:05', ph:'ph--dark', lbl:'Film · Riva on the dock at dusk'},
+  {ttl:'A Day Aboard the Axopar 45', dur:'4:30', ph:'ph--sunset', lbl:'Film · Axopar 45 running offshore'},
+  {ttl:'MARI~TIME Weekend, Catalina', dur:'1:48', ph:'ph--marina', lbl:'Film · raft-up and island anchorage'},
+  {ttl:'Sunset Sea Trials, San Diego', dur:'2:22', ph:'ph--sunset', lbl:'Film · golden hour on the bay'}
+];
+const BRANDS = [
+  {n:'Riva',          d:'Legendary Italian yachts defined by timeless elegance and craftsmanship.', ph:'ph--sea'},
+  {n:'Axopar',        d:'Adventure-driven Scandinavian boats built for versatile exploration.',     ph:'ph--sea'},
+  {n:'Pershing',      d:'Italian performance yachts engineered for speed and precision.',      ph:'ph--dark'},
+  {n:'Wally',         d:'Avant-garde yachts blending radical design, innovation, and performance.',ph:'ph--dark'},
+  {n:'Brabus Marine', d:'Ultra-exclusive day boats with bold design and power.',            ph:'ph--dark'},
+  {n:'Sirena Yachts', d:'Long-range cruising yachts built for comfort, efficiency, and freedom.',  ph:'ph--marina'},
+  {n:'Jeanneau',      d:'Versatile French boats with smart layouts for effortless days afloat.',   ph:'ph--sunset'},
+  {n:'Four Winns',    d:'Stylish, spacious boats built for refined everyday enjoyment.',           ph:'ph--sunset'},
+  {n:'Pardo Yachts',  d:'Walk-around Italian cruisers for shared adventures and exploration.',     ph:'ph--sea'}
+];
+const LOCATIONS = [
+  {n:'San Diego Marina & Boatyard', slug:'san-diego-marina', t:'Boatyard', a:'2614 Shelter Island Drive, Suite A, San Diego, CA 92106', p:'+1 619-222-9899', e:'service@jeffbrownyachts.com', city:'San Diego', x:14, y:62},
+  {n:'San Diego Main Office',       slug:'san-diego-main',   t:'Flagship Office', a:'2330 Shelter Island Drive, Suite 105, San Diego, CA 92106', p:'+1 619-222-9899', e:'jeff@jeffbrownyachts.com', city:'San Diego', x:13, y:60},
+  {n:'Newport Harbor',              slug:'newport-harbor',   t:'Office',   a:'3101 West Coast Highway, Suite 130, Newport Beach, CA 92663', p:'+1 949-524-3143', e:'newport@jeffbrownyachts.com', city:'Newport Beach', x:12, y:55},
+  {n:'Sausalito',                   slug:'sausalito',        t:'Office',   a:'Clipper Yacht Harbor, 300B Harbor Drive, Sausalito, CA 94965', p:'+1 510-701-4880', e:'sausalito@jeffbrownyachts.com', city:'Sausalito', x:8, y:42},
+  {n:'Seattle',                     slug:'seattle',          t:'Office',   a:'2288 W Commodore Way, Suite 110, Seattle, WA 98199', p:'+1 206-274-5257', e:'seattle@jeffbrownyachts.com', city:'Seattle', x:11, y:12},
+  {n:'Wrightsville Beach',          slug:'wrightsville-beach', t:'Office', a:'Wrightsville Beach, NC 28480', p:'+1 619-222-9899', e:'eastcoast@jeffbrownyachts.com', city:'Wrightsville Beach', x:78, y:48},
+  {n:'Charleston',                  slug:'charleston',       t:'Office',   a:'Charleston, SC 29401', p:'+1 619-222-9899', e:'eastcoast@jeffbrownyachts.com', city:'Charleston', x:75, y:54},
+  {n:'Kailua-Kona',                 slug:'kona',             t:'Office',   a:'Kailua-Kona, HI 96740', p:'+1 619-222-9899', e:'kona@jeffbrownyachts.com', city:'Kailua-Kona', x:18, y:88}
+];
+const LOC_BY_SLUG = Object.fromEntries(LOCATIONS.map(l=>[l.slug,l]));
+const LOC_BY_NAME = Object.fromEntries(LOCATIONS.map(l=>[l.n,l]));
+const TEAM = [
+  {id:'jeff-brown', since:2018, n:'Jeff Brown', r:'Owner · Principal Broker', l:'San Diego', office:'San Diego Main Office',
+   email:'jeff@jeffbrownyachts.com', phone:'+1 619-222-9899',
+   tags:['New & Brokerage Sales','Riva','Sirena','Performance Yachts'],
+   facts:[['30+','Years in yachting'],['9','Brands represented'],['500+','Yachts sold']],
+   bio:["Jeff began his career on the racecourse and never really left the water. He founded JK3 and grew it into one of the most successful yacht dealerships in the western United States, with offices in Seattle, San Francisco, Newport Beach, and San Diego.",
+        "After a 25-year run, Jeff and Karen changed course and opened a bespoke brokerage built for a boutique experience, scaled and staffed to personalize service for every owner. That decision became Jeff Brown Yachts.",
+        "He has been active in past America's Cup regattas and served on the boards of the San Diego Yacht Club and Sailing Events Association San Diego. When he is not matching owners to the right yacht, he is sailing the world's great ocean races with his wife Karen and their children."],
+   yachts:[2,3,5,6]},
+  {id:'karen-brown', since:2018, n:'Karen Brown', r:'Cruise Director', l:'San Diego', office:'San Diego Main Office',
+   email:'karen@jeffbrownyachts.com', phone:'+1 619-222-9899',
+   tags:['Owner Experiences','Sea Trials','Rendezvous','Onboarding'],
+   facts:[['30+','Years on the water'],['7','Home ports hosted'],['Co-founder','Jeff Brown Yachts']],
+   bio:["Karen co-founded Jeff Brown Yachts alongside Jeff and shapes the experience owners remember long after the paperwork is done. Sea trials, rendezvous, deliveries, and the first day aboard a new yacht.",
+        "She has sailed alongside Jeff across Southern California, the Mediterranean, the South Pacific, and the Caribbean, and brings that firsthand owner's perspective to every detail of how clients are welcomed into the JBY community."],
+   yachts:[]},
+  {id:'adam-aronson', since:2020, n:'Adam Aronson', r:'Accounting Manager', l:'San Diego', office:'San Diego Main Office',
+   email:'accounting@jeffbrownyachts.com', phone:'+1 619-222-9899',
+   tags:['Transaction Support','Escrow','Documentation'],
+   facts:[['100%','Transactions handled in-house'],['8','Offices supported']],
+   bio:["Adam keeps every transaction moving cleanly behind the scenes, from escrow and documentation to closing. Buyers and sellers rarely have to think about the paperwork, which is exactly how he likes it.",
+        "His careful, transparent approach is part of why JBY clients describe the buying and selling process as seamless."],
+   yachts:[]},
+  {id:'chris-thompson', since:2019, n:'Chris Thompson', r:'Service Manager', l:'San Diego Marina', office:'San Diego Marina & Boatyard',
+   email:'service@jeffbrownyachts.com', phone:'+1 619-222-9899',
+   tags:['Service & Maintenance','Refit','Warranty','Sea Trials'],
+   facts:[['20+','Years in marine service'],['1','Full-service boatyard']],
+   bio:["Chris runs the boatyard and service team out of Shelter Island, coordinating everything from routine maintenance to full refits and warranty work across the fleet JBY manages.",
+        "He and his technicians treat every yacht as if it were going out on their own weekend, because most of the time the owner is a friend."],
+   yachts:[]},
+  {id:'annie-snyder', since:2021, n:'Annie Snyder', r:'Lead Service Technician · Mercury Certified', l:'San Diego Marina', office:'San Diego Marina & Boatyard',
+   email:'service@jeffbrownyachts.com', phone:'+1 619-222-9899',
+   tags:['Mercury Certified','Diagnostics','Repowering','Commissioning'],
+   facts:[['Mercury','Factory certified'],['10+','Years on the tools']],
+   bio:["Annie is a Mercury-certified technician who handles diagnostics, repowering, and new-boat commissioning. If something needs to run perfectly before it leaves the dock, it goes through her.",
+        "She is meticulous about getting owners back on the water quickly and confidently."],
+   yachts:[]},
+  {id:'esmeralda-rivera', since:2022, n:'Esmeralda Rivera', r:'Chief Detailing Specialist', l:'San Diego Marina', office:'San Diego Marina & Boatyard',
+   email:'service@jeffbrownyachts.com', phone:'+1 619-222-9899',
+   tags:['Detailing','Pre-Sale Prep','Gelcoat','Interior Care'],
+   facts:[['200+','Yachts prepped a year'],['Pre-sale','Staging specialist']],
+   bio:["Esmeralda leads detailing and pre-sale preparation, making sure every yacht is photographed, shown, and delivered looking its absolute best.",
+        "Her work is often the first thing a buyer notices and the last thing a seller remembers."],
+   yachts:[]},
+  {id:'tommy-h', since:2023, n:'Tommy H.', r:'Sales · Pacific Northwest', l:'Seattle', office:'Seattle',
+   email:'seattle@jeffbrownyachts.com', phone:'+1 206-274-5257',
+   tags:['New & Brokerage Sales','Axopar','Jeanneau','Pacific Northwest'],
+   facts:[['15+','Years selling boats'],['PNW','Regional specialist'],['Axopar','Brand expert']],
+   bio:["Tommy leads sales across the Pacific Northwest from the Seattle office, helping owners find adventure-ready boats built for the waters of Puget Sound and beyond.",
+        "He knows the local cruising grounds intimately and pairs that knowledge with deep product expertise across Axopar, Jeanneau, and the brokerage fleet."],
+   yachts:[0,1,8]},
+  {id:'logan-parker', since:2021, n:'Logan Parker', r:'Broker · Live Tours', l:'Newport Harbor', office:'Newport Harbor',
+   email:'newport@jeffbrownyachts.com', phone:'+1 949-524-3143',
+   tags:['Brokerage Sales','Live Video Tours','Brabus','Sirena'],
+   facts:[['12+','Years in brokerage'],['Live','Remote tour specialist']],
+   bio:["Logan works with buyers up and down the coast from the Newport Harbor office and pioneered JBY's live video tours, walking remote clients through a yacht in real time as if they were standing aboard.",
+        "He makes buying from out of town feel as personal as showing up in person."],
+   yachts:[3,7,4]},
+  {id:'lola-brown', since:2022, n:'Lola Brown', r:'Chief Happiness Officer', l:'San Diego', office:'San Diego Main Office',
+   email:'jeff@jeffbrownyachts.com', phone:'+1 619-222-9899',
+   tags:['Dock Greetings','Morale','Sea Trials (Supervisory)'],
+   facts:[['Every','Day at the office'],['100%','Tail-wag rate']],
+   bio:["Lola greets clients at the dock, supervises sea trials from the bow, and keeps morale high across the team. She is, by unanimous vote, the most popular member of staff.",
+        "Treats and boat rides are the currency she accepts."],
+   yachts:[]}
+];
+const TEAM_BY_ID = Object.fromEntries(TEAM.map(t=>[t.id,t]));
+
+/* ===================== RENDER HELPERS ===================== */
+const boatSvg = c => `<svg class="boat" style="color:${c}"><use href="#yacht"/></svg>`;
+function listingCard(l){
+  return `<a href="#/listing" class="lcard">
+    <div class="ph ${l.ph}" data-label="Photo · ${l.ttl.replace(/"/g,'&quot;')}">
+      <span class="lbadge">Open House, Thu, Sep 17</span>
+      ${boatSvg('rgba(255,255,255,.8)')}
+    </div>
+    <div class="lcard-b">
+      <div class="loc">${l.loc}</div>
+      <div class="ttl">${l.ttl}</div>
+      <div class="price">${l.price}${l.red?`<em>${l.red}</em>`:''}</div>
+    </div></a>`;
+}
+function eventCard(e){
+  return `<div class="ecard">
+    <a href="#/event" class="ph ${e.ph}" data-label="${e.lbl}"></a>
+    <div class="ecard-b">
+      <a href="#/event"><h3>${e.ttl}</h3></a>
+      <p class="muted" style="font-size:13px;margin-bottom:4px">${e.chip||e.date}</p>
+      <p class="muted" style="font-size:13px">${e.loc}</p>
+      <a href="#/event" class="btn btn--solid btn--sm btn--block" style="margin-top:auto">Request to Attend</a>
+    </div></div>`;
+}
+function filmCard(f){
+  return `<div class="film">
+    <a href="#/event" class="fimg ph ${f.ph}" data-label="${f.lbl}"><span class="play sm"></span><span class="dur">${f.dur}</span></a>
+    <div class="ttl" style="font-size:14.5px;font-weight:600;letter-spacing:.01em">${f.ttl}</div>
+  </div>`;
+}
+function eventRow(e){
+  return `<div class="ev">
+    <a href="#/event" class="eimg ph ${e.ph}" data-label="${e.lbl}"></a>
+    <div>
+      <span class="chip">${e.kind} · ${e.chip}</span>
+      <h3 class="d3" style="margin-bottom:10px"><a href="#/event">${e.ttl}</a></h3>
+      <p class="muted" style="font-size:13.5px;margin-bottom:12px">${e.loc} · ${e.time}</p>
+      <p style="margin-bottom:20px">${e.desc}</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#/event" class="btn btn--solid btn--sm">Request to Attend</a>
+        <a href="#/event" class="btn btn--sm">Details</a>
+      </div>
+    </div>
+  </div>`;
+}
+const eventFilms = document.getElementById('eventFilms');
+if(eventFilms) eventFilms.innerHTML = FILMS.map(filmCard).join('');
+const eventList = document.getElementById('eventList');
+if(eventList) eventList.innerHTML = EVENTS.map(eventRow).join('');
+
+/* =========================================================
+   MODELS · config-driven model page. Any section whose data
+   is missing simply does not render.
+========================================================= */
+const MODELS = {
+  'axopar-45':{
+    brand:'Axopar', brandEyebrow:'Axopar · Model Range', name:'Axopar 45',
+    tagline:'The flagship of the range. A cross-cabin adventure platform that cruises four in genuine comfort and tops out near 45 knots.',
+    hero:{ph:'ph--sunset', lbl:'Model hero · Axopar 45 XC at dawn'},
+    brochure:true, buildSlot:true,
+    overviewHd:'Built to Go Further',
+    overview:[
+      'The Axopar 45 is the largest model in the range and one of the most efficient 45-footers built. A twin-stepped deep-V hull and advanced infusion lamination keep weight down, so triple outboards push it to real offshore speed while sipping fuel at cruise.',
+      'Inside, a fully enclosed cross cabin, walk-around decks, and a modular aft section adapt the boat to the day. Configure it as an open deck for entertaining, or specify the aft cabin and sleep four on a genuine weekend boat.'],
+    glance:[['Length overall','45 ft 7 in'],['Beam','13 ft 6 in'],['Max speed','up to 45 kn'],['Engines','up to 3 × 350 HP'],['Berths','2 (+2 optional)'],['Fuel capacity','368 gal'],['CE category','B Offshore'],['Base price','from $565,000']],
+    variants:[
+      {name:'45 XC Cross Cabin', ph:'ph--sea', desc:'Enclosed cabin and gullwing doors for all-weather range.'},
+      {name:'45 Sun-Top', ph:'ph--sunset', desc:'Open, shaded deck built for warm-water day cruising.'},
+      {name:'45 Cross Top', ph:'ph--marina', desc:'Hardtop protection with an open, connected cockpit.'},
+      {name:'45 Spyder', ph:'ph--dark', desc:'The most open expression of the 45, focused on the drive.'}],
+    features:[
+      {hd:'A Hull Proven Offshore', ph:'ph--sea', lbl:'Photo · 45 running offshore', body:'Twin-stepped 22-degree deep-V with a sharp entry, the same hull form Axopar owners trust from the Baltic to Baja. It carries the range efficiency to a size that cruises four adults in real comfort.', cta:{label:'Ask About Sea Trials', href:'#/contact'}},
+      {hd:'A Cabin That Opens Up', ph:'ph--interior', lbl:'Photo · forward cross cabin', body:'A fully enclosed, climate-ready forward cabin with a convertible V-berth, a separate head and shower, hull windows, and a skylight. Open the gullwing doors and the space fills with light and air.', cta:{label:'See 45 Listings', href:'#/for-sale'}},
+      {hd:'Helm Built Around the Driver', ph:'ph--dark', lbl:'Photo · helm and Simrad displays', body:'Simrad touchscreen navigation runs a custom Axopar interface, while the Intelligent Steering Module puts the bow thruster, trim tabs, and audio under one control at the wheel.', cta:{label:'Talk to a Specialist', href:'#/contact'}}],
+    specGroups:[
+      {hd:'Dimensions & Weight', rows:[['Length overall (excl. engines)','45 ft 7 in (13.90 m)'],['Beam','13 ft 6 in (4.11 m)'],['Draft to props','3 ft 3 in (1.0 m)'],['Dry weight (excl. engines)','15,430 lb (7,000 kg)']]},
+      {hd:'Performance & Engines', rows:[['Max speed','up to 45 kn'],['Economical cruise','19 to 35 kn'],['Fuel consumption (cruise)','4.1 L/nm at 25 kn'],['Outboard engines','2 × 400 HP to 3 × 350 HP']]},
+      {hd:'Capacities', rows:[['Fuel capacity','368 gal (1,390 L)'],['Fresh water','79 gal (300 L)'],['Berths','2, or 2 + 2 with aft cabin'],['Cabins','1 to 2']]},
+      {hd:'Construction & Certification', rows:[['Hull design','Twin-stepped 22° deep-V'],['Construction','GRP, vacuum infusion'],['CE category','B Offshore (14) / C Coastal (16)'],['Model years','2022 to present']]}],
+    standardEquip:[
+      {hd:'Deck & Exterior', items:['Walk-around side decks','Fold-out amidships balconies','Foredeck sun pad','Aft wet bar with sink','Gullwing cabin doors']},
+      {hd:'Forward Cabin', items:['Convertible V-berth and sofa','Separate head with shower','Hull windows and overhead skylight','Light oak interior panels']},
+      {hd:'Helm & Electronics', items:['Simrad touchscreen navigation, Axopar UI','Intelligent Steering Module','Digital engine displays','Roof-mounted speakers']},
+      {hd:'Hull & Systems', items:['Twin-stepped deep-V hull','Trim tabs','Freshwater system','Shore power connection']}],
+    optionalEquip:[
+      {hd:'Layout & Comfort', items:['Aft cabin module, sleeps two more','Aft U-sofa or multi-storage module','Webasto cabin heating','Cockpit refrigerator','Teak decking']},
+      {hd:'Power & Handling', items:['Triple 350 to 400 HP engine upgrade','Bow thruster with joystick docking','Premium audio package','Underwater lighting']}],
+    gallery:[
+      {ph:'ph--sea', lbl:'Exterior · running offshore', cls:'g-wide g-tall'},
+      {ph:'ph--interior', lbl:'Forward cabin'},
+      {ph:'ph--dark', lbl:'Helm and displays'},
+      {ph:'ph--marina', lbl:'Aft deck, open layout'},
+      {ph:'ph--sunset', lbl:'At anchor, dusk'}],
+    inventoryKey:'Axopar'
+  },
+
+  'sirena-68':{
+    brand:'Sirena', brandEyebrow:'Sirena · Model Range', name:'Sirena 68',
+    tagline:'A long-range flybridge built for the passage, not just the marina. Transatlantic capability with the comfort of a much larger yacht.',
+    hero:{ph:'ph--marina', lbl:'Model hero · Sirena 68 at sea'},
+    brochure:true, buildSlot:false,
+    overviewHd:'Range Without Compromise',
+    overview:[
+      'The Sirena 68 pairs a fuel-efficient semi-displacement hull with a true long-range fuel capacity, so the conversation moves from how fast to how far. Owners cross oceans in it, then live aboard comfortably once they arrive.',
+      'A full-beam master, a country galley, and an enormous flybridge make it a yacht you can spend weeks on. It is engineered for the couple who wants to go everywhere, with room for family and friends when they join.'],
+    glance:[['Length overall','68 ft 5 in'],['Beam','18 ft 1 in'],['Range','3,000+ nm'],['Cruise speed','10 to 22 kn'],['Cabins','3 to 4'],['Guests','6 to 8'],['Fuel capacity','1,200 gal'],['Base price','from $3,890,000']],
+    features:[
+      {hd:'Engineered for the Passage', ph:'ph--marina', lbl:'Photo · 68 underway, open water', body:'A semi-displacement hull and generous tankage give the 68 genuine long-range ability. Throttle back and the range stretches past three thousand nautical miles, enough to cross an ocean.', cta:{label:'Talk Range and Routes', href:'#/contact'}},
+      {hd:'A Home, Not a Cabin', ph:'ph--interior', lbl:'Photo · full-beam master suite', body:'A full-beam master amidships, a separate country galley, and large hull windows make the interior feel like a home rather than a boat. It is built for weeks aboard, not just weekends.', cta:{label:'See Sirena Listings', href:'#/for-sale'}}],
+    specGroups:[
+      {hd:'Dimensions', rows:[['Length overall','68 ft 5 in (20.85 m)'],['Beam','18 ft 1 in (5.50 m)'],['Draft','5 ft 3 in (1.60 m)'],['Displacement','approx. 90,000 lb (41 t)']]},
+      {hd:'Performance & Engines', rows:[['Cruise speed','10 to 22 kn'],['Range at displacement speed','3,000+ nm'],['Engines','twin diesel inboard, 1,000 to 1,200 HP'],['Stabilization','available zero-speed gyro']]},
+      {hd:'Accommodation & Capacities', rows:[['Cabins','3 to 4'],['Guests','6 to 8'],['Crew cabin','1, optional'],['Fuel capacity','1,200 gal (4,540 L)'],['Fresh water','260 gal (985 L)']]}],
+    standardEquip:[
+      {hd:'On Deck', items:['Full-beam flybridge with helm','Hydraulic swim platform','Cockpit dining for eight','Foredeck lounge']},
+      {hd:'Interior', items:['Full-beam master suite','Country galley','Salon with panoramic windows','Three guest cabins']}],
+    layout:{ph:'ph--studio', lbl:'General arrangement · main deck and lower deck', note:'Three-cabin and four-cabin general arrangements are available. Your specialist can walk you through each deck plan and the galley-up or galley-down options.'},
+    gallery:[
+      {ph:'ph--marina', lbl:'Exterior · at anchor', cls:'g-wide'},
+      {ph:'ph--interior', lbl:'Master suite'},
+      {ph:'ph--sunset', lbl:'Flybridge at sunset'},
+      {ph:'ph--studio', lbl:'Salon and galley'}],
+    inventoryKey:'Sirena'
+  },
+
+  'riva-82':{
+    brand:'Riva', brandEyebrow:'Riva · Model Range', name:'Riva 82 Diva',
+    tagline:'The art of Italian yacht building since 1842. A flybridge that turns heads in every harbor it enters.',
+    hero:{ph:'ph--dark', lbl:'Model hero · Riva 82 Diva on the water'},
+    brochure:true, buildSlot:true,
+    overviewHd:'A Name That Needs No Introduction',
+    overview:[
+      'Riva has built the most recognizable yachts in the world since 1842. The 82 Diva carries that legacy with one of the largest flybridges in its class, sculpted lines, and finishes executed by hand in Sarnico.',
+      'It is a yacht bought as much for what it represents as for what it does. Owning a Riva places you in a lineage that runs from the mahogany Aquarama to today.'],
+    glance:[['Length overall','82 ft 0 in'],['Beam','19 ft 8 in'],['Guests','8'],['Cabins','4'],['Crew','2 to 3'],['Top speed','up to 30 kn'],['Built','Sarnico, Italy'],['Price','on request']],
+    features:[
+      {hd:'Crafted by Hand in Sarnico', ph:'ph--dark', lbl:'Photo · Riva detailing and woodwork', body:'Every Riva is finished by master artisans on the shores of Lake Iseo, where the brand was born. The woodwork, stainless detailing, and stitching are done to a standard few builders attempt.', cta:{label:'Arrange a Private Viewing', href:'#/contact'}},
+      {hd:'A Flybridge Made for the Riviera', ph:'ph--sunset', lbl:'Photo · flybridge and sun lounge', body:'One of the largest flybridges in its class, with a sun lounge, helm, and bar designed for long days at anchor in the places a Riva belongs.', cta:{label:'See Riva Listings', href:'#/for-sale'}}],
+    specGroups:[
+      {hd:'Dimensions', rows:[['Length overall','82 ft 0 in (25.0 m)'],['Beam','19 ft 8 in (6.0 m)'],['Draft','5 ft 7 in (1.7 m)']]},
+      {hd:'Accommodation', rows:[['Guest cabins','4'],['Guests','8'],['Crew','2 to 3'],['Top speed','up to 30 kn']]},
+      {hd:'Build', rows:[['Shipyard','Riva, Sarnico, Italy'],['Hull','GRP with hand-finished joinery'],['Group','Ferretti Group']]}],
+    layout:{ph:'ph--studio', lbl:'General arrangement · four-cabin layout', note:'The 82 Diva is offered in a four-cabin layout with a full-beam owner suite. Bespoke interior schemes are arranged directly with the shipyard.'},
+    gallery:[
+      {ph:'ph--dark', lbl:'Exterior · profile at dusk', cls:'g-wide g-tall'},
+      {ph:'ph--interior', lbl:'Owner suite'},
+      {ph:'ph--sunset', lbl:'Flybridge'},
+      {ph:'ph--studio', lbl:'Salon'},
+      {ph:'ph--sea', lbl:'Underway'}],
+    inventoryKey:'Riva'
+  }
+};
+
+function specGroupsHtml(groups){
+  return `<div class="grid g2" style="gap:34px 48px">`+groups.map(g=>
+    `<div><div class="d4" style="margin-bottom:10px">${g.hd}</div>`+
+    g.rows.map(r=>`<div class="spec-row"><span>${r[0]}</span><span>${r[1]}</span></div>`).join('')+
+    `</div>`).join('')+`</div>`;
+}
+function equipHtml(cats){
+  return `<div class="grid g2" style="gap:34px 48px">`+cats.map(c=>
+    `<div><div class="d4" style="margin-bottom:10px">${c.hd}</div><ul class="eq-list">`+
+    c.items.map(i=>`<li>${i}</li>`).join('')+`</ul></div>`).join('')+`</div>`;
+}
+function listingsForModel(key){
+  return LISTINGS.filter(l=>l.ttl.includes(key));
+}
+
+let currentModel='axopar-45';
+function renderModel(slug){
+  const m = MODELS[slug] || MODELS['axopar-45'];
+  currentModel = MODELS[slug] ? slug : 'axopar-45';
+  const root = document.getElementById('modelRoot');
+  const sections = [];   // {id,label,html}
+
+  /* hero */
+  let heroBtns = `<a href="#/for-sale" class="btn btn--whitefill">View Available Listings</a>`;
+  if(m.buildSlot) heroBtns += `<a href="#/contact" class="btn btn--white">Request a Build Slot</a>`;
+  if(m.brochure) heroBtns += `<a href="#/contact" class="btn btn--white">Download Brochure</a>`;
+  const hero = `<div class="hero" style="min-height:440px">
+    <div class="ph ${m.hero.ph} ph-bg" data-label="${m.hero.lbl}"><svg class="boat" style="color:rgba(255,255,255,.4);width:40%;left:68%;top:50%"><use href="#yacht"/></svg></div>
+    <div class="hero-veil"></div>
+    <div class="hero-inner">
+      <p class="eyebrow" style="color:rgba(255,255,255,.7);margin-bottom:10px">${m.brandEyebrow}</p>
+      <h1 class="d1">${m.name}</h1>
+      <p>${m.tagline}</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap">${heroBtns}</div>
+    </div></div>`;
+
+  /* overview + glance */
+  if(m.overview && m.overview.length){
+    const glance = (m.glance&&m.glance.length) ? `<div class="grid g2" style="gap:12px">`+
+      m.glance.map(f=>`<div class="fact"><div class="k">${f[0]}</div><div class="v">${f[1]}</div></div>`).join('')+`</div>` : '';
+    sections.push({id:'overview', label:'Overview', html:
+      `<section id="overview"><div class="wrap"><div class="split" style="align-items:start;gap:48px">
+        <div><div class="k" style="margin-bottom:10px">Overview</div><h2 class="d2" style="margin-bottom:18px">${m.overviewHd}</h2>`+
+        m.overview.map(p=>`<p style="margin-bottom:14px">${p}</p>`).join('')+`</div>${glance}</div></div></section>`});
+  }
+
+  /* variants */
+  if(m.variants && m.variants.length){
+    sections.push({id:'variants', label:'Variants', html:
+      `<section class="tight" id="variants" style="background:#fff;border-top:1px solid var(--line)"><div class="wrap">
+        <div class="sec-head"><h2 class="d3">Choose Your ${m.name.replace(/^[A-Za-z]+ /,'')}</h2><a href="#/for-sale" class="btn btn--sm">Compare Inventory</a></div>
+        <p class="lead" style="margin-bottom:30px">One hull, several personalities. Each variant shares the same platform and changes the deck and cabin to suit how you use the water.</p>
+        <div class="grid g4" style="gap:16px">`+
+        m.variants.map(v=>`<a href="#/for-sale" class="vcard"><div class="ph ${v.ph}" data-label="${v.name}" style="aspect-ratio:4/3"></div><div class="vb"><div class="ttl" style="font-size:15px;font-weight:600">${v.name}</div><p class="muted" style="font-size:12.5px;margin-top:4px">${v.desc}</p></div></a>`).join('')+
+        `</div></div></section>`});
+  }
+
+  /* features */
+  if(m.features && m.features.length){
+    sections.push({id:'features', label:'Features', html:
+      `<section id="features"><div class="wrap"><h2 class="d3" style="margin-bottom:30px">Defining Features</h2>`+
+      m.features.map(f=>`<div class="svc-row"><div class="ph ${f.ph}" data-label="${f.lbl}"></div><div><h3 class="d3">${f.hd}</h3><p>${f.body}</p>${f.cta?`<a href="${f.cta.href}" class="textlink">${f.cta.label}</a>`:''}</div></div>`).join('')+
+      `</div></section>`});
+  }
+
+  /* specifications & equipment (tabbed, only existing panels) */
+  const panels=[];
+  if(m.specGroups && m.specGroups.length) panels.push({key:'specs', label:'Specifications', html:specGroupsHtml(m.specGroups)+`<p class="muted" style="font-size:12px;margin-top:18px">Specifications are provided by the builder and may change without notice. Verify details with your JBY specialist before purchase.</p>`});
+  if(m.standardEquip && m.standardEquip.length) panels.push({key:'standard', label:'Standard Equipment', html:equipHtml(m.standardEquip)});
+  if(m.optionalEquip && m.optionalEquip.length) panels.push({key:'optional', label:'Optional Equipment', html:equipHtml(m.optionalEquip)+`<p class="muted" style="font-size:12px;margin-top:18px">Option availability varies by variant and model year. Your JBY specialist will confirm the current build sheet.</p>`});
+  if(panels.length){
+    const tabsBar = panels.length>1 ? `<div class="tabs" id="modelTabs" style="justify-content:flex-start">`+
+      panels.map((p,i)=>`<button class="${i===0?'on':''}" data-panel="${i}">${p.label}</button>`).join('')+`</div>` : `<div class="d4" style="margin-bottom:18px">${panels[0].label}</div>`;
+    const panelsHtml = panels.map((p,i)=>`<div class="tabpanel${i===0?' on':''}" data-panel="${i}">${p.html}</div>`).join('');
+    sections.push({id:'specs', label:'Specs', html:
+      `<section class="tight" id="specs" style="background:#fff;border-top:1px solid var(--line)"><div class="wrap">
+        <h2 class="d3" style="margin-bottom:20px">Specifications${(m.standardEquip||m.optionalEquip)?' &amp; Equipment':''}</h2>${tabsBar}${panelsHtml}</div></section>`});
+  }
+
+  /* gallery */
+  if(m.gallery && m.gallery.length){
+    sections.push({id:'gallery', label:'Gallery', html:
+      `<section id="gallery"><div class="wrap"><div class="sec-head"><h2 class="d3">Gallery</h2></div><div class="mgal">`+
+      m.gallery.map(g=>`<div class="ph ${g.ph} ${g.cls||''}" data-label="${g.lbl}"></div>`).join('')+
+      `</div></div></section>`});
+  }
+
+  /* layout / general arrangement */
+  if(m.layout){
+    sections.push({id:'layout', label:'Layout', html:
+      `<section class="tight" id="layout" style="background:#fff;border-top:1px solid var(--line)"><div class="wrap">
+        <div class="split" style="align-items:center;gap:48px"><div class="ph ${m.layout.ph}" data-label="${m.layout.lbl}" style="aspect-ratio:16/10;border-radius:8px"></div>
+        <div><div class="k" style="margin-bottom:10px">Layout</div><h2 class="d3" style="margin-bottom:14px">General Arrangement</h2><p>${m.layout.note}</p></div></div></div></section>`});
+  }
+
+  /* inventory */
+  const ls = listingsForModel(m.inventoryKey);
+  const invInner = ls.length
+    ? `<div class="grid g3">`+ls.map(listingCard).join('')+`</div>`
+    : `<a href="#/for-sale" class="otile" style="min-height:160px"><div class="ph ph--marina" data-label="View all listings"></div><div class="otile-veil"></div><div class="otile-b"><h3>Browse the Full Fleet</h3><p>No ${m.name} is listed right now. New inventory is added regularly.</p></div></a>`;
+  sections.push({id:'inventory', label:'Inventory', html:
+    `<section class="tight" id="inventory"><div class="wrap"><div class="sec-head"><h2 class="d3">Available ${m.brand} Inventory</h2><a href="#/for-sale" class="btn btn--sm">View All</a></div>${invInner}</div></section>`});
+
+  /* sticky subnav from existing sections */
+  const subnav = `<div class="subnav"><div class="wrap">`+
+    sections.map(s=>`<a href="#${s.id}" onclick="document.getElementById('${s.id}').scrollIntoView({behavior:'smooth'});return false;">${s.label}</a>`).join('')+`</div></div>`;
+
+  /* cta */
+  const cta = `<div class="cta-band"><h2 class="d2">Configure Your ${m.name}</h2><p>As an authorized dealer, we will walk you through every option and help you find the right ${m.brand}.</p><a href="#/contact" class="btn btn--white">Start a Conversation</a></div>`;
+
+  root.innerHTML = hero + subnav + sections.map(s=>s.html).join('') + cta;
+
+  /* tab switching for this render */
+  const mt = root.querySelector('#modelTabs');
+  if(mt){
+    mt.addEventListener('click',e=>{
+      if(e.target.tagName!=='BUTTON') return;
+      const idx=e.target.getAttribute('data-panel');
+      mt.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b===e.target));
+      root.querySelectorAll('.tabpanel').forEach(p=>p.classList.toggle('on',p.getAttribute('data-panel')===idx));
+    });
+  }
+}
+document.querySelectorAll('[data-listings]').forEach(el=>{
+  const n = +el.dataset.listings;
+  el.innerHTML = Array.from({length:n},(_,i)=>listingCard(LISTINGS[i%LISTINGS.length])).join('');
+});
+document.querySelectorAll('[data-events]').forEach(el=>{
+  const n = +el.dataset.events;
+  el.innerHTML = Array.from({length:n},(_,i)=>eventCard(EVENTS[i%EVENTS.length])).join('');
+});
+/* brands grids */
+const BRAND_MODEL = {'Axopar':'axopar-45','Sirena Yachts':'sirena-68','Riva':'riva-82'};
+const brandTile = b => {
+  const ms = BRAND_MODEL[b.n];
+  const href = ms ? `#/model?${ms}` : '#/brand';
+  return `<a href="${href}" class="otile" style="min-height:300px">
+  <div class="ph ${b.ph}" data-label="Brand photo · ${b.n}"></div><div class="otile-veil"></div>
+  <div class="otile-b"><h3>${b.n}</h3><p>${b.d}</p><span class="textlink" style="color:#fff;border-color:#fff">Explore ${b.n}</span></div></a>`;
+};
+const hb = document.getElementById('homeBrands');
+if(hb) hb.innerHTML = BRANDS.slice(0,8).map(b=>brandTile(b).replace('min-height:300px','min-height:240px')).join('');
+const bg = document.getElementById('brandsGrid');
+if(bg) bg.innerHTML = BRANDS.map(brandTile).join('');
+/* locations lists */
+const locItem = l => `<a href="#/office?${l.slug}" class="loc-item"><span><span class="nm">${l.n}</span><br><span class="hrs">${l.t} · Monday to Friday, 8am to 5pm</span></span><span>›</span></a>`;
+['homeLocations','svcLocations'].forEach(id=>{
+  const el = document.getElementById(id);
+  if(el) el.innerHTML = LOCATIONS.slice(0,5).map(locItem).join('');
+});
+const co = document.getElementById('contactOffices');
+if(co) co.innerHTML = LOCATIONS.map(locItem).join('');
+const lc = document.getElementById('locCards');
+if(lc) lc.innerHTML = LOCATIONS.map(l=>`<div class="fact"><div class="k">${l.t}</div><div class="v" style="margin-bottom:6px">${l.n}</div><p class="muted" style="font-size:13px;margin-bottom:4px">${l.a}</p><p class="muted" style="font-size:13px;margin-bottom:10px">${l.p} · Mon to Fri, 8am to 5pm</p><a href="#/office?${l.slug}" class="textlink" style="font-size:11.5px">View This Office ›</a></div>`).join('');
+/* map pins */
+['homeMap','svcMap','locPageMap'].forEach(id=>{
+  const el = document.getElementById(id);
+  if(el) el.insertAdjacentHTML('beforeend', LOCATIONS.map(l=>`<span class="pin" style="left:${l.x}%;top:${l.y}%" title="${l.n}"></span>`).join(''));
+});
+/* team grid */
+function memberCard(t){
+  return `<a href="#/member?${t.id}" class="lcard"><div class="ph ph--people" data-label="Portrait · ${t.n}" style="aspect-ratio:4/3.4"></div><div class="lcard-b"><div class="ttl" style="font-size:16px">${t.n}</div><div class="loc" style="margin-bottom:4px">${t.r}</div><div class="loc" style="color:var(--teal)">${t.l} · View profile ›</div></div></a>`;
+}
+const tg = document.getElementById('teamGrid');
+if(tg) tg.innerHTML = TEAM.map(memberCard).join('');
+
+/* ---- office page ---- */
+const OFFICE_ALIASES = {
+  'san-diego-main':['San Diego'], 'san-diego-marina':['San Diego'],
+  'newport-harbor':['Newport Beach'], 'sausalito':['Sausalito'],
+  'seattle':['Seattle','Kirkland'], 'charleston':['Charleston'],
+  'wrightsville-beach':['Wrightsville'], 'kona':['Kailua-Kona','Kona']
+};
+const OFFICE_SERVES = {
+  'san-diego-marina':'Service, maintenance, refit, and detailing',
+  'san-diego-main':'New and brokerage sales, yacht management, and co-ownership',
+  'newport-harbor':'New and brokerage sales, live video tours, and MARI~TIME',
+  'sausalito':'New and brokerage sales, and Bay Area service',
+  'seattle':'New and brokerage sales, and Pacific Northwest service',
+  'wrightsville-beach':'East Coast brokerage and owner support',
+  'charleston':'East Coast brokerage and MARI~TIME co-ownership',
+  'kona':'Island brokerage and owner support'
+};
+function listingsForOffice(slug){
+  const aliases = OFFICE_ALIASES[slug] || [];
+  return LISTINGS.filter(l => aliases.some(a => l.loc.includes(a)));
+}
+function renderOffice(slug){
+  const o = LOC_BY_SLUG[slug] || LOCATIONS[1];
+  document.getElementById('ofType').textContent = o.t;
+  document.getElementById('ofName').textContent = o.n;
+  document.getElementById('ofEmailBtn').href = 'mailto:'+o.e;
+  document.getElementById('ofInfo').innerHTML =
+    `<div><div class="k" style="margin-bottom:6px">Location</div><p class="muted" style="font-size:14px">${o.a}</p></div>
+     <div><div class="k" style="margin-bottom:6px">Hours</div><p class="muted" style="font-size:14px">Monday to Friday, 8am to 5pm.<br>Weekends and private viewings by appointment.</p></div>
+     <div><div class="k" style="margin-bottom:6px">Phone</div><p class="muted" style="font-size:14px"><a class="textlink" href="tel:${o.p.replace(/[^+\d]/g,'')}">${o.p}</a></p></div>
+     <div><div class="k" style="margin-bottom:6px">Email</div><p class="muted" style="font-size:14px"><a class="textlink" href="mailto:${o.e}">${o.e}</a></p></div>`;
+  document.getElementById('ofServes').innerHTML =
+    `<div class="k" style="margin-bottom:6px">What You Will Find Here</div><p style="font-size:14.5px">${OFFICE_SERVES[o.slug]||'Sales and owner support'}.</p>`;
+  // map with single pin for this office
+  const map = document.getElementById('ofMap');
+  map.setAttribute('data-label','Map · '+o.n);
+  map.innerHTML = `<span class="pin" style="left:${o.x}%;top:${o.y}%"></span>`;
+  // listings
+  const ls = listingsForOffice(o.slug);
+  const sec = document.getElementById('ofYachtsSection');
+  if(ls.length){
+    sec.style.display='';
+    document.getElementById('ofYachtsHd').textContent = 'Yachts Listed at This Office';
+    document.getElementById('ofYachtsSub').textContent =
+      `${ls.length} ${ls.length===1?'yacht':'yachts'} currently listed and shown from ${o.n}. Reach out for a private viewing.`;
+    document.getElementById('ofYachts').innerHTML = ls.map(listingCard).join('');
+    document.getElementById('ofYachtsPager').style.display = ls.length>6 ? '' : 'none';
+  } else {
+    sec.style.display='';
+    document.getElementById('ofYachtsHd').textContent = 'Yachts at This Office';
+    document.getElementById('ofYachtsSub').textContent = 'No yachts are listed from this office right now. New inventory is added regularly.';
+    document.getElementById('ofYachts').innerHTML =
+      `<a href="#/for-sale" class="otile" style="grid-column:1/-1;min-height:160px"><div class="ph ph--marina" data-label="View all listings"></div><div class="otile-veil"></div><div class="otile-b"><h3>Browse the Full Fleet</h3><p>See every yacht for sale across all seven home ports.</p></div></a>`;
+    document.getElementById('ofYachtsPager').style.display='none';
+  }
+  // team in this office
+  const team = TEAM.filter(t=>t.office===o.n);
+  document.getElementById('ofTeamHd').textContent = 'Team at This Office';
+  if(team.length){
+    document.getElementById('ofTeamSub').textContent =
+      `${team.length} ${team.length===1?'person':'people'} based at ${o.n}, every one of them a boater first.`;
+    document.getElementById('ofTeam').innerHTML = team.map(memberCard).join('');
+  } else {
+    document.getElementById('ofTeamSub').textContent = 'Our nearest brokers and service team cover this port. Reach out and we will connect you with the right person.';
+    document.getElementById('ofTeam').innerHTML =
+      `<a href="#/team" class="otile" style="grid-column:1/-1;min-height:160px"><div class="ph ph--people" data-label="Meet the team"></div><div class="otile-veil"></div><div class="otile-b"><h3>Meet the Full Team</h3><p>Brokers, technicians, and yacht managers across seven home ports.</p></div></a>`;
+  }
+  // CTA contextual
+  const isYard = o.t.toLowerCase().includes('boatyard');
+  document.getElementById('ofCtaHd').textContent = isYard ? 'Plan a Service Visit' : 'Plan a Visit';
+  document.getElementById('ofCtaSub').textContent = isYard
+    ? 'Bring your yacht in for service or schedule a survey. Our certified team is ready to help.'
+    : 'Stop by the dock or schedule a private viewing. Our team is glad to show you around.';
+}
+
+/* ---- individual member page ---- */
+let currentMember = TEAM[0].id;
+function renderMember(slug){
+  const m = TEAM_BY_ID[slug] || TEAM[0];
+  currentMember = m.id;
+  const off = LOCATIONS.find(o=>o.n===m.office) || LOCATIONS[1];
+  const firstName = m.n.split(' ')[0];
+  // photo
+  const ph = document.getElementById('mbPhoto');
+  if(ph){ ph.setAttribute('data-label','Portrait · '+m.n); }
+  document.getElementById('mbRole').textContent = m.r;
+  document.getElementById('mbName').textContent = m.n;
+  document.getElementById('mbMeta').innerHTML =
+    `${m.l} &nbsp;·&nbsp; <a class="textlink" href="mailto:${m.email}" style="font-size:13px">${m.email}</a> &nbsp;·&nbsp; ${m.phone}`;
+  // bio
+  document.getElementById('mbBio').innerHTML = m.bio.map(p=>`<p style="margin-bottom:14px">${p}</p>`).join('');
+  // specialties
+  document.getElementById('mbTags').innerHTML = m.tags.map(t=>`<span class="tag">${t}</span>`).join('');
+  // team member since
+  document.getElementById('mbSince').textContent = `Team member since ${m.since}`;
+  // office card
+  document.getElementById('mbOffice').innerHTML =
+    `<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:12px">
+       <div>
+         <div class="k" style="margin-bottom:6px">Home Office</div>
+         <div class="v">${off.n}</div>
+       </div>
+       <a href="#/office?${off.slug}" class="textlink" style="font-size:11px;white-space:nowrap;margin-top:18px">More Info ›</a>
+     </div>
+     <p class="muted" style="font-size:13px;margin-bottom:4px">${off.a}</p>
+     <p class="muted" style="font-size:13px">${off.p} &nbsp;·&nbsp; Mon to Fri, 8am to 5pm</p>`;
+  // yachts section (only for sellers)
+  const sec = document.getElementById('mbYachtsSection');
+  if(m.yachts && m.yachts.length){
+    sec.style.display='';
+    document.getElementById('mbYachtsHd').textContent = `Yachts Represented by ${firstName}`;
+    document.getElementById('mbYachtsSub').textContent =
+      `A selection of current listings ${firstName} is handling. Reach out for a private viewing or a live video tour.`;
+    document.getElementById('mbYachts').innerHTML = m.yachts.map(i=>listingCard(LISTINGS[i])).join('');
+  } else {
+    sec.style.display='none';
+  }
+  // contact CTA + buttons
+  document.getElementById('mbContactName').textContent = firstName;
+  document.getElementById('mbContactName2').textContent = firstName;
+  document.getElementById('mbEmailBtn').href = 'mailto:'+m.email;
+}
+
+/* ===================== ROUTER + BREADCRUMBS ===================== */
+const ROUTES = {
+  '/':                    {page:'home'},
+  '/for-sale':            {page:'for-sale',            crumbs:[['For Sale']]},
+  '/listing':             {page:'listing',             crumbs:[['For Sale','/for-sale'],['2023 Riva 110\u2032 "Dolcevita"']]},
+  '/brands':              {page:'brands',              crumbs:[['Brands']]},
+  '/brand':               {page:'brand',               crumbs:[['Brands','/brands'],['Axopar']]},
+  '/model':               {page:'model',               crumbs:[['Brands','/brands'],['Axopar','/brand'],['Axopar 45']]},
+  '/services':            {page:'services',            crumbs:[['Services']]},
+  '/yacht-management':    {page:'yacht-management',    crumbs:[['Services','/services'],['Yacht Management']]},
+  '/service-maintenance': {page:'service-maintenance', crumbs:[['Services','/services'],['Service & Maintenance']]},
+  '/sell-your-yacht':     {page:'sell-your-yacht',     crumbs:[['Services','/services'],['Sell Your Yacht']]},
+  '/co-ownership':        {page:'co-ownership',        crumbs:[['Services','/services'],['Co-Ownership \u00b7 MARI~TIME']]},
+  '/financing':           {page:'financing',           crumbs:[['Services','/services'],['Financing']]},
+  '/insurance':           {page:'insurance',           crumbs:[['Services','/services'],['Insurance']]},
+  '/events':              {page:'events',              crumbs:[['Experiences'],['Events & Boat Shows']]},
+  '/event':               {page:'event',               crumbs:[['Experiences'],['Events & Boat Shows','/events'],['Novamarine Model Unveiling in Miami']]},
+  '/experiences':         {page:'experiences',         crumbs:[['Experiences'],['Private Experiences']]},
+  '/about':               {page:'about',               crumbs:[['About JBY']]},
+  '/team':                {page:'team',                crumbs:[['About JBY','/about'],['Our Team']]},
+  '/member':              {page:'member',              crumbs:[['About JBY','/about'],['Our Team','/team'],['Profile']]},
+  '/office':              {page:'office',              crumbs:[['About JBY','/about'],['Locations','/locations'],['Office']]},
+  '/locations':           {page:'locations',           crumbs:[['About JBY','/about'],['Locations']]},
+  '/news':                {page:'news',                crumbs:[['About JBY','/about'],['News']]},
+  '/contact':             {page:'contact',             crumbs:[['Contact Us']]}
+};
+const crumbsBar = document.getElementById('crumbsBar');
+const crumbsEl  = document.getElementById('crumbs');
+function route(){
+  let raw = location.hash.replace(/^#/,'') || '/';
+  const qi = raw.indexOf('?');
+  const slug = qi>=0 ? raw.slice(qi+1) : '';
+  let h = qi>=0 ? raw.slice(0,qi) : raw;
+  const r = ROUTES[h] || ROUTES['/'];
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const pg = document.getElementById('page-'+r.page);
+  if(pg) pg.classList.add('active');
+  /* dynamic member page */
+  let crumbs = r.crumbs;
+  if(r.page==='member'){
+    renderMember(slug);
+    const m = TEAM_BY_ID[slug] || TEAM[0];
+    crumbs = [['About JBY','/about'],['Our Team','/team'],[m.n]];
+  }
+  if(r.page==='office'){
+    renderOffice(slug);
+    const o = LOC_BY_SLUG[slug] || LOCATIONS[1];
+    crumbs = [['About JBY','/about'],['Locations','/locations'],[o.n]];
+  }
+  if(r.page==='model'){
+    renderModel(slug);
+    const m = MODELS[slug] || MODELS['axopar-45'];
+    crumbs = [['Brands','/brands'],[m.brand,'/brand'],[m.name]];
+  }
+  /* breadcrumbs */
+  if(crumbs){
+    crumbsBar.style.display='block';
+    let html = `<a href="#/">Home</a>`;
+    crumbs.forEach((c,i)=>{
+      const last = i===crumbs.length-1;
+      html += `<span class="sep">/</span>` + (last
+        ? `<span class="cur">${c[0]}</span>`
+        : (c[1] ? `<a href="#${c[1]}">${c[0]}</a>` : `<span style="color:var(--mut)">${c[0]}</span>`));
+    });
+    crumbsEl.innerHTML = html;
+  } else {
+    crumbsBar.style.display='none';
+  }
+  window.scrollTo({top:0,behavior:'instant'});
+  document.getElementById('mMenu').classList.remove('open');
+}
+window.addEventListener('hashchange', route);
+route();
+
+/* ===================== UI BEHAVIOR ===================== */
+const burger = document.getElementById('burgerBtn');
+burger.addEventListener('click',()=>document.getElementById('mMenu').classList.toggle('open'));
+const so = document.getElementById('searchOverlay');
+document.getElementById('searchBtn').addEventListener('click',()=>{so.classList.add('open');document.getElementById('searchInput').focus();});
+so.addEventListener('click',e=>{if(e.target===so)so.classList.remove('open');});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')so.classList.remove('open');});
+document.getElementById('searchInput').addEventListener('keydown',e=>{
+  if(e.key==='Enter'){so.classList.remove('open');location.hash='#/for-sale';}
+});
+const toTop = document.getElementById('toTop');
+window.addEventListener('scroll',()=>toTop.classList.toggle('show',window.scrollY>600));
+toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+/* tabs: візуальне перемикання у прототипі */
+document.querySelectorAll('.tabs').forEach(t=>{
+  t.addEventListener('click',e=>{
+    if(e.target.tagName==='BUTTON'){t.querySelectorAll('button').forEach(b=>b.classList.remove('on'));e.target.classList.add('on');}
+  });
+});
+/* model spec/equipment tab panels */
+</script>
+</body>
+</html>

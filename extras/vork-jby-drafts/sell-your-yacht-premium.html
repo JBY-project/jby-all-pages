@@ -1,0 +1,2098 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sell Your Yacht | Jeff Brown Yachts Premium Page Concept</title>
+  <meta name="description" content="A premium, research-led Sell Your Yacht page concept for Jeff Brown Yachts with valuation, brokerage process, marketing plan, FAQ, and lead form.">
+  <style>
+    :root {
+      --ink: #111315;
+      --soft-ink: #2d3338;
+      --muted: #67727a;
+      --line: #e2e5e6;
+      --panel: #f5f7f6;
+      --white: #ffffff;
+      --sea: #006f78;
+      --sea-dark: #05494f;
+      --red: #e23d35;
+      --gold: #b9975b;
+      --sand: #e9e0cf;
+      --mist: #eef4f3;
+      --shadow: 0 24px 60px rgba(8, 20, 24, .16);
+      --soft-shadow: 0 14px 34px rgba(8, 20, 24, .09);
+      --max: 1320px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--white);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body.nav-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    .skip-link {
+      position: fixed;
+      left: 18px;
+      top: 18px;
+      z-index: 1000;
+      transform: translateY(-140%);
+      padding: 12px 16px;
+      background: var(--ink);
+      color: var(--white);
+      font-weight: 800;
+      transition: transform .18s ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 70;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+      padding: 0 clamp(18px, 4vw, 54px);
+      border-bottom: 1px solid rgba(255, 255, 255, .18);
+      color: var(--white);
+      transition: background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .topbar.is-scrolled,
+    .topbar.nav-active {
+      background: rgba(255, 255, 255, .94);
+      color: var(--ink);
+      border-color: rgba(17, 19, 21, .1);
+      box-shadow: 0 10px 30px rgba(7, 18, 20, .08);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+      min-width: max-content;
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .crest {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: .02em;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(14px, 2vw, 30px);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .nav a {
+      opacity: .82;
+      transition: color .18s ease, opacity .18s ease;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      color: var(--red);
+      opacity: 1;
+      outline: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .menu-button {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid currentColor;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .menu-button span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      margin: 4px auto;
+      background: currentColor;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 0 22px;
+      border: 1px solid var(--ink);
+      background: var(--white);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease, border-color .18s ease;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, .14);
+      outline: 0;
+    }
+
+    .btn.dark {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .btn.sea {
+      border-color: var(--sea);
+      background: var(--sea);
+      color: var(--white);
+    }
+
+    .btn.light {
+      border-color: rgba(255, 255, 255, .84);
+      background: rgba(255, 255, 255, .13);
+      color: var(--white);
+    }
+
+    .btn.text {
+      min-height: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--sea);
+      box-shadow: none;
+    }
+
+    .btn.text:hover {
+      transform: none;
+      box-shadow: none;
+      color: var(--red);
+    }
+
+    .topbar:not(.is-scrolled):not(.nav-active) .header-actions .btn.dark {
+      border-color: rgba(255, 255, 255, .92);
+      background: rgba(255, 255, 255, .1);
+      color: var(--white);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 760px;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      padding: 158px clamp(22px, 5vw, 72px) 58px;
+      color: var(--white);
+      background:
+        linear-gradient(90deg, rgba(2, 13, 16, .92) 0%, rgba(2, 13, 16, .66) 43%, rgba(2, 13, 16, .18) 100%),
+        url("https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&w=2400&q=84") center / cover;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 180px;
+      background: linear-gradient(0deg, rgba(2, 13, 16, .56), transparent);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 430px);
+      align-items: end;
+      gap: clamp(28px, 6vw, 80px);
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px;
+      color: rgba(255, 255, 255, .84);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: var(--red);
+    }
+
+    .hero h1 {
+      max-width: 880px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(48px, 7vw, 96px);
+      line-height: .94;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 690px;
+      margin: 24px 0 0;
+      color: rgba(255, 255, 255, .86);
+      font-size: clamp(17px, 1.6vw, 21px);
+      line-height: 1.62;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .hero-proof {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 760px;
+      margin-top: 42px;
+    }
+
+    .proof-tile {
+      min-height: 108px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      background: rgba(255, 255, 255, .1);
+      backdrop-filter: blur(12px);
+    }
+
+    .proof-tile strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1;
+    }
+
+    .proof-tile span {
+      color: rgba(255, 255, 255, .75);
+      font-size: 12px;
+      font-weight: 750;
+      line-height: 1.4;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .seller-card {
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, .28);
+      background: rgba(255, 255, 255, .92);
+      color: var(--ink);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .seller-card h2 {
+      margin: 0 0 10px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 28px;
+      line-height: 1.08;
+    }
+
+    .seller-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.58;
+    }
+
+    .quick-form {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field label {
+      color: var(--soft-ink);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-height: 46px;
+      padding: 12px 13px;
+      border: 1px solid #cfd5d7;
+      border-radius: 0;
+      background: var(--white);
+      color: var(--ink);
+      outline: 0;
+      transition: border-color .18s ease, box-shadow .18s ease;
+    }
+
+    .field textarea {
+      min-height: 108px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--sea);
+      box-shadow: 0 0 0 3px rgba(0, 111, 120, .14);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .mini-note {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .section {
+      padding: clamp(74px, 9vw, 118px) clamp(22px, 5vw, 72px);
+    }
+
+    .section.tight {
+      padding-top: clamp(50px, 7vw, 82px);
+      padding-bottom: clamp(50px, 7vw, 82px);
+    }
+
+    .section.alt {
+      background: var(--panel);
+    }
+
+    .section.dark {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .wrap {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .86fr) minmax(280px, .44fr);
+      gap: 32px;
+      align-items: end;
+      margin-bottom: clamp(34px, 5vw, 58px);
+    }
+
+    .section-kicker {
+      margin: 0 0 12px;
+      color: var(--sea);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .section.dark .section-kicker {
+      color: #93d5d7;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(35px, 5vw, 64px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .section-lede {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .section.dark .section-lede {
+      color: rgba(255, 255, 255, .68);
+    }
+
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .insight-card {
+      min-height: 232px;
+      padding: 23px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .insight-card .number {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      margin-bottom: 22px;
+      background: var(--ink);
+      color: var(--white);
+      font-weight: 900;
+    }
+
+    .insight-card h3,
+    .advantage-card h3,
+    .marketing-copy h3,
+    .type-card h3,
+    .faq-question,
+    .research-card h3 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.18;
+    }
+
+    .insight-card p,
+    .advantage-card p,
+    .marketing-copy p,
+    .type-card p,
+    .research-card p {
+      margin: 14px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .advantage-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .advantage-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 300px;
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, .18);
+      background: #172124;
+    }
+
+    .advantage-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .24;
+      background: var(--bg) center / cover;
+      transition: transform .28s ease, opacity .28s ease;
+    }
+
+    .advantage-card:hover::before {
+      opacity: .34;
+      transform: scale(1.04);
+    }
+
+    .advantage-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .advantage-card h3 {
+      max-width: 260px;
+      color: var(--white);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 30px;
+    }
+
+    .advantage-card p {
+      color: rgba(255, 255, 255, .72);
+    }
+
+    .advantage-tag {
+      display: inline-flex;
+      margin-bottom: 84px;
+      padding: 7px 10px;
+      background: rgba(255, 255, 255, .14);
+      color: rgba(255, 255, 255, .86);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .process-shell {
+      display: grid;
+      grid-template-columns: 310px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .process-nav {
+      display: grid;
+      gap: 10px;
+      position: sticky;
+      top: 100px;
+    }
+
+    .process-tab {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      min-height: 64px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--soft-ink);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color .18s ease, background .18s ease, color .18s ease, transform .18s ease;
+    }
+
+    .process-tab:hover,
+    .process-tab.is-active {
+      border-color: var(--sea);
+      background: var(--sea);
+      color: var(--white);
+      transform: translateX(4px);
+    }
+
+    .process-tab b {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid currentColor;
+      font-size: 12px;
+    }
+
+    .process-tab span {
+      font-weight: 850;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .process-panel {
+      display: none;
+      min-height: 500px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .process-panel.is-active {
+      display: grid;
+      grid-template-columns: minmax(0, .86fr) minmax(290px, .56fr);
+    }
+
+    .process-copy {
+      padding: clamp(28px, 5vw, 52px);
+    }
+
+    .process-copy h3 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(32px, 4vw, 54px);
+      line-height: 1;
+    }
+
+    .process-copy p {
+      margin: 18px 0 0;
+      max-width: 620px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.72;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 12px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+      align-items: start;
+      color: var(--soft-ink);
+      line-height: 1.55;
+    }
+
+    .checklist li::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      margin-top: 3px;
+      background:
+        linear-gradient(135deg, transparent 44%, var(--sea) 45% 55%, transparent 56%),
+        linear-gradient(45deg, transparent 48%, var(--sea) 49% 59%, transparent 60%);
+      border: 1px solid rgba(0, 111, 120, .38);
+    }
+
+    .process-media {
+      min-height: 100%;
+      background: var(--photo) center / cover;
+    }
+
+    .marketing-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .85fr) minmax(320px, .5fr);
+      gap: clamp(24px, 5vw, 60px);
+      align-items: center;
+    }
+
+    .marketing-media {
+      position: relative;
+      overflow: hidden;
+      min-height: 620px;
+      background:
+        linear-gradient(180deg, rgba(17, 19, 21, 0), rgba(17, 19, 21, .65)),
+        url("https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=1800&q=82") center / cover;
+      box-shadow: var(--shadow);
+    }
+
+    .media-overlay {
+      position: absolute;
+      inset: auto 24px 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .overlay-chip {
+      padding: 14px;
+      background: rgba(255, 255, 255, .94);
+      color: var(--ink);
+    }
+
+    .overlay-chip strong {
+      display: block;
+      font-size: 20px;
+    }
+
+    .overlay-chip span {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .marketing-copy {
+      display: grid;
+      gap: 14px;
+    }
+
+    .channel {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 14px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      cursor: pointer;
+      transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+    }
+
+    .channel:hover,
+    .channel.is-active {
+      border-color: var(--sea);
+      box-shadow: var(--soft-shadow);
+      transform: translateY(-2px);
+    }
+
+    .channel-icon {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      background: var(--mist);
+      color: var(--sea);
+      font-weight: 900;
+    }
+
+    .channel h3 {
+      font-size: 18px;
+    }
+
+    .channel p {
+      margin-top: 7px;
+      font-size: 14px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: minmax(0, .72fr) minmax(330px, .42fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .report-card,
+    .valuation-card {
+      padding: clamp(24px, 4vw, 40px);
+      border: 1px solid rgba(255, 255, 255, .16);
+      background: #192225;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .22);
+    }
+
+    .report-card h3,
+    .valuation-card h3 {
+      margin: 0 0 14px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1;
+    }
+
+    .report-card p,
+    .valuation-card p {
+      margin: 0;
+      color: rgba(255, 255, 255, .66);
+      line-height: 1.66;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .metric {
+      min-height: 134px;
+      padding: 18px;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .1);
+    }
+
+    .metric strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--white);
+      font-size: 26px;
+    }
+
+    .metric span {
+      color: rgba(255, 255, 255, .62);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .05em;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+
+    .brief-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .brief-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .12);
+      color: rgba(255, 255, 255, .76);
+    }
+
+    .brief-item b {
+      color: var(--white);
+    }
+
+    .readiness {
+      display: grid;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .range-wrap {
+      display: grid;
+      gap: 8px;
+    }
+
+    .range-wrap input {
+      accent-color: var(--sea);
+    }
+
+    .score {
+      display: grid;
+      place-items: center;
+      width: 154px;
+      height: 154px;
+      margin: 18px auto 8px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, #192225 0 55%, transparent 56%),
+        conic-gradient(var(--gold) calc(var(--score) * 1%), rgba(255, 255, 255, .12) 0);
+    }
+
+    .score strong {
+      font-size: 36px;
+      line-height: 1;
+    }
+
+    .score span {
+      display: block;
+      color: rgba(255, 255, 255, .55);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .type-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .type-card {
+      display: grid;
+      min-height: 280px;
+      align-content: end;
+      padding: 20px;
+      overflow: hidden;
+      color: var(--white);
+      background:
+        linear-gradient(180deg, rgba(17, 19, 21, .06), rgba(17, 19, 21, .82)),
+        var(--photo) center / cover;
+    }
+
+    .type-card h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 26px;
+    }
+
+    .type-card p {
+      color: rgba(255, 255, 255, .75);
+      font-size: 14px;
+    }
+
+    .valuation-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .55fr) minmax(360px, .45fr);
+      gap: clamp(24px, 5vw, 58px);
+      align-items: start;
+    }
+
+    .valuation-intro {
+      position: sticky;
+      top: 104px;
+    }
+
+    .valuation-intro p {
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .promise-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .promise {
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    .promise b {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .promise span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .form-card {
+      padding: clamp(24px, 4vw, 36px);
+      background: var(--white);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .form-card h3 {
+      margin: 0 0 18px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .status-message {
+      display: none;
+      margin-top: 15px;
+      padding: 14px;
+      border-left: 3px solid var(--sea);
+      background: var(--mist);
+      color: var(--sea-dark);
+      line-height: 1.55;
+    }
+
+    .status-message.is-visible {
+      display: block;
+    }
+
+    .faq-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .38fr) minmax(0, .62fr);
+      gap: 44px;
+      align-items: start;
+    }
+
+    .faq-stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    .faq-item {
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    .faq-button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      min-height: 70px;
+      padding: 20px 22px;
+      border: 0;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .faq-question {
+      font-size: 17px;
+    }
+
+    .faq-icon {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--line);
+      color: var(--sea);
+      font-weight: 900;
+      transition: transform .18s ease;
+    }
+
+    .faq-item.is-open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 22px 22px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .faq-item.is-open .faq-answer {
+      display: block;
+    }
+
+    .research {
+      border-top: 1px solid var(--line);
+    }
+
+    .research details {
+      border: 1px solid var(--line);
+      background: var(--white);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .research summary {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 24px;
+      cursor: pointer;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .research summary::after {
+      content: "+";
+      color: var(--sea);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .research details[open] summary::after {
+      content: "-";
+    }
+
+    .research-body {
+      padding: 0 24px 24px;
+    }
+
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .research-card {
+      padding: 20px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .research-card h3 {
+      font-size: 17px;
+    }
+
+    .research-card p {
+      font-size: 14px;
+    }
+
+    .cta-band {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(72px, 9vw, 116px) clamp(22px, 5vw, 72px);
+      color: var(--white);
+      background:
+        linear-gradient(90deg, rgba(2, 13, 16, .88), rgba(2, 13, 16, .54)),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2200&q=82") center / cover;
+    }
+
+    .cta-inner {
+      width: min(860px, 100%);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .cta-inner h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(38px, 5vw, 72px);
+      line-height: 1;
+    }
+
+    .cta-inner p {
+      margin: 22px auto 0;
+      max-width: 680px;
+      color: rgba(255, 255, 255, .76);
+      font-size: 18px;
+      line-height: 1.68;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .footer {
+      padding: 48px clamp(22px, 5vw, 72px);
+      background: #0d1012;
+      color: rgba(255, 255, 255, .62);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(240px, .8fr) repeat(3, minmax(160px, .3fr));
+      gap: 32px;
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+    }
+
+    .footer h3,
+    .footer h4 {
+      margin: 0 0 14px;
+      color: var(--white);
+    }
+
+    .footer p,
+    .footer a {
+      display: block;
+      margin: 0 0 10px;
+      color: rgba(255, 255, 255, .62);
+      line-height: 1.55;
+    }
+
+    .footer a:hover {
+      color: var(--white);
+    }
+
+    .sticky-cta {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+      display: none;
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 1120px) {
+      .hero-grid,
+      .section-head,
+      .marketing-layout,
+      .dashboard,
+      .valuation-layout,
+      .faq-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .seller-card,
+      .valuation-intro,
+      .process-nav {
+        position: static;
+      }
+
+      .insight-grid,
+      .advantage-grid,
+      .metrics,
+      .research-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .type-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .process-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .process-nav {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .process-tab:hover,
+      .process-tab.is-active {
+        transform: translateY(-2px);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .topbar {
+        min-height: 68px;
+      }
+
+      .menu-button {
+        display: block;
+      }
+
+      .nav {
+        position: fixed;
+        inset: 68px 0 auto;
+        display: none;
+        grid-template-columns: 1fr;
+        align-items: stretch;
+        gap: 0;
+        padding: 12px 22px 22px;
+        background: rgba(255, 255, 255, .98);
+        color: var(--ink);
+        border-bottom: 1px solid var(--line);
+        box-shadow: var(--soft-shadow);
+      }
+
+      .nav.is-open {
+        display: grid;
+      }
+
+      .nav a {
+        padding: 16px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .header-actions .btn {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 128px;
+      }
+
+      .hero-proof,
+      .process-panel.is-active {
+        grid-template-columns: 1fr;
+      }
+
+      .process-media {
+        min-height: 320px;
+      }
+
+      .sticky-cta {
+        display: inline-flex;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .hero h1 {
+        font-size: 45px;
+      }
+
+      .hero-proof,
+      .insight-grid,
+      .advantage-grid,
+      .process-nav,
+      .metrics,
+      .type-grid,
+      .promise-list,
+      .research-grid,
+      .footer-grid,
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .marketing-media {
+        min-height: 430px;
+      }
+
+      .media-overlay {
+        grid-template-columns: 1fr;
+      }
+
+      .brand-mark span {
+        display: none;
+      }
+
+      .footer {
+        padding-bottom: 96px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar" data-topbar>
+    <a class="brand-mark" href="#top" aria-label="Jeff Brown Yachts home">
+      <span class="crest">JBY</span>
+      <span>Jeff Brown Yachts</span>
+    </a>
+    <nav class="nav" data-nav aria-label="Primary navigation">
+      <a href="#why">Why JBY</a>
+      <a href="#process">Process</a>
+      <a href="#marketing">Marketing</a>
+      <a href="#dashboard">Reporting</a>
+      <a href="#valuation">Valuation</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn dark" href="#valuation">Request Valuation</a>
+      <button class="menu-button" type="button" data-menu aria-expanded="false" aria-label="Open navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-label="Sell your yacht hero">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Sell Your Yacht With Confidence</p>
+          <h1>A sharper sales plan for serious yacht sellers.</h1>
+          <p class="hero-copy">
+            Jeff Brown Yachts combines licensed, bonded brokerage expertise, premium media, disciplined pricing, and a national office footprint to help your yacht reach qualified buyers without turning the sale into a second job.
+          </p>
+          <div class="hero-actions">
+            <a class="btn sea" href="#valuation">Get a Private Valuation</a>
+            <a class="btn light" href="#process">See the Sale Plan</a>
+          </div>
+          <div class="hero-proof" aria-label="Key seller proof points">
+            <div class="proof-tile">
+              <strong>7</strong>
+              <span>Coastal sales offices</span>
+            </div>
+            <div class="proof-tile">
+              <strong>30+</strong>
+              <span>Years in the marine industry</span>
+            </div>
+            <div class="proof-tile">
+              <strong>360</strong>
+              <span>Photo, video, drone and virtual media plan</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="seller-card" aria-label="Quick valuation request">
+          <h2>Start with the number.</h2>
+          <p>Send the essentials and a broker can prepare a market-backed opinion of value, a launch strategy, and the first list of actions that will lift buyer confidence.</p>
+          <form class="quick-form" data-mini-form>
+            <div class="field">
+              <label for="mini-vessel">Yacht make and model</label>
+              <input id="mini-vessel" name="vessel" autocomplete="off" placeholder="Example: Axopar 37 XC">
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="mini-year">Year</label>
+                <input id="mini-year" name="year" inputmode="numeric" placeholder="2021">
+              </div>
+              <div class="field">
+                <label for="mini-length">Length</label>
+                <input id="mini-length" name="length" inputmode="numeric" placeholder="37 ft">
+              </div>
+            </div>
+            <button class="btn dark" type="submit">Preview My Plan</button>
+            <p class="mini-note">Prototype form: click submits locally so the page is testable without sending data.</p>
+          </form>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section tight" id="strategy">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Research-led page structure</p>
+            <h2>Answer the seller’s real questions before they have to ask.</h2>
+          </div>
+          <p class="section-lede">
+            The best yacht-selling pages do not merely say “we market your boat.” They reduce uncertainty: what is it worth, how will it be presented, who sees it, what happens after an offer, and how often the seller hears from the broker.
+          </p>
+        </div>
+        <div class="insight-grid">
+          <article class="insight-card">
+            <span class="number">01</span>
+            <h3>Price with evidence</h3>
+            <p>Lead with valuation, comparable sales, current competition, and timing strategy. Sellers want confidence before they want a brochure.</p>
+          </article>
+          <article class="insight-card">
+            <span class="number">02</span>
+            <h3>Show the campaign</h3>
+            <p>Turn “marketing” into a visible system: media, listings, paid ads, email, broker network, yacht shows, and retargeting.</p>
+          </article>
+          <article class="insight-card">
+            <span class="number">03</span>
+            <h3>Make process tactile</h3>
+            <p>Replace a long paragraph with clickable stages from preparation to closing, each with seller tasks and broker deliverables.</p>
+          </article>
+          <article class="insight-card">
+            <span class="number">04</span>
+            <h3>Prove communication</h3>
+            <p>Add a seller reporting section so owners know how feedback, inquiries, showings, and pricing recommendations will be handled.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark" id="why">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Why sellers choose JBY</p>
+            <h2>Boutique attention with national reach.</h2>
+          </div>
+          <p class="section-lede">
+            Jeff Brown Yachts already has the right raw material: premium brand credibility, multiple coastal offices, service knowledge, and a full-service brokerage promise. This version makes those advantages concrete.
+          </p>
+        </div>
+        <div class="advantage-grid">
+          <article class="advantage-card" style="--bg: url('https://images.unsplash.com/photo-1516415290616-fb59b7994a51?auto=format&fit=crop&w=1200&q=80');">
+            <span class="advantage-tag">Positioning</span>
+            <h3>Pricing built from the market, not hope.</h3>
+            <p>Comparable sold boats, active competition, condition, options, seasonality, and seller timing become one clear pricing recommendation.</p>
+          </article>
+          <article class="advantage-card" style="--bg: url('https://images.unsplash.com/photo-1563298723-dcfebaa392e3?auto=format&fit=crop&w=1200&q=80');">
+            <span class="advantage-tag">Presentation</span>
+            <h3>Every listing launches like a campaign.</h3>
+            <p>Professional photography, drone footage, 360 tours, optimized descriptions, marketplace syndication, and social assets are planned before launch.</p>
+          </article>
+          <article class="advantage-card" style="--bg: url('https://images.unsplash.com/photo-1528150177508-7cc0c36cda5c?auto=format&fit=crop&w=1200&q=80');">
+            <span class="advantage-tag">Guidance</span>
+            <h3>A broker who manages the whole sale.</h3>
+            <p>Preparation, showings, offers, surveys, documentation, transport coordination, handover, and after-sale support stay under one accountable team.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="process">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">The sale plan</p>
+            <h2>From first valuation to final handover.</h2>
+          </div>
+          <p class="section-lede">
+            The original Jeff Brown framework of Prep, Listing, Cultivate, and Sold is expanded into a more confidence-building path with clearer deliverables and better conversion moments.
+          </p>
+        </div>
+
+        <div class="process-shell">
+          <div class="process-nav" role="tablist" aria-label="Yacht selling process">
+            <button class="process-tab is-active" type="button" role="tab" aria-selected="true" data-tab="valuation-tab">
+              <b>01</b><span>Valuation</span>
+            </button>
+            <button class="process-tab" type="button" role="tab" aria-selected="false" data-tab="prep-tab">
+              <b>02</b><span>Prep</span>
+            </button>
+            <button class="process-tab" type="button" role="tab" aria-selected="false" data-tab="launch-tab">
+              <b>03</b><span>Launch</span>
+            </button>
+            <button class="process-tab" type="button" role="tab" aria-selected="false" data-tab="cultivate-tab">
+              <b>04</b><span>Cultivate</span>
+            </button>
+            <button class="process-tab" type="button" role="tab" aria-selected="false" data-tab="offer-tab">
+              <b>05</b><span>Offer</span>
+            </button>
+            <button class="process-tab" type="button" role="tab" aria-selected="false" data-tab="close-tab">
+              <b>06</b><span>Close</span>
+            </button>
+          </div>
+
+          <div>
+            <article class="process-panel is-active" id="valuation-tab" role="tabpanel" style="--photo: url('https://images.unsplash.com/photo-1525264626954-d57032a2ccfd?auto=format&fit=crop&w=1200&q=80');">
+              <div class="process-copy">
+                <h3>Private market valuation</h3>
+                <p>Before a listing agreement, the broker frames the likely value range, buyer demand, time-on-market expectations, and the first tactical decision: price for speed, net return, or a controlled market test.</p>
+                <ul class="checklist">
+                  <li>Comparable sold boats and currently listed alternatives.</li>
+                  <li>Condition, upgrades, options, maintenance history, and location review.</li>
+                  <li>Recommended asking price range with rationale and next steps.</li>
+                </ul>
+              </div>
+              <div class="process-media" aria-hidden="true"></div>
+            </article>
+
+            <article class="process-panel" id="prep-tab" role="tabpanel" style="--photo: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80');">
+              <div class="process-copy">
+                <h3>Preparation that protects value</h3>
+                <p>Small issues become negotiation leverage when buyers find them first. The prep stage creates a cleaner story before photography, showings, survey, and sea trial.</p>
+                <ul class="checklist">
+                  <li>Staging, detailing, service recommendations, and document collection.</li>
+                  <li>Surveyor and marine service referrals when additional confidence is needed.</li>
+                  <li>Seller checklist for equipment, title, maintenance, and recent work.</li>
+                </ul>
+              </div>
+              <div class="process-media" aria-hidden="true"></div>
+            </article>
+
+            <article class="process-panel" id="launch-tab" role="tabpanel" style="--photo: url('https://images.unsplash.com/photo-1534008897995-27a23e859048?auto=format&fit=crop&w=1200&q=80');">
+              <div class="process-copy">
+                <h3>Listing launch</h3>
+                <p>The yacht goes live with complete media, searchable copy, and coordinated distribution instead of being slowly assembled after buyers have already formed a first impression.</p>
+                <ul class="checklist">
+                  <li>Photography, drone/video, 360 tour planning, and listing description.</li>
+                  <li>Jeff Brown website feature plus YachtWorld, MLS feeds, Boat Trader, and partner channels.</li>
+                  <li>Broker-to-broker introduction for qualified buyer matching.</li>
+                </ul>
+              </div>
+              <div class="process-media" aria-hidden="true"></div>
+            </article>
+
+            <article class="process-panel" id="cultivate-tab" role="tabpanel" style="--photo: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80');">
+              <div class="process-copy">
+                <h3>Lead cultivation</h3>
+                <p>Inquiry volume matters less than quality. The team qualifies buyers, coordinates private and virtual showings, follows up fast, and translates buyer feedback into decisions.</p>
+                <ul class="checklist">
+                  <li>CRM follow-up, buyer qualification, and showing coordination.</li>
+                  <li>Weekly reporting on inquiries, listing views, feedback, and next actions.</li>
+                  <li>Adjustments to price, presentation, or distribution when the market signals it.</li>
+                </ul>
+              </div>
+              <div class="process-media" aria-hidden="true"></div>
+            </article>
+
+            <article class="process-panel" id="offer-tab" role="tabpanel" style="--photo: url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80');">
+              <div class="process-copy">
+                <h3>Offer, survey, and sea trial</h3>
+                <p>Once a qualified buyer is serious, the broker manages negotiation, contingencies, survey logistics, sea trial expectations, and any repair-credit discussion.</p>
+                <ul class="checklist">
+                  <li>Offer strategy, counteroffers, deposit milestones, and contract guidance.</li>
+                  <li>Survey and sea trial coordination with clear seller preparation.</li>
+                  <li>Negotiation support after findings, without unnecessary emotion in the room.</li>
+                </ul>
+              </div>
+              <div class="process-media" aria-hidden="true"></div>
+            </article>
+
+            <article class="process-panel" id="close-tab" role="tabpanel" style="--photo: url('https://images.unsplash.com/photo-1504609813442-a8924e83f76e?auto=format&fit=crop&w=1200&q=80');">
+              <div class="process-copy">
+                <h3>Closing and handover</h3>
+                <p>The final stage is where details matter most. Documentation, taxes, duties, transport, delivery, and handover are coordinated so the sale ends cleanly.</p>
+                <ul class="checklist">
+                  <li>Closing documentation and coordination with required parties.</li>
+                  <li>Transport, delivery, and post-sale handover planning.</li>
+                  <li>Support for the seller’s next purchase, trade, service, or management need.</li>
+                </ul>
+              </div>
+              <div class="process-media" aria-hidden="true"></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="marketing">
+      <div class="wrap">
+        <div class="marketing-layout">
+          <div class="marketing-media" aria-label="Premium yacht marketing presentation">
+            <div class="media-overlay">
+              <div class="overlay-chip">
+                <strong>MLS</strong>
+                <span>Broker network</span>
+              </div>
+              <div class="overlay-chip">
+                <strong>360</strong>
+                <span>Virtual tours</span>
+              </div>
+              <div class="overlay-chip">
+                <strong>Ads</strong>
+                <span>Retargeting</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="section-kicker">Marketing system</p>
+            <h2>Exposure is engineered, not hoped for.</h2>
+            <p class="section-lede" style="margin-top: 20px;">
+              Competitor research shows that stronger pages make marketing tangible. This version turns Jeff Brown’s “cutting-edge marketing” promise into a visible, multi-channel campaign buyers and sellers can understand.
+            </p>
+            <div class="marketing-copy" style="margin-top: 28px;">
+              <article class="channel is-active" data-channel>
+                <span class="channel-icon">01</span>
+                <div>
+                  <h3>Premium media library</h3>
+                  <p>Professional photography, drone footage, virtual walkthroughs, and detail shots that give distant buyers enough confidence to inquire.</p>
+                </div>
+              </article>
+              <article class="channel" data-channel>
+                <span class="channel-icon">02</span>
+                <div>
+                  <h3>Marketplace syndication</h3>
+                  <p>Jeff Brown website feature, YachtWorld, MLS feeds, Boat Trader, and relevant international portals for buyer discovery.</p>
+                </div>
+              </article>
+              <article class="channel" data-channel>
+                <span class="channel-icon">03</span>
+                <div>
+                  <h3>Targeted demand creation</h3>
+                  <p>Search, social, email, private database outreach, retargeting, and broker-to-broker promotion shaped to the yacht’s buyer profile.</p>
+                </div>
+              </article>
+              <article class="channel" data-channel>
+                <span class="channel-icon">04</span>
+                <div>
+                  <h3>Showings that convert</h3>
+                  <p>Private tours, virtual showings, buyer qualification, offer facilitation, and follow-up sequences that keep momentum alive.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark" id="dashboard">
+      <div class="wrap">
+        <div class="dashboard">
+          <article class="report-card">
+            <p class="section-kicker">Seller communication</p>
+            <h3>The weekly brief your seller expects.</h3>
+            <p>
+              Transparent reporting is a best-practice pattern across stronger brokerage pages. This prototype gives sellers a clear expectation for what they will see: demand, feedback, actions taken, and the next recommendation.
+            </p>
+            <div class="metrics">
+              <div class="metric">
+                <strong>126</strong>
+                <span>Listing views this week</span>
+              </div>
+              <div class="metric">
+                <strong>14</strong>
+                <span>Qualified buyer conversations</span>
+              </div>
+              <div class="metric">
+                <strong>5</strong>
+                <span>Private or virtual showings</span>
+              </div>
+              <div class="metric">
+                <strong>3</strong>
+                <span>Broker network matches</span>
+              </div>
+            </div>
+            <div class="brief-list">
+              <div class="brief-item"><span>Market feedback</span><b>Price is competitive</b></div>
+              <div class="brief-item"><span>Top buyer concern</span><b>Service records</b></div>
+              <div class="brief-item"><span>Next action</span><b>Upload refit invoices</b></div>
+            </div>
+          </article>
+
+          <aside class="valuation-card">
+            <h3>Sale readiness check</h3>
+            <p>Move the sliders to see how preparation, documentation, and media affect launch confidence.</p>
+            <div class="score" data-score style="--score: 74;">
+              <div>
+                <strong data-score-value>74</strong>
+                <span>Readiness</span>
+              </div>
+            </div>
+            <div class="readiness">
+              <label class="range-wrap">
+                <span>Service records</span>
+                <input type="range" min="0" max="100" value="80" data-readiness>
+              </label>
+              <label class="range-wrap">
+                <span>Detailing and staging</span>
+                <input type="range" min="0" max="100" value="70" data-readiness>
+              </label>
+              <label class="range-wrap">
+                <span>Media completeness</span>
+                <input type="range" min="0" max="100" value="72" data-readiness>
+              </label>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="types">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Yacht categories</p>
+            <h2>A custom strategy for every vessel profile.</h2>
+          </div>
+          <p class="section-lede">
+            The Jeff Brown page already speaks to motor yachts, sailing yachts, catamarans, and adventure boats. This turns those categories into a visual proof point and helps sellers self-identify.
+          </p>
+        </div>
+        <div class="type-grid">
+          <article class="type-card" style="--photo: url('https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=900&q=80');">
+            <h3>Motor Yachts</h3>
+            <p>Comfort, condition, hours, options, and cruising lifestyle presented clearly.</p>
+          </article>
+          <article class="type-card" style="--photo: url('https://images.unsplash.com/photo-1495277260030-2a056c4e4bcf?auto=format&fit=crop&w=900&q=80');">
+            <h3>Sailing Yachts</h3>
+            <p>Rig, sails, systems, performance, and bluewater credibility highlighted.</p>
+          </article>
+          <article class="type-card" style="--photo: url('https://images.unsplash.com/photo-1520350094754-f0fdcac35c1e?auto=format&fit=crop&w=900&q=80');">
+            <h3>Catamarans</h3>
+            <p>Space, stability, charter appeal, and layout advantages brought forward.</p>
+          </article>
+          <article class="type-card" style="--photo: url('https://images.unsplash.com/photo-1540946485063-a40da27545f8?auto=format&fit=crop&w=900&q=80');">
+            <h3>Adventure Boats</h3>
+            <p>Range, utility, equipment, and all-weather usability matched to active buyers.</p>
+          </article>
+          <article class="type-card" style="--photo: url('https://images.unsplash.com/photo-1518623489648-a173ef7824f3?auto=format&fit=crop&w=900&q=80');">
+            <h3>Luxury Brands</h3>
+            <p>Riva, Pershing, Sirena, Wally, Axopar, and other brand stories positioned with care.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="valuation">
+      <div class="wrap valuation-layout">
+        <div class="valuation-intro">
+          <p class="section-kicker">Request valuation</p>
+          <h2>Get a confidential selling strategy.</h2>
+          <p>
+            A stronger conversion form should collect enough yacht detail for a meaningful reply while staying short enough to complete on mobile. This one separates owner details from vessel details and makes the value exchange explicit.
+          </p>
+          <div class="promise-list">
+            <div class="promise">
+              <b>No obligation</b>
+              <span>Start with an honest market read before deciding how to list.</span>
+            </div>
+            <div class="promise">
+              <b>Actionable reply</b>
+              <span>Expect pricing context, preparation ideas, and launch recommendations.</span>
+            </div>
+            <div class="promise">
+              <b>Privacy first</b>
+              <span>Useful for owners exploring options before going public.</span>
+            </div>
+            <div class="promise">
+              <b>Full-service path</b>
+              <span>Brokerage, service, warranty, delivery, and next-yacht support.</span>
+            </div>
+          </div>
+        </div>
+
+        <form class="form-card" data-main-form>
+          <h3>Private valuation request</h3>
+          <div class="form-row">
+            <div class="field">
+              <label for="first-name">First name</label>
+              <input id="first-name" name="firstName" autocomplete="given-name" required>
+            </div>
+            <div class="field">
+              <label for="last-name">Last name</label>
+              <input id="last-name" name="lastName" autocomplete="family-name" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel">
+            </div>
+          </div>
+          <div class="field">
+            <label for="location">Current yacht location</label>
+            <input id="location" name="location" placeholder="Marina, city, state">
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="make">Manufacturer</label>
+              <input id="make" name="make" placeholder="Example: Riva" required>
+            </div>
+            <div class="field">
+              <label for="model">Model</label>
+              <input id="model" name="model" placeholder="Example: 56 Rivale" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="year">Year</label>
+              <input id="year" name="year" inputmode="numeric" required>
+            </div>
+            <div class="field">
+              <label for="length">Length</label>
+              <input id="length" name="length" inputmode="numeric" placeholder="ft" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="timeline">Ideal selling timeline</label>
+            <select id="timeline" name="timeline">
+              <option>Exploring options</option>
+              <option>List within 30 days</option>
+              <option>List this season</option>
+              <option>Need guidance after an offer</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="details">Details that affect value</label>
+            <textarea id="details" name="details" placeholder="Upgrades, service history, engine hours, recent survey, refit work, or questions."></textarea>
+          </div>
+          <button class="btn sea" type="submit">Request My Valuation</button>
+          <p class="status-message" data-status>Thank you. This prototype captured the request locally. In production this would route to the Jeff Brown Yachts brokerage team.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="section alt" id="faq">
+      <div class="wrap faq-layout">
+        <div>
+          <p class="section-kicker">Seller FAQ</p>
+          <h2>Clear answers at decision speed.</h2>
+          <p class="section-lede" style="margin-top: 20px;">
+            The FAQ keeps Jeff Brown’s original information but sharpens it around the questions that block inquiry: value, vessel fit, marketing, communication, and closing support.
+          </p>
+        </div>
+        <div class="faq-stack">
+          <article class="faq-item is-open">
+            <button class="faq-button" type="button" aria-expanded="true">
+              <span class="faq-question">What makes Jeff Brown Yachts a strong choice for selling?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              Jeff Brown Yachts pairs boutique, senior-level attention with licensed and bonded brokerage support, premium brand credibility, and offices across key U.S. yachting markets.
+            </div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-button" type="button" aria-expanded="false">
+              <span class="faq-question">How will you determine my yacht’s value?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              The valuation should compare recent sold boats, active competition, condition, equipment, service history, current buyer demand, and your timing goals before recommending a price range.
+            </div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-button" type="button" aria-expanded="false">
+              <span class="faq-question">What types of yachts can JBY represent?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              The strategy can cover luxury motor yachts, sailing yachts, catamarans, family cruisers, expedition/adventure boats, one-design boats, and custom vessels.
+            </div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-button" type="button" aria-expanded="false">
+              <span class="faq-question">Where will my yacht be marketed?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              A complete campaign should include the Jeff Brown site, YachtWorld, MLS feeds, Boat Trader, social channels, email/database outreach, broker network promotion, and selective paid media.
+            </div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-button" type="button" aria-expanded="false">
+              <span class="faq-question">What happens after a buyer makes an offer?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              Your broker helps with negotiation, contract milestones, deposits, survey and sea trial coordination, findings, documentation, transport, delivery, and final handover.
+            </div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-button" type="button" aria-expanded="false">
+              <span class="faq-question">How do I get started?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              Start with a private valuation request or a direct consultation. The first step should give you a market-backed view of price, timing, preparation, and recommended launch strategy.
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tight research" id="research">
+      <div class="wrap">
+        <details>
+          <summary>Open competitor research notes and improved site structure</summary>
+          <div class="research-body">
+            <div class="research-grid">
+              <article class="research-card">
+                <h3>Jeff Brown Yachts baseline</h3>
+                <p>Keep: licensed/bonded trust, seven offices, premium brands, Prep/List/Cultivate/Sold, FAQ, service depth. Improve: stronger hero, fewer repeated paragraphs, clearer conversion, reporting proof.</p>
+              </article>
+              <article class="research-card">
+                <h3>Galati pattern</h3>
+                <p>Useful: detailed process, CMA emphasis, marketing channels, and seller reporting. Upgrade for JBY: make it visual, shorter, and directly clickable.</p>
+              </article>
+              <article class="research-card">
+                <h3>MarineMax pattern</h3>
+                <p>Useful: broad syndication, in-house team, broker network, digital ads, events, and lead form. Upgrade: connect every channel to seller outcomes.</p>
+              </article>
+              <article class="research-card">
+                <h3>Yacht Access pattern</h3>
+                <p>Useful: two-path CTA logic, fast valuation, data-backed buyer qualification. Upgrade: make the “talk to broker” path feel premium, not transactional.</p>
+              </article>
+              <article class="research-card">
+                <h3>Smith / Island pattern</h3>
+                <p>Useful: short proof blocks, no-upfront-fee messaging, 4-5 step process, practical form fields. Upgrade: add more luxury-grade visual confidence.</p>
+              </article>
+              <article class="research-card">
+                <h3>Recommended structure</h3>
+                <p>Hero + valuation, seller questions, proof, process tabs, marketing engine, reporting dashboard, yacht categories, conversion form, FAQ, final CTA.</p>
+              </article>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="cta-inner">
+        <h2>Ready to understand what your yacht can command?</h2>
+        <p>
+          Start with a confidential valuation and a practical selling plan. You will know what to prepare, how your yacht should be positioned, and what the first week on market should look like.
+        </p>
+        <div class="cta-actions">
+          <a class="btn sea" href="#valuation">Request Valuation</a>
+          <a class="btn light" href="tel:+16192229899">Call (619) 222-9899</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h3>Jeff Brown Yachts</h3>
+        <p>Premium yacht sales, brokerage, service, and ownership support from a team built around trust, preparation, and life on the water.</p>
+      </div>
+      <div>
+        <h4>Sell</h4>
+        <a href="#valuation">Request valuation</a>
+        <a href="#process">Sale process</a>
+        <a href="#marketing">Marketing plan</a>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="#why">Why JBY</a>
+        <a href="#types">Yacht categories</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="tel:+16192229899">(619) 222-9899</a>
+        <a href="#valuation">Schedule consultation</a>
+        <a href="#research">Research notes</a>
+      </div>
+    </div>
+  </footer>
+
+  <a class="btn sea sticky-cta" href="#valuation">Valuation</a>
+
+  <script>
+    const topbar = document.querySelector('[data-topbar]');
+    const menuButton = document.querySelector('[data-menu]');
+    const nav = document.querySelector('[data-nav]');
+
+    function updateHeader() {
+      topbar.classList.toggle('is-scrolled', window.scrollY > 24);
+    }
+
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    updateHeader();
+
+    menuButton.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('is-open');
+      document.body.classList.toggle('nav-open', isOpen);
+      topbar.classList.toggle('nav-active', isOpen);
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    nav.addEventListener('click', (event) => {
+      if (event.target.closest('a')) {
+        nav.classList.remove('is-open');
+        document.body.classList.remove('nav-open');
+        topbar.classList.remove('nav-active');
+        menuButton.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    const tabs = Array.from(document.querySelectorAll('[data-tab]'));
+    const panels = Array.from(document.querySelectorAll('.process-panel'));
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((item) => {
+          const active = item === tab;
+          item.classList.toggle('is-active', active);
+          item.setAttribute('aria-selected', String(active));
+        });
+        panels.forEach((panel) => {
+          panel.classList.toggle('is-active', panel.id === tab.dataset.tab);
+        });
+      });
+    });
+
+    document.querySelectorAll('[data-channel]').forEach((channel) => {
+      channel.addEventListener('click', () => {
+        document.querySelectorAll('[data-channel]').forEach((item) => item.classList.remove('is-active'));
+        channel.classList.add('is-active');
+      });
+    });
+
+    document.querySelectorAll('.faq-button').forEach((button) => {
+      button.addEventListener('click', () => {
+        const item = button.closest('.faq-item');
+        const isOpen = item.classList.toggle('is-open');
+        button.setAttribute('aria-expanded', String(isOpen));
+      });
+    });
+
+    const readinessInputs = Array.from(document.querySelectorAll('[data-readiness]'));
+    const scoreDial = document.querySelector('[data-score]');
+    const scoreValue = document.querySelector('[data-score-value]');
+
+    function updateScore() {
+      const total = readinessInputs.reduce((sum, input) => sum + Number(input.value), 0);
+      const score = Math.round(total / readinessInputs.length);
+      scoreDial.style.setProperty('--score', score);
+      scoreValue.textContent = score;
+    }
+
+    readinessInputs.forEach((input) => input.addEventListener('input', updateScore));
+    updateScore();
+
+    document.querySelector('[data-mini-form]').addEventListener('submit', (event) => {
+      event.preventDefault();
+      document.querySelector('#valuation').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const vessel = document.querySelector('#mini-vessel').value;
+      if (vessel) {
+        document.querySelector('#details').value = `Quick-start request for ${vessel}.`;
+      }
+    });
+
+    document.querySelector('[data-main-form]').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const status = document.querySelector('[data-status]');
+      status.classList.add('is-visible');
+      status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  </script>
+</body>
+</html>
