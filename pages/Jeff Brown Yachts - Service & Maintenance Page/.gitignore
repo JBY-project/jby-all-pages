@@ -1,0 +1,6 @@
+.DS_Store
+.orig-cards/
+.orig-scenes/
+.snapshots/
+_qa.html
+*.mov

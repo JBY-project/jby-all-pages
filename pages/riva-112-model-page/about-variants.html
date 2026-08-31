@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>&ldquo;Built to Go Further&rdquo; — design options</title>
+<link rel="stylesheet" href="assets/fonts.css"/>
+<style>
+  :root{
+    --ink:#1d1d1b;--c0:#000;--c2:#575760;--c4:#727279;--white-soft:#dcdcde;
+    --navy:#41647b;--navy-d:#365466;--border:#eeeef0;--line:rgba(0,0,0,.08);
+    --page:#fcfcfd;--section:#f4f6f9;--sand:#bdb19d;--ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Myriad Pro',system-ui,sans-serif;color:var(--c0);background:#eef0f2}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+
+  .page{max-width:1280px;margin:0 auto;padding:56px 40px 120px}
+  .page-head h1{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:26px;letter-spacing:.02em;text-transform:uppercase;color:var(--ink)}
+  .page-head p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;color:var(--c2);margin-top:8px;max-width:680px}
+  .opt{margin-top:56px}
+  .opt-tag{display:inline-flex;align-items:center;gap:10px;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);margin-bottom:18px}
+  .opt-tag i{width:26px;height:26px;border:1px solid var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px}
+  .opt-tag small{color:var(--c4);letter-spacing:.06em}
+  .card{background:#fff;border:1px solid var(--border);border-radius:4px;overflow:hidden;box-shadow:0 24px 60px -40px rgba(0,0,0,.35)}
+
+  /* shared type */
+  .eyebrow{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--c4)}
+  .lead{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:1.7;color:var(--c2)}
+  .title{font-family:'Mesmerize',sans-serif;font-weight:300;text-transform:uppercase;color:var(--ink);line-height:1.14}
+  .k{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--c4)}
+  .v{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;text-transform:uppercase;color:var(--ink)}
+  .v.on-dark{color:#fff}.k.on-dark{color:rgba(255,255,255,.7)}
+
+  /* ===== OPTION 1 — Editorial split (text + profile image) ===== */
+  .a1{display:grid;grid-template-columns:1fr 1.02fr;align-items:stretch}
+  .a1 .a1-text{padding:72px 60px;display:flex;flex-direction:column;justify-content:center}
+  .a1 .eyebrow{margin-bottom:20px}
+  .a1 .title{font-size:34px;margin-bottom:22px}
+  .a1 .lead{max-width:460px}
+  .a1 .stats{display:grid;grid-template-columns:1fr 1fr;gap:26px 40px;margin-top:40px;padding-top:32px;border-top:1px solid var(--line)}
+  .a1 .stat{display:flex;flex-direction:column;gap:7px}
+  .a1 .a1-img{position:relative;min-height:520px}
+  .a1 .a1-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+  /* ===== OPTION 2 — Cinematic full-bleed overlay ===== */
+  .a2{position:relative;min-height:600px;display:flex;align-items:center;color:#fff}
+  .a2 .a2-bg{position:absolute;inset:0}
+  .a2 .a2-bg img{width:100%;height:100%;object-fit:cover}
+  .a2 .a2-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,18,24,.78) 0%,rgba(12,18,24,.45) 45%,rgba(12,18,24,.15) 100%)}
+  .a2 .a2-inner{position:relative;z-index:2;max-width:620px;padding:0 60px}
+  .a2 .eyebrow{color:rgba(255,255,255,.8);margin-bottom:20px}
+  .a2 .title{color:#fff;font-size:36px;margin-bottom:22px}
+  .a2 .lead{color:rgba(255,255,255,.88)}
+  .a2 .stats{display:flex;gap:48px;margin-top:44px;padding-top:30px;border-top:1px solid rgba(255,255,255,.22)}
+  .a2 .stat{display:flex;flex-direction:column;gap:7px}
+
+  /* ===== OPTION 3 — Centered text → image band → stats strip ===== */
+  .a3{padding:76px 40px 0;text-align:center}
+  .a3 .eyebrow{display:block;margin-bottom:22px}
+  .a3 .title{font-size:32px}
+  .a3 .lead{max-width:620px;margin:20px auto 0}
+  .a3 .a3-band{position:relative;height:340px;margin-top:52px}
+  .a3 .a3-band img{width:100%;height:100%;object-fit:cover}
+  .a3 .stats{display:flex;flex-wrap:wrap;justify-content:center;gap:30px 64px;padding:40px;background:var(--section)}
+  .a3 .stat{display:flex;flex-direction:column;gap:7px}
+
+  /* ===== OPTION 4 — Big statement + structured stat grid ===== */
+  .a4{padding:72px 60px}
+  .a4 .a4-top{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:end}
+  .a4 .eyebrow{margin-bottom:20px;display:block}
+  .a4 .title{font-size:46px;line-height:1.05}
+  .a4 .lead{padding-bottom:6px}
+  .a4 .stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:52px;border-top:1px solid var(--ink)}
+  .a4 .stat{padding:26px 26px 26px 0;border-right:1px solid var(--line)}
+  .a4 .stat:last-child{border-right:0}
+  .a4 .stat .k{display:block;margin-bottom:10px}
+  .a4 .stat .v{font-size:26px}
+
+  @media(max-width:900px){
+    .page{padding:40px 20px 80px}
+    .a1{grid-template-columns:1fr}.a1 .a1-text{padding:40px 28px}.a1 .a1-img{min-height:300px}
+    .a2{min-height:auto;padding:64px 0}.a2 .a2-inner{padding:0 28px}.a2 .stats{flex-wrap:wrap;gap:24px 36px}
+    .a4{padding:40px 28px}.a4 .a4-top{grid-template-columns:1fr;gap:24px}.a4 .title{font-size:34px}
+    .a4 .stats{grid-template-columns:1fr 1fr}.a4 .stat{border-bottom:1px solid var(--line)}
+    .a3 .stats{gap:22px 36px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="page-head">
+    <h1>&ldquo;Built to Go Further&rdquo; &mdash; design options</h1>
+    <p>Four directions for the second section (right after the hero). Same copy &amp; the researched stats, different layout &amp; feel. Pick one (or a mix) and I&rsquo;ll put it on the page. Headline sizes here are for feel &mdash; I&rsquo;ll tune them to the page hierarchy (hero&nbsp;&gt;&nbsp;this) on integration.</p>
+  </div>
+
+  <!-- OPTION 1 -->
+  <div class="opt">
+    <span class="opt-tag"><i>1</i> Editorial split <small>text + profile image, asymmetric</small></span>
+    <div class="card a1">
+      <div class="a1-text">
+        <span class="eyebrow">The Riva 112&rsquo; Dolcevita Super</span>
+        <h2 class="title">Built to go further</h2>
+        <p class="lead">The next evolution of the 110&rsquo; Dolcevita &mdash; expanded volumes, sculpted Italian lines and twin MTU 16V 2000 M96L engines give her the presence of a true superyacht, with open-air living across every deck.</p>
+        <div class="stats">
+          <div class="stat"><span class="k">Displacement</span><span class="v">130 t</span></div>
+          <div class="stat"><span class="k">Fuel capacity</span><span class="v">15,300 L</span></div>
+          <div class="stat"><span class="k">Crew</span><span class="v">5</span></div>
+          <div class="stat"><span class="k">Gross tonnage</span><span class="v">220 GT</span></div>
+        </div>
+      </div>
+      <div class="a1-img"><img src="assets/riva-profile.jpg" alt="Riva 112 Dolcevita Super"/></div>
+    </div>
+  </div>
+
+  <!-- OPTION 2 -->
+  <div class="opt">
+    <span class="opt-tag"><i>2</i> Cinematic overlay <small>full-bleed image, text over it</small></span>
+    <div class="card a2">
+      <div class="a2-bg"><img src="assets/promo.jpg" alt="Riva 112 Dolcevita Super cruising"/></div>
+      <div class="a2-inner">
+        <span class="eyebrow">The Riva 112&rsquo; Dolcevita Super</span>
+        <h2 class="title">Built to go further</h2>
+        <p class="lead">The next evolution of the 110&rsquo; Dolcevita &mdash; expanded volumes, sculpted Italian lines and twin MTU 16V 2000 M96L engines give her the presence of a true superyacht, with open-air living across every deck.</p>
+        <div class="stats">
+          <div class="stat"><span class="k on-dark">Displacement</span><span class="v on-dark">130 t</span></div>
+          <div class="stat"><span class="k on-dark">Fuel</span><span class="v on-dark">15,300 L</span></div>
+          <div class="stat"><span class="k on-dark">Crew</span><span class="v on-dark">5</span></div>
+          <div class="stat"><span class="k on-dark">Tonnage</span><span class="v on-dark">220 GT</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION 3 -->
+  <div class="opt">
+    <span class="opt-tag"><i>3</i> Centered + image band <small>keeps the centered feel, adds a photo</small></span>
+    <div class="card a3">
+      <span class="eyebrow">The Riva 112&rsquo; Dolcevita Super</span>
+      <h2 class="title">Built to go further</h2>
+      <p class="lead">The next evolution of the 110&rsquo; Dolcevita &mdash; expanded volumes, sculpted Italian lines and twin MTU 16V 2000 M96L engines give her the presence of a true superyacht, with open-air living across every deck.</p>
+      <div class="a3-band"><img src="assets/riva-aerial.jpg" alt="Riva 112 Dolcevita Super from above"/></div>
+      <div class="stats">
+        <div class="stat"><span class="k">Displacement</span><span class="v">130 t</span></div>
+        <div class="stat"><span class="k">Fuel capacity</span><span class="v">15,300 L</span></div>
+        <div class="stat"><span class="k">Crew</span><span class="v">5</span></div>
+        <div class="stat"><span class="k">Gross tonnage</span><span class="v">220 GT</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION 4 -->
+  <div class="opt">
+    <span class="opt-tag"><i>4</i> Big statement <small>oversized headline, structured stat grid</small></span>
+    <div class="card a4">
+      <div class="a4-top">
+        <div>
+          <span class="eyebrow">The Riva 112&rsquo; Dolcevita Super</span>
+          <h2 class="title">Built to go further</h2>
+        </div>
+        <p class="lead">The next evolution of the 110&rsquo; Dolcevita &mdash; expanded volumes, sculpted Italian lines and twin MTU 16V 2000 M96L engines give her the presence of a true superyacht, with open-air living across every deck.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="k">Displacement</span><span class="v">130 t</span></div>
+        <div class="stat"><span class="k">Fuel capacity</span><span class="v">15,300 L</span></div>
+        <div class="stat"><span class="k">Crew</span><span class="v">5</span></div>
+        <div class="stat"><span class="k">Gross tonnage</span><span class="v">220 GT</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
