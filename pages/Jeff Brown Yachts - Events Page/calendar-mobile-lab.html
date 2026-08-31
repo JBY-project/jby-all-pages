@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>JBY Events — Mobile Calendar Lab</title>
+<style>
+:root{
+  --ink:#23232a; --mute:#6a6a74; --faint:#9a9aa4; --line:rgba(0,0,0,0.10);
+  --paper:#f6f6f4; --card:#ffffff; --navy:#41647b; --sand:#a2926f;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+  --ui:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--ui);-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+
+/* ---------- Intro / research ---------- */
+.hero{padding:64px 0 24px}
+.kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);font-weight:600;margin:0 0 14px}
+.hero h1{font-size:clamp(30px,5vw,50px);line-height:1.05;letter-spacing:-.02em;margin:0 0 18px;font-weight:600}
+.hero p.lead{font-size:19px;line-height:1.6;color:var(--mute);max-width:760px;margin:0}
+.research{padding:20px 0 8px;display:grid;grid-template-columns:1fr 1fr;gap:32px 48px}
+@media(max-width:820px){.research{grid-template-columns:1fr}}
+.research h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin:0 0 12px;font-weight:700}
+.research p{margin:0 0 14px;color:#3a3a44;font-size:15.5px;line-height:1.65}
+.research b{color:var(--ink)}
+.principles{list-style:none;margin:0;padding:0;counter-reset:p}
+.principles li{counter-increment:p;position:relative;padding:12px 0 12px 44px;border-top:1px solid var(--line);font-size:15.5px;color:#3a3a44}
+.principles li:first-child{border-top:0}
+.principles li::before{content:counter(p);position:absolute;left:0;top:11px;width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.principles li b{color:var(--ink)}
+.refs{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.refs span{font-size:12.5px;color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:#fff}
+.note{margin:26px 0 0;padding:16px 18px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--sand);border-radius:8px;font-size:15px;color:#3a3a44}
+
+.sec-h{margin:56px 0 6px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);font-weight:700}
+.sec-sub{margin:0 0 8px;color:var(--mute);font-size:15px}
+
+/* ---------- Gallery of phones ---------- */
+.lab{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:56px 32px;padding:28px 0 90px;align-items:start}
+.variant{display:flex;flex-direction:column;align-items:center}
+.v-num{align-self:flex-start;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);font-weight:700;margin:0 0 4px}
+.v-title{align-self:flex-start;font-size:20px;font-weight:600;letter-spacing:-.01em;margin:0 0 4px}
+.v-pattern{align-self:flex-start;font-size:13px;color:var(--faint);margin:0 0 16px}
+.v-desc{margin:16px 2px 0;font-size:14.5px;color:#3a3a44;line-height:1.6;max-width:360px;align-self:flex-start}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0;align-self:flex-start;max-width:360px}
+.tag{font-size:11.5px;padding:4px 9px;border-radius:999px}
+.tag.pro{background:#e8f0ea;color:#37613f}
+.tag.con{background:#f3e9e6;color:#8a5a4d}
+
+/* phone frame */
+.phone{width:340px;height:710px;border-radius:46px;background:#0d0d10;padding:12px;box-shadow:0 30px 70px -30px rgba(0,0,0,.5),0 0 0 1px rgba(0,0,0,.06);position:relative}
+.screen{width:100%;height:100%;background:#fff;border-radius:36px;overflow:hidden;position:relative}
+.scroll{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.scroll::-webkit-scrollbar{width:0}
+.status{height:34px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-size:12px;font-weight:600;color:var(--ink);position:sticky;top:0;background:#fff;z-index:20}
+.notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:110px;height:24px;background:#0d0d10;border-radius:0 0 16px 16px;z-index:30}
+.app{padding:6px 16px 26px}
+.app-h{font-size:19px;font-weight:700;letter-spacing:-.01em;margin:6px 2px 12px}
+
+/* month controls */
+.mhead{display:flex;align-items:center;justify-content:space-between;margin:2px 2px 10px}
+.mhead b{font-size:15px;font-weight:600}
+.mnav{width:30px;height:30px;border:1px solid var(--line);background:#fff;border-radius:8px;font-size:15px;color:var(--ink);cursor:pointer;line-height:1}
+.dow{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:2px}
+.dow span{text-align:center;font-size:10.5px;color:var(--faint);font-weight:600;padding:4px 0}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cell{aspect-ratio:1/1.12;border:0;background:transparent;border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:6px;font:inherit;color:var(--ink);cursor:pointer;position:relative}
+.cell.empty{visibility:hidden}
+.cell>span{font-size:13px}
+.cell .dots{display:flex;gap:2px;margin-top:4px;height:6px}
+.cell .dots i{width:5px;height:5px;border-radius:50%;display:block}
+.cell.sel{background:var(--ink);}
+.cell.sel>span{color:#fff}
+.cell.sel .dots i{outline:1px solid #fff}
+
+/* event card */
+.ev-card{display:flex;gap:12px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:14px;background:#fff;margin-top:10px}
+.ec-thumb{width:64px;height:64px;border-radius:10px;background-size:cover;background-position:center;flex:0 0 auto;background-color:#eee}
+.ec-b{min-width:0}
+.ec-d{font-size:12px;font-weight:700;letter-spacing:.02em}
+.ec-t{font-size:15px;font-weight:600;line-height:1.2;margin:2px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ec-l{font-size:12.5px;color:var(--mute)}
+.day-detail{margin-top:14px}
+.dd-h{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:6px 2px}
+.empty-day{color:var(--faint);font-size:14px;text-align:center;padding:22px 0}
+
+/* variant 2 spanning bars */
+.wkrow{display:grid;grid-template-columns:repeat(7,1fr);position:relative;min-height:58px;border-top:1px solid var(--line)}
+.wkrow .dn{font-size:12px;color:var(--ink);text-align:center;padding-top:5px}
+.wkrow .dn.out{color:#cfcfd6}
+.bars{position:absolute;left:0;right:0;top:24px;bottom:4px}
+.bar{position:absolute;height:18px;border-radius:5px;color:#fff;font-size:10.5px;font-weight:600;display:flex;align-items:center;padding:0 7px;white-space:nowrap;overflow:hidden;cursor:pointer}
+
+/* week strip (variant 4) */
+.wstrip{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px}
+.wchip{flex:0 0 auto;width:46px;height:64px;border-radius:14px;border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;background:#fff}
+.wchip .wd{font-size:10.5px;color:var(--faint);font-weight:600}
+.wchip .wnum{font-size:17px;font-weight:600}
+.wchip .wdot{width:5px;height:5px;border-radius:50%}
+.wchip.on{background:var(--ink);border-color:var(--ink)}
+.wchip.on .wd,.wchip.on .wnum{color:#fff}
+
+/* variant 5 compact + big card */
+.grid.mini .cell{aspect-ratio:1/1}
+.big-card{margin-top:16px;border-radius:18px;overflow:hidden;position:relative;height:270px;background-size:cover;background-position:center;background-color:#ddd}
+.big-card .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.72) 100%)}
+.big-card .bc-b{position:absolute;left:16px;right:16px;bottom:16px;color:#fff;z-index:2}
+.big-card .bc-d{font-size:12px;font-weight:700;letter-spacing:.04em}
+.big-card .bc-t{font-size:21px;font-weight:700;line-height:1.1;margin:4px 0}
+.big-card .bc-l{font-size:13px;opacity:.9}
+.bc-cta{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(255,255,255,.8);border-radius:6px;padding:8px 14px;color:#fff}
+
+/* variant 6 carousel */
+.carou{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 16px 14px;margin:0 -16px}
+.cslide{flex:0 0 84%;scroll-snap-align:center;height:400px;border-radius:20px;overflow:hidden;position:relative;background-size:cover;background-position:center;background-color:#ddd}
+.cslide .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.75) 100%)}
+.cslide .cs-b{position:absolute;left:18px;right:18px;bottom:18px;color:#fff;z-index:2}
+.badge{position:absolute;top:16px;left:16px;background:rgba(255,255,255,.92);color:var(--ink);border-radius:8px;padding:7px 11px;font-size:12px;font-weight:700;z-index:2}
+.cs-t{font-size:20px;font-weight:700;line-height:1.12}
+.cs-l{font-size:13px;opacity:.9;margin-top:4px}
+.pager{display:flex;gap:6px;justify-content:center;margin:2px 0 6px}
+.pager i{width:6px;height:6px;border-radius:50%;background:#d3d3d9}
+.pager i.on{background:var(--ink);width:18px;border-radius:3px}
+
+/* variant 7 date rail */
+.rail-item{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.rail-item:first-child{border-top:0}
+.rail-d{flex:0 0 52px;text-align:center}
+.rail-d .rd-num{font-size:20px;font-weight:700;line-height:1;color:var(--ink)}
+.rail-d .rd-mon{font-size:11px;color:var(--faint);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
+.rail-c{flex:1;display:flex;gap:12px;align-items:center;min-width:0}
+.rail-c .rc-thumb{width:56px;height:56px;border-radius:10px;background-size:cover;background-position:center;flex:0 0 auto}
+.rail-c .rc-t{font-size:15px;font-weight:600;line-height:1.2}
+.rail-c .rc-l{font-size:12.5px;color:var(--mute);margin-top:2px}
+.rail-c .rc-b{font-size:11px;font-weight:700;color:#fff;border-radius:5px;padding:2px 7px;display:inline-block;margin-top:6px}
+
+/* variant 8 chips */
+.chip-day{display:flex;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
+.chip-day:first-child{border-top:0}
+.cd-date{flex:0 0 46px}
+.cd-date .cdn{font-size:19px;font-weight:700;line-height:1}
+.cd-date .cdd{font-size:11px;color:var(--faint);font-weight:600;text-transform:uppercase}
+.cd-list{flex:1;display:flex;flex-direction:column;gap:6px}
+.cchip{border-radius:8px;padding:9px 11px;color:#fff;font-size:13.5px;font-weight:600;line-height:1.2}
+.cchip small{display:block;font-weight:500;opacity:.85;font-size:11.5px;margin-top:1px}
+
+/* variant 9 timeline */
+.tl{position:relative;padding-left:26px}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl-item{position:relative;padding:0 0 20px}
+.tl-dot{position:absolute;left:-24px;top:5px;width:14px;height:14px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1px var(--line)}
+.tl-mon{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:14px 0 8px -26px}
+.tl-card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.tl-card .tc-img{height:96px;background-size:cover;background-position:center}
+.tl-card .tc-b{padding:10px 12px}
+.tc-d{font-size:12px;font-weight:700}
+.tc-t{font-size:15px;font-weight:600;margin:2px 0}
+.tc-l{font-size:12.5px;color:var(--mute)}
+
+/* variant 10 two-week + upcoming */
+.mini2{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin:4px 0 6px}
+.m2cell{aspect-ratio:1/1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;background:#f1f1ef;color:var(--ink);position:relative}
+.m2cell.has{color:#fff}
+.m2cell .u{position:absolute;bottom:5px;width:16px;height:3px;border-radius:2px}
+.up-h{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:700;margin:12px 2px 2px}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin:8px 2px 4px}
+.legend span{font-size:11px;color:var(--mute);display:flex;align-items:center;gap:5px}
+.legend i{width:9px;height:9px;border-radius:50%}
+.foot{padding:40px 0 70px;color:var(--faint);font-size:13.5px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="hero">
+    <p class="kicker">JBY Events · Research Lab</p>
+    <h1>Mobile calendar — 10 ways to show it</h1>
+    <p class="lead">The desktop month grid works, but on a ~375&nbsp;px phone a 7-column grid with photos inside the cells collapses into unreadable thumbnails, and two different events on back-to-back days (Aug&nbsp;7–8 vs Aug&nbsp;9) blur together. Below is a short study of how the best apps solve this, followed by ten mobile-only prototypes on the real JBY events. Nothing here touches the live site.</p>
+  </section>
+
+  <section class="research">
+    <div>
+      <h2>The problem, precisely</h2>
+      <p>A month has 7 columns. On a phone each cell is roughly <b>40–48&nbsp;px</b> wide. That is fine for a number and a dot — but far too small for a photo, a title, or to distinguish a two-day event from a one-day event beside it. Putting imagery in the cell (our current desktop approach) is the root of the “tiny picture” issue.</p>
+      <h2>What the best apps actually do</h2>
+      <p><b>Google&nbsp;Calendar / Apple&nbsp;Calendar:</b> on phones they default to a <b>Schedule / Agenda</b> or <b>Day</b> view. The month grid, when shown, uses tiny <b>coloured dots</b> — never content — and multi-day events render as <b>continuous coloured bars</b>. You tap a day to reveal its events below.</p>
+      <p><b>Luma&nbsp;(lu.ma) &amp; Eventbrite:</b> mobile is a <b>vertical agenda</b> — rich cards (image, title, date, place) grouped by date. No grid at all.</p>
+      <p><b>Airbnb / Resy / OpenTable:</b> a horizontal <b>date rail</b> (scrollable week) with the selected day’s list underneath.</p>
+      <p><b>Notion&nbsp;Calendar / Fantastical:</b> a compact month plus a detail pane; multi-day events as <b>spanning pills</b>.</p>
+      <div class="refs">
+        <span>Google Calendar</span><span>Apple Calendar</span><span>Luma</span><span>Eventbrite</span><span>Airbnb</span><span>Resy</span><span>OpenTable</span><span>Meetup</span><span>Notion Calendar</span><span>Fantastical</span>
+      </div>
+    </div>
+    <div>
+      <h2>Principles for JBY mobile</h2>
+      <ol class="principles">
+        <li><b>No photos inside month cells.</b> Reserve imagery for the list / detail, where it has room to be beautiful.</li>
+        <li><b>Signal events with colour + dots or bars.</b> Colour is what lets neighbouring events read as separate.</li>
+        <li><b>Make multi-day continuous.</b> A spanning bar (not a lone dot) says “this is one event across these days,” and a different colour next door says “this is a different event.”</li>
+        <li><b>Default to a list; treat the grid as an overview.</b> Browsing happens in the agenda; the grid is for orientation.</li>
+        <li><b>Progressive disclosure.</b> Overview → tap a day → detail.</li>
+        <li><b>Thumb-friendly.</b> Tap targets ≥&nbsp;44&nbsp;px; keep key actions low on screen.</li>
+        <li><b>Keep context sticky</b> (month / selected day) while scrolling.</li>
+      </ol>
+      <div class="note">Watch the <b>Aug&nbsp;7–8</b> (Lake&nbsp;Tahoe Concours) vs <b>Aug&nbsp;9</b> (Riva Soirée) case in each prototype — that consecutive, two-different-events situation is the real test.</div>
+    </div>
+  </section>
+
+  <p class="sec-h">Ten mobile prototypes</p>
+  <p class="sec-sub">Real JBY events (Aug–Sep 2026), each colour-coded per event. Grids are interactive where it helps — tap days / drag the strip / swipe the cards.</p>
+
+  <div class="lab" id="lab"></div>
+
+  <div class="foot">Research &amp; prototypes · JBY Events mobile calendar exploration. Standalone — does not affect the live site.</div>
+</div>
+
+<script>
+var EV=[
+ {id:1,t:"Lake Tahoe Concours d'Elegance",s:"2026-08-07",e:"2026-08-08",loc:"Lake Tahoe, CA",brand:"Riva",img:"./assets/ev_tahoe.jpg",c:"#41647b"},
+ {id:2,t:"Riva Soirée",s:"2026-08-09",e:"2026-08-09",loc:"Lake Tahoe, CA",brand:"Riva",img:"./assets/ev_riva.jpg",c:"#b08a3e"},
+ {id:3,t:"BRABUS VIP Owners Party",s:"2026-08-16",e:"2026-08-17",loc:"Monterey Peninsula, CA",brand:"BRABUS",img:"./assets/ev_brabus.jpg",c:"#5f8368"},
+ {id:4,t:"Cannes Yachting Festival",s:"2026-09-08",e:"2026-09-13",loc:"Cannes, France",brand:"All brands",img:"./assets/ev_cannes.jpg",c:"#9a5f56"},
+ {id:5,t:"Sausalito Boat Show",s:"2026-09-25",e:"2026-09-27",loc:"Sausalito, CA",brand:"Axopar",img:"./assets/ev_sausalito.jpg",c:"#6f6a86"}
+];
+var MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var DOW=['Su','Mo','Tu','We','Th','Fr','Sa'];
+function d(s){var p=s.split('-').map(Number);return new Date(p[0],p[1]-1,p[2]);}
+function within(e,dt){return dt>=d(e.s)&&dt<=d(e.e);}
+function evOn(y,m,day){var dt=new Date(y,m,day);return EV.filter(function(e){return within(e,dt);});}
+function evInMonth(y,m){var ms=new Date(y,m,1),me=new Date(y,m+1,0);return EV.filter(function(e){return d(e.e)>=ms&&d(e.s)<=me;}).sort(function(a,b){return a.s<b.s?-1:1;});}
+function fmt(e){var a=d(e.s),b=d(e.e);if(e.s===e.e)return MO[a.getMonth()]+' '+a.getDate();if(a.getMonth()===b.getMonth())return MO[a.getMonth()]+' '+a.getDate()+'–'+b.getDate();return MO[a.getMonth()]+' '+a.getDate()+'–'+MO[b.getMonth()]+' '+b.getDate();}
+function fmtFull(e){return fmt(e)+', 2026';}
+function gridCells(y,m){var f=new Date(y,m,1),st=f.getDay(),dim=new Date(y,m+1,0).getDate(),c=[];for(var i=0;i<st;i++)c.push(0);for(var x=1;x<=dim;x++)c.push(x);while(c.length%7)c.push(0);return c;}
+function card(e){return '<div class="ev-card"><div class="ec-thumb" style="background-image:url('+e.img+')"></div><div class="ec-b"><div class="ec-d" style="color:'+e.c+'">'+fmtFull(e)+'</div><div class="ec-t">'+e.t+'</div><div class="ec-l">'+e.loc+'</div></div></div>';}
+
+function phone(id,title,inner){return '<div class="phone"><div class="notch"></div><div class="screen"><div class="scroll" id="'+id+'"><div class="status"><span>9:41</span><span>JBY</span></div><div class="app"><div class="app-h">'+title+'</div>'+inner+'</div></div></div></div>';}
+
+/* ---- V1: dot grid + day detail (Apple/Google) ---- */
+var s1={y:2026,m:7,sel:7};
+function dotGrid(){
+ var cells=gridCells(s1.y,s1.m);
+ var h='<div class="mhead"><button class="mnav" data-a="p1">‹</button><b>'+MON[s1.m]+' '+s1.y+'</b><button class="mnav" data-a="n1">›</button></div>';
+ h+='<div class="dow">'+DOW.map(function(w){return '<span>'+w+'</span>';}).join('')+'</div>';
+ h+='<div class="grid">'+cells.map(function(dd){
+   if(!dd)return '<div class="cell empty"></div>';
+   var dots=evOn(s1.y,s1.m,dd).slice(0,3).map(function(e){return '<i style="background:'+e.c+'"></i>';}).join('');
+   return '<button class="cell'+(dd===s1.sel?' sel':'')+'" data-d1="'+dd+'"><span>'+dd+'</span><div class="dots">'+dots+'</div></button>';
+ }).join('')+'</div>';
+ var evs=evOn(s1.y,s1.m,s1.sel);
+ h+='<div class="day-detail"><div class="dd-h">'+MON[s1.m]+' '+s1.sel+'</div>'+(evs.length?evs.map(card).join(''):'<div class="empty-day">Nothing scheduled</div>')+'</div>';
+ return h;
+}
+/* ---- V2: spanning colour bars ---- */
+function barsGrid(y,m){
+ var f=new Date(y,m,1),st=f.getDay(),dim=new Date(y,m+1,0).getDate();
+ var gStart=new Date(y,m,1-st);var weeks=Math.ceil((st+dim)/7);
+ var html='<div class="mhead"><b>'+MON[m]+' '+y+'</b></div><div class="dow">'+DOW.map(function(w){return '<span>'+w+'</span>';}).join('')+'</div>';
+ var cur=new Date(gStart);
+ for(var w=0;w<weeks;w++){
+   var days=[];for(var i=0;i<7;i++){days.push(new Date(cur));cur.setDate(cur.getDate()+1);}
+   var ws=days[0],we=days[6];
+   var nums=days.map(function(dt){return '<div class="dn'+(dt.getMonth()!==m?' out':'')+'">'+dt.getDate()+'</div>';}).join('');
+   var segs=EV.filter(function(e){return d(e.e)>=ws&&d(e.s)<=we;}).map(function(e){
+     var s=Math.max(0,Math.round((d(e.s)-ws)/86400000)),en=Math.min(6,Math.round((d(e.e)-ws)/86400000));return {e:e,s:s,en:en};
+   }).sort(function(a,b){return a.s-b.s||(b.en-b.s)-(a.en-a.s);});
+   var lanes=[];segs.forEach(function(sg){var pl=false;for(var l=0;l<lanes.length;l++){if(lanes[l].every(function(o){return sg.s>o.en||sg.en<o.s;})){lanes[l].push(sg);sg.lane=l;pl=true;break;}}if(!pl){sg.lane=lanes.length;lanes.push([sg]);}});
+   var bars=segs.map(function(sg){var left=sg.s/7*100,width=(sg.en-sg.s+1)/7*100,top=sg.lane*21;
+     return '<div class="bar" style="left:calc('+left+'% + 2px);width:calc('+width+'% - 4px);top:'+top+'px;background:'+sg.e.c+'">'+sg.e.t+'</div>';}).join('');
+   var lh=Math.max(1,lanes.length)*21+28;
+   html+='<div class="wkrow" style="min-height:'+lh+'px">'+nums+'<div class="bars">'+bars+'</div></div>';
+ }
+ return html;
+}
+/* ---- V3: agenda grouped ---- */
+function agenda(){
+ var out='';[7,8].forEach(function(m){var evs=evInMonth(2026,m);if(!evs.length)return;
+   out+='<div class="dd-h" style="margin-top:14px">'+MON[m]+' 2026</div>'+evs.map(card).join('');});
+ return out;
+}
+/* ---- V4: week strip + day agenda ---- */
+var s4={base:new Date(2026,7,2),sel:7};
+function weekStrip(){
+ var days=[];for(var i=0;i<7;i++){var dt=new Date(s4.base);dt.setDate(dt.getDate()+i);days.push(dt);}
+ var m=days[0].getMonth();
+ var h='<div class="mhead"><button class="mnav" data-a="p4">‹</button><b>'+MON[m]+' '+days[0].getFullYear()+'</b><button class="mnav" data-a="n4">›</button></div>';
+ h+='<div class="wstrip">'+days.map(function(dt){
+   var evs=EV.filter(function(e){return within(e,dt);});
+   var on=dt.getDate()===s4.sel&&dt.getMonth()===m;
+   var dot=evs.length?'<span class="wdot" style="background:'+(on?'#fff':evs[0].c)+'"></span>':'<span class="wdot" style="background:transparent"></span>';
+   return '<button class="wchip'+(on?' on':'')+'" data-d4="'+dt.getDate()+'" data-m4="'+dt.getMonth()+'"><span class="wd">'+DOW[dt.getDay()]+'</span><span class="wnum">'+dt.getDate()+'</span>'+dot+'</button>';
+ }).join('')+'</div>';
+ var sel=new Date(2026,m,s4.sel);var evs=EV.filter(function(e){return within(e,sel);});
+ h+='<div class="day-detail">'+(evs.length?evs.map(card).join(''):'<div class="empty-day">No events this day</div>')+'</div>';
+ return h;
+}
+/* ---- V5: compact month + big card ---- */
+var s5={y:2026,m:7,sel:7};
+function compactCard(){
+ var cells=gridCells(s5.y,s5.m);
+ var h='<div class="mhead"><b>'+MON[s5.m]+' '+s5.y+'</b></div><div class="dow">'+DOW.map(function(w){return '<span>'+w+'</span>';}).join('')+'</div>';
+ h+='<div class="grid mini">'+cells.map(function(dd){if(!dd)return '<div class="cell empty"></div>';
+   var evs=evOn(s5.y,s5.m,dd);var dots=evs.slice(0,2).map(function(e){return '<i style="background:'+(dd===s5.sel?'#fff':e.c)+'"></i>';}).join('');
+   return '<button class="cell'+(dd===s5.sel?' sel':'')+'" data-d5="'+dd+'"><span>'+dd+'</span><div class="dots">'+dots+'</div></button>';}).join('')+'</div>';
+ var evs=evOn(s5.y,s5.m,s5.sel);
+ if(evs.length){var e=evs[0];h+='<div class="big-card" style="background-image:url('+e.img+')"><div class="veil"></div><div class="bc-b"><div class="bc-d">'+fmtFull(e)+'</div><div class="bc-t">'+e.t+'</div><div class="bc-l">'+e.loc+'</div><span class="bc-cta">See details</span></div></div>';}
+ else h+='<div class="empty-day">Tap a highlighted date</div>';
+ return h;
+}
+/* ---- V6: card carousel ---- */
+function carousel(){
+ var slides=EV.map(function(e){return '<div class="cslide" style="background-image:url('+e.img+')"><div class="veil"></div><div class="badge">'+fmt(e)+'</div><div class="cs-b"><div class="cs-t">'+e.t+'</div><div class="cs-l">'+e.loc+'</div></div></div>';}).join('');
+ var dots=EV.map(function(e,i){return '<i'+(i===0?' class="on"':'')+'></i>';}).join('');
+ return '<div class="carou">'+slides+'</div><div class="pager">'+dots+'</div>';
+}
+/* ---- V7: date rail ---- */
+function dateRail(){
+ return EV.map(function(e){var a=d(e.s),b=d(e.e);var num=e.s===e.e?a.getDate():a.getDate()+'–'+b.getDate();
+   return '<div class="rail-item"><div class="rail-d"><div class="rd-num">'+num+'</div><div class="rd-mon">'+MO[a.getMonth()]+'</div></div><div class="rail-c"><div class="rc-thumb" style="background-image:url('+e.img+')"></div><div><div class="rc-t">'+e.t+'</div><div class="rc-l">'+e.loc+'</div><span class="rc-b" style="background:'+e.c+'">'+e.brand+'</span></div></div></div>';}).join('');
+}
+/* ---- V8: colour chips per day ---- */
+function chips(){
+ return EV.map(function(e){var a=d(e.s);var num=e.s===e.e?a.getDate():a.getDate()+'–'+d(e.e).getDate();
+   return '<div class="chip-day"><div class="cd-date"><div class="cdn">'+num+'</div><div class="cdd">'+MO[a.getMonth()]+'</div></div><div class="cd-list"><div class="cchip" style="background:'+e.c+'">'+e.t+'<small>'+e.loc+'</small></div></div></div>';}).join('');
+}
+/* ---- V9: vertical timeline ---- */
+function timeline(){
+ var out='<div class="tl">';var lastM=-1;
+ EV.forEach(function(e){var m=d(e.s).getMonth();if(m!==lastM){out+='<div class="tl-mon">'+MON[m]+'</div>';lastM=m;}
+   out+='<div class="tl-item"><span class="tl-dot" style="background:'+e.c+'"></span><div class="tl-card"><div class="tc-img" style="background-image:url('+e.img+')"></div><div class="tc-b"><div class="tc-d" style="color:'+e.c+'">'+fmtFull(e)+'</div><div class="tc-t">'+e.t+'</div><div class="tc-l">'+e.loc+'</div></div></div></div>';});
+ return out+'</div>';
+}
+/* ---- V10: two-week overview + upcoming ---- */
+function twoWeek(){
+ var start=new Date(2026,7,2);// first Sunday shown
+ var cells='';for(var i=0;i<14;i++){var dt=new Date(start);dt.setDate(dt.getDate()+i);var evs=EV.filter(function(e){return within(e,dt);});
+   var has=evs.length>0;var u=has?'<span class="u" style="background:'+evs[0].c+'"></span>':'';
+   cells+='<div class="m2cell'+(has?' has':'')+'" style="'+(has?'background:'+evs[0].c:'')+'">'+dt.getDate()+u+'</div>';}
+ var leg='<div class="legend">'+EV.slice(0,4).map(function(e){return '<span><i style="background:'+e.c+'"></i>'+e.t.split(' ')[0]+'</span>';}).join('')+'</div>';
+ var up=evInMonth(2026,7).concat(evInMonth(2026,8)).map(card).join('');
+ return '<div class="dow">'+DOW.map(function(w){return '<span>'+w+'</span>';}).join('')+'</div><div class="mini2">'+cells+'</div>'+leg+'<div class="up-h">Upcoming</div>'+up;
+}
+
+var VARIANTS=[
+ {n:'Prototype 01',t:'Dot grid + day detail',p:'Pattern: Apple / Google Calendar',id:'v1',render:dotGrid,
+  desc:'The month stays glanceable with tiny coloured dots (one per event). Tap any day and its events appear as full cards below. Photos live in the detail, never in the cell.',
+  pro:['Familiar','Compact','Photos readable'],con:['Grid itself is info-light']},
+ {n:'Prototype 02',t:'Spanning colour bars',p:'Pattern: Google Calendar month',id:'v2',render:function(){return barsGrid(2026,7);},
+  desc:'Each event is a continuous coloured bar across its days. Aug 7–8 is one navy bar; Aug 9 is a separate gold bar — instantly two different events. Directly solves the multi-day ambiguity.',
+  pro:['Multi-day is obvious','Colour separates events'],con:['Titles truncate','Denser']},
+ {n:'Prototype 03',t:'Agenda (grouped list)',p:'Pattern: Luma / Eventbrite',id:'v3',render:agenda,
+  desc:'No grid at all — a vertical, date-grouped list of rich cards. This is what most event apps default to on mobile, and it is the closest to the List view you already like.',
+  pro:['Most readable','Great for imagery','Zero ambiguity'],con:['No month overview']},
+ {n:'Prototype 04',t:'Week strip + day agenda',p:'Pattern: Apple Day view / Airbnb',id:'v4',render:weekStrip,
+  desc:'A draggable week rail up top (dots mark event days); the selected day’s events sit below. Fast thumb navigation across weeks without a full grid.',
+  pro:['One-thumb browse','Focuses the day'],con:['Only a week at a glance']},
+ {n:'Prototype 05',t:'Compact month + hero card',p:'Pattern: Material date picker',id:'v5',render:compactCard,
+  desc:'A clean minimal month (dots only); tapping a date reveals one large, full-bleed hero card with the photo, date and a CTA. Overview and beauty, together.',
+  pro:['Elegant','Strong imagery on tap'],con:['One event in focus at a time']},
+ {n:'Prototype 06',t:'Swipeable event cards',p:'Pattern: Apple TV / featured rail',id:'v6',render:carousel,
+  desc:'Full-bleed event cards you swipe through, each with a date badge. Feels premium and editorial — better as an “upcoming” hero than a true calendar, but very JBY.',
+  pro:['Premium feel','Photo-forward'],con:['Not a real overview','Hidden events']},
+ {n:'Prototype 07',t:'Big-date rail list',p:'Pattern: Meetup / news apps',id:'v7',render:dateRail,
+  desc:'A bold date column on the left (7–8, 9, 16–17) with a compact card on the right. The date range on the rail makes multi-day unmistakable; brand tag adds colour.',
+  pro:['Scannable','Range is explicit'],con:['Smaller imagery']},
+ {n:'Prototype 08',t:'Coloured title chips',p:'Pattern: Google “Schedule”',id:'v8',render:chips,
+  desc:'Text-first: only days with events, each shown as a coloured chip carrying the title and place. Lightweight, fast to scan, and colour keeps adjacent events distinct.',
+  pro:['Very light','Fast to scan','Colour-coded'],con:['No imagery']},
+ {n:'Prototype 09',t:'Vertical timeline',p:'Pattern: story / itinerary',id:'v9',render:timeline,
+  desc:'A single vertical thread with a coloured node per event and a small photo card. Reads like a season’s itinerary — natural for a short, curated event list.',
+  pro:['Narrative','Clear sequence'],con:['Long scroll if many events']},
+ {n:'Prototype 10',t:'Two-week overview + upcoming',p:'Pattern: hybrid dashboard',id:'v10',render:twoWeek,
+  desc:'A compact two-week strip (coloured days + legend) for orientation, with a full “Upcoming” agenda beneath. Balances a real overview with readable detail on one screen.',
+  pro:['Overview + detail','Glanceable'],con:['Two weeks only up top']}
+];
+
+var lab=document.getElementById('lab');
+lab.innerHTML=VARIANTS.map(function(v){
+ var tags='<div class="tags">'+v.pro.map(function(t){return '<span class="tag pro">'+t+'</span>';}).join('')+v.con.map(function(t){return '<span class="tag con">'+t+'</span>';}).join('')+'</div>';
+ return '<div class="variant"><div class="v-num">'+v.n+'</div><div class="v-title">'+v.t+'</div><div class="v-pattern">'+v.p+'</div>'+phone(v.id,v.t,v.render())+'<div class="v-desc">'+v.desc+'</div>'+tags+'</div>';
+}).join('');
+
+/* interactions (delegated) */
+document.addEventListener('click',function(ev){
+ var t=ev.target.closest('[data-a],[data-d1],[data-d4],[data-d5]');if(!t)return;
+ var a=t.getAttribute('data-a');
+ if(a==='p1'){s1.m--;if(s1.m<0){s1.m=11;s1.y--;}s1.sel=1;document.getElementById('v1').querySelector('.app').children[1]&&refresh('v1',dotGrid);}
+ if(a==='n1'){s1.m++;if(s1.m>11){s1.m=0;s1.y++;}s1.sel=1;refresh('v1',dotGrid);}
+ if(t.hasAttribute('data-d1')){s1.sel=+t.getAttribute('data-d1');refresh('v1',dotGrid);}
+ if(a==='p4'){s4.base.setDate(s4.base.getDate()-7);refresh('v4',weekStrip);}
+ if(a==='n4'){s4.base.setDate(s4.base.getDate()+7);refresh('v4',weekStrip);}
+ if(t.hasAttribute('data-d4')){s4.sel=+t.getAttribute('data-d4');s4.m=+t.getAttribute('data-m4');refresh('v4',weekStrip);}
+ if(t.hasAttribute('data-d5')){s5.sel=+t.getAttribute('data-d5');refresh('v5',compactCard);}
+});
+function refresh(id,fn){var sc=document.getElementById(id);var app=sc.querySelector('.app');var title=app.querySelector('.app-h').outerHTML;app.innerHTML=title+fn();}
+/* carousel pager */
+setTimeout(function(){document.querySelectorAll('.carou').forEach(function(c){c.addEventListener('scroll',function(){var i=Math.round(c.scrollLeft/(c.scrollWidth/EV.length));var dots=c.parentNode.querySelector('.pager');if(dots)[].forEach.call(dots.children,function(dn,k){dn.className=k===i?'on':'';});},{passive:true});});},60);
+</script>
+</body>
+</html>

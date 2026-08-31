@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Frequently Asked Questions | Jeff Brown Yachts</title>
+<meta name="description" content="Answers to the questions we hear most often about buying, selling, servicing and managing a yacht with Jeff Brown Yachts."/>
+<link rel="icon" href="./assets/jby_logo.svg"/>
+<link rel="stylesheet" href="./assets/fonts.css"/>
+<style>
+:root{
+  --ink:#2f2f39; --paper:#fcfcfd; --section:#f4f6f9; --navy:#41647b; --navy-d:#365466;
+  --sand:#bdb19d; --mute:#575760; --line:rgba(0,0,0,0.08); --white:#fff; --page-pad:40px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+  font-family:'Myriad Pro',system-ui,sans-serif;font-weight:300;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;-webkit-appearance:none;border:0;background:transparent;padding:0;color:inherit;font-size:16px}
+a{color:inherit;text-decoration:none}
+.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:200;background:transparent}
+.progress-bar{height:100%;background:var(--navy);width:0%;transition:width 80ms linear}
+
+/* NAV (light header, matches About / Team / Locations) */
+.nav{position:fixed;top:0;left:0;right:0;padding:24px 0;z-index:100;color:#111;background:rgba(252,252,253,0);
+  backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);border-bottom:1px solid #eeeef0;
+  transition:background .45s ease, backdrop-filter .45s ease, color .45s ease, border-color .45s ease, padding .35s ease}
+.nav-in{max-width:1440px;margin:0 auto;padding:0 var(--page-pad);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.nav.scrolled{background:linear-gradient(180deg, rgba(65,100,123,0.82) 0%, rgba(65,100,123,0.92) 100%);
+  backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);
+  border-bottom:0.5px solid rgba(255,255,255,0.15);color:#fff;padding:16px 0}
+.nav.scrolled .burger span{background:#fff}
+.nav.scrolled .logo img{filter:brightness(0) invert(1)}
+.nav.scrolled .icon{border-color:rgba(255,255,255,0.7);color:#fff}
+.nav.scrolled .icon:hover{background:rgba(255,255,255,0.14)}
+.nav.scrolled .cta{color:#fff;border-color:rgba(255,255,255,0.75)}
+.nav.scrolled .cta:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.75)}
+.nav .left{display:flex;align-items:center;justify-self:start}
+.nav .burger{width:40px;height:13px;display:flex;flex-direction:column;justify-content:space-between;background:transparent;border:0;padding:0}
+.nav .burger span{display:block;height:1px;width:100%;background:#111}
+.nav .logo{width:72px;height:72px;justify-self:center;display:flex;align-items:center;justify-content:center;transition:width .35s,height .35s}
+.nav .logo img{width:100%;height:100%;object-fit:contain;filter:invert(1)}
+.nav.scrolled .logo{width:60px;height:60px}
+.nav .right{display:flex;gap:12px;align-items:center;justify-self:end}
+.nav .icon{width:40px;height:40px;border:0.5px solid rgba(0,0,0,0.28);color:#111;display:flex;align-items:center;justify-content:center;transition:.25s;background:transparent}
+.nav .icon svg{width:20px;height:20px}
+.nav .icon:hover{background:rgba(0,0,0,0.05)}
+.nav .cta{padding:0 24px;height:40px;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;
+  letter-spacing:0;text-transform:uppercase;color:#111;border:0.5px solid rgba(0,0,0,0.55);transition:.25s;
+  display:inline-flex;align-items:center;background:transparent;white-space:nowrap}
+.nav .cta:hover{background:rgba(0,0,0,0.05)} /* colour only, no move */
+
+/* PAGE HEAD */
+main{padding-top:128px}
+.wrap{max-width:1440px;margin:0 auto;padding:0 var(--page-pad)}
+.faq-head{padding-top:48px}
+.faq-head h1{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:48px;letter-spacing:0;text-transform:uppercase;color:#111;margin:0}
+
+/* SEARCH */
+.faq-search{margin-top:24px;position:relative;max-width:520px}
+.faq-search input{width:100%;height:48px;border:0.5px solid rgba(0,0,0,0.28);background:#fff;border-radius:2px;
+  padding:0 16px 0 46px;font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;color:var(--ink);outline:none;transition:border-color .2s}
+.faq-search input:focus{border-color:var(--navy)}
+.faq-search input::placeholder{color:#71717a}
+.faq-search svg{position:absolute;left:16px;top:14px;width:20px;height:20px;color:#71717a;pointer-events:none}
+/* native clear (X) — same treatment as the Knowledge Center search: thin, grey, black on hover, never browser blue */
+.faq-search input[type="search"]::-webkit-search-cancel-button{
+  -webkit-appearance:none;appearance:none;height:15px;width:15px;margin:0 2px;cursor:pointer;
+  background-color:#71717a;transition:background-color .2s;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 6l12 12M18 6 6 18' stroke='black' stroke-width='2.2' fill='none'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 6l12 12M18 6 6 18' stroke='black' stroke-width='2.2' fill='none'/%3E%3C/svg%3E") center/contain no-repeat}
+.faq-search input[type="search"]::-webkit-search-cancel-button:hover{background-color:var(--ink)}
+
+/* FILTER TABS (Our Team facet style) */
+.faq-filter{display:flex;flex-wrap:wrap;gap:34px;align-items:baseline;margin-top:32px;border-bottom:0.5px solid var(--line)}
+.faq-filter button{position:relative;font-family:'Myriad Pro',sans-serif;font-size:16px;line-height:1.3;color:#5f5f68;font-weight:400;
+  display:inline-flex;align-items:baseline;gap:8px;padding:0 0 7px;
+  transition:color .18s;white-space:nowrap}
+.faq-filter button::after{content:"";position:absolute;left:0;right:0;bottom:-0.5px;height:2px;background:#111;
+  transform:scaleX(0);transition:transform .3s ease}
+.faq-filter button .n{font-size:16px;color:#9a9aa2;font-variant-numeric:tabular-nums;transition:color .18s}
+.faq-filter button:hover{color:#111}
+.faq-filter button.on{color:#111}
+.faq-filter button.on::after{transform:scaleX(1)}
+.faq-filter button.on .n{color:#111}
+
+/* ACCORDION */
+.faq-body{padding-top:0;padding-bottom:16px}
+.faq-list{max-width:1040px}
+.faq-group{margin-top:72px}
+.faq-group:first-child{margin-top:60px}
+.faq-group h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:28px;letter-spacing:0;
+  text-transform:uppercase;color:#111;margin:0 0 14px;display:flex;align-items:baseline;gap:10px}
+.faq-group h2 .idx{color:#111}
+.faq-item{border-bottom:0.5px solid var(--line)}
+.faq-q{width:100%;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;text-align:left;
+  padding:22px 0;font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:20px;line-height:28px;color:#111;transition:color .2s}
+.faq-q:hover{color:var(--navy)}
+.faq-q .sign{flex:0 0 auto;width:20px;height:20px;position:relative;margin-top:4px}
+.faq-q .sign::before,.faq-q .sign::after{content:"";position:absolute;background:currentColor;transition:opacity .2s ease, transform .3s ease}
+.faq-q .sign::before{left:0;top:9.5px;width:20px;height:1px}
+.faq-q .sign::after{left:9.5px;top:0;width:1px;height:20px}
+.faq-item.open .faq-q .sign::after{opacity:0}
+.faq-a{overflow:hidden;max-height:0;transition:max-height .38s cubic-bezier(0.22,1,0.36,1)}
+.faq-a-in{padding:0 60px 26px 0;font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:17px;line-height:28px;color:#3a3a40}
+.faq-a-in p{margin:0 0 12px}
+.faq-a-in p:last-child{margin-bottom:0}
+.faq-a-in a{color:var(--navy);border-bottom:1px solid rgba(65,100,123,0.35);transition:color .2s,border-color .2s}
+.faq-a-in a:hover{color:#111;border-color:#111}
+.faq-a-in ul{margin:0 0 12px;padding-left:20px}
+.faq-a-in li{margin:0 0 6px}
+.faq-item.hide,.faq-group.hide{display:none}
+.faq-empty{padding:48px 0 8px;font-family:'Myriad Pro',sans-serif;font-size:16px;color:var(--mute)}
+.faq-empty.hide{display:none}
+
+/* HOW CAN WE HELP */
+.expert{margin-top:88px;background:var(--navy);color:#fff;padding:0 40px;text-align:center;min-height:315px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.expert h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:48px;color:#fff;letter-spacing:0;text-transform:uppercase;margin:0 0 12px}
+.expert p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;color:rgba(255,255,255,0.85);margin:0 0 28px;max-width:640px}
+.expert .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:48px;padding:0 32px;background:transparent;color:#fff;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;text-transform:uppercase;border:0.5px solid #fff;cursor:pointer;transition:.25s}
+.expert .btn:hover{background:rgba(255,255,255,0.14)} /* colour only, no move */
+
+/* FOOTER */
+footer{background:var(--paper);padding:40px 0 80px;color:var(--mute);font-size:16px;border-top:0.5px solid var(--line);position:relative}
+.foot-grid{display:grid;grid-template-columns:312px 1fr 1fr;gap:40px;align-items:flex-start;max-width:1440px;margin:0 auto;padding:0 var(--page-pad)}
+.foot-col{padding-top:112px}
+.foot-logo{width:80px;height:80px;border-radius:50%;overflow:hidden;margin-bottom:32px;background:#fff;display:flex;align-items:center;justify-content:center}
+.foot-logo img{width:100%;height:100%;object-fit:contain;filter:invert(1)}
+.foot-nav{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:24px;letter-spacing:0;text-transform:uppercase;color:var(--ink);display:flex;flex-wrap:wrap;align-items:center;gap:0 10px;max-width:320px}
+.foot-nav a{color:var(--ink);transition:.2s}
+.foot-nav a:hover{color:var(--navy)}
+.foot-nav .sep{color:var(--mute);opacity:0.4}
+.foot-col h6{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:16px;line-height:24px;letter-spacing:0;color:var(--mute);margin:0 0 10px;text-transform:none}
+.foot-col p{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;color:var(--ink);margin:0 0 28px;text-transform:uppercase}
+.foot-col p:last-child{margin-bottom:0}
+.foot-social{display:flex;gap:16px;margin-top:0}
+.foot-social a{width:28px;height:28px;color:var(--ink);display:flex;align-items:center;justify-content:center;transition:opacity .2s}
+.foot-social a svg{width:28px;height:28px;display:block}
+.foot-social a:hover{opacity:0.6}
+.foot-locs{display:flex;flex-direction:column;gap:14px;margin:0}
+.foot-locs a{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;text-transform:uppercase;color:var(--ink);transition:color .2s}
+.foot-locs a:hover{color:var(--navy)}
+.back-top{position:absolute;right:max(var(--page-pad), calc((100% - 1440px) / 2 + var(--page-pad)));top:40px;width:40px;height:40px;border:0;background:rgba(0,0,0,0.7);border-radius:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;transition:background .2s}
+.back-top:hover{background:rgba(0,0,0,0.85)}
+.back-top svg{width:20px;height:20px;display:block;transform:rotate(-90deg)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translate3d(0,40px,0);transition:opacity .6s cubic-bezier(0.22,1,0.36,1),transform .6s cubic-bezier(0.22,1,0.36,1)}
+.reveal.in{opacity:1;transform:translate3d(0,0,0)}
+.reveal.d1{transition-delay:.05s}.reveal.d2{transition-delay:.1s}.reveal.d3{transition-delay:.15s}
+.split-words{display:inline-block}
+.split-words .w{display:inline-block;opacity:0;transform:translate3d(0,28px,0);transition:opacity .55s cubic-bezier(0.22,1,0.36,1),transform .55s cubic-bezier(0.22,1,0.36,1)}
+.split-words.in .w{opacity:1;transform:translate3d(0,0,0)}
+
+@media (max-width:960px){
+  .nav{padding:16px 0}.nav.scrolled{padding:12px 0}
+  .nav-in{padding:0 24px}.foot-grid{padding:0 24px}
+  main{padding-top:104px}.wrap{padding:0 24px}
+  .faq-head{padding-top:40px}   /* the .wrap shorthand above zeroes it out, put it back */
+  .nav .cta{display:none}
+  .faq-head h1{font-size:28px;line-height:40px}
+  .faq-head p{font-size:18px;line-height:26px}
+  .faq-filter{gap:22px}
+  .faq-q{font-size:18px;line-height:26px}
+  .faq-a-in{padding-right:0}
+  .foot-grid{grid-template-columns:1fr}.foot-col{padding-top:0}
+  footer{padding:40px 0 64px}.back-top{right:24px;top:32px}
+  .expert{padding:56px 24px;min-height:auto}.expert h2{font-size:24px;line-height:36px}
+}
+/* Mobile: the tabs stay on ONE row and scroll horizontally, same pattern as the Knowledge Center */
+@media (max-width:760px){
+  .faq-filter{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;gap:0 24px;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .faq-filter::-webkit-scrollbar{display:none}
+  .faq-filter button{flex:0 0 auto}
+}
+@media (max-width:560px){ .faq-filter button{font-size:15px} }
+@media (prefers-reduced-motion:reduce){ .reveal,.split-words .w{transition:none;opacity:1;transform:none} .faq-a{transition:none} }
+</style>
+<style>/* MOBILE-HELP-ONELINE: help/expert title one line + full-width CTA (site-wide) */
+@media (max-width:680px){
+  .help h2,.expert h2{white-space:nowrap;font-size:clamp(16px,5.8vw,28px);line-height:1.25}
+  .help .btn-ghost,.help .btn,.expert .btn,.expert .btn-ghost{width:100%}
+  .expert h2{white-space:normal}
+}</style>
+</head>
+<body>
+<div class="progress"><div class="progress-bar"></div></div>
+
+<nav class="nav" id="site-nav" aria-label="Primary">
+  <div class="nav-in">
+  <div class="left"><button class="burger" aria-label="Menu"><span></span><span></span><span></span></button></div>
+  <a class="logo" href="./index.html" aria-label="Jeff Brown Yachts, Frequently Asked Questions"><img src="./assets/jby_logo.svg" alt="Jeff Brown Yachts"/></a>
+  <div class="right">
+    <button class="icon" aria-label="Search"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="9" cy="9" r="6.25" stroke="currentColor" stroke-width="1.3"/><line x1="13.6" y1="13.6" x2="17.5" y2="17.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></button>
+    <button class="cta magnetic" data-target="contact">Contact an expert</button>
+  </div>
+  </div>
+</nav>
+
+<main>
+  <section class="wrap faq-head">
+    <h1 class="split-words" data-split>Frequently asked questions</h1>
+
+    <div class="faq-search reveal d1">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="9" cy="9" r="6.25" stroke="currentColor" stroke-width="1.3"/><line x1="13.6" y1="13.6" x2="17.5" y2="17.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      <input id="faq-q" type="search" placeholder="Search the questions" autocomplete="off" aria-label="Search the questions"/>
+    </div>
+
+    <div class="faq-filter reveal d3" id="faq-filter" role="tablist" aria-label="Question categories">
+      <button class="on" data-filter="all" role="tab" aria-selected="true">All questions <span class="n"></span></button>
+      <button data-filter="buying" role="tab" aria-selected="false">Buying <span class="n"></span></button>
+      <button data-filter="selling" role="tab" aria-selected="false">Selling <span class="n"></span></button>
+      <button data-filter="ownership" role="tab" aria-selected="false">Ownership and service <span class="n"></span></button>
+      <button data-filter="company" role="tab" aria-selected="false">Working with us <span class="n"></span></button>
+    </div>
+  </section>
+
+  <section class="wrap faq-body">
+    <div class="faq-list" id="faq-list">
+
+    <div class="faq-group" data-group="buying">
+      <h2 class="reveal"><span class="idx">1.</span>Buying a yacht</h2>
+
+      <div class="faq-item reveal" data-cat="buying">
+        <button class="faq-q" aria-expanded="false">Where do I start if I am looking for a yacht?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>Start with our inventory and tell us what you have in mind. Every listing has a broker attached to it, so you can send a question straight from the vessel page, or call the office nearest to you.</p>
+          <p>If you are still deciding, a short call is usually the fastest way forward. We will ask how you plan to use the yacht, where you will keep it and who will run it, then come back with a shortlist that fits.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal" data-cat="buying">
+        <button class="faq-q" aria-expanded="false">Can I see a yacht in person before I commit?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>Yes. Viewings are arranged through the listing broker, at the marina where the yacht is berthed. Our offices run from San Diego to Seattle, Kona, Wrightsville Beach and Charleston, and we regularly show yachts outside our own docks as well.</p>
+          <p>A sea trial normally follows once an offer is in place, so you feel the yacht under way before anything is final.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal" data-cat="buying">
+        <button class="faq-q" aria-expanded="false">What does the purchase process look like?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>In broad strokes it runs like this:</p>
+          <ul>
+            <li>a written offer, with a deposit held in a client trust account</li>
+            <li>survey and sea trial, at a date that suits you and the yard</li>
+            <li>acceptance of the vessel, or a renegotiation based on what the survey found</li>
+            <li>closing, documentation and registration, then delivery</li>
+          </ul>
+          <p>Your broker runs the paperwork and the schedule, and stays with the deal through to handover.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal" data-cat="buying">
+        <button class="faq-q" aria-expanded="false">Do you help arrange financing?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>Yes. Every listing page carries a payment calculator so you can model a term, a rate and a down payment before you talk to anyone. When you are ready, we introduce you to marine lenders and help you get prequalified.</p>
+          <p>Rates and terms come from the lender, not from us, so treat the calculator as an estimate rather than an offer.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal" data-cat="buying">
+        <button class="faq-q" aria-expanded="false">Do you sell new yachts as well as pre-owned?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>Both. We represent new builds from the brands we carry and we broker pre-owned yachts across the range, from day boats to long-range motor yachts.</p>
+          <p>If you are choosing between a new build and a pre-owned yacht, we will lay out the trade-offs on delivery time, specification and cost of ownership before you decide.</p>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="faq-group" data-group="selling">
+      <h2 class="reveal"><span class="idx">2.</span>Selling a yacht</h2>
+
+      <div class="faq-item reveal" data-cat="selling">
+        <button class="faq-q" aria-expanded="false">How do you decide what my yacht is worth?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>We look at recent sales of comparable yachts, what is currently on the market, the specification and refit history of your yacht and how it presents in person. You get a valuation range with the reasoning behind it, not just a number.</p>
+          <p>Send the details through the valuation form on our Sell Your Yacht page and a broker will come back to you.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal" data-cat="selling">
+        <button class="faq-q" aria-expanded="false">What does listing with you include?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>Photography and video of the yacht, a full listing page with specification and deck plans, distribution to the brokerage networks, our own audience and newsletter, presence at the boat shows we attend, and one broker who owns the sale from first enquiry to closing.</p>
+          <p>You also get straight reporting: what enquiries came in, who viewed the yacht and what the market said about the price.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal" data-cat="selling">
+        <button class="faq-q" aria-expanded="false">How long does a yacht take to sell?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>It depends on the model, the asking price and the season, so anyone who promises you a date is guessing. What we can promise is honest feedback: if the market is telling us the price is wrong, you will hear it early rather than after a quiet six months.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal" data-cat="selling">
+        <button class="faq-q" aria-expanded="false">Can I sell one yacht and buy another through you?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>Yes, and it is a common move. One team handles both sides, so the timing of the sale and the delivery of the next yacht are planned together rather than colliding.</p>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="faq-group" data-group="ownership">
+      <h2 class="reveal"><span class="idx">3.</span>Ownership and service</h2>
+
+      <div class="faq-item reveal" data-cat="ownership">
+        <button class="faq-q" aria-expanded="false">What does Yacht Management cover?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>The running of the yacht, so that ownership feels like use rather than work: maintenance planned across the year, yard periods booked and supervised, crew support, vendor and invoice management, insurance and documentation dates tracked, and reporting you can read in a couple of minutes.</p>
+          <p>The programme is built around how much you want to be involved, from a light touch to full oversight.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal" data-cat="ownership">
+        <button class="faq-q" aria-expanded="false">Where can my yacht be serviced?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>Our own marina and boatyard in San Diego handles service, repair and refit work, and our service team coordinates yard periods at other locations along the coast when that is closer to where you keep the yacht.</p>
+          <p>See the Service and Maintenance page for what the yard covers, and the Locations page for where we are.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal" data-cat="ownership">
+        <button class="faq-q" aria-expanded="false">Do you service yachts you did not sell?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>Yes. Service, maintenance and management are open to any owner, whether the yacht came through us or not.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal" data-cat="ownership">
+        <button class="faq-q" aria-expanded="false">Can you look after the yacht while I am away?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>That is most of what management is for. Systems are checked on a schedule, work is carried out and signed off, and you get updates with photographs, so the yacht is ready the week you fly in rather than the month after.</p>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="faq-group" data-group="company">
+      <h2 class="reveal"><span class="idx">4.</span>Working with us</h2>
+
+      <div class="faq-item reveal" data-cat="company">
+        <button class="faq-q" aria-expanded="false">Where are you based?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>Our home port is San Diego, where we also run the marina and boatyard, and our brokers work from offices in Newport Harbor, Marina del Rey, Sausalito, Seattle, Kona, Wrightsville Beach and Charleston.</p>
+          <p>The Locations page has the address, phone number and opening hours for each one.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal" data-cat="company">
+        <button class="faq-q" aria-expanded="false">How do I reach a person rather than a form?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>Call <a href="tel:+18886938099">+1 (888) 693-8099</a> or write to <a href="mailto:info@jeffbrownyachts.com">info@jeffbrownyachts.com</a>, and you will be put in touch with the broker who covers your area or the yacht you are asking about. Each office has its own direct line on the Locations page.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal" data-cat="company">
+        <button class="faq-q" aria-expanded="false">Do you host events, and can I come?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>We show at the major boat shows and host owner events, model unveilings and dock parties through the season. The Events page lists what is coming up, with a request to attend on each one.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal" data-cat="company">
+        <button class="faq-q" aria-expanded="false">What happens to the details I send you?<span class="sign" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>They go to the broker who can answer you, and nowhere else. Our Privacy Policy sets out what we collect, how we use it and how cookies work on this site, and our Terms and Conditions cover the use of the site itself.</p>
+        </div></div>
+      </div>
+    </div>
+
+      <p class="faq-empty hide" id="faq-empty">Nothing matches that search. Try a different word, or ask us directly below.</p>
+    </div>
+  </section>
+</main>
+
+<section class="expert" id="contact">
+  <h2 class="split-words" data-split>Still have a question?</h2>
+  <p class="reveal d1">Ask our team directly. We answer in plain language, whether you are buying your first boat or your fifth yacht.</p>
+  <button class="btn reveal d2">Contact us</button>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-logo" aria-label="JBY"><img src="./assets/jby_logo.svg" alt=""/></div>
+      <nav class="foot-nav">
+        <a href="#">Home</a><span class="sep">/</span>
+        <a href="#">Portfolio</a><span class="sep">/</span>
+        <a href="#">Brands</a><span class="sep">/</span>
+        <a href="#">Services</a><span class="sep">/</span>
+        <a href="#">Experiences</a><span class="sep">/</span>
+        <a href="#">About JBY</a>
+      </nav>
+    </div>
+    <div class="foot-col">
+      <h6>Contact us</h6><p>+1 (888) 693-8099</p>
+      <h6>Email</h6><p>info@jeffbrownyachts.com</p>
+      <h6>Social Media</h6>
+      <div class="foot-social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.63985 3.13281H16.3198C18.9708 3.13281 21.1198 5.33895 21.1198 8.06035V15.9444C21.1198 18.6658 18.9708 20.8719 16.3198 20.8719H8.63985C5.98888 20.8719 3.83984 18.6658 3.83984 15.9444V8.06035C3.83984 5.33895 5.98888 3.13281 8.63985 3.13281ZM17.0442 8.30519C17.5743 8.30519 18.0041 7.86396 18.0041 7.31967C18.0041 6.7754 17.5743 6.33417 17.0442 6.33417C16.5139 6.33417 16.0841 6.7754 16.0841 7.31967C16.0841 7.86396 16.5139 8.30519 17.0442 8.30519ZM12.4809 7.56761C10.095 7.56761 8.16083 9.55312 8.16083 12.0024C8.16083 14.4517 10.095 16.4372 12.4809 16.4372C14.8667 16.4372 16.8009 14.4517 16.8009 12.0024C16.8034 10.8254 16.3491 9.69588 15.5384 8.86363C14.7276 8.03138 13.6274 7.56498 12.4809 7.56761ZM9.84073 12.0008C9.84073 13.4977 11.0227 14.711 12.4808 14.711C13.9387 14.711 15.1207 13.4977 15.1207 12.0008C15.1207 10.5041 13.9387 9.29069 12.4808 9.29069C11.0227 9.29069 9.84073 10.5041 9.84073 12.0008Z"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 4.88889V18.1111C21 19.1543 20.1543 20 19.1111 20H15.5694C15.3086 20 15.0973 19.7886 15.0973 19.5277V13.8611H17.3073C17.5317 13.8612 17.7251 13.7032 17.77 13.4833L18.11 11.7833C18.1241 11.7147 18.1068 11.6433 18.0631 11.5885C18.0192 11.5339 17.9534 11.5014 17.8833 11.5H15.0973V8.43056C15.0973 8.30016 15.203 8.19444 15.3333 8.19444H17.6944C17.9553 8.19444 18.1667 7.98303 18.1667 7.72223V6.30556C18.1667 6.04476 17.9553 5.83333 17.6944 5.83333H15.3333C13.7685 5.83333 12.5 7.10186 12.5 8.66667V11.5H11.3383C11.0775 11.5 10.8661 11.7114 10.8661 11.9723V13.3889C10.8661 13.6497 11.0775 13.8611 11.3383 13.8611H12.5V19.5277C12.5 19.7886 12.2886 20 12.0277 20H5.88889C4.84568 20 4 19.1543 4 18.1111V4.88889C4 3.84568 4.84568 3 5.88889 3H19.1111C20.1543 3 21 3.84568 21 4.88889Z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.7425 4.31649L19.1361 4.45716C20.7859 4.64038 22.0248 6.02396 21.9996 7.65505V15.345C22.0248 16.9761 20.7859 18.3596 19.1361 18.5429L17.7997 18.6836C13.6301 19.1055 9.42722 19.1055 5.25749 18.6836L3.86391 18.5429C2.21405 18.3596 0.975134 16.9761 1.00038 15.345V7.65505C0.975134 6.02396 2.21405 4.64038 3.86391 4.45716L5.20022 4.31649C9.36995 3.8945 13.5728 3.8945 17.7425 4.31649ZM10.6505 14.5197L14.3635 12.0815H14.4208C14.6209 11.9534 14.7416 11.7346 14.7416 11.5C14.7416 11.2654 14.6209 11.0466 14.4208 10.9186L10.7078 8.48029C10.4885 8.3347 10.2055 8.31979 9.97165 8.44152C9.73785 8.56325 9.59145 8.80175 9.59097 9.06172V13.9383C9.60329 14.1802 9.74154 14.399 9.95686 14.5172C10.1722 14.6353 10.4343 14.6364 10.6505 14.5197Z"/></svg></a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h6>Locations</h6>
+      <nav class="foot-locs">
+        <a href="#">San Diego</a><a href="#">Newport Harbor</a><a href="#">Marina del Rey</a>
+        <a href="#">Sausalito</a><a href="#">Seattle</a><a href="#">Kona</a>
+        <a href="#">Wrightsville Beach</a><a href="#">Charleston</a>
+      </nav>
+    </div>
+  </div>
+  <button class="back-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M13.9842 10.6509L7.7342 16.9009C7.67613 16.9589 7.60719 17.005 7.53132 17.0364C7.45545 17.0679 7.37414 17.084 7.29201 17.084C7.20989 17.084 7.12857 17.0679 7.0527 17.0364C6.97683 17.005 6.9079 16.9589 6.84983 16.9009C6.79176 16.8428 6.74569 16.7739 6.71427 16.698C6.68284 16.6221 6.66667 16.5408 6.66667 16.4587C6.66667 16.3766 6.68284 16.2952 6.71427 16.2194C6.74569 16.1435 6.79176 16.0746 6.84983 16.0165L12.6584 10.2087L6.84983 4.40087C6.73255 4.28359 6.66667 4.12453 6.66667 3.95868C6.66667 3.79283 6.73255 3.63377 6.84983 3.51649C6.9671 3.39922 7.12616 3.33333 7.29201 3.33333C7.45787 3.33333 7.61693 3.39922 7.7342 3.51649L13.9842 9.76649C14.0423 9.82454 14.0884 9.89347 14.1199 9.96934C14.1513 10.0452 14.1675 10.1265 14.1675 10.2087C14.1675 10.2908 14.1513 10.3721 14.1199 10.448C14.0884 10.5239 14.0423 10.5928 13.9842 10.6509Z"/></svg></button>
+</footer>
+
+<script>
+(function(){
+  /* split headlines */
+  document.querySelectorAll('[data-split]').forEach(function(el){
+    var parts=el.innerHTML.split(/(\s+)/);var i=0;
+    el.innerHTML=parts.map(function(p){if(p.trim()==='')return p;var out='<span class="w" style="transition-delay:'+(i*55)+'ms">'+p+'</span>';i++;return out;}).join('');
+  });
+  function showVisible(){var vh=window.innerHeight||800;document.querySelectorAll('.reveal:not(.in), .split-words:not(.in)').forEach(function(el){var r=el.getBoundingClientRect();if(r.top<vh+120&&r.bottom>-120)el.classList.add('in');});}
+  showVisible();requestAnimationFrame(showVisible);window.addEventListener('load',showVisible);
+  window.addEventListener('scroll',showVisible,{passive:true});
+
+  /* nav + progress */
+  var nav=document.getElementById('site-nav'),pbar=document.querySelector('.progress-bar');
+  function onScroll(){var y=window.scrollY||window.pageYOffset;if(nav)nav.classList.toggle('scrolled',y>20);if(pbar){var t=document.documentElement.scrollHeight-window.innerHeight;pbar.style.width=Math.max(0,Math.min(100,t>0?(y/t)*100:0))+'%';}}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  /* CTA -> expert band */
+  document.querySelectorAll('[data-target="contact"], .expert .btn').forEach(function(b){
+    b.addEventListener('click',function(){var el=document.getElementById('contact');if(el)el.scrollIntoView({behavior:'smooth'});});
+  });
+
+  /* ---------- ACCORDION ---------- */
+  var items=Array.prototype.slice.call(document.querySelectorAll('.faq-item'));
+  items.forEach(function(item){
+    var btn=item.querySelector('.faq-q'), panel=item.querySelector('.faq-a');
+    btn.addEventListener('click',function(){
+      var isOpen=item.classList.contains('open');
+      if(isOpen){ item.classList.remove('open'); btn.setAttribute('aria-expanded','false'); panel.style.maxHeight='0px'; }
+      else{ item.classList.add('open'); btn.setAttribute('aria-expanded','true'); panel.style.maxHeight=panel.firstElementChild.scrollHeight+'px'; }
+    });
+  });
+  window.addEventListener('resize',function(){
+    items.forEach(function(item){
+      if(item.classList.contains('open')){
+        var panel=item.querySelector('.faq-a');
+        panel.style.maxHeight=panel.firstElementChild.scrollHeight+'px';
+      }
+    });
+  });
+
+  /* ---------- FILTER + SEARCH ---------- */
+  var tabs=Array.prototype.slice.call(document.querySelectorAll('#faq-filter button'));
+  var groups=Array.prototype.slice.call(document.querySelectorAll('.faq-group'));
+  var empty=document.getElementById('faq-empty');
+  var search=document.getElementById('faq-q');
+  var filter='all';
+
+  /* live counts from the DOM, so new questions update themselves */
+  tabs.forEach(function(tab){
+    var f=tab.getAttribute('data-filter');
+    var n=items.filter(function(i){return f==='all'||i.getAttribute('data-cat')===f;}).length;
+    var el=tab.querySelector('.n'); if(el) el.textContent=n;
+  });
+
+  function apply(){
+    var q=(search.value||'').trim().toLowerCase();
+    var shown=0;
+    items.forEach(function(item){
+      var catOk=(filter==='all'||item.getAttribute('data-cat')===filter);
+      var textOk=!q||item.textContent.toLowerCase().indexOf(q)>-1;
+      var show=catOk&&textOk;
+      item.classList.toggle('hide',!show);
+      if(show) shown++;
+      if(!show&&item.classList.contains('open')){
+        item.classList.remove('open');
+        item.querySelector('.faq-q').setAttribute('aria-expanded','false');
+        item.querySelector('.faq-a').style.maxHeight='0px';
+      }
+    });
+    groups.forEach(function(g){
+      g.classList.toggle('hide', !g.querySelector('.faq-item:not(.hide)'));
+    });
+    empty.classList.toggle('hide', shown>0);
+    showVisible();
+  }
+
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(){
+      tabs.forEach(function(t){t.classList.remove('on');t.setAttribute('aria-selected','false');});
+      tab.classList.add('on'); tab.setAttribute('aria-selected','true');
+      filter=tab.getAttribute('data-filter');
+      apply();
+    });
+  });
+  search.addEventListener('input',apply);
+
+  /* deep link: /faq/#buying opens that category */
+  var hash=(location.hash||'').replace('#','');
+  if(hash){
+    var match=tabs.filter(function(t){return t.getAttribute('data-filter')===hash;})[0];
+    if(match) match.click();
+  }
+})();
+</script>
+</body>
+</html>
