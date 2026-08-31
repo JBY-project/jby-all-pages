@@ -71,3 +71,19 @@ Local-only versions and working copies:
 - Large asset `pages/JBY-Home-V3.31 4/JBY-V3.3-assets/feature_video_user.mov` (174 MB) is stored via **Git LFS**. Run `git lfs install` before cloning, or it arrives as a pointer file.
 - Git history of the original per-page repos is not included here; this is a flat snapshot of the working files.
 - The packaged `*.zip` dev handoffs are not in this repo: each one is a zipped copy of a folder that is already here.
+
+## Entry file per folder
+
+Most folders open at `index.html`. These do not:
+
+| Folder in `pages/` | Open this file |
+|---|---|
+| `JBY-About-Us` | `about.html` |
+| `JBY-Home-Page` | `JBY-Home.html` |
+| `JBY-Home-V3.31 4` | `JBY-Home.html` |
+| `JBY-Home-V3.31-SHIPPED` | `JBY-Home.html` |
+| `Jeff Brown Yachts - Contact Page` | `JBY-Contact.html` |
+| `Jeff Brown Yachts - Home Page` | `JBY-Home.html` |
+| `Jeff Brown Yachts - Home Page (Crisp Chat V2)` | `JBY-Home.html` |
+| `Jeff Brown Yachts - Home Page (Crisp Chat)` | `JBY-Home.html` |
+| `jby-hero-riva-como` | not a page — hero-image assets plus `generator.py` |
