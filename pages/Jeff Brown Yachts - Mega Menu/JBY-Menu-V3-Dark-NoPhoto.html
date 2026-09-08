@@ -787,8 +787,8 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
    than two things pushed together. */
 .mega-col-brands{flex:0 0 auto}
 .mega-col-brands a.on{color:var(--m-accent);transform:translateX(6px)}
-.mega-models{position:relative;flex:1 1 240px;min-width:0;display:flex;flex-direction:column;
-  padding-left:44px}
+.mega-models{position:relative;flex:1 1 240px;min-width:0;max-height:100%;
+  display:flex;flex-direction:column;padding-left:44px}
 /* A border on this column would start and stop with its own content, and the
    column is only as tall as the models in it. The divider is a rule between
    two halves of the pane, so it is overrun deliberately at both ends and left
@@ -798,13 +798,19 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
    the rail. */
 .mega-models::before{content:'';position:absolute;left:0;top:-999px;bottom:-999px;width:0.5px;
   background:rgba(255,255,255,0.18);pointer-events:none}
-.mega-models-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;
-  align-content:start;overflow-y:auto;padding-right:4px}
+.mega-models-grid{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);gap:20px;
+  align-content:start;overflow-y:auto;padding-right:12px;
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.28) transparent}
+.mega-models-grid::-webkit-scrollbar{width:4px}
+.mega-models-grid::-webkit-scrollbar-track{background:transparent}
+.mega-models-grid::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.28);border-radius:2px}
 .mega-model{display:block;text-decoration:none;color:inherit}
-/* The model frame, 16:9 and empty until there is a photograph per model. */
-.mega-model-shot{display:block;width:100%;aspect-ratio:16/9;border-radius:2px;
-  background:rgba(255,255,255,0.2);transition:background .25s}
-.mega-model:hover .mega-model-shot{background:rgba(255,255,255,0.28)}
+/* The model frame: 16:9, cropped rather than letterboxed, over the tile that
+   shows while the file is still loading. */
+.mega-model-shot{position:relative;display:block;width:100%;aspect-ratio:16/9;border-radius:2px;
+  overflow:hidden;background:rgba(255,255,255,0.2)}
+.mega-model-shot img{display:block;width:100%;height:100%;object-fit:cover;transition:opacity .25s}
+.mega-model:hover .mega-model-shot img{opacity:0.82}
 .mega-model > span + span{display:block;margin-top:10px;font-family:'Myriad Pro',sans-serif;font-weight:400;
   font-size:16px;line-height:1.3;color:var(--m-fg);transition:color .2s}
 .mega-model:hover > span + span{color:var(--m-accent)}
@@ -829,7 +835,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 
 @media (max-width:880px){
   .mega-panel{width:100%}
-  .mega[data-theme="dark"] .mega-panel::after{display:none}
+  .mega[data-theme="dark"] .mega-body::after{display:none}
   .mega-body{display:block;position:relative;overflow:hidden}
   .mega-rail{width:100%;height:100%;border-right:0;overflow-y:auto;padding:14px 0}
   .mega-cat{width:calc(100% - 24px);margin:2px 12px;padding:16px 20px;font-size:19px}
@@ -853,7 +859,11 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .mega-foot-split .mf-social a:hover{opacity:1;color:#fff}
 .mega-foot-split .mf-social svg{width:28px;height:28px;display:block}
 .mega-foot-split .mf-l{padding:0 40px 0 52px}
-.mega[data-theme="dark"] .mega-panel::after{content:"";position:absolute;top:96.5px;bottom:0;left:320px;width:0.5px;background:rgba(255,255,255,0.18);z-index:3;pointer-events:none}
+/* Between the two rules, not through them: on `.mega-body` rather than the
+   panel, so it ends at the footer's rule instead of running down behind the
+   footer to the foot of the panel. */
+.mega-body{position:relative}
+.mega[data-theme="dark"] .mega-body::after{content:"";position:absolute;top:0;bottom:0;left:320px;width:0.5px;background:rgba(255,255,255,0.18);z-index:3;pointer-events:none}
 
 /* ====== MOBILE POLISH (phones only) ====== */
 @media (max-width:600px){
@@ -2217,16 +2227,41 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
      service van, or a hull with another builder's name down the side. So the
      frame stays a frame until whatever owns the model catalogue supplies both
      the lineup and a photograph per model. */
+  // Axopar carries ten, deliberately: it is the builder with the widest range
+  // here, and it is what shows the column scrolling rather than growing.
   var MODEL_NAMES = {
-    axopar:    ['Axopar 25 Cross Cabin', 'Axopar 29 Sun Top', 'Axopar 37 Sun Top', 'Axopar 45 Cross Top'],
-    brabus:    ['Shadow 500 Cabin', 'Shadow 900 XC', 'Shadow 1200 Black Ops'],
+    axopar:    ['Axopar 22 Spyder', 'Axopar 25 Cross Cabin', 'Axopar 25 Cross Top',
+                'Axopar 29 Sun Top', 'Axopar 29 Cross Cabin', 'Axopar 29 Cross Top',
+                'Axopar 37 Sun Top', 'Axopar 37 Cross Cabin', 'Axopar 45 Cross Top',
+                'Axopar 45 Sun Top'],
+    brabus:    ['Shadow 500 Cabin', 'Shadow 700 Cabin', 'Shadow 900 XC', 'Shadow 1200 Black Ops'],
     pershing:  ['Pershing 5X', 'Pershing 7X', 'Pershing 8X', 'Pershing GTX116'],
-    riva:      ["56' Rivale", "68' Diable", "76' Perseo Super", "88' Folgore"],
+    riva:      ["Rivale 56'", "Diable 68'", "Perseo Super 76'", "Folgore 88'"],
     fourwinns: ['Four Winns H2', 'Four Winns H4', 'Four Winns HD5', 'Four Winns TH36'],
     jeanneau:  ['Cap Camarat 7.5 WA', 'Merry Fisher 895', 'DB/43', 'Leader 10.5'],
     sirena:    ['Sirena 48', 'Sirena 58', 'Sirena 68', 'Sirena 88'],
-    wally:     ['wallytender43X', 'wallywhy100', 'wallypower58', 'wallywind110']
+    wally:     ['Wallytender 43X', 'Wallywhy 100', 'Wallypower 58', 'Wallywind 110']
   };
+
+  /* Stock frames, used across every builder. Which one lands on which model is
+     arbitrary — none of them is the boat named beside it — but it is arbitrary
+     the same way every time: shuffling on each hover would flicker. Each
+     builder starts one frame further along the list than the one above it, so
+     no two adjacent builders open on the same photograph. */
+  var SHOTS = [
+    '2021-lazzara-uhv-87-for-sale-cannes-fr-uncategorized-001-tg1ry6.avif',
+    '2022-sanlorenzo-sl120-asymmetric-for-sale-fort-lauderdale-florida-uncategorized-001-tg3r55.avif',
+    '2022-vanquish-yachts-vq52-for-sale-miami-florida-uncategorized-001-tfkuxm.avif',
+    '2025-steeler-yachts-bronson-65-for-sale-cogolin-fr-exterior-001-th9muv.avif',
+    '2025-sunreef-yachts-ultima-55-for-sale-dubai-ae-uncategorized-001-tfktq0.avif',
+    '2026-axopar-29-xc-cross-cabin-for-sale-san-diego-california-uncategorized-001-tip135.avif',
+    '2027-lekker-38-for-sale-worldwide-xx-uncategorized-001-tj08et.avif'
+  ];
+  var SHOTS_DIR = './JBY-V3.3-assets/placeholder%20images/';
+
+  function shotFor(brandIndex, i){
+    return SHOTS_DIR + SHOTS[(brandIndex + i) % SHOTS.length];
+  }
 
   var brandLinks = Array.prototype.slice.call(mega.querySelectorAll('[data-brand]'));
   var modelsHead = document.getElementById('mega-models-h');
@@ -2238,12 +2273,16 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     shownBrand = brand;
 
     var link = brandLinks.filter(function(a){ return a.dataset.brand === brand; })[0];
+    var index = brandLinks.indexOf(link);
+
     brandLinks.forEach(function(a){ a.classList.toggle('on', a === link); });
     if (modelsHead && link) modelsHead.textContent = link.textContent.trim() + ' Models';
 
-    modelsGrid.innerHTML = (MODEL_NAMES[brand] || []).map(function(name){
+    modelsGrid.innerHTML = (MODEL_NAMES[brand] || []).map(function(name, i){
       return '<a class="mega-model" href="#">' +
-               '<span class="mega-model-shot" aria-hidden="true"></span>' +
+               '<span class="mega-model-shot">' +
+                 '<img src="' + shotFor(index, i) + '" alt="" loading="lazy">' +
+               '</span>' +
                '<span>' + name + '</span>' +
              '</a>';
     }).join('');
