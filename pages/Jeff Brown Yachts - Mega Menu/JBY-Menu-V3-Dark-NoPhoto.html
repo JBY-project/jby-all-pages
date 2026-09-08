@@ -785,10 +785,11 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
    Hovering a builder now fills that half with its models. The hairline is the
    panel's own divider weight, so the two columns read as one pane split rather
    than two things pushed together. */
+.mega-pane[data-pane="brands"]{column-gap:40px}
 .mega-col-brands{flex:0 0 auto}
 .mega-col-brands a.on{color:var(--m-accent);transform:translateX(6px)}
 .mega-models{position:relative;flex:1 1 240px;min-width:0;max-height:100%;
-  display:flex;flex-direction:column;padding-left:44px}
+  display:flex;flex-direction:column;padding-left:32px}
 /* A border on this column would start and stop with its own content, and the
    column is only as tall as the models in it. The divider is a rule between
    two halves of the pane, so it is overrun deliberately at both ends and left
@@ -798,21 +799,24 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
    the rail. */
 .mega-models::before{content:'';position:absolute;left:0;top:-999px;bottom:-999px;width:0.5px;
   background:rgba(255,255,255,0.18);pointer-events:none}
-.mega-models-grid{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);gap:20px;
+.mega-models-grid{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);gap:14px;
   align-content:start;overflow-y:auto;padding-right:12px;
   scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.28) transparent}
 .mega-models-grid::-webkit-scrollbar{width:4px}
 .mega-models-grid::-webkit-scrollbar-track{background:transparent}
 .mega-models-grid::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.28);border-radius:2px}
-.mega-model{display:block;text-decoration:none;color:inherit}
-/* The model frame: 16:9, cropped rather than letterboxed, over the tile that
-   shows while the file is still loading. */
-.mega-model-shot{position:relative;display:block;width:100%;aspect-ratio:16/9;border-radius:2px;
+/* A row, not a tile: the frame on the left and the name beside it, centred
+   against the frame's height whether it takes one line or two. */
+.mega-model{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit}
+/* The model frame, 16:9 and cropped rather than letterboxed, over the tile
+   that shows while the file is still loading. Fixed width so every row in the
+   column starts its name on the same edge. */
+.mega-model-shot{position:relative;flex:0 0 112px;aspect-ratio:16/9;border-radius:2px;
   overflow:hidden;background:rgba(255,255,255,0.2)}
 .mega-model-shot img{display:block;width:100%;height:100%;object-fit:cover;transition:opacity .25s}
 .mega-model:hover .mega-model-shot img{opacity:0.82}
-.mega-model > span + span{display:block;margin-top:10px;font-family:'Myriad Pro',sans-serif;font-weight:400;
-  font-size:16px;line-height:1.3;color:var(--m-fg);transition:color .2s}
+.mega-model > span + span{flex:1;min-width:0;font-family:'Myriad Pro',sans-serif;font-weight:400;
+  font-size:16px;line-height:1.35;color:var(--m-fg);transition:color .2s}
 .mega-model:hover > span + span{color:var(--m-accent)}
 .mega-models-grid.swap{animation:megaFade .35s ease both}
 
@@ -2227,13 +2231,14 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
      service van, or a hull with another builder's name down the side. So the
      frame stays a frame until whatever owns the model catalogue supplies both
      the lineup and a photograph per model. */
-  // Axopar carries ten, deliberately: it is the builder with the widest range
-  // here, and it is what shows the column scrolling rather than growing.
+  // Axopar carries fourteen, deliberately: it is the builder with the widest
+  // range here, and it is what shows the column scrolling rather than growing.
   var MODEL_NAMES = {
-    axopar:    ['Axopar 22 Spyder', 'Axopar 25 Cross Cabin', 'Axopar 25 Cross Top',
-                'Axopar 29 Sun Top', 'Axopar 29 Cross Cabin', 'Axopar 29 Cross Top',
-                'Axopar 37 Sun Top', 'Axopar 37 Cross Cabin', 'Axopar 45 Cross Top',
-                'Axopar 45 Sun Top'],
+    axopar:    ['Axopar 22 Spyder', 'Axopar 22 T-Top', 'Axopar 25 Cross Cabin',
+                'Axopar 25 Cross Top', 'Axopar 29 Sun Top', 'Axopar 29 Cross Cabin',
+                'Axopar 29 Cross Top', 'Axopar 29 XC Cross Cabin', 'Axopar 37 Sun Top',
+                'Axopar 37 Cross Cabin', 'Axopar 37 XC Cross Cabin', 'Axopar 45 Cross Top',
+                'Axopar 45 Sun Top', 'Axopar 47 Cross Top'],
     brabus:    ['Shadow 500 Cabin', 'Shadow 700 Cabin', 'Shadow 900 XC', 'Shadow 1200 Black Ops'],
     pershing:  ['Pershing 5X', 'Pershing 7X', 'Pershing 8X', 'Pershing GTX116'],
     riva:      ["Rivale 56'", "Diable 68'", "Perseo Super 76'", "Folgore 88'"],
