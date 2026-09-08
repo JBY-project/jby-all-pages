@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Office section — design options</title>
+<link rel="stylesheet" href="assets/fonts.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+  :root{
+    --ink:#1d1d1b;--c0:#000;--c2:#575760;--c4:#727279;--white-soft:#dcdcde;
+    --navy:#41647b;--navy-d:#365466;--border:#eeeef0;--line:rgba(0,0,0,.08);
+    --page:#fcfcfd;--section:#f4f6f9;--sand:#bdb19d;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Myriad Pro',system-ui,sans-serif;color:var(--c0);background:#eef0f2}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+
+  /* comparison chrome */
+  .page{max-width:1280px;margin:0 auto;padding:56px 40px 120px}
+  .page-head{margin-bottom:8px}
+  .page-head h1{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:26px;letter-spacing:.02em;text-transform:uppercase;color:var(--ink)}
+  .page-head p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;color:var(--c2);margin-top:8px;max-width:640px}
+  .opt{margin-top:56px}
+  .opt-tag{display:inline-flex;align-items:center;gap:10px;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);margin-bottom:18px}
+  .opt-tag i{width:26px;height:26px;border:1px solid var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px}
+  .opt-tag small{color:var(--c4);letter-spacing:.06em}
+  .card{background:#fff;border:1px solid var(--border);border-radius:4px;overflow:hidden;box-shadow:0 24px 60px -40px rgba(0,0,0,.35)}
+
+  /* shared type */
+  .ov-title{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:28px;line-height:1.2;text-transform:uppercase;color:var(--ink)}
+  .ov-lead{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:1.7;color:var(--c2)}
+  .ov-k{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--c4)}
+  .ov-v{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:1.5;color:var(--ink)}
+  .ov-v .sub{display:block;font-size:14px;color:var(--c4);margin-top:4px}
+  .ov-btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 26px;border:.5px solid var(--ink);font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);transition:.25s var(--ease);border-radius:2px}
+  .ov-btn:hover{background:var(--ink);color:#fff}
+  .ov-btn.solid{background:var(--navy);border-color:var(--navy);color:#fff}
+  .ov-btn.solid:hover{background:var(--navy-d)}
+  .ov-btn svg{width:16px;height:16px}
+
+  /* ============ OPTION 1 — Editorial split ============ */
+  .o1{display:grid;grid-template-columns:1.05fr 1fr}
+  .o1 .o1-photo{position:relative;min-height:560px}
+  .o1 .o1-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .o1 .o1-info{padding:64px 60px;display:flex;flex-direction:column}
+  .o1 .ov-lead{margin:18px 0 36px;max-width:460px}
+  .o1 .rows{display:flex;flex-direction:column;gap:26px;padding-top:32px;border-top:1px solid var(--line)}
+  .o1 .row{display:flex;flex-direction:column;gap:7px}
+  .o1 .row.two{flex-direction:row;gap:56px}
+  .o1 .row.two>div{display:flex;flex-direction:column;gap:7px}
+  .o1 .ov-btn{margin-top:40px;align-self:flex-start}
+
+  /* ============ OPTION 2 — Map-forward, floating card ============ */
+  .o2{position:relative}
+  .o2 .o2-map{height:600px;width:100%;background:var(--section)}
+  .o2 .o2-card{position:absolute;top:50%;left:56px;transform:translateY(-50%);z-index:500;width:400px;max-width:calc(100% - 112px);
+    background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border:1px solid var(--border);border-radius:4px;padding:44px 42px;box-shadow:0 30px 70px -30px rgba(0,0,0,.45)}
+  .o2 .ov-lead{margin:16px 0 28px}
+  .o2 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px 28px;padding-top:26px;border-top:1px solid var(--line)}
+  .o2 .cell{display:flex;flex-direction:column;gap:6px}
+  .o2 .ov-btn{margin-top:30px}
+
+  /* ============ OPTION 3 — Centered + facts + cinematic banner ============ */
+  .o3{padding:72px 40px 0;text-align:center}
+  .o3 .eyebrow{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:var(--c4);display:block;margin-bottom:22px}
+  .o3 .ov-lead{max-width:600px;margin:18px auto 0}
+  .o3 .facts{display:flex;flex-wrap:wrap;justify-content:center;gap:26px 60px;max-width:820px;margin:44px auto 56px;padding-top:34px;border-top:1px solid var(--line)}
+  .o3 .fact{display:flex;flex-direction:column;gap:6px;align-items:center}
+  .o3 .o3-banner{position:relative;height:360px}
+  .o3 .o3-banner img{width:100%;height:100%;object-fit:cover}
+  .o3 .o3-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.35))}
+  .o3 .o3-badge{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;
+    font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#fff}
+
+  /* ============ OPTION 4 — Two tiles + info bar ============ */
+  .o4{padding:60px 60px 56px}
+  .o4 .o4-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:34px}
+  .o4 .o4-head .ov-lead{max-width:480px}
+  .o4 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:20px;height:340px}
+  .o4 .tiles>*{border-radius:3px;overflow:hidden}
+  .o4 .o4-photo img{width:100%;height:100%;object-fit:cover}
+  .o4 .o4-map{height:100%;background:var(--section)}
+  .o4 .bar{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:36px;padding-top:32px;border-top:1px solid var(--line)}
+  .o4 .bar .cell{display:flex;flex-direction:column;gap:7px}
+
+  @media(max-width:880px){
+    .page{padding:40px 20px 80px}
+    .o1{grid-template-columns:1fr}.o1 .o1-photo{min-height:320px}.o1 .o1-info{padding:40px 28px}
+    .o2 .o2-card{position:static;transform:none;width:auto;max-width:none;border-radius:0}
+    .o2 .o2-map{height:360px}
+    .o4{padding:36px 24px}.o4 .o4-head{flex-direction:column;align-items:flex-start}.o4 .tiles{grid-template-columns:1fr;height:auto}.o4 .o4-photo,.o4 .o4-map{height:240px}.o4 .bar{grid-template-columns:1fr 1fr;gap:22px}
+    .o3 .facts{gap:22px 36px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="page-head">
+    <h1>Office section — design options</h1>
+    <p>Four directions for the &ldquo;Visit us in San Diego&rdquo; block. Same content, different layout &amp; feel. Pick one (or mix) and I&rsquo;ll put it on the page.</p>
+  </div>
+
+  <!-- OPTION 1 -->
+  <div class="opt">
+    <span class="opt-tag"><i>1</i> Editorial split <small>photo-led, asymmetric</small></span>
+    <div class="card o1">
+      <div class="o1-photo"><img src="assets/contact.jpg" alt="Jeff Brown Yachts, Shelter Island"/></div>
+      <div class="o1-info">
+        <h2 class="ov-title">Visit us in San Diego</h2>
+        <p class="ov-lead">Based on Shelter Island, Jeff Brown Yachts is the official Riva dealer for the region &mdash; sales and brokerage, full in-house management, berthing and service, all at the water&rsquo;s edge.</p>
+        <div class="rows">
+          <div class="row"><span class="ov-k">Location</span><span class="ov-v">2330 Shelter Island Drive, Suite 105<br/>San Diego, CA 92106</span></div>
+          <div class="row"><span class="ov-k">Working hours</span><span class="ov-v">Monday&nbsp;&ndash;&nbsp;Friday, 8am&nbsp;&ndash;&nbsp;5pm<span class="sub">Weekends &amp; private viewings by appointment</span></span></div>
+          <div class="row two">
+            <div><span class="ov-k">Email</span><span class="ov-v">info@jeffbrownyachts.com</span></div>
+            <div><span class="ov-k">Phone</span><span class="ov-v">+1 619-222-9899</span></div>
+          </div>
+        </div>
+        <a class="ov-btn" href="#">Get directions
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION 2 -->
+  <div class="opt">
+    <span class="opt-tag"><i>2</i> Map-forward <small>floating card over live map</small></span>
+    <div class="card o2">
+      <div id="map2" class="o2-map"></div>
+      <div class="o2-card">
+        <h2 class="ov-title">Visit us in San Diego</h2>
+        <p class="ov-lead">The official Riva dealer for San Diego &mdash; on the water at Shelter Island.</p>
+        <div class="grid2">
+          <div class="cell"><span class="ov-k">Location</span><span class="ov-v">2330 Shelter Island Dr, Ste 105<br/>San Diego, CA 92106</span></div>
+          <div class="cell"><span class="ov-k">Hours</span><span class="ov-v">Mon&ndash;Fri, 8am&ndash;5pm<span class="sub">Weekends by appointment</span></span></div>
+          <div class="cell"><span class="ov-k">Email</span><span class="ov-v">info@jeffbrownyachts.com</span></div>
+          <div class="cell"><span class="ov-k">Phone</span><span class="ov-v">+1 619-222-9899</span></div>
+        </div>
+        <a class="ov-btn solid" href="#">Contact an expert</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION 3 -->
+  <div class="opt">
+    <span class="opt-tag"><i>3</i> Centered &amp; cinematic <small>matches the new About block</small></span>
+    <div class="card o3">
+      <span class="eyebrow">Jeff Brown Yachts</span>
+      <h2 class="ov-title">Visit us in San Diego</h2>
+      <p class="ov-lead">Based on Shelter Island, we represent Riva across the region &mdash; sales, brokerage, full management, berthing and service, all at the water&rsquo;s edge.</p>
+      <div class="facts">
+        <div class="fact"><span class="ov-k">Location</span><span class="ov-v">Shelter Island, San Diego</span></div>
+        <div class="fact"><span class="ov-k">Hours</span><span class="ov-v">Mon&ndash;Fri, 8am&ndash;5pm</span></div>
+        <div class="fact"><span class="ov-k">Email</span><span class="ov-v">info@jeffbrownyachts.com</span></div>
+        <div class="fact"><span class="ov-k">Phone</span><span class="ov-v">+1 619-222-9899</span></div>
+      </div>
+      <div class="o3-banner">
+        <img src="assets/contact.jpg" alt="Jeff Brown Yachts, Shelter Island"/>
+        <span class="o3-badge">2330 Shelter Island Drive &middot; Suite 105</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION 4 -->
+  <div class="opt">
+    <span class="opt-tag"><i>4</i> Two tiles + info bar <small>balanced, gallery-like</small></span>
+    <div class="card o4">
+      <div class="o4-head">
+        <h2 class="ov-title">Visit us in San Diego</h2>
+        <p class="ov-lead">The official Riva dealer for the region, on the water at Shelter Island &mdash; sales, brokerage, management and service.</p>
+      </div>
+      <div class="tiles">
+        <div class="o4-photo"><img src="assets/contact.jpg" alt="Jeff Brown Yachts, Shelter Island"/></div>
+        <div id="map4" class="o4-map"></div>
+      </div>
+      <div class="bar">
+        <div class="cell"><span class="ov-k">Location</span><span class="ov-v">2330 Shelter Island Dr, Ste 105<br/>San Diego, CA 92106</span></div>
+        <div class="cell"><span class="ov-k">Working hours</span><span class="ov-v">Mon&ndash;Fri, 8am&ndash;5pm<span class="sub">Weekends by appointment</span></span></div>
+        <div class="cell"><span class="ov-k">Email</span><span class="ov-v">info@jeffbrownyachts.com</span></div>
+        <div class="cell"><span class="ov-k">Phone</span><span class="ov-v">+1 619-222-9899</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  (function(){
+    var jby=[32.71000,-117.23350];
+    function make(id){
+      if(!window.L||!document.getElementById(id))return;
+      var m=L.map(id,{scrollWheelZoom:false,zoomControl:true,attributionControl:false}).setView(jby,14);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(m);
+      var icon=L.divIcon({className:'',html:'<div style="width:20px;height:20px;background:#1d1d1b;border:3px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 6px 14px -4px rgba(0,0,0,.5)"></div>',iconSize:[20,20],iconAnchor:[10,20]});
+      L.marker(jby,{icon:icon}).addTo(m);
+      setTimeout(function(){m.invalidateSize();},200);
+    }
+    window.addEventListener('load',function(){ make('map2'); make('map4'); });
+  })();
+</script>
+</body>
+</html>
