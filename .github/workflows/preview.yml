@@ -1,0 +1,106 @@
+name: Preview
+
+# One preview per branch, published into its own folder on `gh-pages`, so a
+# link handed over for review keeps working after the next branch is pushed.
+on:
+  push:
+    branches-ignore:
+      - gh-pages
+
+concurrency:
+  group: preview-${{ github.ref_name }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Publish preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the branch being previewed
+        uses: actions/checkout@v4
+        with:
+          path: src
+
+      - name: Check out the published site
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: site
+
+      - name: Copy the declared pages into this branch's folder
+        run: |
+          set -euo pipefail
+          SLUG=$(printf '%s' "$GITHUB_REF_NAME" | tr '/' '-' | tr -cd 'A-Za-z0-9._-')
+          echo "SLUG=$SLUG" >> "$GITHUB_ENV"
+
+          DEST="site/previews/$SLUG"
+          rm -rf "$DEST"
+          mkdir -p "$DEST"
+
+          # Read the manifest rather than copying the tree: Pages caps a site at
+          # 1GB and this repository is several times that.
+          while IFS= read -r line; do
+            case "$line" in ''|\#*) continue ;; esac
+            if [ ! -d "src/$line" ]; then
+              echo "::error::preview-paths.txt names a path that is not a directory: $line"
+              exit 1
+            fi
+            mkdir -p "$DEST/$line"
+            rsync -a --exclude '.git' "src/$line/" "$DEST/$line/"
+          done < src/.github/preview-paths.txt
+
+          # Jekyll would skip folders it considers special, and every page here
+          # is plain static output that needs serving verbatim.
+          touch site/.nojekyll
+
+          SIZE_KB=$(du -sk site | cut -f1)
+          echo "site is $((SIZE_KB / 1024))MB"
+          if [ "$SIZE_KB" -gt 921600 ]; then
+            echo "::error::the published site would be $((SIZE_KB / 1024))MB, over the 900MB budget. Trim .github/preview-paths.txt or delete an old preview folder."
+            exit 1
+          fi
+
+      - name: Write the index of previews
+        run: |
+          set -euo pipefail
+          {
+            printf '<!doctype html>\n<meta charset="utf-8">\n<title>JBY previews</title>\n'
+            printf '<style>body{font:15px/1.6 -apple-system,system-ui,sans-serif;margin:48px auto;max-width:44rem;padding:0 24px;color:#12212e}h1{font-size:20px;font-weight:600}a{color:#1c4b6e}li{margin:.35rem 0}</style>\n'
+            printf '<h1>JBY page previews</h1>\n<p>One folder per branch. Each holds the pages that branch declared in <code>.github/preview-paths.txt</code>.</p>\n<ul>\n'
+            for d in site/previews/*/; do
+              [ -d "$d" ] || continue
+              name=$(basename "$d")
+              printf '<li><a href="previews/%s/">%s</a></li>\n' "$name" "$name"
+            done
+            printf '</ul>\n'
+          } > site/index.html
+
+      - name: Publish
+        working-directory: site
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'nothing changed'
+            exit 0
+          fi
+          git commit -m "preview: $SLUG at ${GITHUB_SHA:0:9}"
+          git push
+
+      - name: Where to look
+        run: |
+          BASE="https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/previews/${SLUG}"
+          {
+            echo "### Preview"
+            echo
+            while IFS= read -r line; do
+              case "$line" in ''|\#*) continue ;; esac
+              enc=$(printf '%s' "$line" | sed 's/ /%20/g; s/&/%26/g')
+              echo "- $BASE/$enc/"
+            done < src/.github/preview-paths.txt
+          } >> "$GITHUB_STEP_SUMMARY"

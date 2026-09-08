@@ -1,0 +1,14 @@
+# What the preview publishes, one path per line, relative to the repo root.
+#
+# Not the whole repository: GitHub Pages serves at most 1GB per site and the
+# tree here is over 3GB — the home pages carry ~150MB of assets each. So a
+# preview names the pages the current work is about, and stays small enough
+# that every branch's preview can sit alongside the others.
+#
+# Blank lines and lines starting with # are ignored.
+
+pages/Jeff Brown Yachts - Locations Page
+pages/Jeff Brown Yachts - Office Page
+pages/Jeff Brown Yachts - Site Hub
+pages/Jeff Brown Yachts - Home Page V1
+pages/Jeff Brown Yachts - Brand Page (Axopar)
