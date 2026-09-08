@@ -789,10 +789,18 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
    rule and a part-scrolled row is cut by the rule rather than stopping 44px
    short of it in mid-air. The builders list beside it is far shorter than the
    pane, so it never notices. */
-.mega-pane[data-pane="brands"]{column-gap:40px;padding-bottom:0}
-.mega-col-brands{flex:0 0 auto}
+/* `nowrap`, so the row shrinks instead of breaking: a wrapping flex line is
+   decided before any shrinking happens, and the models column would drop under
+   the builders rather than let the builders give up their width. */
+.mega-pane[data-pane="brands"]{column-gap:40px;padding-bottom:0;flex-wrap:nowrap}
+/* Shrinkable, and the models column is not: the builders column is as wide as
+   "Builders We Represent" wants to be, which at a 1060px panel leaves the
+   models exactly the room they need and at a 977px one left them 71px and
+   every name broken over three lines. So when the row is tight the heading
+   gives way and wraps, rather than the names. */
+.mega-col-brands{flex:0 1 auto;min-width:0}
 .mega-col-brands a.on{color:var(--m-accent);transform:translateX(6px)}
-.mega-models{position:relative;flex:1 1 240px;min-width:0;max-height:100%;
+.mega-models{position:relative;flex:1 0 320px;min-width:0;max-height:100%;
   display:flex;flex-direction:column;padding-left:32px}
 /* A border on this column would start and stop with its own content, and the
    column is only as tall as the models in it. The divider is a rule between
@@ -836,7 +844,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .mega-model:hover > span + span{color:var(--m-accent)}
 .mega-models-grid.swap{animation:megaFade .35s ease both}
 
-@media (max-width:880px){
+@media (max-width:976px){
   /* On a phone the models are a level rather than a column: there is no hover
      to open them with and no room to stand them beside the builders, so
      tapping a builder slides its lineup over the list, and the level carries
@@ -884,7 +892,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   color:var(--m-fg);background:transparent;border:0.5px solid var(--m-fg);border-radius:2px;cursor:pointer;transition:background .25s}
 .mega-foot .mf-cta:hover{background:rgba(0,0,0,0.06)}
 
-@media (max-width:880px){
+@media (max-width:976px){
   .mega-panel{width:100%}
   .mega[data-theme="dark"] .mega-body::after{display:none}
   .mega-body{display:block;position:relative;overflow:hidden}
@@ -2215,7 +2223,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   var feature = document.getElementById('mega-feature');
   var cats    = Array.prototype.slice.call(mega.querySelectorAll('.mega-cat'));
   var panes   = Array.prototype.slice.call(mega.querySelectorAll('.mega-pane'));
-  var mq      = window.matchMedia('(max-width:880px)');
+  var mq      = window.matchMedia('(max-width:976px)');
 
   var FEAT = {
     portfolio:   './JBY-V3.3-assets/clean_hero.png',
