@@ -1,0 +1,41 @@
+/* Additions to the event page, kept out of the 9,000-line site stylesheet so
+   whoever carries them to the real codebase has one file to read. */
+
+/* ---- Cover photograph -------------------------------------------------- */
+/* Above the title inside the content column, so on a desktop it is as wide as
+   that column and on a phone — where this layout already stacks below 1199px —
+   it is the full content width.
+   Two ratios, both off the reference: a wide 4:1 band on a desktop, and a
+   taller 16:9 crop on a phone, where a 4:1 strip would be 90px of nothing.
+   Cropped rather than letterboxed, so a supplied cover can be any shape. */
+#jb_body.page-event .event-detail__cover {
+  margin: 0 0 32px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: #eceff1;
+}
+
+#jb_body.page-event .event-detail__cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 1;
+  object-fit: cover;
+}
+
+@media (max-width: 1199px) {
+  #jb_body.page-event .event-detail__cover {
+    margin-bottom: 24px;
+  }
+
+  #jb_body.page-event .event-detail__cover img {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* ---- Schedule ---------------------------------------------------------- */
+/* The day of the week steps back from the date it belongs to: #575760 is the
+   secondary ink this site uses everywhere else. */
+#jb_body.page-event .event-detail__schedule-day {
+  color: #575760;
+}
