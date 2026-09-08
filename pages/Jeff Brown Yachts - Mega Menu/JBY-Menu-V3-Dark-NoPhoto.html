@@ -767,7 +767,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .mega-cat.active .chev{color:var(--m-accent)}
 
 .mega-detail{position:relative;overflow:hidden;background:var(--m-detail)}
-.mega-back{display:none}
+.mega-back,.mega-models-back{display:none}
 
 .mega-pane{position:absolute;inset:0;padding:44px 52px;overflow:hidden;
   display:none;flex-wrap:wrap;gap:34px 60px;align-content:flex-start}
@@ -837,9 +837,37 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .mega-models-grid.swap{animation:megaFade .35s ease both}
 
 @media (max-width:880px){
-  /* Desktop only for now. The phone menu is a drill-down with no hover to
-     hang this off, and it is being left exactly as it was. */
-  .mega-models{display:none}
+  /* On a phone the models are a level rather than a column: there is no hover
+     to open them with and no room to stand them beside the builders, so
+     tapping a builder slides its lineup over the list, and the level carries
+     its own way back. Slides in the same 420ms curve as the pane over the
+     rail, so the menu goes one step deeper the way it already goes one step
+     deeper.
+
+     `inset:0` against the pane's padding box, which is why the pane stops
+     scrolling while this is open — a scrolled pane would carry the overlay up
+     with it. */
+  .mega-body.models-open .mega-pane[data-pane="brands"]{overflow:hidden}
+  .mega-models{position:absolute;inset:0;z-index:5;flex:none;max-height:none;
+    padding:16px 24px 24px;background:rgba(0,0,0,0.95);border-left:0;
+    transform:translateX(100%);transition:transform .42s cubic-bezier(0.22,1,0.36,1)}
+  .mega-body.models-open .mega-models{transform:translateX(0)}
+  /* The pane's own "Menu" button lives on the detail, above this overlay's
+     stacking context, so it has to stand down while the level is open — this
+     level's way back is its own button, in the same place. */
+  .mega-body.models-open .mega-back{display:none}
+  /* And the list this level replaces stops being painted rather than being
+     covered by 95% black: a level is a level, not a veil over the one under
+     it. `visibility` and not `display`, so the pane it is measured in does not
+     reflow on the way in or out. */
+  .mega-body.models-open .mega-col-brands{visibility:hidden}
+  .mega-models::before{display:none}
+  .mega-models-back{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
+    margin:0 0 22px;padding:0;background:transparent;border:0;cursor:pointer;color:var(--m-mute);
+    font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;letter-spacing:0.06em;
+    text-transform:uppercase}
+  .mega-models-back:hover{color:var(--m-fg)}
+  .mega-models-grid{gap:16px;padding-right:0}
 }
 
 .mega-foot{flex:none;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
@@ -971,6 +999,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
             <a href="#" data-brand="wally">Wally</a>
           </div>
           <div class="mega-models" id="mega-models">
+            <button class="mega-models-back" type="button" data-models-back><svg class="ti-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg> Back to brands</button>
             <h4 id="mega-models-h">Models</h4>
             <div class="mega-models-grid" id="mega-models-grid"></div>
           </div>
@@ -2199,7 +2228,12 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     // The models column is measured here rather than where it is filled: the
     // resting state is rendered at load, while this pane is still
     // `display:none` and every height it would read is zero.
-    if (cat === 'brands') requestAnimationFrame(updateFade);
+    closeModels();
+
+    // Read straight after the class change rather than on the next frame:
+    // reading a height forces the layout this needs, and a frame callback is
+    // throttled while the tab is in the background.
+    if (cat === 'brands') updateFade();
     if (feature && FEAT[cat]){
       feature.style.backgroundImage = 'url(' + FEAT[cat] + ')';
       feature.classList.add('on');
@@ -2228,7 +2262,10 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     if (e.target.closest('[data-mega-close]')) { closeMenu(); }
   });
   var backBtn = mega.querySelector('[data-mega-back]');
-  if (backBtn) backBtn.addEventListener('click', function(){ body.classList.remove('drill'); });
+  if (backBtn) backBtn.addEventListener('click', function(){
+    body.classList.remove('drill');
+    closeModels();
+  });
 
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape' && mega.classList.contains('open')) closeMenu();
@@ -2338,11 +2375,39 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     window.addEventListener('resize', updateFade);
   }
 
+  var brandsPane = mega.querySelector('.mega-pane[data-pane="brands"]');
+
+  function openModels(){
+    // Back to the top of the pane before it is frozen, or the overlay would
+    // open against a list that had been scrolled down.
+    if (brandsPane) brandsPane.scrollTop = 0;
+
+    body.classList.add('models-open');
+    updateFade();
+  }
+
+  function closeModels(){
+    body.classList.remove('models-open');
+  }
+
   brandLinks.forEach(function(a){
     a.addEventListener('mouseenter', function(){ if (!mq.matches) showModels(a.dataset.brand); });
     // Keyboard reaches the list the same way the pointer does.
     a.addEventListener('focus', function(){ if (!mq.matches) showModels(a.dataset.brand); });
+    a.addEventListener('click', function(e){
+      // Only on a phone. On a desktop the builder's own href should still be
+      // free to navigate; the lineup is already open beside it.
+      if (!mq.matches) return;
+
+      e.preventDefault();
+      showModels(a.dataset.brand);
+      openModels();
+    });
   });
+
+  var modelsBack = mega.querySelector('[data-models-back]');
+
+  if (modelsBack) modelsBack.addEventListener('click', closeModels);
 
   // The first builder stands in as the resting state, so opening Brands shows
   // what the column is for instead of an empty half.
