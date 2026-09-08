@@ -231,8 +231,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .about-title{font-size:clamp(28px,3.6vw,46px);line-height:1.06;margin:0}
 .about-lead{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:17px;line-height:1.7;color:var(--c2);max-width:none;margin:0}
 .about .hb{display:inline}
-@media(max-width:860px){.about-split{grid-template-columns:1fr;gap:24px;align-items:start}.about .hb{display:none}}
-@media(max-width:700px){.about-title{font-size:30px;line-height:1.1}.about .hb{display:none}}
+/* `min-width:0`, so a grid column can never be widened past its track by
+   something unbreakable inside it: the hidden line breaks below used to glue
+   "evolution" to "of", and the 514px word that made overran the 302px column
+   and pushed the whole section out of a body that clips its overflow. The
+   spaces around those `<br>`s are the actual fix; this is the backstop. */
+@media(max-width:860px){.about-split{grid-template-columns:1fr;gap:24px;align-items:start}.about-split>*{min-width:0}.about-title{overflow-wrap:break-word}.about .hb{display:none}}
+@media(max-width:700px){.about-title{font-size:30px;line-height:1.12}.about .hb{display:none}}
 /* v2 Gallery — full-bleed hero + centered fixed thumbnail strip */
 .vgal-sec.galv1{padding:0}
 .gv1{position:relative;height:100vh;min-height:640px;width:100%;overflow:hidden;background:#0a1218}
@@ -357,6 +362,15 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .about-meta .am-k{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--c4)}
 .about-meta .am-v{font-family:'Mesmerize',sans-serif;font-weight:300;text-transform:uppercase;font-size:16px;line-height:24px;color:var(--ink)}
 @media(max-width:760px){.about{padding:72px 22px}.about-inner{padding:0 22px}.about-media{padding:0 22px}.about-band img{height:260px}.about-meta{gap:22px 36px;padding:32px 22px}}
+/* Below here rather than beside the first `.about-title` up in the About
+   block: there are two `.about` rule sets in this file, and the second one's
+   `font-size` wins on equal specificity whatever the media query above says.
+   "PERFORMANCE" set at 30px uppercase is 322px wide and the text column on a
+   390px phone is 302, so the flat size sent `overflow-wrap` looking for a
+   place to break the word in half. */
+@media(max-width:760px){.about-title{font-size:30px;line-height:1.12}}
+@media(max-width:420px){.about-title{font-size:25px;line-height:1.14}}
+@media(max-width:340px){.about-title{font-size:21px}}
 /* SECTION NAV (sticky in-page menu) */
 .secnav{position:fixed;left:0;right:0;top:var(--nav-h,88px);z-index:900;background:rgba(252,252,253,.86);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);border-bottom:.5px solid var(--border);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .35s ease,transform .35s ease,visibility .35s;pointer-events:none}
 .secnav.show{opacity:1;visibility:visible;transform:none;pointer-events:auto}
@@ -371,7 +385,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 @media(max-width:760px){.secnav-inner{padding:0 22px;gap:22px}.secnav a{font-size:13px;padding:14px 0}}
 
 /* SPECS — editorial key/value list + accordions */
-.specs{background:var(--white);padding:8px 0 72px}
+.specs{background:var(--white);padding:8px 0 24px}
 .specs-head{margin-bottom:36px}
 .specs-title{color:var(--ink)}
 .specs-sub{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;letter-spacing:.24em;
@@ -407,7 +421,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 /* The three section headings are headings now, not switches: no chevron, no
    collapse, and General carries the brochure button where its chevron was.
    `.acc-open` is the panel with nothing to animate. */
-.acc-static-head{cursor:default}
+/* `wrap`, so the brochure button drops under the heading instead of off the
+   side of a phone — the button does not shrink, and `space-between` was
+   pushing it past the edge. Costs nothing at widths where both fit on the
+   line. */
+.acc-static-head{cursor:default;flex-wrap:wrap;row-gap:16px}
 /* And the sections are separated by air rather than by a rule — the rules
    inside them, between the sub-accordions, are the only ones left. */
 .spec-sections{display:flex;flex-direction:column;gap:60px}
@@ -427,6 +445,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .acc-sub .acc-ico,.acc-sub .acc-ico svg{width:20px;height:20px}
 .acc-sub .acc-inner{padding:0 0 20px}
 .acc-copy{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:26px;color:var(--c2);margin:0}
+.acc-items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.acc-items li{position:relative;padding-left:16px;font-family:'Myriad Pro',sans-serif;font-weight:300;
+  font-size:16px;line-height:24px;color:var(--c2)}
+.acc-items li::before{content:"";position:absolute;left:1px;top:10px;width:4px;height:4px;border-radius:50%;
+  background:var(--c4)}
 
 @media(max-width:900px){
   .acc-grid{grid-template-columns:1fr}
@@ -456,9 +479,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 /* AVAILABLE INVENTORY */
 /* The page ground (`--page`) shows from here down while the specs above sit on
    white, so this is where the eye sees a new band start — and with no top
-   padding the heading was sitting on that seam. 96px, matching the section's
-   own foot. */
-.inventory{padding:96px 0}
+   padding the heading was sitting on that seam.
+   30px here, with the specs' own foot cut to 24: that puts 90px between the
+   last row above and this heading, which is exactly what sits above "General
+   Specifications" (40 from the gallery, 8 from the section, 28 from the
+   heading, and the line's own leading). */
+.inventory{padding:30px 0 96px}
 .inv-head{display:flex;align-items:center;margin-bottom:32px}
 .inv-head h2{color:var(--c0)}
 .inv-body{position:relative}
@@ -647,7 +673,7 @@ footer{position:relative}
   <div class="wrap">
     <span class="about-eyebrow reveal">About this vessel</span>
     <div class="about-split">
-      <h2 class="about-title reveal d1">The next evolution<br class="hb">of the flybridge<br class="hb">superyacht.</h2>
+      <h2 class="about-title reveal d1">The next evolution <br class="hb">of the flybridge <br class="hb">superyacht.</h2>
       <p class="about-lead reveal d2">The Riva 112&rsquo; Dolcevita Super expands on the 110&rsquo; Dolcevita &mdash; sculpted Italian lines and twin MTU engines give her the presence of a true superyacht.</p>
     </div>
   </div>
@@ -988,28 +1014,122 @@ document.querySelectorAll('.spec-list[data-equip]').forEach(el=>fillList(el,spec
    and `specData.optional` above, for whoever fills these in. Built here rather
    than written out sixteen times, and before the accordion script below, which
    binds every `.acc-head` it can find. */
-const EQUIP_TOPICS={
-  standard:['General','Front Cabin','Helm','Wheelhouse','Aft Deck','Flybridge','Engine Room',
-    'Key Technical Features'],
-  /* "Module Selection Stern" without the AX38 in front of it: that is an
-     Axopar model code, and this is a Riva. */
-  optional:['Package','Module Selection Bow','Module Selection Stern','Power Management & Systems',
-    'Exterior Options','Interior Options','Navigation & Electronics','Comfort & Climate']
+/* Placeholder still, but written to read like a real equipment list rather
+   than lorem: generic where the page already states a figure elsewhere, so
+   nothing here contradicts the specification table above. Swap wholesale when
+   the builder's own lists arrive. */
+const EQUIPMENT={
+  standard:[
+    {t:'General',items:[
+      'Composite hull with vinylester barrier coat',
+      'Anti-osmosis treatment below the waterline',
+      'Gelcoat finish in Riva white',
+      'Mirror-polished stainless steel deck hardware',
+      'CE Category A certification']},
+    {t:'Front Cabin',items:[
+      "Full-beam owner's suite with walk-in wardrobe",
+      'Centreline berth with electric adjustment',
+      'En-suite bathroom with separate shower',
+      'Blackout blinds and mosquito screens to every porthole',
+      'Individually zoned air conditioning']},
+    {t:'Helm',items:[
+      'Twin glass-bridge multifunction displays',
+      'Electronic engine controls with joystick manoeuvring',
+      'Adjustable helm seats with flip-up bolsters',
+      'Autopilot with bow and stern thruster control',
+      'Night-mode instrument lighting']},
+    {t:'Wheelhouse',items:[
+      'Panoramic wraparound glazing, tinted laminate',
+      'Electrically operated sunroof',
+      'Convertible dinette with folding table',
+      'Concealed television on a lift',
+      'Teak-and-holly sole in satin lacquer']},
+    {t:'Aft Deck',items:[
+      'Hydraulic swim platform sized for the tender',
+      'Teak-laid cockpit with flush deck hatches',
+      'Convertible sunpad with folding backrests',
+      'Wet bar with sink and icemaker',
+      'Retractable bimini over the seating']},
+    {t:'Flybridge',items:[
+      'Upper helm station with repeater displays',
+      'Forward sunbed with adjustable backrests',
+      'Wet bar with grill, fridge and sink',
+      'Hardtop with electric awning',
+      'Davit for tender and water toys']},
+    {t:'Engine Room',items:[
+      'Twin MTU 16V 2000 M96L on resilient mounts',
+      'Acoustic insulation to bulkheads and overhead',
+      'Fixed fire suppression with automatic engine shutdown',
+      'Engine-room cameras monitored at the helm',
+      'Fresh-water maker and twin generators']},
+    {t:'Key Technical Features',items:[
+      'Zero-speed gyroscopic stabilisation',
+      'Proportional bow and stern thrusters',
+      'Tank level monitoring, fresh and grey water',
+      'Shore power with isolation transformer',
+      'Hydraulic steering with emergency tiller']}
+  ],
+  optional:[
+    {t:'Package',items:[
+      "Owner's package: extended warranty and delivery preparation",
+      'Charter package: linen, crockery and water toys',
+      'Mediterranean package: awnings, fenders and mooring kit',
+      'Cold-climate package: engine pre-heating and heated handrails']},
+    {t:'Module Selection Bow',items:[
+      'Sunpad module with folding backrests',
+      'Foredeck seating module with table',
+      'Anchor-handling module with second windlass',
+      'Stowage module for fenders and lines']},
+    {t:'Module Selection Stern',items:[
+      'Beach-club conversion with folding terraces',
+      'Tender garage with hydraulic crane',
+      'Jet-ski cradle and launch ramp',
+      'Fold-down bathing ladder with hot and cold shower']},
+    {t:'Power Management & Systems',items:[
+      'Second generator with automatic changeover',
+      'Lithium house bank with inverter',
+      'Solar array on the hardtop',
+      'Battery monitoring with remote diagnostics',
+      'Gyro stabiliser upgrade']},
+    {t:'Exterior Options',items:[
+      'Bespoke hull colour',
+      'Teak to the swim platform and side decks',
+      'RGB underwater lighting',
+      'Stainless steel bow-rail package',
+      'Tailored covers for the exterior upholstery']},
+    {t:'Interior Options',items:[
+      'Alternative wood veneers and stone worktops',
+      'Leather-lined overhead panels',
+      'Additional guest cabin in place of the crew mess',
+      'Wine cooler in the galley',
+      'Electric blackout blinds throughout']},
+    {t:'Navigation & Electronics',items:[
+      'Third multifunction display at the upper helm',
+      'Forward-looking sonar',
+      'Thermal night-vision camera',
+      'Satellite communications with cellular failover',
+      'Dynamic positioning']},
+    {t:'Comfort & Climate',items:[
+      'Chilled-water air conditioning, individually zoned',
+      'Underfloor heating in the bathrooms',
+      'Heated shower at the swim platform',
+      'Mosquito screens to every opening porthole',
+      'Air-conditioned tender garage']}
+  ]
 };
-const EQUIP_COPY='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor '+
-  'incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation '+
-  'ullamco laboris nisi ut aliquip ex ea commodo consequat.';
 const CHEV='<span class="acc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m6 9 6 6 6-6"/></svg></span>';
 document.querySelectorAll('[data-subacc]').forEach(host=>{
   const key=host.dataset.subacc;
-  host.innerHTML=(EQUIP_TOPICS[key]||[]).map((title,i)=>{
+  host.innerHTML=(EQUIPMENT[key]||[]).map((group,i)=>{
     const id=key+'-sub-'+(i+1);
     return '<div class="acc acc-sub">'+
       '<button class="acc-head" id="'+id+'-h" aria-expanded="false" aria-controls="'+id+'-p">'+
-        '<span class="acc-t">'+title+'</span>'+CHEV+
+        '<span class="acc-t">'+group.t+'</span>'+CHEV+
       '</button>'+
       '<div class="acc-panel" id="'+id+'-p" role="region" aria-labelledby="'+id+'-h">'+
-        '<div class="acc-inner"><p class="acc-copy">'+EQUIP_COPY+'</p></div>'+
+        '<div class="acc-inner"><ul class="acc-items">'+
+          group.items.map(it=>'<li>'+it+'</li>').join('')+
+        '</ul></div>'+
       '</div>'+
     '</div>';
   }).join('');
