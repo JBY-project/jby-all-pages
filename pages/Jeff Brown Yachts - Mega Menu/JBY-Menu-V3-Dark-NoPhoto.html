@@ -785,7 +785,11 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
    Hovering a builder now fills that half with its models. The hairline is the
    panel's own divider weight, so the two columns read as one pane split rather
    than two things pushed together. */
-.mega-pane[data-pane="brands"]{column-gap:40px}
+/* No bottom padding on this pane, so the models column reaches the footer's
+   rule and a part-scrolled row is cut by the rule rather than stopping 44px
+   short of it in mid-air. The builders list beside it is far shorter than the
+   pane, so it never notices. */
+.mega-pane[data-pane="brands"]{column-gap:40px;padding-bottom:0}
 .mega-col-brands{flex:0 0 auto}
 .mega-col-brands a.on{color:var(--m-accent);transform:translateX(6px)}
 .mega-models{position:relative;flex:1 1 240px;min-width:0;max-height:100%;
@@ -805,6 +809,18 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .mega-models-grid::-webkit-scrollbar{width:4px}
 .mega-models-grid::-webkit-scrollbar-track{background:transparent}
 .mega-models-grid::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.28);border-radius:2px}
+/* Masked rather than covered by a gradient of its own: the pane is 90% black
+   over the hero photograph, so a black overlay would not be the colour it is
+   fading into. A mask fades the rows themselves, whatever is behind them.
+   Only on the edge there is more to scroll towards — a permanent fade would
+   be dimming the last model of a four-model builder for no reason. */
+.mega-models-grid.fade-bottom{-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 56px),transparent);
+  mask-image:linear-gradient(to bottom,#000 calc(100% - 56px),transparent)}
+.mega-models-grid.fade-top{-webkit-mask-image:linear-gradient(to bottom,transparent,#000 56px);
+  mask-image:linear-gradient(to bottom,transparent,#000 56px)}
+.mega-models-grid.fade-top.fade-bottom{
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 56px,#000 calc(100% - 56px),transparent);
+  mask-image:linear-gradient(to bottom,transparent,#000 56px,#000 calc(100% - 56px),transparent)}
 /* A row, not a tile: the frame on the left and the name beside it, centred
    against the frame's height whether it takes one line or two. */
 .mega-model{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit}
@@ -2180,6 +2196,10 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   function activate(cat){
     cats.forEach(function(c){ c.classList.toggle('active', c.dataset.cat === cat); });
     panes.forEach(function(p){ p.classList.toggle('on', p.dataset.pane === cat); });
+    // The models column is measured here rather than where it is filled: the
+    // resting state is rendered at load, while this pane is still
+    // `display:none` and every height it would read is zero.
+    if (cat === 'brands') requestAnimationFrame(updateFade);
     if (feature && FEAT[cat]){
       feature.style.backgroundImage = 'url(' + FEAT[cat] + ')';
       feature.classList.add('on');
@@ -2296,6 +2316,26 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     modelsGrid.classList.remove('swap');
     void modelsGrid.offsetWidth;
     modelsGrid.classList.add('swap');
+
+    modelsGrid.scrollTop = 0;
+    updateFade();
+  }
+
+  function updateFade(){
+    if (!modelsGrid) return;
+
+    // A pixel of slack: fractional scroll positions would otherwise leave the
+    // bottom fade on at the very end of the list.
+    var atTop = modelsGrid.scrollTop <= 1;
+    var atEnd = modelsGrid.scrollTop + modelsGrid.clientHeight >= modelsGrid.scrollHeight - 1;
+
+    modelsGrid.classList.toggle('fade-top', !atTop);
+    modelsGrid.classList.toggle('fade-bottom', !atEnd);
+  }
+
+  if (modelsGrid){
+    modelsGrid.addEventListener('scroll', updateFade, { passive: true });
+    window.addEventListener('resize', updateFade);
   }
 
   brandLinks.forEach(function(a){
