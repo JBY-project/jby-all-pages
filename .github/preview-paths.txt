@@ -8,3 +8,6 @@
 # Blank lines and lines starting with # are ignored.
 
 pages/Jeff Brown Yachts - Events Page
+pages/Jeff Brown Yachts - Knowledge Center
+pages/Jeff Brown Yachts - Knowledge Center V4
+pages/Jeff Brown Yachts - Site Hub
