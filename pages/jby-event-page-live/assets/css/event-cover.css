@@ -1,0 +1,27 @@
+/* Cover photograph for the event.
+   Sits above the title inside the content column, so on a desktop it is as
+   wide as that column and on a phone — where the layout stacks below 1199px —
+   it is the full content width. Nothing extra is needed for the phone.
+   16:9 and cropped rather than letterboxed, since a supplied cover will be
+   whatever shape it is. 2px radius, which is the one this page uses on every
+   other card and control. */
+#jb_body.page-event .event-detail__cover {
+  margin: 0 0 32px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: #eceff1;
+}
+
+#jb_body.page-event .event-detail__cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+@media (max-width: 1199px) {
+  #jb_body.page-event .event-detail__cover {
+    margin-bottom: 24px;
+  }
+}
