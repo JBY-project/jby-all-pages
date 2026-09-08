@@ -7,8 +7,4 @@
 #
 # Blank lines and lines starting with # are ignored.
 
-pages/Jeff Brown Yachts - Locations Page
-pages/Jeff Brown Yachts - Office Page
-pages/Jeff Brown Yachts - Site Hub
-pages/Jeff Brown Yachts - Home Page V1
-pages/Jeff Brown Yachts - Brand Page (Axopar)
+pages/Jeff Brown Yachts - Mega Menu

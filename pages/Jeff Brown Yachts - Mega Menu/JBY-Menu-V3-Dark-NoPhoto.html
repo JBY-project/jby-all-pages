@@ -781,6 +781,32 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   transition:color .2s,transform .2s}
 .mega-col a:hover{color:var(--m-accent);transform:translateX(6px)}
 
+/* The brands pane used to be one narrow column against a wide empty half.
+   Hovering a builder now fills that half with its models. The hairline is the
+   panel's own divider weight, so the two columns read as one pane split rather
+   than two things pushed together. */
+.mega-col-brands{flex:0 0 auto}
+.mega-col-brands a.on{color:var(--m-accent);transform:translateX(6px)}
+.mega-models{flex:1 1 240px;min-width:0;display:flex;flex-direction:column;
+  padding-left:44px;border-left:0.5px solid rgba(255,255,255,0.18)}
+.mega-models-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;
+  align-content:start;overflow-y:auto;padding-right:4px}
+.mega-model{display:block;text-decoration:none;color:inherit}
+/* The model frame, 16:9 and empty until there is a photograph per model. */
+.mega-model-shot{display:block;width:100%;aspect-ratio:16/9;border-radius:2px;
+  background:rgba(255,255,255,0.2);transition:background .25s}
+.mega-model:hover .mega-model-shot{background:rgba(255,255,255,0.28)}
+.mega-model > span + span{display:block;margin-top:10px;font-family:'Myriad Pro',sans-serif;font-weight:400;
+  font-size:16px;line-height:1.3;color:var(--m-fg);transition:color .2s}
+.mega-model:hover > span + span{color:var(--m-accent)}
+.mega-models-grid.swap{animation:megaFade .35s ease both}
+
+@media (max-width:880px){
+  /* Desktop only for now. The phone menu is a drill-down with no hover to
+     hang this off, and it is being left exactly as it was. */
+  .mega-models{display:none}
+}
+
 .mega-foot{flex:none;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
   padding:18px 40px;border-top:0.5px solid var(--m-line);background:var(--m-bg)}
 .mega-foot .mf-l{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
@@ -894,16 +920,20 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         </div>
 
         <div class="mega-pane" data-pane="brands">
-          <div class="mega-col">
+          <div class="mega-col mega-col-brands">
             <h4>Builders We Represent</h4>
-            <a href="#">Axopar</a>
-            <a href="#">Brabus</a>
-            <a href="#">Pershing</a>
-            <a href="#">Riva</a>
-            <a href="#">Four Winns</a>
-            <a href="#">Jeanneau</a>
-            <a href="#">Sirena Yachts</a>
-            <a href="#">Wally</a>
+            <a href="#" data-brand="axopar">Axopar</a>
+            <a href="#" data-brand="brabus">Brabus</a>
+            <a href="#" data-brand="pershing">Pershing</a>
+            <a href="#" data-brand="riva">Riva</a>
+            <a href="#" data-brand="fourwinns">Four Winns</a>
+            <a href="#" data-brand="jeanneau">Jeanneau</a>
+            <a href="#" data-brand="sirena">Sirena Yachts</a>
+            <a href="#" data-brand="wally">Wally</a>
+          </div>
+          <div class="mega-models" id="mega-models">
+            <h4 id="mega-models-h">Models</h4>
+            <div class="mega-models-grid" id="mega-models-grid"></div>
           </div>
         </div>
 
@@ -2170,6 +2200,60 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
       if (!mq.matches) activate(c.dataset.cat);       // desktop hover preview
     });
   });
+
+  /* ---- Models beside the builders ----------------------------------------
+     PLACEHOLDER DATA. The names are written by hand and the frames are empty
+     tiles: nothing in this repository holds a photograph of a particular
+     model, and the marine shots that are here are a crowd at a boat show, a
+     service van, or a hull with another builder's name down the side. So the
+     frame stays a frame until whatever owns the model catalogue supplies both
+     the lineup and a photograph per model. */
+  var MODEL_NAMES = {
+    axopar:    ['Axopar 25 Cross Cabin', 'Axopar 29 Sun Top', 'Axopar 37 Sun Top', 'Axopar 45 Cross Top'],
+    brabus:    ['Shadow 500 Cabin', 'Shadow 900 XC', 'Shadow 1200 Black Ops'],
+    pershing:  ['Pershing 5X', 'Pershing 7X', 'Pershing 8X', 'Pershing GTX116'],
+    riva:      ["56' Rivale", "68' Diable", "76' Perseo Super", "88' Folgore"],
+    fourwinns: ['Four Winns H2', 'Four Winns H4', 'Four Winns HD5', 'Four Winns TH36'],
+    jeanneau:  ['Cap Camarat 7.5 WA', 'Merry Fisher 895', 'DB/43', 'Leader 10.5'],
+    sirena:    ['Sirena 48', 'Sirena 58', 'Sirena 68', 'Sirena 88'],
+    wally:     ['wallytender43X', 'wallywhy100', 'wallypower58', 'wallywind110']
+  };
+
+  var brandLinks = Array.prototype.slice.call(mega.querySelectorAll('[data-brand]'));
+  var modelsHead = document.getElementById('mega-models-h');
+  var modelsGrid = document.getElementById('mega-models-grid');
+  var shownBrand = null;
+
+  function showModels(brand){
+    if (!modelsGrid || brand === shownBrand) return;
+    shownBrand = brand;
+
+    var link = brandLinks.filter(function(a){ return a.dataset.brand === brand; })[0];
+    brandLinks.forEach(function(a){ a.classList.toggle('on', a === link); });
+    if (modelsHead && link) modelsHead.textContent = link.textContent.trim() + ' Models';
+
+    modelsGrid.innerHTML = (MODEL_NAMES[brand] || []).map(function(name){
+      return '<a class="mega-model" href="#">' +
+               '<span class="mega-model-shot" aria-hidden="true"></span>' +
+               '<span>' + name + '</span>' +
+             '</a>';
+    }).join('');
+
+    // Restart the fade rather than let it sit finished from the last swap.
+    modelsGrid.classList.remove('swap');
+    void modelsGrid.offsetWidth;
+    modelsGrid.classList.add('swap');
+  }
+
+  brandLinks.forEach(function(a){
+    a.addEventListener('mouseenter', function(){ if (!mq.matches) showModels(a.dataset.brand); });
+    // Keyboard reaches the list the same way the pointer does.
+    a.addEventListener('focus', function(){ if (!mq.matches) showModels(a.dataset.brand); });
+  });
+
+  // The first builder stands in as the resting state, so opening Brands shows
+  // what the column is for instead of an empty half.
+  if (brandLinks.length) showModels(brandLinks[0].dataset.brand);
 })();
 </script>
 
