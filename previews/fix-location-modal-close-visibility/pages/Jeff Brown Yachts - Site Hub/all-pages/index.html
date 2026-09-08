@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jeff Brown Yachts — Site</title>
+<link rel="icon" href="/jby-site/assets/jby_logo.svg">
+<link rel="stylesheet" href="/jby-site/assets/fonts.css">
+<style>
+:root{
+  --navy:#41647b;
+  --sand:#bdb19d;
+  --black:#000;
+  --bg-page:#fcfcfd;
+  --bg-section:#f4f6f9;
+  --line:#e4e8ee;
+  --muted:#6b7784;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg-page);color:var(--black);
+  font-family:'Myriad Pro',system-ui,sans-serif;font-size:16px;line-height:24px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1440px;margin:0 auto;padding-left:40px;padding-right:40px}
+@media(max-width:768px){.wrap{padding-left:24px;padding-right:24px}}
+
+/* header */
+.hd{position:sticky;top:0;z-index:40;background:rgba(252,252,253,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hd-in{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
+.hd .brand{display:flex;align-items:center;gap:12px}
+.hd img{height:34px;width:auto;display:block;filter:brightness(0)}
+.hd .wm{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:15px;letter-spacing:.16em;text-transform:uppercase}
+.hd-nav{display:flex;gap:22px;font-size:14px;letter-spacing:.02em;color:var(--muted);overflow:auto;scrollbar-width:none}
+.hd-nav::-webkit-scrollbar{display:none}
+.hd-nav a{white-space:nowrap;transition:color .2s}
+.hd-nav a:hover{color:var(--navy)}
+@media(max-width:900px){.hd-nav{display:none}}
+
+/* hero */
+.hero{background:var(--navy);color:#fff;padding:96px 0 88px}
+.hero h1{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:48px;line-height:60px;margin:0 0 20px;max-width:20ch}
+.hero p{margin:0;max-width:62ch;color:rgba(255,255,255,.82)}
+.hero-meta{display:flex;gap:48px;margin-top:44px;flex-wrap:wrap}
+.hero-meta div span{display:block}
+.hero-meta .n{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:40px}
+.hero-meta .l{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--sand);margin-top:6px}
+@media(max-width:768px){.hero{padding:64px 0 56px}.hero h1{font-size:32px;line-height:44px}}
+
+/* search */
+.tools{border-bottom:1px solid var(--line);background:var(--bg-page);position:sticky;top:72px;z-index:30}
+.tools-in{display:flex;align-items:center;gap:16px;height:64px}
+.tools input{flex:1;min-width:0;height:40px;border:1px solid var(--line);background:#fff;border-radius:2px;
+  padding:0 14px;font-family:inherit;font-size:15px;color:var(--black);outline:none}
+.tools input:focus{border-color:var(--navy)}
+.tools .count{font-size:13px;color:var(--muted);white-space:nowrap}
+
+/* groups */
+section.grp{padding:72px 0 8px}
+section.grp:nth-child(even){background:var(--bg-section)}
+.grp-head{display:flex;align-items:baseline;gap:14px;margin-bottom:32px;flex-wrap:wrap}
+.grp-head .num{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:40px;color:var(--sand)}
+.grp-head h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:40px;margin:0}
+.grp-head .note{color:var(--muted);font-size:15px}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-bottom:72px}
+@media(max-width:1080px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){.cards{grid-template-columns:1fr}}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:2px;padding:24px;display:flex;flex-direction:column;
+  min-height:172px;transition:border-color .2s,box-shadow .2s}
+.card:hover{border-color:var(--navy);box-shadow:0 10px 30px rgba(65,100,123,.10)}
+.card.sub{background:transparent;min-height:0;padding:18px 24px}
+.card h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:22px;line-height:30px;margin:0 0 8px}
+.card p{margin:0;color:var(--muted);font-size:15px;line-height:23px}
+.card .foot{margin-top:auto;padding-top:18px;display:flex;align-items:center;gap:18px;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.card .foot a{color:var(--navy);transition:color .2s}
+.card .foot a:hover{color:var(--black)}
+.card .foot .url{margin-left:auto;text-transform:none;letter-spacing:0;color:#a7b0ba;font-size:12px}
+.tag{display:inline-block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);
+  background:rgba(65,100,123,.08);border-radius:2px;padding:3px 8px;margin-left:10px;vertical-align:middle}
+
+/* footer */
+footer{background:var(--navy);color:rgba(255,255,255,.8);padding:56px 0;font-size:14px}
+footer .f-in{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer a{color:#fff}
+.hidden{display:none !important}
+</style>
+<link rel="stylesheet" href="/jby-site/site.css?v=6">
+<script defer src="/jby-site/site.js?v=6"></script>
+</head>
+<body>
+
+<header class="hd">
+  <div class="wrap hd-in">
+    <a class="brand" href="/jby-site/"><img src="assets/jby_logo.svg" alt=""><span class="wm">Jeff Brown Yachts</span></a>
+    <nav class="hd-nav" id="topnav"></nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <h1>Every page we have designed</h1>
+    <p>The pages marked “Open on the site” are wired into the live site, reachable from the menu on every page. The rest are alternative versions and section libraries, kept here for reference.</p>
+    <div class="hero-meta">
+      <div><span class="n" id="m-pages">0</span><span class="l">Prototypes</span></div>
+      <div><span class="n" id="m-groups">0</span><span class="l">Sections</span></div>
+      <div><span class="n" id="m-site">0</span><span class="l">On the live site</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="tools">
+  <div class="wrap tools-in">
+    <input id="q" type="search" placeholder="Search pages — team, listing, legal, chat…" autocomplete="off">
+    <span class="count" id="count"></span>
+  </div>
+</div>
+
+<main id="main"></main>
+
+<footer>
+  <div class="wrap f-in">
+    <div>Jeff Brown Yachts — design prototypes. Hosted on GitHub Pages.</div>
+    <div><a href="tel:+18886938099">(888) 693-8099</a> &nbsp;·&nbsp; <a href="mailto:info@jeffbrownyachts.com">info@jeffbrownyachts.com</a></div>
+  </div>
+</footer>
+
+<script src="/jby-site/pages.js"></script>
+<script>
+const main = document.getElementById('main');
+const nav  = document.getElementById('topnav');
+
+JBY_GROUPS.forEach((g, i) => {
+  nav.insertAdjacentHTML('beforeend', `<a href="#${g.id}">${g.title}</a>`);
+  const cards = g.pages.map(p => {
+    const url = JBY_BASE + p.path;
+    const view = '/jby-site/view.html?p=' + encodeURIComponent(p.id);
+    return `<article class="card${p.sub ? ' sub' : ''}" data-search="${(p.name + ' ' + p.desc + ' ' + p.path).toLowerCase()}">
+      <h3>${p.name}${p.tag ? `<span class="tag">${p.tag}</span>` : ''}</h3>
+      <p>${p.desc}</p>
+      <div class="foot">
+        ${p.site !== undefined
+          ? `<a href="/jby-site/${p.site}">Open on the site</a>`
+          : `<a href="${view}">Open in viewer</a>`}
+        <a href="${url}" target="_blank" rel="noopener">Standalone</a>
+        <span class="url">${p.site !== undefined ? '/jby-site/' + p.site : '/' + p.path}</span>
+      </div>
+    </article>`;
+  }).join('');
+  main.insertAdjacentHTML('beforeend', `<section class="grp" id="${g.id}">
+      <div class="wrap">
+        <div class="grp-head"><span class="num">${i + 1}</span><h2>${g.title}</h2><span class="note">${g.note}</span></div>
+        <div class="cards">${cards}</div>
+      </div>
+    </section>`);
+});
+
+document.getElementById('m-pages').textContent  = JBY_FLAT.length;
+document.getElementById('m-groups').textContent = JBY_GROUPS.length;
+document.getElementById('m-site').textContent   = JBY_FLAT.filter(p => p.site !== undefined).length;
+
+const q = document.getElementById('q'), count = document.getElementById('count');
+function filter() {
+  const t = q.value.trim().toLowerCase();
+  let shown = 0;
+  document.querySelectorAll('.card').forEach(c => {
+    const hit = !t || c.dataset.search.includes(t);
+    c.classList.toggle('hidden', !hit);
+    if (hit) shown++;
+  });
+  document.querySelectorAll('section.grp').forEach(s => {
+    s.classList.toggle('hidden', !s.querySelector('.card:not(.hidden)'));
+  });
+  count.textContent = t ? shown + ' of ' + JBY_FLAT.length : JBY_FLAT.length + ' pages';
+}
+q.addEventListener('input', filter);
+filter();
+</script>
+</body>
+</html>
