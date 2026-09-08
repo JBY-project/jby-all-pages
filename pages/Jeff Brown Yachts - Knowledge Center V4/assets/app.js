@@ -1,5 +1,5 @@
 /* =====================================================================
-   Jeff Brown Yachts — Knowledge Center — shared behavior + chrome
+   Jeff Brown Yachts — News and Insights — shared behavior + chrome
    Header, KC sub-nav, slide-in menu and footer are injected here so
    every page shares one source of truth. Set on <body>:
      data-kc="home|news|videos|events"  (active nav item)
@@ -23,9 +23,9 @@
     return ''+
     '<nav class="nav'+solid+'" id="site-nav" aria-label="Primary">'+
       '<div class="left"><button class="burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button></div>'+
-      '<a class="logo" href="index.html" aria-label="Jeff Brown Yachts — Knowledge Center"><img src="'+LOGO+'" alt="Jeff Brown Yachts"/></a>'+
+      '<a class="logo" href="index.html" aria-label="Jeff Brown Yachts — News and Insights"><img src="'+LOGO+'" alt="Jeff Brown Yachts"/></a>'+
       '<div class="right">'+
-        '<a class="icon" href="search.html" aria-label="Search the Knowledge Center">'+I.search+'</a>'+
+        '<a class="icon" href="search.html" aria-label="Search News and Insights">'+I.search+'</a>'+
         '<a class="cta" href="https://www.jeffbrownyachts.com" target="_blank" rel="noopener">Contact an expert</a>'+
       '</div>'+
     '</nav>';
@@ -49,7 +49,7 @@
       ["Boats for Sale","https://www.jeffbrownyachts.com"],
       ["Brands","https://www.jeffbrownyachts.com"],
       ["Services","https://www.jeffbrownyachts.com"],
-      ["Knowledge Center","index.html"],
+      ["News and Insights","index.html"],
       ["Events","https://www.jeffbrownyachts.com"],
       ["About JBY","https://www.jeffbrownyachts.com"],
       ["Contact","https://www.jeffbrownyachts.com"]
@@ -481,7 +481,7 @@
     var cachedDoc = null;
 
     function showPrompt(){
-      wrap.innerHTML = '<div class="sr-empty"><h2>Search the Knowledge Center</h2>'+
+      wrap.innerHTML = '<div class="sr-empty"><h2>Search News and Insights</h2>'+
         '<p>Search for a brand, model, event, or story to find matching videos, past events, and insights.</p></div>';
     }
     function renderResults(doc, q){
@@ -504,7 +504,7 @@
         '<p class="sr-count">'+total+' result'+(total===1?"":"s")+'</p></div>';
       wrap.innerHTML = total ? head + blocks
         : '<div class="sr-empty"><h2>No results for <span>&ldquo;'+esc(q)+'&rdquo;</span></h2>'+
-          '<p>Try a different search, or browse everything in the Knowledge Center.</p>'+
+          '<p>Try a different search, or browse everything in News and Insights.</p>'+
           '<a class="btn btn-md btn-solid" href="index.html#all"><span>Browse all</span></a></div>';
       bindHover(wrap);
     }
@@ -519,7 +519,7 @@
         renderResults(cachedDoc, q);
       }).catch(function(){
         wrap.innerHTML = '<div class="sr-empty"><p>Unable to load results right now.</p>'+
-          '<a class="btn btn-md btn-solid" href="index.html#all"><span>Browse the Knowledge Center</span></a></div>';
+          '<a class="btn btn-md btn-solid" href="index.html#all"><span>Browse News and Insights</span></a></div>';
       });
     }
 
@@ -537,7 +537,7 @@
       sbtn.addEventListener("click", function(){ window.location.href = "index.html"; });
     }
 
-    /* clearing the field (native X) returns to the Knowledge Center home */
+    /* clearing the field (native X) returns to the News and Insights home */
     if(inp){
       inp.addEventListener("search", function(){
         if(!inp.value.trim()){ window.location.href = "index.html"; }
