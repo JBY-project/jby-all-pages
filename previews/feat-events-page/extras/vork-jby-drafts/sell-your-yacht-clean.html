@@ -1,0 +1,1064 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sell Your Yacht | Jeff Brown Yachts</title>
+  <meta name="description" content="Sell your yacht with Jeff Brown Yachts. Licensed and bonded yacht brokers provide valuation, preparation, marketing, negotiation, and closing support.">
+  <style>
+    :root {
+      --ink: #111315;
+      --muted: #687178;
+      --line: #e4e7e8;
+      --panel: #f6f7f7;
+      --white: #fff;
+      --sea: #006f78;
+      --sea-dark: #06494f;
+      --red: #e23d35;
+      --shadow: 0 22px 56px rgba(9, 20, 24, .14);
+      --soft-shadow: 0 12px 28px rgba(9, 20, 24, .08);
+      --max: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--white);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 74px;
+      padding: 0 clamp(18px, 4vw, 48px);
+      color: var(--white);
+      border-bottom: 1px solid rgba(255, 255, 255, .18);
+      transition: background .18s ease, color .18s ease, box-shadow .18s ease;
+    }
+
+    .topbar.is-scrolled,
+    .topbar.nav-open {
+      color: var(--ink);
+      background: rgba(255, 255, 255, .94);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, .08);
+      backdrop-filter: blur(16px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(16px, 2vw, 28px);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .nav a {
+      opacity: .84;
+    }
+
+    .nav a:hover {
+      opacity: 1;
+      color: var(--red);
+    }
+
+    .menu {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid currentColor;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .menu span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      margin: 4px auto;
+      background: currentColor;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 22px;
+      border: 1px solid var(--ink);
+      background: var(--white);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, .14);
+    }
+
+    .btn.sea {
+      border-color: var(--sea);
+      background: var(--sea);
+      color: var(--white);
+    }
+
+    .btn.dark {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .topbar:not(.is-scrolled):not(.nav-open) .btn.dark {
+      border-color: rgba(255, 255, 255, .8);
+      background: rgba(255, 255, 255, .12);
+      color: var(--white);
+    }
+
+    .hero {
+      min-height: 760px;
+      display: grid;
+      align-items: end;
+      padding: 150px clamp(22px, 5vw, 64px) 64px;
+      color: var(--white);
+      background:
+        linear-gradient(90deg, rgba(4, 16, 19, .92), rgba(4, 16, 19, .62) 48%, rgba(4, 16, 19, .1)),
+        url("https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&w=2400&q=84") center / cover;
+    }
+
+    .hero-inner {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(320px, .4fr);
+      gap: clamp(28px, 6vw, 72px);
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px;
+      color: rgba(255, 255, 255, .82);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: var(--red);
+    }
+
+    h1,
+    h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 780px;
+      font-size: clamp(48px, 6vw, 86px);
+      line-height: .98;
+    }
+
+    .hero p {
+      max-width: 660px;
+      margin: 24px 0 0;
+      color: rgba(255, 255, 255, .84);
+      font-size: 19px;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .hero-card {
+      padding: 26px;
+      background: rgba(255, 255, 255, .94);
+      color: var(--ink);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card h2 {
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    .hero-card p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .mini-form {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    label {
+      color: #2b3337;
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 46px;
+      padding: 12px 13px;
+      border: 1px solid #cfd5d7;
+      background: var(--white);
+      color: var(--ink);
+      outline: 0;
+    }
+
+    textarea {
+      min-height: 112px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--sea);
+      box-shadow: 0 0 0 3px rgba(0, 111, 120, .14);
+    }
+
+    .section {
+      padding: clamp(70px, 8vw, 108px) clamp(22px, 5vw, 64px);
+    }
+
+    .section.alt {
+      background: var(--panel);
+    }
+
+    .wrap {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .72fr) minmax(280px, .4fr);
+      gap: 32px;
+      align-items: end;
+      margin-bottom: 42px;
+    }
+
+    .kicker {
+      margin: 0 0 12px;
+      color: var(--sea);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: clamp(36px, 5vw, 62px);
+      line-height: 1;
+    }
+
+    .lede {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .proof {
+      display: grid;
+      align-content: space-between;
+      min-height: 260px;
+      padding: 26px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .proof:nth-child(1) {
+      background: linear-gradient(135deg, #fff, #f3fbfa);
+    }
+
+    .proof:nth-child(2) {
+      background: linear-gradient(135deg, #fff, #f5f7ff);
+    }
+
+    .proof:nth-child(3) {
+      background: linear-gradient(135deg, #fff, #fff5f4);
+    }
+
+    .proof strong {
+      display: block;
+      margin-bottom: 14px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 4vw, 54px);
+      line-height: 1;
+    }
+
+    .proof b {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--sea);
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .proof span {
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, .5fr) minmax(320px, .5fr);
+      gap: clamp(34px, 5vw, 58px);
+      align-items: center;
+    }
+
+    .photo {
+      min-height: 0;
+      aspect-ratio: 1.16 / 1;
+      background:
+        linear-gradient(180deg, rgba(17, 19, 21, .02), rgba(17, 19, 21, .1)),
+        url("https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=1800&q=82") center 48% / cover;
+      box-shadow: var(--shadow);
+    }
+
+    .marketing-copy {
+      max-width: 640px;
+      align-self: center;
+    }
+
+    .marketing-copy h2 {
+      max-width: 620px;
+      font-size: clamp(34px, 4vw, 50px);
+      line-height: 1.04;
+    }
+
+    .marketing-copy .lede {
+      max-width: 610px;
+      margin-top: 18px;
+      line-height: 1.62;
+    }
+
+    .list {
+      display: grid;
+      gap: 11px;
+      margin: 20px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .list li {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .list li::before {
+      content: "";
+      width: 16px;
+      height: 16px;
+      margin-top: 4px;
+      border: 1px solid rgba(0, 111, 120, .45);
+      background:
+        linear-gradient(135deg, transparent 44%, var(--sea) 45% 55%, transparent 56%),
+        linear-gradient(45deg, transparent 48%, var(--sea) 49% 59%, transparent 60%);
+    }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .step {
+      padding: 26px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .step:hover,
+    .step.is-active {
+      transform: translateY(-3px);
+      border-color: var(--sea);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .step b {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      margin-bottom: 34px;
+      background: var(--ink);
+      color: var(--white);
+      font-size: 12px;
+    }
+
+    .step h3 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.15;
+    }
+
+    .step p {
+      margin: 14px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .channels {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .channel {
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    .channel h3 {
+      margin: 0;
+      font-size: 21px;
+    }
+
+    .channel p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .form-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, .48fr) minmax(360px, .52fr);
+      gap: clamp(28px, 5vw, 64px);
+      align-items: start;
+    }
+
+    .form-card {
+      padding: clamp(24px, 4vw, 36px);
+      border: 1px solid var(--line);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .full-form {
+      display: grid;
+      gap: 13px;
+    }
+
+    .status {
+      display: none;
+      margin-top: 14px;
+      padding: 14px;
+      border-left: 3px solid var(--sea);
+      background: #edf5f4;
+      color: var(--sea-dark);
+      line-height: 1.55;
+    }
+
+    .status.is-visible {
+      display: block;
+    }
+
+    .faq {
+      display: grid;
+      gap: 10px;
+    }
+
+    .faq-item {
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    .faq button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      min-height: 68px;
+      padding: 20px 22px;
+      border: 0;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .faq span {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--line);
+      color: var(--sea);
+      font-weight: 900;
+      transition: transform .18s ease;
+    }
+
+    .faq-item.is-open span {
+      transform: rotate(45deg);
+    }
+
+    .answer {
+      display: none;
+      padding: 0 22px 22px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .faq-item.is-open .answer {
+      display: block;
+    }
+
+    .cta {
+      padding: clamp(70px, 8vw, 108px) clamp(22px, 5vw, 64px);
+      color: var(--white);
+      text-align: center;
+      background:
+        linear-gradient(90deg, rgba(4, 16, 19, .88), rgba(4, 16, 19, .55)),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2200&q=82") center / cover;
+    }
+
+    .cta h2 {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .cta p {
+      max-width: 620px;
+      margin: 22px auto 0;
+      color: rgba(255, 255, 255, .78);
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    .cta .btn {
+      margin-top: 30px;
+    }
+
+    .footer {
+      padding: 34px clamp(22px, 5vw, 64px);
+      background: #0f1214;
+      color: rgba(255, 255, 255, .62);
+    }
+
+    .footer-inner {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      .hero-inner,
+      .section-head,
+      .split,
+      .form-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .proof-grid,
+      .process,
+      .channels {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .nav {
+        position: fixed;
+        inset: 74px 0 auto;
+        display: none;
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 10px 22px 20px;
+        background: rgba(255, 255, 255, .98);
+        color: var(--ink);
+        box-shadow: var(--soft-shadow);
+      }
+
+      .nav.is-open {
+        display: grid;
+      }
+
+      .nav a {
+        padding: 16px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .menu {
+        display: block;
+      }
+
+      .topbar > .btn {
+        display: none;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .hero {
+        min-height: auto;
+        padding-top: 122px;
+      }
+
+      h1 {
+        font-size: 44px;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+
+      .proof-grid,
+      .process,
+      .channels,
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .photo {
+        aspect-ratio: 1.15 / 1;
+      }
+
+      .brand span:last-child {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" data-topbar>
+    <a class="brand" href="#top" aria-label="Jeff Brown Yachts">
+      <span class="mark">JBY</span>
+      <span>Jeff Brown Yachts</span>
+    </a>
+    <nav class="nav" data-nav aria-label="Primary navigation">
+      <a href="#why">Why Us</a>
+      <a href="#process">Process</a>
+      <a href="#marketing">Marketing</a>
+      <a href="#valuation">Valuation</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn dark" href="#valuation">Request Valuation</a>
+    <button class="menu" data-menu type="button" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <div>
+          <p class="eyebrow">Sell Your Yacht</p>
+          <h1>Selling your yacht should feel clear from valuation to handover.</h1>
+          <p>Jeff Brown Yachts helps owners prepare, list, market, negotiate, and close with licensed and bonded yacht brokers, decades of marine industry experience, and seven U.S. sales offices.</p>
+          <div class="hero-actions">
+            <a class="btn sea" href="#valuation">Get a Valuation</a>
+            <a class="btn" href="#process">View Process</a>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <h2>Start with a private valuation.</h2>
+          <p>Share the yacht basics and a broker will review your vessel, market position, and next best step.</p>
+          <form class="mini-form" data-mini-form>
+            <div class="field">
+              <label for="mini-boat">Make / model</label>
+              <input id="mini-boat" placeholder="Example: Axopar 37 XC">
+            </div>
+            <div class="field">
+              <label for="mini-contact">Email or phone</label>
+              <input id="mini-contact" placeholder="Email or phone number">
+            </div>
+            <button class="btn dark" type="submit">Continue</button>
+          </form>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="why">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Why Jeff Brown Yachts</p>
+            <h2>Proof that your yacht is in stronger hands.</h2>
+          </div>
+          <p class="lede">The strongest reason to choose Jeff Brown Yachts is the combination of licensed brokerage guidance, real marine experience, national office coverage, and a marketing system built to reach qualified buyers.</p>
+        </div>
+
+        <div class="proof-grid">
+          <article class="proof">
+            <div>
+              <strong>30+</strong>
+              <b>Years of marine experience</b>
+            </div>
+            <span>Jeff Brown brings more than three decades across yacht repair, refits, maintenance, optimization, global deliveries, buying, selling, and ownership support.</span>
+          </article>
+          <article class="proof">
+            <div>
+              <strong>7</strong>
+              <b>U.S. sales offices</b>
+            </div>
+            <span>San Diego, Newport Beach, Sausalito, Seattle, Kailua-Kona, Wrightsville Beach, and Charleston give sellers local expertise with broader national reach.</span>
+          </article>
+          <article class="proof">
+            <div>
+              <strong>360</strong>
+              <b>Listing presentation</b>
+            </div>
+            <span>Professional photography, drone footage, 360 tours, written descriptions, and a compelling visual library help buyers understand the yacht before they step aboard.</span>
+          </article>
+          <article class="proof">
+            <div>
+              <strong>MLS+</strong>
+              <b>Marketplace exposure</b>
+            </div>
+            <span>Your yacht can be promoted through MLS and international listings, including YachtWorld, Boat Trader, the Jeff Brown Yachts website, and targeted advertising.</span>
+          </article>
+          <article class="proof">
+            <div>
+              <strong>CRM</strong>
+              <b>Lead follow-up</b>
+            </div>
+            <span>Lead generation, CRM follow-up, social media visibility, open house opportunities, private and virtual showings, and regular seller updates keep the sale active after launch.</span>
+          </article>
+          <article class="proof">
+            <div>
+              <strong>Full</strong>
+              <b>Sale support</b>
+            </div>
+            <span>Contract management, negotiation, taxes, duties, documentation, transport, delivery, final handover, and after-sales support are handled with one coordinated team.</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="process">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Selling process</p>
+            <h2>A proven four-step selling process.</h2>
+          </div>
+          <p class="lede">From preparation to final handover, the process is designed to improve presentation, attract qualified buyers, and keep the sale moving.</p>
+        </div>
+
+        <div class="process">
+          <article class="step is-active">
+            <b>01</b>
+            <h3>Prep</h3>
+            <p>Review valuation, market analysis, staging, detailing, survey recommendations, repairs, and listing agreement setup.</p>
+          </article>
+          <article class="step">
+            <b>02</b>
+            <h3>Listing</h3>
+            <p>Create professional photography, drone footage, 360 tours, written descriptions, MLS exposure, international listings, and website placement.</p>
+          </article>
+          <article class="step">
+            <b>03</b>
+            <h3>Cultivate</h3>
+            <p>Build social media presence, promote open house opportunities, follow up through CRM, organize private and virtual showings, facilitate offers, and provide regular seller updates.</p>
+          </article>
+          <article class="step">
+            <b>04</b>
+            <h3>Sold</h3>
+            <p>Support contract management, negotiation, taxes, duties, documentation, transport, delivery, final handover, and after-sales support.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="marketing">
+      <div class="wrap split">
+        <div class="photo" aria-label="Yacht on open water"></div>
+        <div class="marketing-copy">
+          <p class="kicker">Marketing</p>
+          <h2>Give your yacht the exposure it deserves.</h2>
+          <p class="lede">Your listing is prepared with professional content and distributed through the channels buyers and brokers use to find serious opportunities.</p>
+          <ul class="list">
+            <li>Professional photography, drone footage, 360 tours, and a compelling visual library.</li>
+            <li>Professionally written descriptions and a featured placement on the Jeff Brown Yachts website.</li>
+            <li>MLS and international listings, including YachtWorld, Boat Trader, and other relevant marketplaces.</li>
+            <li>Digital, print, and social advertising supported by CRM lead follow-up.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Yachts represented</p>
+            <h2>Specialized support for many vessel types.</h2>
+          </div>
+          <p class="lede">Whether your vessel is a motor yacht, sailing yacht, catamaran, family cruiser, expedition yacht, one-design boat, or custom vessel, the sales strategy is tailored to the boat and the seller.</p>
+        </div>
+        <div class="channels">
+          <article class="channel">
+            <h3>Motor yachts</h3>
+            <p>Luxury motor yachts, family cruisers, sport yachts, and expedition or adventure boats.</p>
+          </article>
+          <article class="channel">
+            <h3>Sailing yachts</h3>
+            <p>Sailing yachts, catamarans, one-design boats, and bluewater vessels.</p>
+          </article>
+          <article class="channel">
+            <h3>Custom vessels</h3>
+            <p>Custom vessels and premium yachts that benefit from a tailored sales program.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="valuation">
+      <div class="wrap form-wrap">
+        <div>
+          <p class="kicker">Private valuation</p>
+          <h2>Find the right starting point.</h2>
+          <p class="lede" style="margin-top: 20px;">Request a personalized consultation and market review. A broker can help you understand pricing, preparation, timing, and the best path to market.</p>
+        </div>
+
+        <form class="form-card full-form" data-form>
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" required>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" type="email" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" type="tel">
+            </div>
+            <div class="field">
+              <label for="location">Yacht location</label>
+              <input id="location">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="boat">Make / model</label>
+              <input id="boat" required>
+            </div>
+            <div class="field">
+              <label for="year">Year / length</label>
+              <input id="year" placeholder="2021 / 42 ft" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="timeline">Selling timeline</label>
+            <select id="timeline">
+              <option>Exploring options</option>
+              <option>Ready to list soon</option>
+              <option>This season</option>
+              <option>Need broker advice</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="notes">Notes</label>
+            <textarea id="notes" placeholder="Service history, recent upgrades, survey status, or questions."></textarea>
+          </div>
+          <button class="btn sea" type="submit">Request Valuation</button>
+          <div class="status" data-status>Thank you. A Jeff Brown Yachts broker will contact you to discuss your valuation request.</div>
+        </form>
+      </div>
+    </section>
+
+    <section class="section alt" id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">FAQ</p>
+            <h2>Quick answers for sellers.</h2>
+          </div>
+          <p class="lede">Clear answers about valuation, marketing, vessel types, brokerage support, and the steps involved in selling your yacht.</p>
+        </div>
+
+        <div class="faq">
+          <article class="faq-item is-open">
+            <button type="button" aria-expanded="true">How do I start selling my yacht?<span>+</span></button>
+            <div class="answer">Start with a personalized consultation. A broker reviews your yacht, timing, condition, location, and market competition before recommending a listing strategy.</div>
+          </article>
+          <article class="faq-item">
+            <button type="button" aria-expanded="false">Where will the yacht be marketed?<span>+</span></button>
+            <div class="answer">Your yacht is promoted through professional content, the Jeff Brown Yachts website, MLS and international listings, YachtWorld, Boat Trader, digital advertising, social media, and CRM follow-up.</div>
+          </article>
+          <article class="faq-item">
+            <button type="button" aria-expanded="false">What types of yachts can be represented?<span>+</span></button>
+            <div class="answer">Jeff Brown Yachts represents motor yachts, sailing yachts, catamarans, family cruisers, expedition yachts, one-design boats, and custom vessels.</div>
+          </article>
+          <article class="faq-item">
+            <button type="button" aria-expanded="false">What happens after an offer?<span>+</span></button>
+            <div class="answer">The brokerage team supports offer facilitation, negotiation, contract management, documentation, transport, delivery, final handover, and after-sales support.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <h2>Ready to understand your yacht’s market position?</h2>
+      <p>Request a private valuation and begin your yacht-selling journey with Jeff Brown Yachts.</p>
+      <a class="btn sea" href="#valuation">Request Valuation</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>Jeff Brown Yachts</span>
+      <span>Call (619) 222-9899</span>
+    </div>
+  </footer>
+
+  <script>
+    const topbar = document.querySelector('[data-topbar]');
+    const menu = document.querySelector('[data-menu]');
+    const nav = document.querySelector('[data-nav]');
+
+    function onScroll() {
+      topbar.classList.toggle('is-scrolled', window.scrollY > 20);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    menu.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('is-open');
+      topbar.classList.toggle('nav-open', isOpen);
+      menu.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    nav.addEventListener('click', (event) => {
+      if (event.target.closest('a')) {
+        nav.classList.remove('is-open');
+        topbar.classList.remove('nav-open');
+        menu.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.querySelectorAll('.step').forEach((step) => {
+      step.addEventListener('click', () => {
+        document.querySelectorAll('.step').forEach((item) => item.classList.remove('is-active'));
+        step.classList.add('is-active');
+      });
+    });
+
+    document.querySelectorAll('.faq button').forEach((button) => {
+      button.addEventListener('click', () => {
+        const item = button.closest('.faq-item');
+        const isOpen = item.classList.toggle('is-open');
+        button.setAttribute('aria-expanded', String(isOpen));
+      });
+    });
+
+    document.querySelector('[data-mini-form]').addEventListener('submit', (event) => {
+      event.preventDefault();
+      document.querySelector('#valuation').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    document.querySelector('[data-form]').addEventListener('submit', (event) => {
+      event.preventDefault();
+      document.querySelector('[data-status]').classList.add('is-visible');
+    });
+  </script>
+</body>
+</html>
