@@ -42,7 +42,8 @@
 #jb_body.page-event .event-detail__schedule-list {
   display: grid;
   grid-template-columns: max-content max-content;
-  column-gap: 12px;
+  /* 8px, which is the gap on the date's side of the rule below. */
+  column-gap: 8px;
   row-gap: 4px;
 }
 
@@ -50,12 +51,19 @@
   display: contents;
 }
 
-/* The dash belongs to the time column, not to the end of the date, which is
-   the only way it can line up when the dates are different lengths. Regular,
-   where the time beside it is semibold, so it reads as a separator. */
+/* A 12px rule between the date and the time, 8px clear of each: the grid's
+   column gap gives the 8px on the date's side, the margin gives the other.
+   It belongs to the time column rather than to the end of the date, which is
+   the only way it can line up when the dates are different lengths. Same
+   #575760 as the day of the week, so the two muted marks on this row agree. */
 #jb_body.page-event .event-detail__schedule-row dd::before {
-  content: "- ";
-  font-family: "Myriad-Pro-Regular";
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 1px;
+  margin-right: 8px;
+  vertical-align: middle;
+  background: #575760;
 }
 
 /* The day of the week steps back from the date it belongs to: #575760 is the
