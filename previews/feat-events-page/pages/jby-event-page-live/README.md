@@ -1,8 +1,16 @@
-# Event page — mirror of the live site
+# Mirror of the live site
 
-A copy of `https://jb.apdstack.com/experiences/cannes-yachting-festival`, taken
-2026-09-08, so the page can be worked on here and previewed like the rest of
-the pages in this repository.
+Copies of pages from `https://jb.apdstack.com`, so they can be worked on here
+and previewed like the rest of the pages in this repository. Taken 2026-09-08.
+
+| File | Live URL |
+| --- | --- |
+| `index.html` | `/experiences/cannes-yachting-festival` |
+| `locations.html` | `/locations` |
+
+They share one `assets/` folder, since they load the same stylesheets, the
+same fonts and the same scripts. The folder is still named after the event
+page, which was the first one copied here.
 
 It is a mirror, not the source. Anything changed here has to be applied to the
 real site by whoever owns that codebase — this folder is where the change gets
