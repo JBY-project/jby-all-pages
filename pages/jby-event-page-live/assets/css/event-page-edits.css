@@ -34,8 +34,54 @@
 }
 
 /* ---- Schedule ---------------------------------------------------------- */
+/* One grid for the whole list rather than a flex row per line, so the columns
+   are shared: every date starts on the same edge and every dash sits on the
+   same one. `display:contents` is what lets each row hand its `dt` and `dd`
+   straight to that grid — and the `[hidden]` rule that the "View More" toggle
+   works through is `!important`, so hiding a row still wins over it. */
+#jb_body.page-event .event-detail__schedule-list {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  column-gap: 12px;
+  row-gap: 4px;
+}
+
+#jb_body.page-event .event-detail__schedule-row {
+  display: contents;
+}
+
+/* The dash belongs to the time column, not to the end of the date, which is
+   the only way it can line up when the dates are different lengths. Regular,
+   where the time beside it is semibold, so it reads as a separator. */
+#jb_body.page-event .event-detail__schedule-row dd::before {
+  content: "- ";
+  font-family: "Myriad-Pro-Regular";
+}
+
 /* The day of the week steps back from the date it belongs to: #575760 is the
-   secondary ink this site uses everywhere else. */
+   secondary ink this site uses everywhere else. Regular, pinned rather than
+   inherited. */
 #jb_body.page-event .event-detail__schedule-day {
+  font-family: "Myriad-Pro-Regular";
+  font-weight: normal;
   color: #575760;
+}
+
+/* ---- Header on a phone ------------------------------------------------- */
+/* The page scrolls sideways on a phone, and it is the header doing it: at
+   390px the document is 477 wide because "Contact an Expert" is a 289px button
+   sitting beside the burger, the logo and the search. Nothing in the site's
+   own stylesheet takes it away — its `max-width:980px` block shrinks the bar
+   and the logo and leaves the button at full size — so 87px hang off the right
+   and every section reads as though it stops short of the screen.
+   Hidden from 980px down, which is the same breakpoint that block uses and
+   below where the menu is already a burger. Nothing is lost: the mobile menu
+   carries its own contact button.
+   This one is a fault in the live page, not in the copy — it does the same
+   thing at the same width. */
+@media (max-width: 980px) {
+  #jb_body header.header-v2 .btn-contact-us,
+  #jb_body header.header-v2 .header-home__contact {
+    display: none !important;
+  }
 }
