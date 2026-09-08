@@ -408,6 +408,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
    collapse, and General carries the brochure button where its chevron was.
    `.acc-open` is the panel with nothing to animate. */
 .acc-static-head{cursor:default}
+/* And the sections are separated by air rather than by a rule — the rules
+   inside them, between the sub-accordions, are the only ones left. */
+.spec-sections{display:flex;flex-direction:column;gap:80px}
+.spec-sections > .acc{border-top:0;border-bottom:0}
 .acc-open .acc-inner{padding:4px 0 36px}
 .acc-cta{flex:0 0 auto}
 
@@ -704,7 +708,7 @@ footer{position:relative}
          chevron; General carries the brochure button in its place, and the two
          equipment sections carry a pair of columns of sub-accordions built in
          the script below. -->
-    <div class="reveal d1">
+    <div class="reveal d1 spec-sections">
       <div class="acc">
         <h2 class="acc-static-head">
           <span class="acc-t">General Specifications</span>
@@ -975,15 +979,21 @@ document.querySelectorAll('.spec-list[data-equip]').forEach(el=>fillList(el,spec
    and `specData.optional` above, for whoever fills these in. Built here rather
    than written out sixteen times, and before the accordion script below, which
    binds every `.acc-head` it can find. */
-const EQUIP_TOPICS=['Lorem ipsum','Dolor sit amet','Consectetur adipiscing','Sed do eiusmod',
-  'Tempor incididunt','Labore et dolore','Magna aliqua','Enim ad minim'];
+const EQUIP_TOPICS={
+  standard:['General','Front Cabin','Helm','Wheelhouse','Aft Deck','Flybridge','Engine Room',
+    'Key Technical Features'],
+  /* "Module Selection Stern" without the AX38 in front of it: that is an
+     Axopar model code, and this is a Riva. */
+  optional:['Package','Module Selection Bow','Module Selection Stern','Power Management & Systems',
+    'Exterior Options','Interior Options','Navigation & Electronics','Comfort & Climate']
+};
 const EQUIP_COPY='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor '+
   'incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation '+
   'ullamco laboris nisi ut aliquip ex ea commodo consequat.';
 const CHEV='<span class="acc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m6 9 6 6 6-6"/></svg></span>';
 document.querySelectorAll('[data-subacc]').forEach(host=>{
   const key=host.dataset.subacc;
-  host.innerHTML=EQUIP_TOPICS.map((title,i)=>{
+  host.innerHTML=(EQUIP_TOPICS[key]||[]).map((title,i)=>{
     const id=key+'-sub-'+(i+1);
     return '<div class="acc acc-sub">'+
       '<button class="acc-head" id="'+id+'-h" aria-expanded="false" aria-controls="'+id+'-p">'+
