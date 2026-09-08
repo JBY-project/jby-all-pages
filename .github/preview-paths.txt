@@ -8,3 +8,4 @@
 # Blank lines and lines starting with # are ignored.
 
 extras
+pages/jby-event-page-live
