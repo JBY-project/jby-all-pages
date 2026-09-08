@@ -34,39 +34,11 @@
 }
 
 /* ---- Schedule ---------------------------------------------------------- */
-/* One grid for the whole list rather than a flex row per line, so the columns
-   are shared: every date starts on the same edge and every dash sits on the
-   same one. `display:contents` is what lets each row hand its `dt` and `dd`
-   straight to that grid — and the `[hidden]` rule that the "View More" toggle
-   works through is `!important`, so hiding a row still wins over it. */
-#jb_body.page-event .event-detail__schedule-list {
-  display: grid;
-  grid-template-columns: max-content max-content;
-  /* 8px, which is the gap on the date's side of the rule below. */
-  column-gap: 8px;
-  row-gap: 4px;
-}
+/* Left as the page had it — a flex row per line, the dash written at the end
+   of the date — because sharing one grid across the rows and lifting the dash
+   into its own column was tried and taken back out.
 
-#jb_body.page-event .event-detail__schedule-row {
-  display: contents;
-}
-
-/* A 12px rule between the date and the time, 8px clear of each: the grid's
-   column gap gives the 8px on the date's side, the margin gives the other.
-   It belongs to the time column rather than to the end of the date, which is
-   the only way it can line up when the dates are different lengths. Same
-   #575760 as the day of the week, so the two muted marks on this row agree. */
-#jb_body.page-event .event-detail__schedule-row dd::before {
-  content: "";
-  display: inline-block;
-  width: 12px;
-  height: 1px;
-  margin-right: 8px;
-  vertical-align: middle;
-  background: #575760;
-}
-
-/* The day of the week steps back from the date it belongs to: #575760 is the
+   The day of the week steps back from the date it belongs to: #575760 is the
    secondary ink this site uses everywhere else. Regular, pinned rather than
    inherited. */
 #jb_body.page-event .event-detail__schedule-day {
