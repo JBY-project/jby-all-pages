@@ -424,7 +424,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .brand-photo:hover img{transform:scale(1.05)}
 
 /* AVAILABLE INVENTORY */
-.inventory{padding:0 0 96px}
+/* The page ground (`--page`) shows from here down while the specs above sit on
+   white, so this is where the eye sees a new band start — and with no top
+   padding the heading was sitting on that seam. 96px, matching the section's
+   own foot. */
+.inventory{padding:96px 0}
 .inv-head{display:flex;align-items:center;margin-bottom:32px}
 .inv-head h2{color:var(--c0)}
 .inv-body{position:relative}
@@ -627,6 +631,20 @@ footer{position:relative}
     <span class="t-kick reveal">360&deg; Virtual Tour</span>
     <h2 class="reveal d1">Step aboard the Riva 112&rsquo; Dolcevita Super.</h2>
     <a class="btn btn-md btn-ghost-light t-take reveal d2" href="#tour">Take the tour <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></a>
+  </div>
+</section>
+
+<!-- ABOUT, a second time, under the tour. Same classes as the one above the
+     tour, so the two read as one treatment; the copy is placeholder. Its own
+     id, because `#about` belongs to the first one and the section nav spies on
+     it. -->
+<section class="about" id="about-tour">
+  <div class="wrap">
+    <span class="about-eyebrow reveal">Lorem ipsum dolor</span>
+    <div class="about-split">
+      <h2 class="about-title reveal d1">Lorem ipsum dolor sit<br class="hb">amet consectetur<br class="hb">adipiscing elit.</h2>
+      <p class="about-lead reveal d2">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua &mdash; ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+    </div>
   </div>
 </section>
 
