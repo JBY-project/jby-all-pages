@@ -863,7 +863,10 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .mega-body.models-open .mega-col-brands{visibility:hidden}
   .mega-models::before{display:none}
   .mega-models-back{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
-    margin:0 0 22px;padding:0;background:transparent;border:0;cursor:pointer;color:var(--m-mute);
+    /* 31px, which is what the level below leaves between its own "Menu"
+       button and "Builders We Represent" — both buttons sit at the same
+       height, so both titles land on the same line too. */
+    margin:0 0 31px;padding:0;background:transparent;border:0;cursor:pointer;color:var(--m-mute);
     font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;letter-spacing:0.06em;
     text-transform:uppercase}
   .mega-models-back:hover{color:var(--m-fg)}
@@ -999,7 +1002,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
             <a href="#" data-brand="wally">Wally</a>
           </div>
           <div class="mega-models" id="mega-models">
-            <button class="mega-models-back" type="button" data-models-back><svg class="ti-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg> Back to brands</button>
+            <button class="mega-models-back" type="button" data-models-back><svg class="ti-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg> Brands</button>
             <h4 id="mega-models-h">Models</h4>
             <div class="mega-models-grid" id="mega-models-grid"></div>
           </div>
