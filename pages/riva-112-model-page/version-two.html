@@ -489,10 +489,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* AVAILABLE INVENTORY */
 /* White, like the specifications above it, so the two read as one run rather
-   than the page ground showing through here as a grey band. With no colour
-   change there is no seam for the heading to sit on, so the top padding that
-   was holding it clear of one is gone too. */
-.inventory{background:var(--white);padding:0 0 96px}
+   than the page ground showing through here as a grey band.
+   62px puts this heading exactly where "Optional Equipment" sits above its
+   own list: that one is 124px clear of the block above it — 36 from the
+   panel's foot, 60 from the gap between the specification sections, 28 from
+   the heading's own padding — and here the arithmetic is 36 from the same
+   panel foot, 24 from the section's own, this 62, and the line's leading. */
+.inventory{background:var(--white);padding:62px 0 96px}
 /* The heading takes the left, "View all" the right. */
 .inv-head{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:32px}
 .inv-head h2{color:var(--c0)}
