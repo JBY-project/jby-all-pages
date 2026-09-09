@@ -102,6 +102,13 @@ input,select,textarea{font-family:inherit}
 
 .ci-grid{display:grid;grid-template-columns:652px minmax(0,1fr);gap:188px;margin-top:0;align-items:start}
 
+/* The details sit on the form's vertical centre. The column is 178px tall
+   against the card's 323, and the grid aligns to `start`, so it used to hang
+   off the top of a taller neighbour. Set on the column itself rather than as
+   `align-items` on the grid, because the form is deliberately `start` — that
+   is what its `position:sticky` needs. */
+.ci-left{align-self:center}
+
 /* ---- LEFT: details + photo ---- */
 .ci-details{display:grid;grid-template-columns:1fr 1fr;gap:20px 12px}
 .ci-block h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:28px;letter-spacing:0;
