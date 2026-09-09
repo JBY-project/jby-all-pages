@@ -118,9 +118,10 @@ input,select,textarea{font-family:inherit}
 .ci-list{list-style:none;margin:32px 0 0;padding:28px 0;display:flex;flex-wrap:wrap;gap:24px 48px;
   align-items:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .ci-item{display:flex;align-items:center;gap:16px}
-/* The disc: the page's accent filled, the glyph knocked out of it. 44px, the
-   size the reference uses. */
-.ci-ico{flex:0 0 auto;width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;
+/* The disc: the accent at a tenth of its strength, the glyph on top of it at
+   full. 44px, the size the reference uses. rgba rather than the token, since
+   `--navy` (#41647b) has no alpha of its own to dial down. */
+.ci-ico{flex:0 0 auto;width:44px;height:44px;border-radius:50%;background:rgba(65,100,123,0.1);color:var(--navy);
   display:flex;align-items:center;justify-content:center}
 .ci-ico svg{width:20px;height:20px;display:block}
 .ci-item-body{min-width:0}
@@ -135,11 +136,11 @@ input,select,textarea{font-family:inherit}
 .ci-social{margin-top:24px}
 
 .social{display:flex;gap:16px;align-items:center;margin-top:12px}
-.social a{width:28px;height:28px;border-radius:7px;background:var(--ink);color:#fff;
+.social a{width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;
   display:flex;align-items:center;justify-content:center;
   transition:background .2s}
-.social a:hover{background:var(--navy)}
-.social a svg{width:16px;height:16px;display:block;fill:currentColor}
+.social a:hover{background:var(--navy-d)}
+.social a svg{width:18px;height:18px;display:block;fill:currentColor}
 
 /* Photo — hover zoom (same feel as portfolio/pillars) */
 .ci-photo{margin-top:40px;width:652px;max-width:100%;height:367px;border-radius:2px;overflow:hidden;background:#1a2a3a}
@@ -207,11 +208,11 @@ input,select,textarea{font-family:inherit}
   background:linear-gradient(180deg,rgba(13,27,40,0.55) 0%,rgba(13,27,40,0.12) 30%,rgba(13,27,40,0.30) 70%,rgba(13,27,40,0.74) 100%)}
 .hero-contact .hc-inner{position:absolute;left:0;right:0;bottom:0;z-index:2;
   max-width:1440px;margin:0 auto;padding:0 40px 64px}
-.hero-contact h1{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:40px;letter-spacing:0;
+.hero-contact h1{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:36px;line-height:44px;letter-spacing:0;
   text-transform:uppercase;margin:0;color:#fff}
 .hero-contact p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:20px;line-height:30px;
   color:rgba(255,255,255,0.92);margin:18px 0 0;max-width:640px}
-@media(max-width:1024px){.hero-contact{height:58vh;min-height:420px}.hero-contact h1{font-size:26px;line-height:34px}
+@media(max-width:1024px){.hero-contact{height:58vh;min-height:420px}.hero-contact h1{font-size:30px;line-height:38px}
   .hero-contact p{font-size:18px;line-height:27px}.hero-contact .hc-inner{padding:0 24px 44px}}
 
 /* ====================================================================== */
