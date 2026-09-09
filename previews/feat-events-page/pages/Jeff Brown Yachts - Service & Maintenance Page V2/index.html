@@ -18,7 +18,7 @@
   --ink:#2f2f39; --paper:#fcfcfd; --section:#f4f6f9; --navy:#41647b; --navy-d:#365466;
   --sand:#bdb19d; --mute:#575760; --line:rgba(0,0,0,0.08); --white:#fff;
   --ease:cubic-bezier(0.22,1,0.36,1);
-  --section-pad:120px;
+  --section-pad:140px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -246,8 +246,8 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
    point where the title and the lead sit 16 apart. The list reads as its own
    block rather than a third paragraph. */
 .svc-bullets{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:11px;max-width:460px}
-.svc-bullets li{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:1.35;color:var(--ink);position:relative;padding-left:22px}
-.svc-bullets li::before{content:"";position:absolute;left:2px;top:4px;width:6px;height:10px;border-right:1.5px solid var(--navy);border-bottom:1.5px solid var(--navy);transform:rotate(45deg)}
+.svc-bullets li{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:1.35;color:var(--ink);position:relative;padding-left:22px}
+.svc-bullets li::before{content:"";position:absolute;left:2px;top:6px;width:6px;height:10px;border-right:1.5px solid var(--navy);border-bottom:1.5px solid var(--navy);transform:rotate(45deg)}
 @media(max-width:560px){.svc-bullets{grid-template-columns:1fr;gap:10px}}
 /* ===== Authorized Service & Warranty / Certifications ===== */
 .certs{background:var(--paper);padding:clamp(72px,9vw,120px) 40px;text-align:center}
