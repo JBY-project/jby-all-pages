@@ -106,7 +106,11 @@ input,select,textarea{font-family:inherit}
 .ci-details{display:grid;grid-template-columns:1fr 1fr;gap:20px 12px}
 .ci-block h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:28px;letter-spacing:0;
   color:var(--ink);text-transform:uppercase;margin:0}
-.ci-block p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:28px;letter-spacing:0;
+/* 18px: the phone number and the email address are the two things this page
+   exists to hand over, and they were set smaller than the form's own
+   labels beside them. Only these two blocks carry a `p` — Social media
+   holds icons — so this rule reaches nothing else. */
+.ci-block p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;letter-spacing:0;
   color:var(--ink);margin:12px 0 0}
 .ci-block p a{transition:color .2s}
 .ci-block p a:hover{color:var(--navy)}
