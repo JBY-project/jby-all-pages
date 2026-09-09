@@ -18,7 +18,7 @@
   --ink:#2f2f39; --paper:#fcfcfd; --section:#f4f6f9; --navy:#41647b; --navy-d:#365466;
   --sand:#bdb19d; --mute:#575760; --line:rgba(0,0,0,0.08); --white:#fff;
   --ease:cubic-bezier(0.22,1,0.36,1);
-  --section-pad:88px;
+  --section-pad:120px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -228,7 +228,9 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
    empty beside the words. This takes 174px off each row's height; the
    single column of points above puts 65px back on the text's side, and the
    two together roughly halve the gap. This is the number to turn if it
-   wants to be tighter still: 3/2 is taller, 16/9 shorter. */
+   wants to be tighter still: 3/2 is taller, 16/9 shorter.
+   The space between sections is `--section-pad`, and it is back at 120 —
+   88 read as cramped. */
 .card-media{margin:0;overflow:hidden;border-radius:3px;aspect-ratio:16/10;background:#e9ecf0;box-shadow:0 46px 100px -55px rgba(20,30,44,.5)}
 .card-media img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.02);transition:transform 2.4s var(--ease)}
 .card-media img[src*="card_delivery"]{object-position:45% 60%}
@@ -240,7 +242,10 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
 /* One column, one point under another. Two columns fitted four points into
    two lines, which left the text side of the row shorter still than the
    photograph beside it. */
-.svc-bullets{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:11px;max-width:460px}
+/* 16px off the card's own flex gap, so 32 between the lead and the first
+   point where the title and the lead sit 16 apart. The list reads as its own
+   block rather than a third paragraph. */
+.svc-bullets{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:11px;max-width:460px}
 .svc-bullets li{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:1.35;color:var(--ink);position:relative;padding-left:22px}
 .svc-bullets li::before{content:"";position:absolute;left:2px;top:4px;width:6px;height:10px;border-right:1.5px solid var(--navy);border-bottom:1.5px solid var(--navy);transform:rotate(45deg)}
 @media(max-width:560px){.svc-bullets{grid-template-columns:1fr;gap:10px}}
