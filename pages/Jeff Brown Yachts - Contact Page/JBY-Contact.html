@@ -117,6 +117,12 @@ input,select,textarea{font-family:inherit}
 .ci-block p a{transition:color .2s}
 .ci-block p a:hover{color:var(--navy)}
 
+/* The social block sits 20px lower than the grid's own row gap would put it,
+   so it reads as a step apart from the phone and the email above rather than
+   as a third line of the same list. Keyed on the block that holds the icons,
+   not on its `d3` animation-delay class. */
+.ci-details > .ci-block:has(.social){margin-top:20px}
+
 .social{display:flex;gap:16px;align-items:center;margin-top:12px}
 .social a{width:28px;height:28px;border-radius:7px;background:var(--ink);color:#fff;
   display:flex;align-items:center;justify-content:center;
