@@ -476,16 +476,25 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .brand-photo img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease-out)}
 .brand-photo:hover img{transform:scale(1.05)}
 
+/* GET EXPERT GUIDANCE — the band the brand and service pages close with,
+   carried over so this page ends the same way. The button is this page's own
+   `btn-ghost-light`, which is the white-outlined variant meant for a dark
+   ground. No top margin: the inventory above it already leaves 96px. */
+.expert{background:var(--navy);color:var(--white);padding:56px 40px;text-align:center;min-height:315px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center}
+.expert h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:48px;
+  letter-spacing:0;text-transform:uppercase;color:var(--white);margin:0 0 12px}
+.expert p{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:16px;line-height:24px;
+  color:rgba(255,255,255,0.85);margin:0 0 28px}
+
 /* AVAILABLE INVENTORY */
-/* The page ground (`--page`) shows from here down while the specs above sit on
-   white, so this is where the eye sees a new band start — and with no top
-   padding the heading was sitting on that seam.
-   30px here, with the specs' own foot cut to 24: that puts 90px between the
-   last row above and this heading, which is exactly what sits above "General
-   Specifications" (40 from the gallery, 8 from the section, 28 from the
-   heading, and the line's own leading). */
-.inventory{padding:30px 0 96px}
-.inv-head{display:flex;align-items:center;margin-bottom:32px}
+/* White, like the specifications above it, so the two read as one run rather
+   than the page ground showing through here as a grey band. With no colour
+   change there is no seam for the heading to sit on, so the top padding that
+   was holding it clear of one is gone too. */
+.inventory{background:var(--white);padding:0 0 96px}
+/* The heading takes the left, "View all" the right. */
+.inv-head{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:32px}
 .inv-head h2{color:var(--c0)}
 .inv-body{position:relative}
 .inv-arrow{position:absolute;top:195px;transform:translateY(-50%);right:max(calc((100vw - var(--maxw))/2 + var(--pad)),var(--pad));z-index:5;
@@ -774,6 +783,7 @@ footer{position:relative}
   <div class="wrap">
     <div class="inv-head reveal">
       <h2 class="h-xs">Available Inventory</h2>
+      <a class="btn btn-sm btn-ghost inv-all" href="#">View all</a>
     </div>
   </div>
   <div class="inv-body">
@@ -783,6 +793,13 @@ footer{position:relative}
     <button class="inv-arrow prev" id="invPrev" aria-label="Previous listings" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m15 18-6-6 6-6"/></svg></button>
     <button class="inv-arrow next" id="invNext" aria-label="Next listings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></button>
   </div>
+</section>
+
+<!-- GET EXPERT GUIDANCE -->
+<section class="expert" id="contact">
+  <h2 class="reveal">Get Expert Guidance</h2>
+  <p class="reveal d1">Tell us what the water means to you. We&rsquo;ll take it from there.</p>
+  <a class="btn btn-md btn-ghost-light reveal d2" href="#">Book a consultation</a>
 </section>
 
 <!-- FOOTER -->
