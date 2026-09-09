@@ -244,19 +244,21 @@ input,select,textarea{font-family:inherit}
   text-transform:uppercase;color:var(--navy);margin:8px 0 0}
 .loc-card .lc-addr{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;color:var(--mute);
   margin:12px 0 0}
-/* 24 from the phone above it. `margin-top:auto` keeps it on the card's floor,
-   so the buttons stay on one line across a row of cards. */
-.loc-card .lc-foot{display:flex;align-items:center;justify-content:flex-start;gap:12px;margin-top:auto;padding-top:24px}
+/* 20 from whatever is above it. `margin-top:auto` keeps it on the card's
+   floor, so the buttons stay on one line across a row of cards. */
+.loc-card .lc-foot{display:flex;align-items:center;justify-content:flex-start;gap:12px;margin-top:auto;padding-top:20px}
 /* 16px under the title, and not in the uppercase face the title and the
    button are set in — this is a number to read, not a label. Plain text
    rather than a `tel:` link, because the whole card is already one anchor and
    a link cannot sit inside a link.
    `500` for medium: this page carries Myriad at 300, 400 and 600 only, so a
-   browser resolves 500 to the 400 face. 600 is the next real weight up. */
+   browser resolves 500 to the 400 face. 600 is the next real weight up.
+   `--mute` is the page's own grey, the one the card addresses use — 12px
+   under the title. */
 .loc-card .lc-phone{display:flex;align-items:center;gap:8px;
   font-family:'Myriad Pro',sans-serif;font-weight:500;font-size:15px;line-height:22px;
-  text-transform:none;color:var(--ink);margin:16px 0 0}
-/* Filled handset, taking the number's own colour. */
+  text-transform:none;color:var(--mute);margin:12px 0 0}
+/* Filled handset, taking the number's own colour — grey with it. */
 .loc-card .lc-phone-ico{width:14px;height:14px;flex:0 0 auto;display:block}
 .loc-card .lc-cta{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;letter-spacing:0.04em;
   text-transform:uppercase;color:var(--navy);display:inline-flex;align-items:center;gap:6px;transition:gap .25s;white-space:nowrap}
