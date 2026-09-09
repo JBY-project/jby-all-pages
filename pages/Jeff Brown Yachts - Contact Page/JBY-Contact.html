@@ -244,8 +244,15 @@ input,select,textarea{font-family:inherit}
   text-transform:uppercase;color:var(--navy);margin:8px 0 0}
 .loc-card .lc-addr{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;color:var(--mute);
   margin:12px 0 0}
-.loc-card .lc-foot{display:flex;align-items:center;justify-content:flex-start;gap:12px;margin-top:auto;padding-top:18px}
-.loc-card .lc-phone{font-family:'Myriad Pro',sans-serif;font-size:15px;color:var(--ink)}
+/* 24 from the phone above it. `margin-top:auto` keeps it on the card's floor,
+   so the buttons stay on one line across a row of cards. */
+.loc-card .lc-foot{display:flex;align-items:center;justify-content:flex-start;gap:12px;margin-top:auto;padding-top:24px}
+/* 16px under the title, and not in the uppercase face the title and the
+   button are set in — this is a number to read, not a label. Plain text
+   rather than a `tel:` link, because the whole card is already one anchor and
+   a link cannot sit inside a link. */
+.loc-card .lc-phone{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:15px;line-height:22px;
+  text-transform:none;color:var(--ink);margin:16px 0 0}
 .loc-card .lc-cta{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;letter-spacing:0.04em;
   text-transform:uppercase;color:var(--navy);display:inline-flex;align-items:center;gap:6px;transition:gap .25s;white-space:nowrap}
 .loc-card .lc-cta svg{width:14px;height:14px}
@@ -452,6 +459,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
       </div>
       <div class="lc-body">
         <h3>San Diego Marina &amp; Boatyard</h3>
+        <p class="lc-phone">619-222-9899</p>
         <div class="lc-foot"><span class="lc-cta">View location <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span></div>
       </div>
     </a>
@@ -463,6 +471,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
       </div>
       <div class="lc-body">
         <h3>San Diego</h3>
+        <p class="lc-phone">619-222-9899</p>
         <div class="lc-foot"><span class="lc-cta">View location <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span></div>
       </div>
     </a>
@@ -474,6 +483,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
       </div>
       <div class="lc-body">
         <h3>Newport Harbor</h3>
+        <p class="lc-phone">949-524-3143</p>
         <div class="lc-foot"><span class="lc-cta">View location <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span></div>
       </div>
     </a>
@@ -485,6 +495,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
       </div>
       <div class="lc-body">
         <h3>Marina del Rey</h3>
+        <p class="lc-phone">310-295-9236</p>
         <div class="lc-foot"><span class="lc-cta">View location <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span></div>
       </div>
     </a>
@@ -496,6 +507,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
       </div>
       <div class="lc-body">
         <h3>Sausalito</h3>
+        <p class="lc-phone">415-887-9347</p>
         <div class="lc-foot"><span class="lc-cta">View location <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span></div>
       </div>
     </a>
@@ -507,6 +519,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
       </div>
       <div class="lc-body">
         <h3>Seattle</h3>
+        <p class="lc-phone">206-274-5257</p>
         <div class="lc-foot"><span class="lc-cta">View location <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span></div>
       </div>
     </a>
@@ -518,6 +531,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
       </div>
       <div class="lc-body">
         <h3>Kona</h3>
+        <p class="lc-phone">808-989-8305</p>
         <div class="lc-foot"><span class="lc-cta">View location <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span></div>
       </div>
     </a>
@@ -529,6 +543,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
       </div>
       <div class="lc-body">
         <h3>Wrightsville Beach</h3>
+        <p class="lc-phone">(910) 679-4158</p>
         <div class="lc-foot"><span class="lc-cta">View location <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span></div>
       </div>
     </a>
@@ -540,6 +555,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
       </div>
       <div class="lc-body">
         <h3>Charleston</h3>
+        <p class="lc-phone">843-277-0777</p>
         <div class="lc-foot"><span class="lc-cta">View location <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span></div>
       </div>
     </a>
