@@ -115,8 +115,8 @@ input,select,textarea{font-family:inherit}
 
 /* The two ways of reaching us sit side by side on one line, and wrap onto
    their own lines only when the column is too narrow to hold both. */
-.ci-list{list-style:none;margin:32px 0 0;padding:28px 0;display:flex;flex-wrap:wrap;gap:24px 48px;
-  align-items:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ci-list{list-style:none;margin:32px 0 0;padding:0 0 28px;display:flex;flex-wrap:wrap;gap:24px 48px;
+  align-items:center;border-bottom:1px solid var(--line)}
 .ci-item{display:flex;align-items:center;gap:16px}
 /* The disc: the accent at a tenth of its strength, the glyph on top of it at
    full. 44px, the size the reference uses. rgba rather than the token, since
@@ -133,14 +133,16 @@ input,select,textarea{font-family:inherit}
 .ci-item-body p a{transition:color .2s}
 .ci-item-body p a:hover{color:var(--navy)}
 
-.ci-social{margin-top:24px}
+.ci-social{margin-top:24px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.ci-social h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:28px;letter-spacing:0;
+  text-transform:uppercase;color:var(--ink);margin:0}
 
-.social{display:flex;gap:16px;align-items:center;margin-top:12px}
-.social a{width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;
+.social{display:flex;gap:16px;align-items:center;margin-top:0}
+.social a{width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;
   display:flex;align-items:center;justify-content:center;
   transition:background .2s}
 .social a:hover{background:var(--navy-d)}
-.social a svg{width:18px;height:18px;display:block;fill:currentColor}
+.social a svg{width:20px;height:20px;display:block;fill:currentColor}
 
 /* Photo — hover zoom (same feel as portfolio/pillars) */
 .ci-photo{margin-top:40px;width:652px;max-width:100%;height:367px;border-radius:2px;overflow:hidden;background:#1a2a3a}
@@ -366,6 +368,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
   .field,.field.full{grid-column:1 / -1}
   .ci-sub{font-size:18px;line-height:26px}
   .ci-list{flex-direction:column;align-items:flex-start;gap:24px}
+  .ci-social{flex-direction:column;align-items:flex-start;gap:12px}
   .ci-item-body p{font-size:18px}
   .ci-photo{height:auto;aspect-ratio:652/367}
 }
@@ -437,6 +440,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
           </ul>
 
           <div class="ci-social reveal d3">
+            <h3>Social media</h3>
             <div class="social">
             <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7h2.3l.4-2.7h-2.7V9.55c0-.78.22-1.31 1.34-1.31H16.3V5.83c-.25-.03-1.1-.11-2.09-.11-2.07 0-3.49 1.26-3.49 3.58v2h-2.3V14h2.3v7h2.78z"/></svg></a>
             <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.4a3.6 3.6 0 100 7.2 3.6 3.6 0 000-7.2zm0 5.94a2.34 2.34 0 110-4.68 2.34 2.34 0 010 4.68z"/><path d="M15.6 4H8.4A4.4 4.4 0 004 8.4v7.2A4.4 4.4 0 008.4 20h7.2a4.4 4.4 0 004.4-4.4V8.4A4.4 4.4 0 0015.6 4zm3.14 11.6a3.14 3.14 0 01-3.14 3.14H8.4a3.14 3.14 0 01-3.14-3.14V8.4A3.14 3.14 0 018.4 5.26h7.2A3.14 3.14 0 0118.74 8.4v7.2z"/><circle cx="16.05" cy="7.95" r=".95"/></svg></a>
