@@ -102,26 +102,35 @@ input,select,textarea{font-family:inherit}
 
 .ci-grid{display:grid;grid-template-columns:652px minmax(0,1fr);gap:188px;margin-top:0;align-items:start}
 
-/* ---- LEFT: details + photo ---- */
-.ci-details{display:grid;grid-template-columns:1fr 1fr;gap:20px 12px}
-.ci-block h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:28px;letter-spacing:0;
-  color:var(--ink);text-transform:uppercase;margin:0}
-/* 20px: the phone number and the email address are the two things this page
-   exists to hand over, and they were set at 16, smaller than the form's own
-   fields beside them. Level with their own labels now — those are 20px too,
-   but uppercase Mesmerize with letterspacing, so a label still reads as a
-   label. Only these two blocks carry a `p` — Social media holds icons — so
-   this rule reaches nothing else. */
-.ci-block p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
-  color:var(--ink);margin:12px 0 0}
-.ci-block p a{transition:color .2s}
-.ci-block p a:hover{color:var(--navy)}
+/* ---- LEFT: title, a list of ways to reach us, socials ---------------- */
+/* Laid out the way the reference lays it out: the title and its line, a rule,
+   then one row per contact with a filled disc for its icon, then a rule, then
+   the social icons. The pieces are the page's own — the same labels, the same
+   numbers, the same three social glyphs. */
+.ci-left{max-width:560px}
+.ci-title{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:40px;letter-spacing:0;
+  text-transform:uppercase;color:var(--ink);margin:0}
+.ci-sub{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
+  color:var(--mute);margin:14px 0 0}
 
-/* The social block sits 20px lower than the grid's own row gap would put it,
-   so it reads as a step apart from the phone and the email above rather than
-   as a third line of the same list. Keyed on the block that holds the icons,
-   not on its `d3` animation-delay class. */
-.ci-details > .ci-block:has(.social){margin-top:20px}
+.ci-list{list-style:none;margin:32px 0 0;padding:28px 0;display:flex;flex-direction:column;gap:24px;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ci-item{display:flex;align-items:center;gap:16px}
+/* The disc: the page's accent filled, the glyph knocked out of it. 44px, the
+   size the reference uses. */
+.ci-ico{flex:0 0 auto;width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;
+  display:flex;align-items:center;justify-content:center}
+.ci-ico svg{width:20px;height:20px;display:block}
+.ci-item-body{min-width:0}
+.ci-item-body h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:28px;letter-spacing:0;
+  text-transform:uppercase;color:var(--ink);margin:0}
+/* 20px, which is where the number and the address were set. */
+.ci-item-body p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:20px;line-height:28px;letter-spacing:0;
+  color:var(--mute);margin:2px 0 0}
+.ci-item-body p a{transition:color .2s}
+.ci-item-body p a:hover{color:var(--navy)}
+
+.ci-social{margin-top:24px}
 
 .social{display:flex;gap:16px;align-items:center;margin-top:12px}
 .social a{width:28px;height:28px;border-radius:7px;background:var(--ink);color:#fff;
@@ -313,7 +322,7 @@ footer{background:var(--section);padding:40px 40px 80px;color:var(--mute);font-s
   transition:opacity .6s cubic-bezier(0.22,1,0.36,1),
              transform .6s cubic-bezier(0.22,1,0.36,1)}
 .reveal.in{opacity:1;transform:translate3d(0,0,0)}
-.reveal.d1{transition-delay:.06s}.reveal.d2{transition-delay:.12s}
+.reveal.d1{transition-delay:.06s}.reveal.d2{transition-delay:.12s}.reveal.d3{transition-delay:.18s}
 .reveal.d3{transition-delay:.18s}.reveal.d4{transition-delay:.24s}
 .split-words{display:inline-block}
 .split-words .w{display:inline-block;opacity:0;transform:translate3d(0,28px,0);will-change:opacity,transform;
@@ -343,8 +352,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
   .ci-grid{grid-template-columns:1fr;gap:56px}
   .ci-form{justify-self:stretch;width:100%;position:static;top:auto}
   .ci-photo{width:100%}
-  .ci-head h1{font-size:26px;line-height:34px}
-  .ci-head p{font-size:18px}
+  .ci-left{max-width:none}
+  .ci-title{font-size:26px;line-height:34px}
   .foot-grid{grid-template-columns:1fr;gap:32px}
   .foot-col{padding-top:0}
   .back-top{top:60px;bottom:auto}
@@ -352,7 +361,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
 @media (max-width:560px){
   .fields{grid-template-columns:1fr}
   .field,.field.full{grid-column:1 / -1}
-  .ci-details{grid-template-columns:1fr;gap:28px}
+  .ci-sub{font-size:18px;line-height:26px}
+  .ci-item-body p{font-size:18px}
   .ci-photo{height:auto;aspect-ratio:652/367}
 }
 .magnetic{transform:none!important}
@@ -400,29 +410,40 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
 <main class="page">
   <div class="ci-grid">
     <div class="ci-left">
-      <div class="ci-details">
-        <div class="ci-block reveal d1">
-          <h3>Phone</h3>
-          <p><a href="tel:+18886938099">+1 (888) 693-8099</a></p>
-        </div>
-        <div class="ci-block reveal d2">
-          <h3>Email</h3>
-          <p><a href="mailto:info@jeffbrownyachts.com">info@jeffbrownyachts.com</a></p>
-        </div>
-        <div class="ci-block reveal d3" style="grid-column:1 / -1">
-          <h3>Social media</h3>
-          <div class="social">
+      <div class="ci-intro reveal">
+            <h2 class="ci-title">Contact us</h2>
+            <p class="ci-sub">Let&rsquo;s talk about your next yacht</p>
+          </div>
+
+          <ul class="ci-list">
+            <li class="ci-item reveal d1">
+              <span class="ci-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v.35l-8.49 5.09a1 1 0 0 1-1.02 0L3 6.35V6a1 1 0 0 1 1-1zm17 3.52V18a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8.52l8.49 5.09a1 1 0 0 0 1.02 0L21 8.52z"/></svg></span>
+              <div class="ci-item-body">
+                <h3>Email</h3>
+                <p><a href="mailto:info@jeffbrownyachts.com">info@jeffbrownyachts.com</a></p>
+              </div>
+            </li>
+            <li class="ci-item reveal d2">
+              <span class="ci-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.4 21 3 13.6 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2z"/></svg></span>
+              <div class="ci-item-body">
+                <h3>Phone</h3>
+                <p><a href="tel:+18886938099">+1 (888) 693-8099</a></p>
+              </div>
+            </li>
+          </ul>
+
+          <div class="ci-social reveal d3">
+            <div class="social">
             <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7h2.3l.4-2.7h-2.7V9.55c0-.78.22-1.31 1.34-1.31H16.3V5.83c-.25-.03-1.1-.11-2.09-.11-2.07 0-3.49 1.26-3.49 3.58v2h-2.3V14h2.3v7h2.78z"/></svg></a>
             <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.4a3.6 3.6 0 100 7.2 3.6 3.6 0 000-7.2zm0 5.94a2.34 2.34 0 110-4.68 2.34 2.34 0 010 4.68z"/><path d="M15.6 4H8.4A4.4 4.4 0 004 8.4v7.2A4.4 4.4 0 008.4 20h7.2a4.4 4.4 0 004.4-4.4V8.4A4.4 4.4 0 0015.6 4zm3.14 11.6a3.14 3.14 0 01-3.14 3.14H8.4a3.14 3.14 0 01-3.14-3.14V8.4A3.14 3.14 0 018.4 5.26h7.2A3.14 3.14 0 0118.74 8.4v7.2z"/><circle cx="16.05" cy="7.95" r=".95"/></svg></a>
             <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 8.2a2.5 2.5 0 00-1.76-1.77C18.28 6 12 6 12 6s-6.28 0-7.84.43A2.5 2.5 0 002.4 8.2 26 26 0 002 12a26 26 0 00.4 3.8 2.5 2.5 0 001.76 1.77C5.72 18 12 18 12 18s6.28 0 7.84-.43A2.5 2.5 0 0021.6 15.8 26 26 0 0022 12a26 26 0 00-.4-3.8zM10 14.6V9.4l4.5 2.6-4.5 2.6z"/></svg></a>
           </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="ci-form">
+        <div class="ci-form">
       <form class="contact-card reveal d2" novalidate>
-        <h2>Contact us</h2>
+        <h2>Send us a message</h2>
         <div class="fields">
           <div class="field"><input type="text" name="name" placeholder="Full name" autocomplete="name"/></div>
           <div class="field"><input type="email" name="email" placeholder="Email" autocomplete="email"/></div>
