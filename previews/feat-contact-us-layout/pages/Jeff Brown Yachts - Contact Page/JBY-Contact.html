@@ -107,15 +107,16 @@ input,select,textarea{font-family:inherit}
    then one row per contact with a filled disc for its icon, then a rule, then
    the social icons. The pieces are the page's own — the same labels, the same
    numbers, the same three social glyphs. */
-.ci-left{max-width:652px}
+.ci-left{max-width:652px;align-self:stretch;display:flex;flex-direction:column}
 .ci-title{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:40px;letter-spacing:0;
   text-transform:uppercase;color:var(--ink);margin:0}
 .ci-sub{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   color:var(--mute);margin:14px 0 0}
+.ci-intro{padding-bottom:32px}
 
 /* The two ways of reaching us sit side by side on one line, and wrap onto
    their own lines only when the column is too narrow to hold both. */
-.ci-list{list-style:none;margin:32px 0 0;padding:0 0 28px;display:flex;flex-wrap:wrap;gap:24px 48px;
+.ci-list{list-style:none;margin:auto 0 0;padding:0 0 28px;display:flex;flex-wrap:wrap;gap:24px 48px;
   align-items:center;border-bottom:1px solid var(--line)}
 .ci-item{display:flex;align-items:center;gap:16px}
 /* The disc: the accent at a tenth of its strength, the glyph on top of it at
