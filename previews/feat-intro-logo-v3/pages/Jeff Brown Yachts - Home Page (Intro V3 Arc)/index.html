@@ -751,13 +751,12 @@ html.intro-lock .nav .logo{opacity:0}
 #intro.slow{--dissolve:2.85s;--bgfade:2.55s}
 @keyframes introSafety{to{opacity:0;visibility:hidden}}
 
+/* One flat colour, the brand's own blue, with nothing laid over it. The
+   radial wash that used to sit here darkened the corners towards black and
+   put a soft light behind the mark; on a field this size it read as a
+   photograph's vignette rather than as a brand colour. */
 #intro-bg{position:absolute;inset:0;background:var(--navy);
   opacity:1;transition:opacity var(--bgfade) linear}
-#intro-bg::after{content:"";position:absolute;inset:0;
-  background:radial-gradient(72% 96% at 50% 34%,
-    rgba(255,255,255,0.10) 0%,
-    rgba(54,84,102,0.55) 58%,
-    rgba(26,42,58,0.88) 100%)}
 #intro.lift #intro-bg{opacity:0}
 
 #intro-stage{position:absolute;inset:0;display:flex;
