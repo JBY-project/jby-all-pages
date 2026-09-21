@@ -99,6 +99,10 @@
   transition:background .25s,color .25s,border-color .25s;
 }
 
+/* The header's search button is square, so it takes the button height on
+   both sides — it stood 40 beside a 48 CTA. */
+.nav .icon{width:var(--jby-btn-h);height:var(--jby-btn-h)}
+
 /* The event card's button spans the foot of its card rather than sitting
    inline, so it keeps its own width and margin. */
 .event-card .cta{display:flex;justify-content:center;margin:24px 20px 20px}
@@ -134,14 +138,19 @@
   color:#fff;
 }
 
-/* Buttons already filled blue deepen rather than change colour. */
+/* Buttons already filled blue deepen rather than change colour. The
+   label goes white with them: a few of these rest as white with black
+   type, and the fill underneath it turns dark. */
 .btn-solid:hover,
 .event-card .cta:hover,
 .loc-modal-cta:hover,
 .btn-primary:hover,
 .btn-navy:hover,
 .gal-all:hover,
-.nf-actions a.solid:hover{background:var(--jby-blue-d)}
+.nf-actions a.solid:hover{
+  background:var(--jby-blue-d);
+  color:#fff;
+}
 
 /* ---- 3. White buttons over a photograph or video ---------------------
    A veil the picture shows through, with white type. The blur is what
@@ -190,15 +199,24 @@
     .btn-primary, .btn-white, .btn-ghost-light, .btn-ghost-dark,
     .ax-btn, .cta, .s-link, button):hover{
   background:var(--jby-blue-d);
+  color:#fff;
 }
 
 /* The round and square icon affordances — carousel arrows, the scroll
    arrow — keep their own 44px geometry: they are not buttons in the
    shape-and-size sense. The hover rule still reaches them, and the scroll
    arrow is one of the two that went black. */
-.hero-arr:hover,
-.builders-arr:hover,
-.cards-scroll-arr:hover{
+/* The icon affordances: the header's search, the carousel arrows, the
+   scroll arrow, back-to-top. They keep their own 40–48px geometry — they
+   are not buttons in the shape-and-size sense — but the hover rule still
+   reaches them.
+
+   :is() rather than a plain list, so this sits at 0,3,0. A page can carry
+   its own `.ax-listings .cards-scroll-arr:hover` at that weight, and a
+   0,2,0 rule here would lose to it however late this file is read. */
+:is(.nav .icon, .hero-arr, .builders-arr, .cards-scroll-arr,
+    .back-top, .to-top, .ax-model-arr, .pe-nav, .strip-arr,
+    .lb-btn, .show-arrow):hover{
   background:var(--jby-blue);
   border-color:var(--jby-rule-hover);
   color:#fff;

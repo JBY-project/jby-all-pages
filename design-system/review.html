@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Design rules — review list</title>
+<style>
+  :root{--ink:#2f2f39;--mute:#8a8a92;--line:rgba(0,0,0,0.1);--navy:#41647b;--paper:#fcfcfd}
+  *{box-sizing:border-box}
+  body{margin:0;padding:48px 24px 80px;background:var(--paper);color:var(--ink);
+    font:16px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+  .wrap{max-width:860px;margin:0 auto}
+  h1{font-size:26px;font-weight:500;margin:0 0 6px}
+  p.sub{color:var(--mute);margin:0 0 8px}
+  p.hint{color:var(--mute);font-size:14px;margin:0 0 10px}
+  ul.what{color:var(--mute);font-size:14px;margin:0 0 28px;padding-left:18px}
+  ol{list-style:none;padding:0;margin:0}
+  .row{display:flex;align-items:center;gap:12px;padding:11px 4px;border-bottom:0.5px solid var(--line)}
+  .row:hover{background:#fff}
+  input{width:17px;height:17px;accent-color:var(--navy);flex:none;cursor:pointer}
+  label{flex:1;min-width:0;cursor:pointer;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  input:checked + label .t{color:var(--mute);text-decoration:line-through}
+  .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .n{font-size:12px;color:var(--mute);flex:none}
+  a{flex:none;font-size:13px;text-decoration:none;padding:5px 12px;border-radius:2px}
+  .go{background:var(--navy);color:#fff}
+  .go:hover{background:#365466}
+  .live{color:var(--navy);border:0.5px solid var(--line)}
+  .live:hover{border-color:var(--navy)}
+  .none{font-size:12px;color:var(--mute);padding:5px 12px}
+  .skipped .t{color:var(--mute)}
+  .bar{position:sticky;bottom:0;margin-top:24px;padding:14px 0;background:var(--paper);
+    border-top:0.5px solid var(--line);font-size:14px;color:var(--mute)}
+</style></head><body><div class="wrap">
+<h1>Design rules — review list</h1>
+<p class="sub">Every published page, after the four rules went on.</p>
+<ul class="what">
+  <li>sub-text is Myriad light, not regular</li>
+  <li>every text button is 48px tall with the same padding</li>
+  <li>hover fills brand blue #41647b and drops the outline — never black</li>
+  <li>a white button over a photograph or video is a 28% veil with white type</li>
+  <li>inside the blue CTA band the hover goes a step darker, or it would vanish</li>
+</ul>
+<p class="hint">“open” is your local server, “live” is the page as published now — open both to compare. Ticks are remembered in this browser.</p>
+<ol>
+  <li class="row">
+    <input type="checkbox" id="c0">
+    <label for="c0"><span class="t">Home Page</span><span class="n">1 of 3 files &middot; 2 drafts left alone</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Home%20Page/JBY-Home.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-homepage.github.io/" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c1">
+    <label for="c1"><span class="t">404 Page</span><span class="n">2 files</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20404%20Page/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-404" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c2">
+    <label for="c2"><span class="t">About Us Page</span><span class="n">2 files</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20About%20Us%20Page/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-about" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c3">
+    <label for="c3"><span class="t">All Services Page</span><span class="n">2 files</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20All%20Services%20Page/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-all-services" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c4">
+    <label for="c4"><span class="t">Brand Page (Axopar)</span><span class="n">2 files</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Brand%20Page%20%28Axopar%29/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-axopar" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c5">
+    <label for="c5"><span class="t">Events Page</span><span class="n">24 files</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Events%20Page/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-events" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c6">
+    <label for="c6"><span class="t">FAQ Page</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20FAQ%20Page/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-faq" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c7">
+    <label for="c7"><span class="t">Home Page (Intro Animation)</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Home%20Page%20%28Intro%20Animation%29/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-home-intro" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c8">
+    <label for="c8"><span class="t">Home Page (Intro V2 Logo Only)</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Home%20Page%20%28Intro%20V2%20Logo%20Only%29/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-home-intro-v2" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c9">
+    <label for="c9"><span class="t">Home Page V1</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Home%20Page%20V1/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-home-v1" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c10">
+    <label for="c10"><span class="t">Home Search</span><span class="n">2 files</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Home%20Search/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-search" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c11">
+    <label for="c11"><span class="t">Knowledge Center</span><span class="n">4 files</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Knowledge%20Center/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-news-media" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c12">
+    <label for="c12"><span class="t">Knowledge Center V2</span><span class="n">5 files</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Knowledge%20Center%20V2/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-knowledge-center" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c13">
+    <label for="c13"><span class="t">Knowledge Center V3</span><span class="n">5 files</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Knowledge%20Center%20V3/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-knowledge-center-v3" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c14">
+    <label for="c14"><span class="t">Knowledge Center V4</span><span class="n">5 files</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Knowledge%20Center%20V4/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-knowledge-center-v4" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c15">
+    <label for="c15"><span class="t">Listing Page</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Listing%20Page/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-listing" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c16">
+    <label for="c16"><span class="t">Locations Page</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Locations%20Page/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-locations" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c17">
+    <label for="c17"><span class="t">Marketing Section Variants</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Marketing%20Section%20Variants/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-marketing-variants" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row skipped">
+    <input type="checkbox" id="c18">
+    <label for="c18"><span class="t">Mega Menu</span><span class="n">left for its own branch</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Mega%20Menu/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-mega-menu" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c19">
+    <label for="c19"><span class="t">Office Page</span><span class="n">2 files</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Office%20Page/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-office" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c20">
+    <label for="c20"><span class="t">Privacy Policy Page</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Privacy%20Policy%20Page/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-privacy-policy" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c21">
+    <label for="c21"><span class="t">Sell Your Yacht Page</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Sell%20Your%20Yacht%20Page/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-sell-your-yacht" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c22">
+    <label for="c22"><span class="t">Sell Your Yacht Page V2</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Sell%20Your%20Yacht%20Page%20V2/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-sell-your-yacht-v2" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c23">
+    <label for="c23"><span class="t">Sell Your Yacht Page V3</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Sell%20Your%20Yacht%20Page%20V3/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-sell-your-yacht-v3" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c24">
+    <label for="c24"><span class="t">Service &amp; Maintenance Page</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Service%20%26%20Maintenance%20Page/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-service-maintenance" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c25">
+    <label for="c25"><span class="t">Service &amp; Maintenance Page V2</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Service%20%26%20Maintenance%20Page%20V2/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-service-maintenance-2" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c26">
+    <label for="c26"><span class="t">Site Hub</span><span class="n">28 files</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Site%20Hub/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-site" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c27">
+    <label for="c27"><span class="t">Statement of Information Page</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Statement%20of%20Information%20Page/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-statement-of-information" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c28">
+    <label for="c28"><span class="t">Team Member Page</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Team%20Member%20Page/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-team-member" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c29">
+    <label for="c29"><span class="t">Team Page</span><span class="n">2 files</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Team%20Page/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-team" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c30">
+    <label for="c30"><span class="t">Terms Page</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Terms%20Page/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-terms-and-conditions" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c31">
+    <label for="c31"><span class="t">Testimonials V2</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Testimonials%20V2/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-testimonials-v2" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c32">
+    <label for="c32"><span class="t">Testimonials Variants</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Testimonials%20Variants/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-testimonial-variants" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c33">
+    <label for="c33"><span class="t">Yacht Management Page</span></label>
+    <a class="go" href="http://localhost:4173/pages/Jeff%20Brown%20Yachts%20-%20Yacht%20Management%20Page/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/jby-yacht-management" target="_blank" rel="noreferrer">live</a>
+  </li>
+  <li class="row">
+    <input type="checkbox" id="c34">
+    <label for="c34"><span class="t">riva-112-model-page</span><span class="n">7 files</span></label>
+    <a class="go" href="http://localhost:4173/pages/riva-112-model-page/index.html" target="_blank" rel="noreferrer">open</a>
+    <a class="live" href="https://ywteamyw.github.io/model-page" target="_blank" rel="noreferrer">live</a>
+  </li>
+</ol>
+<div class="bar"><span id="count">0</span> of 35 checked &middot; <a href="#" id="reset" style="background:none;color:var(--navy);padding:0">reset</a></div>
+</div>
+<script>
+  const boxes=[...document.querySelectorAll('input')], out=document.getElementById('count');
+  const KEY='jby-review';
+  const load=()=>{try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return []}};
+  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(boxes.map(b=>b.checked)))}catch(e){}};
+  const tally=()=>out.textContent=boxes.filter(b=>b.checked).length;
+  load().forEach((v,i)=>{if(boxes[i])boxes[i].checked=v});
+  tally();
+  boxes.forEach(b=>b.addEventListener('change',()=>{save();tally()}));
+  document.getElementById('reset').addEventListener('click',e=>{e.preventDefault();boxes.forEach(b=>b.checked=false);save();tally()});
+</script>
+</body></html>

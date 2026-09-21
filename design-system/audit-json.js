@@ -6,6 +6,19 @@
    any button-looking element the system file does not reach at all. */
 (async () => {
   await document.fonts.ready;
+  // The dev server lets the browser cache jby-system.css, so a page can
+  // still be showing a copy from before the last edit. Reload the sheet
+  // before measuring anything, or the check reports on stale rules.
+  const link = document.querySelector('link[href*="jby-system"]');
+  if (link) {
+    await new Promise(done => {
+      const fresh = link.cloneNode();
+      fresh.href = link.getAttribute('href').split('?')[0] + '?v=' + Date.now();
+      fresh.onload = fresh.onerror = done;
+      link.after(fresh);
+      link.remove();
+    });
+  }
   const splitTop = t => { const out = []; let d = 0, cur = '';
     for (const ch of t) { if (ch === '(') d++; else if (ch === ')') d--;
       if (ch === ',' && d === 0) { out.push(cur); cur = ''; } else cur += ch; }
