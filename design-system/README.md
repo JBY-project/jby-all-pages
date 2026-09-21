@@ -46,41 +46,38 @@ token already defined in 122 files.
 white type, no border — the picture shows through. Not a white slab with dark
 type.
 
-## Rule 5, not written yet: the type scale
+**5 · The type scale.** The client asked for smaller headers and named `20`
+for a section header. Three tiers, and one step quieter again inside a
+`max-width` media query:
 
-The client's September note was that the headers are too large, and they named
-`20` for a section header. The home page has been taken down to four sizes, by
-hand, in its own inline style:
+| | desktop | narrow |
+|---|---|---|
+| page or hero title | `26/38` | `20/30` |
+| section header | `20/30` | `18/26` |
+| card title, sub-head | `18/28` | `16/24` |
 
-| | |
-|---|---|
-| `20/30` | section header |
-| `18/28` | card title, sub-head |
-| `16/26` | body copy |
-| `14/22` | meta, captions, the small print inside a card |
+Body copy is not part of the rule, but on the home page it came down with the
+headers — `16/26` for paragraphs and `14/22` for the small print in a card —
+because a card title and its own paragraph had ended up the same size.
 
-The hero sits above the scale at `26/38`, one line a slide.
+Like rule 1, this is a pass over the page's own CSS rather than a line in this
+stylesheet. It has to be: the pages spell their headings out inside `@media`
+blocks too, and one flat rule in a later file would flatten every phone size
+onto the desktop one.
 
-**This has to reach every page**, and it is not yet a rule in this file. It
-belongs here rather than in each page's own CSS, for the same reason the button
-did: the sizes are currently spelled out separately in thirty-odd files, and a
-client who asks for 18 next month should not need thirty-odd edits.
+```
+node design-system/type-scale.mjs --dry            # every published page
+node design-system/type-scale.mjs "pages/<folder>" # one page
+```
 
-Writing it is the same shape of job as rule 2. Each tier becomes one selector
-list holding every name the pages use for that tier — the home page alone has
-`.s-title`, `.s-title-row h2`, `.intro h2`, `.what-we-do .head h2`,
-`.vessels-head-row h2`, `.videos .head h2`, `.visit-head-row h2` and
-`.expert h2` all meaning *section header*. The other pages have to be read for
-theirs before the list is complete.
-
-Two things to watch when it is written:
-
-* **Do not touch buttons.** They are `16px` by rule 2, and several of them are
-  `<h4>`-ish in their markup. A tier selector that catches a button label
-  breaks rule 2 silently.
-* **The narrow breakpoints carry their own sizes.** Every page overrides
-  heading sizes under `900px` and `640px`. A desktop-only rule leaves phones
-  with headings larger than the desktop ones.
+The script reads the published list off the checklist below, so the two cannot
+drift. Read the header of `type-scale.mjs` before changing it: three drafts
+broke on the same three things, and each one is written up there. The short
+version is that the biggest type on this site is not headings — the brand
+wordmark is 96px, the testimonial quote marks are 60 to 72 — that pages do not
+share a hero size, so desktop has to be decided by whether a rule sits outside
+a media query rather than by how big it is, and that the pass never grows a
+heading that already sits under its tier.
 
 ## Checking a page
 
