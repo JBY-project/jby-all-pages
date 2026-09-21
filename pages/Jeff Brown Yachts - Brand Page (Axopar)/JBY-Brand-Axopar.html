@@ -779,7 +779,10 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .ax-model-info{display:flex;justify-content:center;margin-top:20px}
 
 /* LISTINGS */
-.ax-listings-head{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-bottom:56px}
+/* The gap to the cards is the home page's: the title row sits 29px above
+   them, counting the 9px the heading is centred by inside a row the
+   button's height sets, and the 4px the strip keeps on top. */
+.ax-listings-head{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-bottom:16px}
 .ax-strip-wrap{position:relative}
 /* Horizontal carousel: cards sit side-by-side, grow on hover, strip scrolls sideways */
 .ax-strip{display:flex;gap:20px;overflow-x:auto;overflow-y:hidden;
@@ -922,7 +925,7 @@ body.cx-lock{overflow:hidden}
   .ax-model-arr{width:40px;height:40px}
   .ax-model-arr.prev{left:4px}
   .ax-model-arr.next{right:4px}
-  .ax-listings-head{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:32px}
+  .ax-listings-head{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:16px}
   .ax-strip{gap:16px;scroll-snap-type:x mandatory}
   /* Slightly wider listing cards on mobile */
   .ax-strip .vessel-card{flex-basis:min(84vw,340px);scroll-snap-align:start}
