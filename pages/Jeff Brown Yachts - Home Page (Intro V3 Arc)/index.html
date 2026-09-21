@@ -747,11 +747,11 @@ html.intro-lock .nav .logo{opacity:0}
    the script writes into `--fly` so it can wait for the landing. */
 #intro{position:fixed;inset:0;z-index:2000;pointer-events:none;
   --mark:205px;    /* the roundel at full size, before it flies   */
-  --dissolve:.6s;  /* the mark rising under the letters           */
+  --dissolve:.95s; /* the mark rising under the letters           */
   --bgfade:.85s;   /* navy field dissolving                       */
   --fly:1s;        /* roundel travelling to the header            */
   animation:introSafety .01s linear 14s forwards}
-#intro.slow{--dissolve:1.8s;--bgfade:2.55s}
+#intro.slow{--dissolve:2.85s;--bgfade:2.55s}
 @keyframes introSafety{to{opacity:0;visibility:hidden}}
 
 #intro-bg{position:absolute;inset:0;background:var(--navy);
@@ -773,12 +773,18 @@ html.intro-lock .nav .logo{opacity:0}
   will-change:transform;transform-origin:50% 50%;
   transition:transform var(--fly) cubic-bezier(.62,0,.20,1)}
 
+/* The mark does not fade in so much as come into focus: it leaves from a
+   little soft and a little small, and the opacity curve is eased at both ends
+   rather than only at the finish, so there is no step out of nothing. */
 #intro-logo{position:absolute;inset:0;width:100%;height:100%;display:block;
-  object-fit:contain;filter:brightness(0) invert(1);
-  opacity:0;transform:scale(.965);transform-origin:50% 50%;
-  transition:opacity var(--dissolve) cubic-bezier(.4,0,.2,1),
-             transform var(--dissolve) cubic-bezier(.22,.7,.28,1)}
-#intro.handover #intro-logo{opacity:1;transform:scale(1)}
+  object-fit:contain;
+  filter:brightness(0) invert(1) blur(5px);
+  opacity:0;transform:scale(.94);transform-origin:50% 50%;
+  transition:opacity   var(--dissolve) cubic-bezier(.35,0,.35,1),
+             filter    var(--dissolve) cubic-bezier(.25,.5,.2,1),
+             transform var(--dissolve) cubic-bezier(.25,.5,.2,1)}
+#intro.handover #intro-logo{opacity:1;transform:scale(1);
+  filter:brightness(0) invert(1) blur(0)}
 
 /* Each letter carries its own transform, written every frame by the script.
    `left/top` put its box on the centre; the transform does the rest. */
@@ -2174,13 +2180,13 @@ const GLYPHS = [{"a":-130,"d":"M123.5,523.4l30.9-26.6c2.4-2.1,4.8-3.4,7.3-4.1s4.
       /* The mark comes up under the letters while the arc is still closing the
          last of the way, so it is there to be landed on rather than appearing
          once everything has stopped. */
-      handover: BEND_END - 300 * k,
+      handover: BEND_END - 500 * k,
       /* The flight waits for the mark to finish arriving. Starting it before
          that left the roundel with no moment of its own: it was formed and
          already leaving, which reads as though the logo were never there. The
          wait is not a pause — the emblem is still coming up through all of it. */
-      lift:     BEND_END - 300 * k + 600 * k,
-      land:     BEND_END - 300 * k + 600 * k + FLY + 60 * k
+      lift:     BEND_END - 500 * k + 950 * k,
+      land:     BEND_END - 500 * k + 950 * k + FLY + 60 * k
     };
 
     if (hold) return T.handover;
