@@ -7,9 +7,14 @@
 #
 # Blank lines and lines starting with # are ignored.
 
-# This branch is the design-system pass over every page, reviewed on a
-# local server. The one page published here is the search prototype: the
-# glass, the full-screen phone mode and the header are what the client is
-# looking at. It carries 150MB of media, which is most of the previews
-# site's budget, so nothing else from this branch goes up.
+# This branch is the design-system pass over every page, reviewed on a local
+# server. Two pages go up from it, because two are in front of the client:
+#
+#   the search prototype — the glass, the full-screen phone mode, the header
+#   the chat            — Audrey on the launcher, the box on the same glass
+#
+# They carry 150MB of media each, which is most of the previews site's budget,
+# so nothing else from this branch goes up. If the workflow's size guard trips,
+# drop whichever of the two has already been signed off.
 pages/jby-search
+pages/Jeff Brown Yachts - Home Page (Crisp Chat)

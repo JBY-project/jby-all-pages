@@ -1,4 +1,4 @@
-# Jeff Brown Yachts — Home page with the chat plate
+# Jeff Brown Yachts — Home page with the chat launcher
 
 **Live:** https://ywteamyw.github.io/jby-home-chat/
 **Widget on its own:** https://ywteamyw.github.io/jby-home-chat/chat-widget-preview.html
@@ -7,8 +7,8 @@
 This is a variant of the home page, not the live home page. The approved V3.31
 home page stays at jby-homepage.github.io.
 
-A copy of the live home page (V3.31) with one addition: a floating plate that
-appears on the second block and carries **Explore inventory** plus a full
+A copy of the live home page (V3.31) with one addition: an **Explore inventory**
+button and a round chat launcher that appear on the second block, and a full
 **Crisp style chat**, rebuilt from scratch in the JBY design system.
 
 Nothing else on the page was touched. The chat is one self contained block at
@@ -20,60 +20,71 @@ with the page.
 
 | File | What it is |
 | --- | --- |
-| `JBY-Home.html` | The home page with the chat plate. Open it directly. |
+| `JBY-Home.html` | The home page with the chat. Open it directly. |
 | `chat-widget-preview.html` | The same widget on a stripped page, with buttons to drive every state. Give this to the developer. |
-| `JBY-V3.3-assets/` | Unchanged home page assets. The chat reuses `jby_logo.svg` and three vessel photos, nothing new. |
+| `JBY-V3.3-assets/` | Home page assets. The chat reuses `jby_logo.svg` and three vessel photos, and adds one file of its own: `operator_audrey.jpg`, a 240px square crop of the team page headshot. |
 
-## The plate
+## The launcher
 
-Fixed bottom right, `40px` / `32px` gutters on desktop, full width minus `24px`
-on mobile. `56px` tall, soft shadow, 2px radius, no border.
+Fixed bottom right, `40px` / `32px` gutters on desktop, `24px` on mobile.
 
-The plate and the chat window share one width token, `--jc-w: 472px`, so their
-edges always line up as a single column. The navy half flexes to absorb any
-slack, so changing the label copy cannot break that alignment.
+There is no white `CHAT WITH US` button, and no plate holding the two together.
+The chat is a launcher again: the navy Explore inventory button, then the disc
+`16px` to its right, both `56px` and `54px` tall so they sit on one line.
 
 ```
-┌──────────────────────────────┬───────────────────────────┐
-│  EXPLORE INVENTORY      ›    │  CHAT WITH US             │
-└──────────────────────────────┴───────────────────────────┘
-     navy, scrolls to #yachts       opens the chat
+┌──────────────────────────────┐   ╭────╮
+│  EXPLORE INVENTORY      ›    │   │ 💬 │
+└──────────────────────────────┘   ╰────╯
+     navy, scrolls to #yachts      opens the chat
+                                   ↓ after 30s
+                                   ╭────╮
+                                   │ 🙂 │•  Audrey, dot while the desk is open
+                                   ╰────╯
 ```
 
-472 × 56 on desktop. Purely typographic, no launcher icon and no availability
-dot. On mobile the two halves split 50/50 and both keep their label.
+The disc is Crisp's own 54px launcher tile, colours inverted so it reads on a
+near white page: a white disc carrying the navy speech bubble glyph, held by a
+1.5px navy hairline and a drop shadow. It swaps to a close cross while the box
+is open. Thirty seconds in, the glyph is covered by Audrey's face, with a green
+dot on the bottom right corner while the desk is open; opening the box still
+brings the cross back over her. See **The face and the dot** below.
 
 * Hidden while the visitor is on the hero.
 * Slides up once the second block ("Bespoke yacht sales and brokerage") is
   within 62% of the viewport, then stays for the rest of the page.
 * Stays visible whenever the chat is open, wherever the visitor is.
-* No icon and no availability dot. The plate has no resting chrome: two labels,
-  a hairline divider, nothing else.
-* When a message lands while the box is closed, a small red count appears after
-  the `CHAT WITH US` label and the teaser bubble opens above the plate. Both
-  clear on open.
+* When a message lands while the box is closed, the teaser bubble opens above
+  the disc and clears on open. **No unread badge**: the disc carries one dot and
+  it is the green one, because a red counter next to her face turns an available
+  person into an alarm. Unread is still counted in `S.unread`, so a badge can be
+  drawn from there if that decision changes.
 * Hover changes colour only, never position or scale, per the site wide rule.
+  The disc takes Crisp's own hover ring, which is a shadow, not movement.
+* On mobile the Explore button takes the width it is given and the disc keeps
+  its 54px.
 
 `Get expert guidance`, the outline button already in that block, also opens the
 chat. `Explore inventory` in that block scrolls to the vessels section, same as
-the plate button.
+the button next to the launcher.
 
 ## The chat
 
 472 × 730 on desktop, full screen below 640px. The height is Crisp's own large
-view figure, measured off the live widget; the width is ours, matched to the
-plate. Re-skinned from Crisp like this:
+view figure, measured off the live widget; the width, 472px, is ours.
+Re-skinned from Crisp like this:
 
 | Crisp | Here |
 | --- | --- |
-| Theme colour header, `layout-colorized` | `--navy #41647b` with a vertical gradient and inset highlights |
+| White chatbox on a theme colour header | One sheet of translucent navy glass, `#41647b` at 78-90% over a 22px blur, the same glass the page header uses. The header is the top of that glass one shade lighter, not a separate colour |
+| Theme colour header, `layout-colorized` | `--navy #41647b` carried by the glass, with inset highlights |
 | Noto Sans | Mesmerize for labels and headings, Myriad Pro for message text |
 | Rounded 16px shell | 2px radius on every surface, from one `--jc-r` token |
-| Operator bubble `#f0f2f5`, text `#1c293b`, radius 12px, padding 8/14/9 | Same bubble grey, text `--ink #2f2f39`, radius 2px |
+| Operator bubble `#f0f2f5`, text `#1c293b`, radius 12px, padding 8/14/9 | White at 12% on the glass, white text, radius 2px |
 | Bubble text 12.6px, composer 13.6px | Both 16/24 Myriad Pro, which also stops iOS zooming on focus |
-| Visitor bubble in theme colour | Navy bubble, white text |
+| Visitor bubble in theme colour | Solid white, `--ink` text. It is the only opaque surface in the box, which is what separates it from the operator now that both sit on blue |
 | Messages / Search segmented tabs | Removed. Messages only, no helpdesk surface |
-| Composer with focus ring, emoji, file, audio | Same, navy border on focus, no glow |
+| Composer with focus ring, emoji, file, audio | Same, white border on focus, no glow |
 
 ### Implemented
 
@@ -85,16 +96,41 @@ is. Once the visitor writes, the block swaps to the compact bar, `OUR TEAM` plus
 the options menu, on the same even padding. That initial vs ongoing switch is
 Crisp's own behaviour.
 
-**One identity, no names** — the sender is the brand, not a person. Every
-operator message carries the JBY monogram on a navy disc instead of a headshot,
-and there is no name label above the bubble. Support staffing can change without
-touching the design. If named operators are ever wanted, `MARK` and `markEl()`
-near the top of the script are the only places to change.
+**The face and the dot** — the brand answers first. For the first thirty
+seconds on the page the sender is `OUR TEAM` on the JBY monogram, and the
+launcher is Crisp's speech bubble glyph. At thirty seconds every mark changes at
+once — the thread avatars, the teaser, the header bar and the launcher disc — to
+Audrey's headshot, and the label becomes `AUDREY`. A green dot sits on the corner of the face while the
+desk is open, 8am to 6pm Pacific, the same hours the script quotes. The hours
+are read in the desk's timezone, not the visitor's, so a visitor in Monaco only
+sees the dot while somebody is actually at a desk in California, and a box left
+open across the boundary re-checks itself every minute.
+
+Three rules hold that sequence together, and each one came out of a review:
+
+* **The face is never beside itself.** The teaser carries her name and her
+  message but no avatar, because her photo is already on the disc directly
+  below it. Two copies of one face in one corner read as a mistake.
+* **She arrives before she speaks.** The proactive nudge is held in
+  `whenHuman()` until the swap has happened, so there is no state where the
+  anonymous glyph is still on the disc and a message is already open next to
+  it. If the visitor reaches the second block late, the face is there first and
+  the nudge follows on its own timer.
+* **The dot is always drawn in the mockup.** `OPERATOR.alwaysOnDuty` forces it
+  on, because the prototype gets shown outside 8-to-6 Pacific at least as often
+  as inside it, and a dot nobody can see is a dot nobody can sign off. Set it
+  to `false` to watch the real hours work, and delete it once Crisp answers the
+  question through `website:availability:changed`.
+
+All of it lives in `OPERATOR` at the top of the script: the photo, the delay,
+the timezone, the two hours and that one demo switch. Setting `OPERATOR` to
+`null` returns the widget to one nameless brand identity, which is what it
+shipped as.
 
 **Messages** — operator message with the brand mark, visitor message with `Sent`
 then `Seen` delivery state, typing indicator, timestamp on bubble hover, unread
-count on the plate, notification sound (generated, no audio file), proactive
-teaser bubble above the plate. No date separator: the conversation is not
+count held in `S.unread` but not drawn, notification sound (generated, no audio
+file), proactive teaser bubble above the disc. No date separator: the conversation is not
 persisted across visits, so a day divider would be noise.
 
 **Rich messages** — picker chips, guide cards, vessel cards with photo and
@@ -118,10 +154,18 @@ the last element in the box.
 newline, `aria-live` on the message list, labels on every icon button,
 `prefers-reduced-motion` respected.
 
-**Tokens** — `--jc-w` is the shared width (472px) for the plate and the window.
-`--jc-r` is the single radius, 2px, for every surface; only the brand mark discs
-stay circular. `--jc-navy`, `--jc-ink`, `--jc-bubble` and `--jc-line` carry the
-colour.
+**Tokens** — `--jc-w` is the chat window width, 472px.
+`--jc-r` is the single radius, 2px, for every surface; only the mark discs stay
+circular. `--jc-navy`, `--jc-ink`, `--jc-bubble` and `--jc-line` carry the
+colour of the original white build. The glass adds `--jc-glass`, `--jc-blur`,
+`--jc-on-line`, `--jc-on-fill` and `--jc-on-mute`, all of them in section 9 of
+the stylesheet.
+
+**The glass is one section** — every colour the blue skin changes lives in
+`9. BLUE GLASS SKIN`, at the end of the widget's stylesheet. It only re-colours:
+no measurement, radius or type rule is touched there, so deleting that section
+returns the widget to the white build with nothing else to undo. Section 10,
+`OPERATOR FACE`, is the same deal for the headshot and the dot.
 
 ### Conversation script
 
@@ -140,8 +184,8 @@ Replace the marked calls. The engine is deliberately thin so this is a small job
 | `submit()` in the composer | `$crisp.push(["do","message:send",["text",v]])` |
 | `say(...)` and the whole bot section | delete, messages arrive on `$crisp.push(["on","message:received",fn])` |
 | `preChatForm` submit | `$crisp.push(["set","user:nickname",[nm]])`, `user:email` |
-| unread badge | `$crisp.push(["on","message:received",...])` while `chat:closed` |
-| there is no availability indicator any more, but if one is ever wanted | `$crisp.push(["on","website:availability:changed",fn])` |
+| `S.unread`, counted and not drawn | `$crisp.push(["on","message:received",...])` while `chat:closed`. Crisp's own launcher draws a red counter and has no setting to hide it, so keeping this markup as the front end is what keeps it off |
+| `onDuty()`, the green dot on the operator face | `$crisp.push(["on","website:availability:changed",fn])`, which is the real answer once Crisp knows who is logged in |
 | picker chips | already Crisp's `message:show` `picker` shape |
 
 Two options for the visual layer once the back end is live:
@@ -161,7 +205,11 @@ Option 1 is what this file is set up for.
 * The three vessel cards use real inventory photos with placeholder prices.
 * The ten guide answers are written but need sign off, and could link out to
   the real News and Media pages once those are live.
-* The office hours line in the script, currently 8am to 6pm Pacific.
+* The office hours line in the script, currently 8am to 6pm Pacific. The same
+  two numbers drive the green dot, so they have to move together.
+* Audrey's headshot is the team page photo, re-cropped square. Whether she is
+  the right face for the widget, and whether a second operator should ever
+  take her place, is a client decision.
 * `View listing` on a vessel card currently scrolls to the vessels section. It
   should deep link to the listing page.
 

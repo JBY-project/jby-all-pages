@@ -1937,55 +1937,69 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   --jc-h:730px;                   /* Crisp large view height */
 }
 
-/* ---------- 1. DOCK PLATE ----------------------------------------------- */
+/* ---------- 1. DOCK: EXPLORE BUTTON + LAUNCHER DISC ----------------------
+   Not a plate any more, and no white CHAT WITH US button: the chat is a
+   launcher again. The navy Explore inventory button, then Crisp's own 54px
+   launcher tile 16px to its right, colours inverted so it reads on the near
+   white page: a white disc carrying the navy speech bubble glyph, held by a
+   hairline and a drop shadow.
+
+   Thirty seconds in, the disc becomes the operator's face. The glyph stays
+   underneath it, so opening the box brings the close cross back over. */
 .jc-dock{
   position:fixed; right:40px; bottom:32px; z-index:1000;
-  display:flex; align-items:stretch; width:var(--jc-w); height:56px;
-  background:var(--jc-paper);
-  border-radius:var(--jc-r); box-shadow:0 14px 44px rgba(20,32,44,0.16);
+  display:flex; align-items:center; gap:16px;
   opacity:0; transform:translateY(18px); pointer-events:none;
   transition:opacity .55s cubic-bezier(0.22,1,0.36,1), transform .55s cubic-bezier(0.22,1,0.36,1);
 }
 .jc-dock.on{opacity:1; transform:none; pointer-events:auto}
 
 .jc-dock-btn{
-  flex:1 1 auto; display:inline-flex; align-items:center; gap:10px; padding:0 22px;
+  flex:0 0 auto; display:inline-flex; align-items:center; gap:10px; height:56px; padding:0 22px;
   font-family:'Mesmerize',sans-serif; font-weight:300; font-size:14px; line-height:24px;
   letter-spacing:0.02em; text-transform:uppercase; white-space:nowrap;
-  background:var(--jc-navy); color:#fff; border:0; transition:background .25s;
+  background:var(--jc-navy); color:#fff; border:0; border-radius:var(--jc-r);
+  box-shadow:0 10px 30px rgba(20,32,44,0.18); transition:background .25s;
 }
 .jc-dock-btn:hover{background:var(--jc-navy-d)}
 .jc-dock-btn i{font-size:17px}
 
-.jc-dock-chat{
-  flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; padding:0 22px;
-  font-family:'Mesmerize',sans-serif; font-weight:300; font-size:14px; line-height:24px;
-  letter-spacing:0.02em; text-transform:uppercase; white-space:nowrap;
-  background:transparent; color:var(--jc-ink); border:0; border-left:0.5px solid var(--jc-line);
-  transition:background .25s,color .25s;
+.jc-launcher{
+  position:relative; flex:0 0 54px; width:54px; height:54px; padding:0; border-radius:50%;
+  background:var(--jc-paper); border:1.5px solid var(--jc-navy); color:var(--jc-navy);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 16px rgba(20,32,44,0.22); transition:box-shadow .22s, background .22s;
 }
-.jc-dock-chat:hover{background:#f4f6f9}
-/* unread flag. A plain dot on the top right corner of the plate, no count.
-   Only exists while something is unread, so the plate has no resting chrome. */
-.jc-flag{
-  position:absolute; top:-5px; right:-5px; width:12px; height:12px; border-radius:50%;
-  background:#c0392b; box-shadow:0 0 0 2px var(--jc-paper); display:none;
+.jc-launcher:hover{
+  background:#f4f6f8;
+  box-shadow:0 0 0 7px rgba(65,100,123,0.16), 0 4px 16px rgba(20,32,44,0.22);
 }
-.jc-flag.on{display:block}
+.jc-launcher svg{width:26px; height:26px}
+.jc-launcher .glyph-close{display:none}
+.jc-dock.open .jc-launcher .glyph-open{display:none}
+.jc-dock.open .jc-launcher .glyph-close{display:block}
+
+/* the face that takes the disc over. Hidden until it is a face, and hidden
+   again while the box is open, so the cross is what there is to click. */
+.jc-face{position:absolute; inset:0; display:none; border-radius:50%; background:var(--jc-paper)}
+.jc-face.human{display:block}
+.jc-dock.open .jc-face{display:none}
+
+/* No unread flag. The disc carries one dot and it is the green one: a red
+   counter next to her face turns an available person into an alarm. Unread is
+   still counted in S.unread, so a badge can be drawn from there if the
+   decision changes. */
 
 /* ---------- 2. TEASER (proactive message while closed) ------------------ */
 .jc-teaser{
   position:fixed; right:40px; bottom:104px; z-index:1000; width:296px;
-  display:flex; gap:10px; padding:14px 14px 14px 14px;
+  padding:14px 30px 14px 16px;
   background:#fff; border:0.5px solid var(--jc-line); border-radius:var(--jc-r); box-shadow:var(--jc-shadow);
   opacity:0; transform:translateY(10px); pointer-events:none;
   transition:opacity .4s, transform .4s cubic-bezier(0.22,1,0.36,1);
   text-align:left; cursor:pointer;
 }
 .jc-teaser.on{opacity:1; transform:none; pointer-events:auto}
-.jc-teaser .mark{width:34px; height:34px; flex:0 0 34px; border-radius:50%; background:var(--jc-navy);
-  display:flex; align-items:center; justify-content:center}
-.jc-teaser .mark img{width:23px; height:23px}
 .jc-teaser .who{font-family:'Mesmerize',sans-serif; font-weight:300; font-size:12px; letter-spacing:0.06em;
   text-transform:uppercase; color:var(--jc-navy); margin:0 0 4px}
 .jc-teaser .msg{font-family:'Myriad Pro',sans-serif; font-weight:400; font-size:14px; line-height:20px;
@@ -2251,14 +2265,13 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 /* ---------- 8. RESPONSIVE ----------------------------------------------- */
 @media (max-width:900px){
   .jc-dock{right:24px; bottom:24px}
-  .jc-dock{width:min(var(--jc-w), calc(100vw - 48px))}
   .jc-box{right:24px; bottom:92px; width:calc(100vw - 48px); max-width:var(--jc-w)}
   .jc-teaser{right:24px; bottom:96px}
 }
 @media (max-width:640px){
-  .jc-dock{left:24px; right:24px; width:auto; height:54px}
-  .jc-dock-btn{flex:1 1 50%; justify-content:center; padding:0 12px; font-size:13px}
-  .jc-dock-chat{flex:1 1 50%; padding:0 12px; font-size:13px}
+  /* the button takes the width it is given, the disc keeps its 54px */
+  .jc-dock{left:24px; right:24px}
+  .jc-dock-btn{flex:1 1 auto; height:54px; justify-content:center; padding:0 12px; font-size:13px}
   .jc-teaser{left:24px; right:24px; width:auto; bottom:92px}
   /* full screen chatbox, same as the Crisp mobile behaviour */
   .jc-box{inset:0; width:100%; height:100%; max-width:none; border:0; transform:translateY(20px)}
@@ -2272,25 +2285,145 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .jc-dock,.jc-box,.jc-teaser{transition:opacity .01s}
   .jc-typing span{animation:none}
 }
+
+/* ---------- 9. BLUE GLASS SKIN ------------------------------------------
+   The chatbox carries the site's translucent blue instead of white: the same
+   glass the page header uses, navy at 78-90% over a 22px blur. Only colour
+   changes here. The layout, the radii, the type scale and every measurement
+   above are untouched, so deleting this section returns the widget to white.
+   The visitor bubble is the one solid surface left, which is what separates
+   it from the operator's glass bubble now that both sit on blue. */
+.jc-root{
+  --jc-glass:linear-gradient(180deg, rgba(65,100,123,0.78) 0%, rgba(65,100,123,0.90) 100%);
+  --jc-blur:blur(22px) saturate(140%);
+  --jc-on-mute:rgba(255,255,255,0.62);   /* secondary type on the glass */
+  --jc-on-line:rgba(255,255,255,0.22);   /* hairline on the glass */
+  --jc-on-fill:rgba(255,255,255,0.12);   /* a raised surface on the glass */
+  --jc-on-fill-h:rgba(255,255,255,0.18); /* the same surface, hovered */
+  --jc-dot:#4cc07a;                      /* availability */
+}
+
+/* shell. The header keeps its weight by being one shade lighter, not by
+   being a different colour. */
+.jc-box{
+  background:var(--jc-glass);
+  backdrop-filter:var(--jc-blur); -webkit-backdrop-filter:var(--jc-blur);
+  border-color:rgba(255,255,255,0.20);
+}
+.jc-head{
+  background:linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.04) 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(255,255,255,0.14);
+}
+.jc-log::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.26)}
+
+/* messages */
+.jc-av{background:rgba(255,255,255,0.16)}
+.jc-bub{background:var(--jc-on-fill); color:#fff; border:0.5px solid var(--jc-on-line)}
+.jc-bub a{color:#fff}
+.jc-row.me .jc-bub{background:#fff; color:var(--jc-ink); border-color:transparent}
+.jc-row.me .jc-bub a{color:var(--jc-navy)}
+.jc-state{color:var(--jc-on-mute)}
+.jc-state.seen{color:#fff}
+.jc-typing{background:var(--jc-on-fill)}
+.jc-typing span{background:rgba(255,255,255,0.75)}
+
+/* picker chips */
+.jc-chip{border-color:rgba(255,255,255,0.55); color:#fff}
+.jc-chip:hover{background:#fff; color:var(--jc-navy)}
+
+/* guide card, vessel card, rating, pre chat form, attachments */
+.jc-card,.jc-vessel,.jc-rate,.jc-form{background:var(--jc-on-fill); border-color:var(--jc-on-line)}
+.jc-card:hover{background:var(--jc-on-fill-h); border-color:rgba(255,255,255,0.38)}
+.jc-card .cat,.jc-card i,.jc-form h4{color:rgba(255,255,255,0.74)}
+.jc-card .ttl,.jc-vessel .nm,.jc-rate p{color:#fff}
+.jc-vessel .mt,.jc-form p,.jc-form label,.jc-form .skip{color:var(--jc-on-mute)}
+.jc-form .skip:hover{color:#fff}
+.jc-vessel .go,.jc-form .go{background:#fff; color:var(--jc-navy)}
+.jc-vessel .go:hover,.jc-form .go:hover{background:rgba(255,255,255,0.84)}
+.jc-rate button{background:var(--jc-on-fill); border-color:var(--jc-on-line); color:#fff}
+.jc-rate button:hover{background:#fff; border-color:#fff; color:var(--jc-navy)}
+.jc-form input{background:rgba(255,255,255,0.94); border-color:transparent; color:var(--jc-ink)}
+.jc-form input:focus{border-color:#fff}
+.jc-file{background:var(--jc-on-fill); color:#fff}
+.jc-row.me .jc-file{background:#fff; color:var(--jc-ink)}
+
+/* composer */
+.jc-cwrap{background:rgba(255,255,255,0.10); border-color:rgba(255,255,255,0.24)}
+.jc-cwrap.focus{border-color:#fff}
+.jc-ta{color:#fff}
+.jc-ta::placeholder{color:rgba(255,255,255,0.55)}
+.jc-ic{color:rgba(255,255,255,0.62)}
+.jc-ic:hover{color:#fff}
+.jc-send{color:rgba(255,255,255,0.42)}
+.jc-send:not([disabled]){color:#fff}
+.jc-send:not([disabled]):hover{color:rgba(255,255,255,0.78)}
+
+/* popovers sit on the same glass rather than punching a white hole in it */
+.jc-menu,.jc-emoji{
+  background:rgba(48,76,94,0.92);
+  backdrop-filter:var(--jc-blur); -webkit-backdrop-filter:var(--jc-blur);
+  border-color:rgba(255,255,255,0.18);
+}
+.jc-menu button{color:#fff}
+.jc-menu button:hover{background:rgba(255,255,255,0.12)}
+.jc-menu button i{color:rgba(255,255,255,0.6)}
+.jc-menu hr{border-top-color:rgba(255,255,255,0.16)}
+.jc-emoji button:hover{background:rgba(255,255,255,0.14)}
+
+/* the teaser is the chatbox speaking while it is closed, so it wears the
+   same glass */
+.jc-teaser{
+  background:var(--jc-glass);
+  backdrop-filter:var(--jc-blur); -webkit-backdrop-filter:var(--jc-blur);
+  border-color:rgba(255,255,255,0.20);
+}
+.jc-teaser .who{color:rgba(255,255,255,0.74)}
+.jc-teaser .msg{color:#fff}
+.jc-teaser .x{color:rgba(255,255,255,0.6)}
+.jc-teaser .x:hover{color:#fff}
+
+/* ---------- 10. OPERATOR FACE -------------------------------------------
+   The brand mark answers first. Thirty seconds in, every mark becomes the
+   person actually on the desk, with a dot while the desk is open. The timer,
+   the photo and the hours live in OPERATOR at the top of the script. */
+.jc-mark{position:relative}
+.jc-mark.human{background:#fff; overflow:visible}
+.jc-mark.human img{width:100%; height:100%; border-radius:50%; object-fit:cover}
+.jc-dot{
+  position:absolute; right:-1px; bottom:-1px; width:9px; height:9px; border-radius:50%;
+  background:var(--jc-dot); box-shadow:0 0 0 2px rgba(255,255,255,0.92);
+}
+/* the dot on the launcher carries the whole 54px disc, so it is drawn a size
+   up from the one beside a 27px message avatar */
+.jc-face .jc-dot{width:13px; height:13px; right:1px; bottom:1px; box-shadow:0 0 0 2.5px #fff}
 </style>
 
-<!-- =========================== DOCK PLATE ================================ -->
+<!-- ====================== EXPLORE BUTTON + LAUNCHER ====================== -->
 <div class="jc-root">
 <div class="jc-dock" id="jc-dock">
   <button class="jc-dock-btn" id="jc-explore">
     Explore inventory <i class="ti ti-chevron-right"></i>
   </button>
-  <button class="jc-dock-chat" id="jc-open" aria-haspopup="dialog" aria-expanded="false"
+  <button class="jc-launcher" id="jc-open" aria-haspopup="dialog" aria-expanded="false"
           aria-controls="jc-box" aria-label="Chat with us">
-    <span class="lbl">Chat with us</span>
+    <!-- Crisp's own launcher glyph, a rounded speech bubble, in JBY navy -->
+    <svg class="glyph-open" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <defs><linearGradient id="jcG" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#4a7189"/><stop offset="1" stop-color="#365466"/>
+      </linearGradient></defs>
+      <path d="M5.2 4.8h17.6a2.5 2.5 0 0 1 2.5 2.5v9.9a2.5 2.5 0 0 1-2.5 2.5h-7.4l-3.2 3.5a.85.85 0 0 1-1.47-.58v-2.92H5.2a2.5 2.5 0 0 1-2.5-2.5V7.3a2.5 2.5 0 0 1 2.5-2.5Z" fill="url(#jcG)"/>
+    </svg>
+    <svg class="glyph-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+         stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    <span class="jc-face jc-mark" aria-hidden="true"></span>
   </button>
-  <span class="jc-flag" id="jc-flag" aria-hidden="true"></span>
 </div>
 
 <!-- =========================== TEASER ==================================== -->
 <div class="jc-teaser" id="jc-teaser" role="button" tabindex="0">
   <button class="x" id="jc-teaser-x" aria-label="Dismiss"><i class="ti ti-x"></i></button>
-  <span class="mark"><img src="./JBY-V3.3-assets/jby_logo.svg" alt=""/></span>
+  <!-- no avatar here on purpose: the face is already on the disc right below,
+       and the same photo twice in one corner reads as a duplicate -->
   <div>
     <p class="who">Our team</p>
     <p class="msg" id="jc-teaser-msg">Is there a particular vessel on your mind? We can send the full specification.</p>
@@ -2313,7 +2446,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 
     <!-- ongoing state -->
     <div class="jc-compact">
-      <span class="mark"><img src="./JBY-V3.3-assets/jby_logo.svg" alt=""/></span>
+      <span class="mark jc-mark"><img src="./JBY-V3.3-assets/jby_logo.svg" alt=""/></span>
       <div class="nm">Our team</div>
       <button class="more" id="jc-more" aria-label="Conversation options"><i class="ti ti-dots"></i></button>
       <div class="jc-menu" id="jc-menu" role="menu">
@@ -2386,16 +2519,104 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   var S = {
     open:false, ongoing:false, unread:0, sounds:true,
     identified:false, exchanges:0, rated:false, teased:false, greeted:false,
-    busy:false
+    busy:false, human:false
   };
 
   /* ---------- sender identity ----------
-     One brand identity, no operator names or photos. Whoever is actually on
-     support answers as Jeff Brown Yachts. If named operators are ever wanted,
-     this is the only place to change. */
+     The brand mark answers first. Thirty seconds in, the mark becomes the
+     person who is actually on the desk, with an availability dot while the
+     desk is open. Everything about that swap lives in OPERATOR: the photo,
+     the delay, and the hours. Set OPERATOR to null to go back to one
+     nameless brand identity. */
   var MARK = './JBY-V3.3-assets/jby_logo.svg';
+  var OPERATOR = {
+    name : 'Audrey',
+    photo: './JBY-V3.3-assets/operator_audrey.jpg',
+    after: 30000,                 /* ms on the page before the mark becomes a face */
+    tz   : 'America/Los_Angeles', /* the desk runs on Pacific time */
+    from : 8, to : 18,            /* 8am to 6pm, the hours the script quotes */
+    /* The prototype is shown outside those hours as often as inside them, and
+       a dot nobody can see is a dot nobody can sign off. So the mockup always
+       draws it. Set this to false to watch the real hours do their work, and
+       delete the line entirely when the Crisp back end takes the question
+       over through website:availability:changed. */
+    alwaysOnDuty: true
+  };
+  var TEAM = 'Our team';          /* the label while the sender is still the brand */
+
+  /* business hours, read in the desk's own timezone rather than the
+     visitor's, so a visitor in Monaco still sees the dot only while somebody
+     is at the desk in California */
+  function onDuty(){
+    if (!OPERATOR) return false;
+    if (OPERATOR.alwaysOnDuty) return true;
+    var h = parseInt(new Date().toLocaleString('en-US', {
+      timeZone:OPERATOR.tz, hour:'numeric', hour12:false
+    }), 10) % 24;
+    return h >= OPERATOR.from && h < OPERATOR.to;
+  }
+
+  /* one mark: the monogram, or the face plus its dot */
+  function paintMark(node){
+    if (S.human && OPERATOR){
+      node.classList.add('human');
+      node.innerHTML = '<img src="' + OPERATOR.photo + '" alt=""/>' +
+        (onDuty() ? '<span class="jc-dot" aria-hidden="true"></span>' : '');
+    } else {
+      node.classList.remove('human');
+      node.innerHTML = '<img src="' + MARK + '" alt=""/>';
+    }
+  }
+
+  /* repaints every mark at once: the thread, the teaser, the header bar and
+     the launcher, so the identity changes in one moment rather than drifting in
+     message by message */
+  function paintMarks(){
+    var marks = document.querySelectorAll('.jc-root .jc-mark'), i;
+    for (i = 0; i < marks.length; i++) paintMark(marks[i]);
+
+    var label = (S.human && OPERATOR) ? OPERATOR.name : TEAM;
+    var nm  = document.querySelector('.jc-root .jc-compact .nm');
+    var who = document.querySelector('.jc-root .jc-teaser .who');
+    if (nm)  nm.textContent  = label;
+    if (who) who.textContent = label;
+
+    var openBtn = $('jc-open');
+    if (openBtn) openBtn.setAttribute('aria-label',
+      (S.human && OPERATOR && onDuty()) ? 'Chat with us. ' + OPERATOR.name + ' is online'
+                                        : 'Chat with us');
+  }
+
   function markEl(cls){
-    return el('span', cls, '<img src="' + MARK + '" alt=""/>');
+    var node = el('span', (cls || '') + ' jc-mark');
+    paintMark(node);
+    return node;
+  }
+
+  /* Anything that would put a message on screen while the visitor can still
+     see the glyph waits here instead. There is to be no in between state: the
+     face arrives first, then she speaks. */
+  var waitingForHer = [];
+  function whenHuman(fn){
+    if (!OPERATOR || S.human) fn();
+    else waitingForHer.push(fn);
+  }
+
+  if (OPERATOR){
+    paintMarks();
+    setTimeout(function(){
+      S.human = true;
+      paintMarks();
+      while (waitingForHer.length) waitingForHer.shift()();
+    }, OPERATOR.after);
+    /* a box left open across the boundary should not keep claiming somebody
+       is there, so the dot is re-checked every minute and only redrawn when
+       the answer actually changes */
+    var duty = onDuty();
+    setInterval(function(){
+      var d = onDuty();
+      if (d !== duty){ duty = d; paintMarks(); }
+    }, 60000);
   }
 
   var now = function(){
@@ -2476,8 +2697,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 
   /* ---------- unread + teaser ---------- */
   function bump(preview){
-    S.unread++;
-    $('jc-flag').classList.add('on');
+    S.unread++;                     /* counted, not drawn: see the note in the CSS */
     if (preview){
       $('jc-teaser-msg').textContent = preview;
       teaser.classList.add('on');
@@ -2486,7 +2706,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   }
   function clearUnread(){
     S.unread = 0;
-    $('jc-flag').classList.remove('on');
     teaser.classList.remove('on');
   }
 
@@ -2860,6 +3079,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   function open(){
     S.open = true;
     dock.classList.add('on');
+    dock.classList.add('open');      /* swaps the launcher glyph to the cross */
     box.classList.add('on');
     $('jc-open').setAttribute('aria-expanded','true');
     clearUnread();
@@ -2869,6 +3089,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   }
   function close(){
     S.open = false;
+    dock.classList.remove('open');
     box.classList.remove('on');
     $('jc-open').setAttribute('aria-expanded','false');
     $('jc-emoji').classList.remove('on');
@@ -2969,7 +3190,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   ];
 
   /* ---------- dock reveal on section 2 ----------
-     The plate belongs to the second block ("Bespoke yacht sales and brokerage",
+     The launcher belongs to the second block ("Bespoke yacht sales and brokerage",
      the Explore inventory / Get expert guidance section). It slides in once that
      block comes up, and slides back out while the visitor is on the hero.
      Driven by one rAF throttled scroll handler so the state is deterministic. */
@@ -2984,13 +3205,17 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     if (!story) { dock.classList.add('on'); return; }
     var show = S.open || (window.pageYOffset > storyTop - window.innerHeight * 0.62);
     dock.classList.toggle('on', show);
-    /* the teaser belongs to the plate, so it never floats on its own */
+    /* the teaser belongs to the launcher, so it never floats on its own */
     if (!show) teaser.classList.remove('on');
     if (show && !S.teased){
       S.teased = true;
-      /* proactive nudge, the way a Crisp trigger fires after a dwell */
+      /* proactive nudge, the way a Crisp trigger fires after a dwell. It is
+         held back until the face is on the disc, so the visitor never sees a
+         message open next to the anonymous glyph. */
       setTimeout(function(){
-        if (!S.open) bump('Is there a particular vessel on your mind? We can send the full specification.');
+        whenHuman(function(){
+          if (!S.open) bump('Is there a particular vessel on your mind? We can send the full specification.');
+        });
       }, 9000);
     }
   }
@@ -3008,7 +3233,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     try { new ResizeObserver(remeasure).observe(document.body); } catch(e){}
   }
 
-  /* Explore inventory, in the plate */
+  /* Explore inventory, next to the launcher */
   $('jc-explore').addEventListener('click', function(){
     var t = document.getElementById('yachts');
     if (t) t.scrollIntoView({behavior:'smooth', block:'start'});
