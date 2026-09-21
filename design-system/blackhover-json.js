@@ -70,7 +70,9 @@
       const spec = specificity(one);
       let els = []; try { els = [...document.querySelectorAll(one.replace(/:hover/g, ''))]; } catch { continue; }
       for (const el of els) {
-        if (!el.offsetParent) continue;
+        // Hidden elements are kept, not skipped: the location modal's
+        // close button hovered to white and went unreported for pages
+        // because its modal was shut when the check ran.
         const prev = winner.get(el);
         if (!prev || spec > prev.spec || (spec === prev.spec && order >= prev.order))
           winner.set(el, { spec, order, sel: one, bg });
@@ -79,12 +81,15 @@
   }};
   for (const sh of document.styleSheets) { try { walk(sh.cssRules); } catch {} }
 
-  const found = {};
+  const found = {}, hidden = {};
   for (const [el, v] of winner) {
     const fill = resolve(getComputedStyle(el).getPropertyValue(v.bg.replace(/var\(|\)/g, '').trim()) || v.bg);
     if (!offBrand(fill)) continue;
-    found[v.sel] = found[v.sel] || { fill, count: 0, label: el.textContent.trim().slice(0, 20) || `${el.tagName.toLowerCase()} icon` };
-    found[v.sel].count++;
+    const where = el.offsetParent ? found : hidden;
+    where[v.sel] = where[v.sel] || { fill, count: 0, label: el.textContent.trim().slice(0, 20) || `${el.tagName.toLowerCase()} icon` };
+    where[v.sel].count++;
   }
-  return JSON.stringify({ page: document.title.slice(0, 34), notBrandBlue: found });
+  // `hidden` is what sits behind a shut modal or an unopened panel —
+  // worth opening by hand rather than trusting.
+  return JSON.stringify({ page: document.title.slice(0, 34), notBrandBlue: found, hidden });
 })()
