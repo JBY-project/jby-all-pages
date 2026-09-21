@@ -89,7 +89,27 @@
     where[v.sel] = where[v.sel] || { fill, count: 0, label: el.textContent.trim().slice(0, 20) || `${el.tagName.toLowerCase()} icon` };
     where[v.sel].count++;
   }
+  // The section above only sees hovers that set a background. A hover
+  // that tints the rule and the glyph and leaves the fill alone — the
+  // testimonial pager did exactly that — never appears there. So: every
+  // element that looks like a button at rest, and whether anything at
+  // all hovers it to the brand blue.
+  const noBlue = {};
+  for (const el of document.querySelectorAll('a,button,input[type=submit],[role=button]')) {
+    const c = getComputedStyle(el), r = el.getBoundingClientRect();
+    const looksLikeAButton = (c.backgroundColor !== 'rgba(0, 0, 0, 0)' || parseFloat(c.borderTopWidth) > 0)
+      && r.width > 24 && r.height > 20 && r.height < 90;
+    if (!looksLikeAButton) continue;
+    const v = winner.get(el);
+    const fill = v && resolve(getComputedStyle(el).getPropertyValue(v.bg.replace(/var\(|\)/g, '').trim()) || v.bg);
+    if (fill && !offBrand(fill)) continue;
+    const key = el.tagName.toLowerCase() + '.' + [...el.classList].join('.');
+    noBlue[key] = noBlue[key] || { count: 0, label: el.textContent.trim().slice(0, 20) || 'icon',
+                                   hover: v ? v.sel : 'no hover rule sets a background' };
+    noBlue[key].count++;
+  }
+
   // `hidden` is what sits behind a shut modal or an unopened panel —
   // worth opening by hand rather than trusting.
-  return JSON.stringify({ page: document.title.slice(0, 34), notBrandBlue: found, hidden });
+  return JSON.stringify({ page: document.title.slice(0, 34), notBrandBlue: found, noBlueOnHover: noBlue, hidden });
 })()

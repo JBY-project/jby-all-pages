@@ -410,7 +410,8 @@ footer{background:var(--page);padding:40px 40px 80px;color:var(--c2);font-size:1
 .shr-copy,
 /* The knowledge centre's event card: the call to action is a span
    inside the card, and the card carries the hover. */
-.ecard .ec-cta{
+.ecard .ec-cta,
+.scene-link{
   height:var(--jby-btn-h);
   padding:var(--jby-btn-pad);
   border-radius:var(--jby-btn-radius);
@@ -453,6 +454,8 @@ footer{background:var(--page);padding:40px 40px 80px;color:var(--c2);font-size:1
 .cat-cta:hover,
 .btn-basic:hover,
 .btn-out:hover,
+.scene-link:hover,
+.idx a:hover,
 .btn-sm:hover,
 .shr-copy:hover,
 .chip:hover,
@@ -571,7 +574,7 @@ footer{background:var(--page);padding:40px 40px 80px;color:var(--c2);font-size:1
    0,2,0 rule here would lose to it however late this file is read. */
 :is(.nav .icon, .hero-arr, .builders-arr, .cards-scroll-arr,
     .back-top, .to-top, .ax-model-arr, .pe-nav, .strip-arr,
-    .lb-btn, .show-arrow):hover{
+    .lb-btn, .show-arrow, .tmon-btn, .sq, .sq.light, .e2-btn):hover{
   background:var(--jby-blue);
   border-color:var(--jby-rule-hover);
   color:#fff;
