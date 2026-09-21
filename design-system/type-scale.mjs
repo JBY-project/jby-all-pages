@@ -236,20 +236,24 @@ let files = 0, ruleCount = 0;
 for (const folder of folders) {
   const dir = join('pages', folder);
   if (!existsSync(dir)) { console.error(`  ! missing: ${dir}`); continue; }
-  /* the page's own stylesheets, if it keeps any. jby-system.css is the design
-     system itself and fonts.css carries only @font-face. */
+  /* Every html file under the page folder, at any depth, plus the page's own
+     stylesheets. The Site Hub keeps 28 pages in nested folders — contact/,
+     services/maintenance/ and so on — and a top-level-only walk reached two
+     of them. jby-system.css is the design system itself and fonts.css carries
+     only @font-face, so both are skipped. */
   const targets = [];
-  for (const name of readdirSync(dir)) {
-    if (name.endsWith('.html')) targets.push([join(dir, name), 'html']);
-  }
-  const assets = join(dir, 'assets');
-  if (existsSync(assets)) {
-    for (const name of readdirSync(assets)) {
-      if (!name.endsWith('.css')) continue;
-      if (name === 'jby-system.css' || name === 'fonts.css') continue;
-      targets.push([join(assets, name), 'css']);
+  (function walk(d) {
+    for (const name of readdirSync(d)) {
+      const path = join(d, name);
+      /* .snapshots holds dated backups of a page as it was; rewriting those
+         would quietly edit the history somebody kept them for. */
+      if (name.startsWith('.')) continue;
+      if (statSync(path).isDirectory()) { walk(path); continue; }
+      if (name.endsWith('.html')) targets.push([path, 'html']);
+      else if (name.endsWith('.css') && name !== 'jby-system.css' && name !== 'fonts.css')
+        targets.push([path, 'css']);
     }
-  }
+  })(dir);
 
   for (const [path, kind] of targets) {
     if (!statSync(path).isFile()) continue;
