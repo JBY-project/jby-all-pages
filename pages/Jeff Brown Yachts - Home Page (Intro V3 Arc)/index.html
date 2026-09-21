@@ -736,26 +736,23 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 /* ======================================================================= */
 html.intro-lock,html.intro-lock body{overflow:hidden}
 html.intro-lock .nav .logo{opacity:0}
-/* The last handover is one fade, not two. The header's own logo is put back
-   at full strength underneath first — hidden, because ours is opaque and on
-   top — and only then does ours leave. Fading both at once was the blink: two
-   half-transparent marks over the hero add up to less ink than one. */
-#intro.done{opacity:0;transition:opacity .3s cubic-bezier(.4,0,.2,1)}
+/* The header's own logo is simply uncovered: it is put back before the mark
+   rises, so what leaves the screen leaves from a finished page. */
 
 /* The move itself is timed in the script, one clock for all of it. What is
-   left here is what CSS owns: the two dissolves and the flight, whose duration
-   the script writes into `--fly` so it can wait for the landing. */
+   left here is what CSS owns: the two dissolves and the rise, whose duration
+   the script writes into `--away` so the overlay is removed once it is over. */
 #intro{position:fixed;inset:0;z-index:2000;pointer-events:none;
   --mark:205px;    /* the roundel at full size, before it flies   */
   --dissolve:.95s; /* the mark rising under the letters           */
-  --bgfade:.85s;   /* navy field dissolving                       */
-  --fly:1s;        /* roundel travelling to the header            */
+  --bgfade:1s;     /* navy field dissolving                       */
+  --away:.75s;     /* mark rising out of the frame                */
   animation:introSafety .01s linear 14s forwards}
 #intro.slow{--dissolve:2.85s;--bgfade:2.55s}
 @keyframes introSafety{to{opacity:0;visibility:hidden}}
 
 #intro-bg{position:absolute;inset:0;background:var(--navy);
-  opacity:1;transition:opacity var(--bgfade) cubic-bezier(.4,0,.2,1)}
+  opacity:1;transition:opacity var(--bgfade) linear}
 #intro-bg::after{content:"";position:absolute;inset:0;
   background:radial-gradient(72% 96% at 50% 34%,
     rgba(255,255,255,0.10) 0%,
@@ -770,8 +767,19 @@ html.intro-lock .nav .logo{opacity:0}
    their arc and the artwork underneath — is measured from its centre, so
    the handover needs no second coordinate system. */
 #intro-ring{position:relative;width:var(--mark);height:var(--mark);
-  will-change:transform;transform-origin:50% 50%;
-  transition:transform var(--fly) cubic-bezier(.62,0,.20,1)}
+  will-change:transform,opacity;transform-origin:50% 50%}
+/* The exit, taken from the loader this was asked to feel like: the mark rises
+   half the viewport while shrinking to a fifth of itself, and only lets go of
+   its opacity at the very end. Linear on purpose — an eased climb reads as a
+   thing being pulled away, a linear one as a thing leaving under its own
+   steam. */
+@keyframes introAway{
+  0%   {transform:translateY(0)     scale(1);   opacity:1}
+  25%  {transform:translateY(-10vh) scale(.5);  opacity:1}
+  50%  {transform:translateY(-25vh) scale(.3);  opacity:1}
+  100% {transform:translateY(-50vh) scale(.2);  opacity:0}
+}
+#intro.away #intro-ring{animation:introAway var(--away) linear forwards}
 
 /* The mark does not fade in so much as come into focus: it leaves from a
    little soft and a little small, and the opacity curve is eased at both ends
@@ -799,7 +807,7 @@ html.intro-lock .nav .logo{opacity:0}
 @media (max-width:560px){ #intro{--mark:132px} }
 
 @media (prefers-reduced-motion:reduce){
-  #intro{--dissolve:.2s;--bgfade:.3s;--fly:.3s}
+  #intro{--dissolve:.2s;--bgfade:.3s;--away:.3s}
 }
 </style>
 <script>
@@ -2057,7 +2065,26 @@ const GLYPHS = [{"a":-130,"d":"M123.5,523.4l30.9-26.6c2.4-2.1,4.8-3.4,7.3-4.1s4.
   /* Both are second order rather than third: a cubic tail flattens so far that
      the last tenth of a move reads as a stop, which is the thing this sequence
      must not have. */
-  const easeOut   = (t) => 1 - (1 - t) * (1 - t);
+  /* The reference loader closes its wordmark on cubic-bezier(.3,0,.75,1) over
+     1.7s, so that curve is solved here rather than approximated: Newton on the
+     x polynomial, then the y at that parameter. */
+  const bezier = (x1, y1, x2, y2) => {
+    const A = (a, b) => 1 - 3*b + 3*a, B = (a, b) => 3*b - 6*a, C = (a) => 3*a;
+    const calc = (t, a, b) => ((A(a,b)*t + B(a,b))*t + C(a))*t;
+    const slope = (t, a, b) => 3*A(a,b)*t*t + 2*B(a,b)*t + C(a);
+    return (x) => {
+      if (x <= 0) return 0;
+      if (x >= 1) return 1;
+      let t = x;
+      for (let i = 0; i < 6; i++){
+        const d = slope(t, x1, x2);
+        if (Math.abs(d) < 1e-6) break;
+        t -= (calc(t, x1, x2) - x) / d;
+      }
+      return calc(t, y1, y2);
+    };
+  };
+  const easeClose = bezier(.3, 0, .75, 1);
   const easeInOut = (t) => t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2;
 
 
@@ -2154,12 +2181,19 @@ const GLYPHS = [{"a":-130,"d":"M123.5,523.4l30.9-26.6c2.4-2.1,4.8-3.4,7.3-4.1s4.
        already coming up before the arc has finished closing, and the flight
        begins while the last letters are seating. At no point is the screen
        still — something is always on its way somewhere. */
-    const LIGHT      = (reduce ? 10 :  700) * k;   /* letters arriving        */
-    const CLOSE_END  = (reduce ? 10 : 1350) * k;   /* tracking closed         */
-    const BEND_FROM  = (reduce ?  0 :  700) * k;   /* bend starts, mid-close  */
-    const BEND_END   = (reduce ? 20 : 1650) * k;   /* line lying on the ring  */
-    const FLY        = (reduce ? 200 : 1000) * k;  /* mark travelling         */
-    intro.style.setProperty('--fly', (FLY / 1000).toFixed(3) + 's');
+    /* The reference's rhythm, measured off its own stylesheet: the wordmark
+       closes over 1.7s on one curve with no stagger, the emblem starts at 1.5s
+       — while the letters are still moving — and takes 1.2s, and the whole
+       mark leaves 100ms after that over 0.75s. The bend is ours, and it sits
+       inside that: begun while the tracking is still closing, finished before
+       the emblem is. */
+    const LIGHT      = (reduce ? 10 :  900) * k;   /* letters arriving        */
+    const CLOSE_END  = (reduce ? 10 : 1700) * k;   /* tracking closed         */
+    const BEND_FROM  = (reduce ?  0 :  900) * k;   /* bend starts, mid-close  */
+    const BEND_END   = (reduce ? 20 : 2000) * k;   /* line lying on the ring  */
+    const MARK_FROM  = (reduce ?  0 : 1500) * k;   /* emblem begins to arrive */
+    const AWAY       = (reduce ? 300 : 750) * k;   /* mark rising out of frame*/
+    intro.style.setProperty('--away', (AWAY / 1000).toFixed(3) + 's');
 
     const timers = [];
     let raf = 0;
@@ -2172,21 +2206,17 @@ const GLYPHS = [{"a":-130,"d":"M123.5,523.4l30.9-26.6c2.4-2.1,4.8-3.4,7.3-4.1s4.
       const bend  = Math.min(1, Math.max(0, (t - BEND_FROM) / (BEND_END - BEND_FROM)));
       /* The tracking decelerates into its end while the bend is accelerating
          out of its start, so the handover between them has no dead frame. */
-      frame(easeOut(close), easeInOut(bend), lit);
+      frame(easeClose(close), easeInOut(bend), lit);
       if (bend < 1) raf = requestAnimationFrame(step);
     });
 
     const T = {
-      /* The mark comes up under the letters while the arc is still closing the
-         last of the way, so it is there to be landed on rather than appearing
-         once everything has stopped. */
-      handover: BEND_END - 500 * k,
-      /* The flight waits for the mark to finish arriving. Starting it before
-         that left the roundel with no moment of its own: it was formed and
-         already leaving, which reads as though the logo were never there. The
-         wait is not a pause — the emblem is still coming up through all of it. */
-      lift:     BEND_END - 500 * k + 950 * k,
-      land:     BEND_END - 500 * k + 950 * k + FLY + 60 * k
+      handover: MARK_FROM,
+      /* The mark leaves a beat after it has finished arriving, and the field
+         goes with it. The header is uncovered first, so what the mark rises
+         away from is the page rather than a hole. */
+      away:     MARK_FROM + 1200 * k + 100 * k,
+      done:     MARK_FROM + 1200 * k + 100 * k + AWAY
     };
 
     if (hold) return T.handover;
@@ -2194,33 +2224,20 @@ const GLYPHS = [{"a":-130,"d":"M123.5,523.4l30.9-26.6c2.4-2.1,4.8-3.4,7.3-4.1s4.
     timers.push(setTimeout(function(){ intro.classList.add('handover'); }, T.handover));
 
     timers.push(setTimeout(function(){
-      const target = document.querySelector('#site-nav .logo img');
-      if (target){
-        const from = ring.getBoundingClientRect();
-        const to   = target.getBoundingClientRect();
-        if (from.width && to.width){
-          const s  = to.width / from.width;
-          const dx = (to.left + to.width  / 2) - (from.left + from.width  / 2);
-          const dy = (to.top  + to.height / 2) - (from.top  + from.height / 2);
-          ring.style.transform =
-            'translate(' + dx.toFixed(2) + 'px,' + dy.toFixed(2) + 'px) scale(' + s.toFixed(4) + ')';
-        }
-      }
-      intro.classList.add('lift');
-    }, T.lift));
+      /* Uncover the page under the mark before it goes, so it rises away from
+         the site rather than from an empty field. The header logo is simply
+         there by then, as it is on the loader this follows. */
+      root.classList.remove('intro-lock');
+      intro.classList.add('lift');           /* the navy field dissolves   */
+      intro.classList.add('away');           /* and the mark rises out     */
+    }, T.away));
 
-    /* It lands on the real header logo, so the overlay leaving and the header
-       arriving in the same frame read as one logo that never moved. */
     timers.push(setTimeout(function(){
       cancelAnimationFrame(raf);
-      root.classList.remove('intro-lock');   /* the header logo is back, at full */
-      intro.classList.add('done');           /* and only ours fades, off the top */
-      timers.push(setTimeout(function(){
-        if (intro.parentNode) intro.remove();
-      }, 340 * k));
-    }, T.land));
+      if (intro.parentNode) intro.remove();
+    }, T.done));
 
-    return T.land;
+    return T.done;
   }
 
   window.jbyReplayIntro = function(k, hold){ return play(k, hold); };
