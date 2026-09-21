@@ -7,8 +7,9 @@
 #
 # Blank lines and lines starting with # are ignored.
 
-# This branch publishes nothing. It is the design-system pass over every
-# page, reviewed on a local server rather than a link, and the home page
-# it started from carries 150MB of media — enough to push the previews
-# site past its 900MB budget and fail the build for every branch.
-# Name a page here when something on this branch needs sharing.
+# This branch is the design-system pass over every page, reviewed on a
+# local server. The one page published here is the search prototype: the
+# glass, the full-screen phone mode and the header are what the client is
+# looking at. It carries 150MB of media, which is most of the previews
+# site's budget, so nothing else from this branch goes up.
+pages/jby-search
