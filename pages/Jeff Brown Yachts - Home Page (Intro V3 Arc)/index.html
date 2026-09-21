@@ -722,11 +722,12 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .foot-locs a:hover{color:var(--navy)}
 
 /* ====================================================================== */
-/* INTRO LOADER V3 — the wordmark closes up, arcs, and becomes the roundel */
+/* INTRO LOADER V3 — the wordmark closes up, arcs, and joins the roundel   */
 /* 1. navy field fills the screen                                          */
 /* 2. the letters stand wide apart and the tracking closes                  */
 /* 3. the line bends upward until it lies on the roundel's own ring         */
-/* 4. the roundel rises under it and the live letters dissolve into it      */
+/* 4. the roundel — circles and emblem, no ring text of its own — rises      */
+/*    under the letters, and they stay where they are: they are the ring     */
 /* 5. the field dissolves and the roundel flies into the header logo slot   */
 /*                                                                          */
 /* The letters are placed by script, not by layout: one number runs the     */
@@ -735,6 +736,11 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 /* ======================================================================= */
 html.intro-lock,html.intro-lock body{overflow:hidden}
 html.intro-lock .nav .logo{opacity:0}
+/* The header wears the printed artwork, whose ring text is not the face the
+   intro just drew. The two are the same size and in the same place by then,
+   so they cross rather than cut, and at 52px the change of face passes. */
+.nav .logo{transition:opacity .34s cubic-bezier(.4,0,.2,1)}
+#intro.done{opacity:0;transition:opacity .34s cubic-bezier(.4,0,.2,1)}
 
 #intro{position:fixed;inset:0;z-index:2000;pointer-events:none;
   --mark:205px;    /* the roundel at full size, before it flies   */
@@ -776,11 +782,8 @@ html.intro-lock .nav .logo{opacity:0}
 /* Each letter carries its own transform, written every frame by the script.
    `left/top` put its box on the centre; the transform does the rest. */
 #intro-word{position:absolute;inset:0;pointer-events:none;
-  font-family:'Mesmerize',sans-serif;font-weight:300;text-transform:uppercase;
-  color:#fff;opacity:1;
-  transition:opacity calc(var(--dissolve) * .8) cubic-bezier(.4,0,.2,1)
-             calc(var(--dissolve) * .35)}
-#intro.handover #intro-word{opacity:0}
+  font-family:'Mesmerize',sans-serif;font-weight:400;text-transform:uppercase;
+  color:#fff;opacity:1}
 #intro-word i{position:absolute;left:50%;top:50%;display:block;
   font-style:normal;line-height:1;white-space:pre;opacity:0;
   transform-origin:50% 50%;will-change:transform,opacity}
@@ -805,7 +808,7 @@ html.intro-lock .nav .logo{opacity:0}
   <div id="intro-bg"></div>
   <div id="intro-stage">
     <div id="intro-ring">
-      <img id="intro-logo" src="../Jeff%20Brown%20Yachts%20-%20Home%20Page%20(Intro%20Animation)/JBY-V3.3-assets/jby_logo.svg" alt=""/>
+      <img id="intro-logo" src="./jby_logo_no_ring_text.svg" alt=""/>
       <div id="intro-word"></div>
     </div>
   </div>
@@ -1996,7 +1999,7 @@ html.intro-lock .nav .logo{opacity:0}
   const root   = document.documentElement;
   const params = new URLSearchParams(location.search);
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const LOGO   = '../Jeff%20Brown%20Yachts%20-%20Home%20Page%20(Intro%20Animation)/JBY-V3.3-assets/jby_logo.svg';
+  const LOGO   = './jby_logo_no_ring_text.svg';
 
   const TEMPLATE =
     '<div id="intro-bg"></div>' +
@@ -2014,7 +2017,7 @@ html.intro-lock .nav .logo{opacity:0}
      units tall. Held as fractions of the mark, so the live letters land on the
      printed ones at any size. */
   const RING_R  = 257  / 700;
-  const RING_EM = 37.6 / 700;
+  const RING_EM = 41   / 700;   /* a hair over the printed 37.6: this face is lighter */
   /* And how far around it they run. Read off the artwork by sampling the ring
      band pixel by pixel: the printed text covers 268 degrees, centred on the
      top, with the two word spaces falling at -76 and +30. */
@@ -2140,9 +2143,9 @@ html.intro-lock .nav .logo{opacity:0}
       land:     CLOSE + HOLD + BEND + 1250 * k
     };
 
-    /* The artwork comes up under the live letters while they are still on the
-       ring, and they dissolve into it. Both carry the same text at the same
-       radius, so the eye reads one mark settling rather than two swapping. */
+    /* The artwork comes up under the live letters and stops there. It carries
+       no ring text of its own, so nothing is swapped and nothing dissolves:
+       the letters that crossed the screen are the ones on the finished mark. */
     if (hold) return T.handover;
 
     timers.push(setTimeout(function(){ intro.classList.add('handover'); }, T.handover));
@@ -2167,8 +2170,11 @@ html.intro-lock .nav .logo{opacity:0}
        arriving in the same frame read as one logo that never moved. */
     timers.push(setTimeout(function(){
       cancelAnimationFrame(raf);
-      root.classList.remove('intro-lock');
-      if (intro.parentNode) intro.remove();
+      root.classList.remove('intro-lock');   /* the header logo fades up */
+      intro.classList.add('done');           /* and the overlay fades out */
+      timers.push(setTimeout(function(){
+        if (intro.parentNode) intro.remove();
+      }, 380 * k));
     }, T.land));
 
     return T.land;
