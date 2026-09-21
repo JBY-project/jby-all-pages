@@ -63,15 +63,20 @@ const DECOR = /\.(qm|mk|num|amt|word|rs-v|d|t-mono|datebig)\b|\bi$|icon|arr\b/i;
 /* Bare classes whose tier cannot be read off a tag. Names beat sizes here:
    `.s-title` is a section title at 32px on eight pages, and reading 32 as
    "big, therefore a hero" promoted every one of them. */
-const CARD_NAMED    = /card|pe-title|lv-title/i;
+/* `-card\b` and not plain `card`, so that `.cards-head h2` stays a section
+   header instead of being read as something inside a card. */
+const CARD_NAMED    = /-card\b|\bcard\b|pe-title|lv-title/i;
 const HERO_NAMED    = /hero|page-?head|phead|profile-info|listing-title|sr-title/i;
 const SECTION_NAMED = /s-title|section-title|sec-title|cat-title|about-title|ov-title|asplit-title|m-title|ag-title|ob-title/i;
 
 function tierFromSelector(selector, px) {
+  /* Being inside a card beats the tag. `.article-card h1` is a card title
+     that happens to be marked up as an h1, and the tag alone made it a hero
+     the size of a page title. */
+  if (CARD_NAMED.test(selector)) return 'card';
   if (/(^|[\s,>.+~])h1\b/i.test(selector)) return 'hero';
   if (/(^|[\s,>.+~])h2\b/i.test(selector)) return 'section';
   if (/(^|[\s,>.+~])h[345]\b/i.test(selector)) return 'card';
-  if (CARD_NAMED.test(selector)) return 'card';
   if (HERO_NAMED.test(selector)) return 'hero';
   if (SECTION_NAMED.test(selector)) return 'section';
   /* a bare class nothing above recognises: the only thing left to read is
@@ -106,6 +111,16 @@ const RULE = /([^{}@]+)\{([^{}]*)\}/g;
    read as a bare class, and the size fallback called a 32px one a hero.
    Strip the comments before anything looks at the selector. */
 const cleanSelector = s => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').trim();
+
+/* A page whose CSS lives in its own file rather than an inline <style>: the
+   four Knowledge Centre pages keep theirs in assets/styles.css, and the first
+   run of this pass skipped all four without a word. Treat the whole file as
+   one style block. */
+function rewriteCssFile(css) {
+  const fake = `<style>${css}</style>`;
+  const { out, changes } = rewrite(fake);
+  return { out: out.slice('<style>'.length, out.length - '</style>'.length), changes };
+}
 
 function rewrite(html) {
   const changes = [];
@@ -203,11 +218,25 @@ let files = 0, ruleCount = 0;
 for (const folder of folders) {
   const dir = join('pages', folder);
   if (!existsSync(dir)) { console.error(`  ! missing: ${dir}`); continue; }
+  /* the page's own stylesheets, if it keeps any. jby-system.css is the design
+     system itself and fonts.css carries only @font-face. */
+  const targets = [];
   for (const name of readdirSync(dir)) {
-    if (!name.endsWith('.html')) continue;
-    const path = join(dir, name);
+    if (name.endsWith('.html')) targets.push([join(dir, name), 'html']);
+  }
+  const assets = join(dir, 'assets');
+  if (existsSync(assets)) {
+    for (const name of readdirSync(assets)) {
+      if (!name.endsWith('.css')) continue;
+      if (name === 'jby-system.css' || name === 'fonts.css') continue;
+      targets.push([join(assets, name), 'css']);
+    }
+  }
+
+  for (const [path, kind] of targets) {
     if (!statSync(path).isFile()) continue;
-    const { out, changes } = rewrite(readFileSync(path, 'utf8'));
+    const source = readFileSync(path, 'utf8');
+    const { out, changes } = kind === 'css' ? rewriteCssFile(source) : rewrite(source);
     if (!changes.length) continue;
     files++; ruleCount += changes.length;
     console.log(`\n${path}  (${changes.length})`);
