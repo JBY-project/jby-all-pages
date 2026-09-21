@@ -46,9 +46,17 @@ The chat is a launcher again: the navy Explore inventory button, then the disc
 The disc is Crisp's own 54px launcher tile, colours inverted so it reads on a
 near white page: a white disc carrying the navy speech bubble glyph, held by a
 1.5px navy hairline and a drop shadow. It swaps to a close cross while the box
-is open. Thirty seconds in, the glyph is covered by Audrey's face, with a green
-dot on the bottom right corner while the desk is open; opening the box still
-brings the cross back over her. See **The face and the dot** below.
+is open. Thirty seconds in, the glyph is dropped and Audrey's photo takes the
+whole circle, edge to edge inside the hairline, with a green dot on the bottom
+right corner while the desk is open. Opening the box still brings the cross back
+over her. See **The face and the dot** below.
+
+One CSS note for whoever edits this. The face is `position:absolute` scoped as
+`.jc-launcher .jc-face`, not as `.jc-face`, because `.jc-mark` sets
+`position:relative` further down the sheet and would win the tie. At equal
+specificity the face drops back into the launcher's flex row beside the glyph,
+and the two shrink each other to 46px and 5px: the photo stops filling the
+circle and a sliver of speech bubble shows at its left.
 
 * Hidden while the visitor is on the hero.
 * Slides up once the second block ("Bespoke yacht sales and brokerage") is

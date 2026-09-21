@@ -1979,11 +1979,21 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .jc-dock.open .jc-launcher .glyph-open{display:none}
 .jc-dock.open .jc-launcher .glyph-close{display:block}
 
-/* the face that takes the disc over. Hidden until it is a face, and hidden
-   again while the box is open, so the cross is what there is to click. */
-.jc-face{position:absolute; inset:0; display:none; border-radius:50%; background:var(--jc-paper)}
-.jc-face.human{display:block}
-.jc-dock.open .jc-face{display:none}
+/* The face that takes the disc over. Hidden until it is a face, and hidden
+   again while the box is open, so the cross is what there is to click.
+
+   Scoped to .jc-launcher on purpose: .jc-mark sets position:relative further
+   down the sheet, and at equal specificity that would win and drop the face
+   back into the flex row beside the glyph, where the two squeeze each other. */
+.jc-launcher .jc-face{
+  position:absolute; inset:0; display:none; border-radius:50%; background:var(--jc-paper);
+}
+.jc-launcher .jc-face.human{display:block}
+.jc-dock.open .jc-launcher .jc-face{display:none}
+
+/* once she is on the disc the glyph has no job: the photo fills the circle
+   edge to edge, and a speech bubble underneath it is one thing too many */
+.jc-launcher:has(.jc-face.human) .glyph-open{display:none}
 
 /* No unread flag. The disc carries one dot and it is the green one: a red
    counter next to her face turns an available person into an alarm. Unread is
