@@ -781,12 +781,15 @@ html.intro-lock .nav .logo{opacity:0}
 
 /* Each letter carries its own transform, written every frame by the script.
    `left/top` put its box on the centre; the transform does the rest. */
-#intro-word{position:absolute;inset:0;pointer-events:none;
-  font-family:'Mesmerize',sans-serif;font-weight:400;text-transform:uppercase;
-  color:#fff;opacity:1}
-#intro-word i{position:absolute;left:50%;top:50%;display:block;
-  font-style:normal;line-height:1;white-space:pre;opacity:0;
+#intro-word{position:absolute;inset:0;pointer-events:none;opacity:1}
+#intro-word i{position:absolute;left:50%;top:50%;display:block;opacity:0;
   transform-origin:50% 50%;will-change:transform,opacity}
+#intro-word svg{display:block;width:100%;height:100%;overflow:visible}
+
+/* Every distance in the move is a fraction of the mark, so a smaller mark on
+   a smaller screen takes the whole sequence with it. */
+@media (max-width:980px){ #intro{--mark:168px} }
+@media (max-width:560px){ #intro{--mark:132px} }
 
 @media (prefers-reduced-motion:reduce){
   #intro{--close:.01s;--bend:.01s;--dissolve:.2s;--bgfade:.3s;--fly:.3s}
@@ -2010,7 +2013,26 @@ html.intro-lock .nav .logo{opacity:0}
       '</div>' +
     '</div>';
 
-  const TEXT = 'JEFF BROWN YACHTS';
+  /* The letters are the logo's own. Each of the fifteen glyphs on the printed
+     ring is lifted out of the artwork as a path, in reading order, with the
+     angle it sits at. Nothing here is set in a typeface: what crosses the
+     screen is the lettering off the mark, so when the line closes onto the
+     ring it is not a match, it is the thing itself. */
+const GLYPHS = [{"a":-130,"d":"M123.5,523.4l30.9-26.6c2.4-2.1,4.8-3.4,7.3-4.1s4.9-0.8,7.4-0.3c2.4,0.5,4.8,1.5,7.2,3.1 c2.3,1.6,4.6,3.6,6.8,6.1c1.7,2,3.3,4.2,4.8,6.6c1.5,2.5,2.7,5.1,3.5,7.9l-6.1,4.1c-1.2-3-2.4-5.4-3.6-7.2 c-1.1-1.8-2.2-3.4-3.3-4.6c-1.4-1.6-2.9-3-4.4-4c-1.6-1.1-3.1-1.8-4.7-2.1c-1.6-0.3-3.2-0.3-4.9,0.2s-3.3,1.4-4.9,2.8L130,530.7 L123.5,523.4z"},{"a":-117.1,"d":"M84.7,456.7l7.1-3.6l19.3,37.5l14.9-7.7l-19.1-37.1l6.7-3.5l19.1,37.1l16.2-8.4l-19.4-37.7l7.1-3.6l23.8,46.3 l-52,26.8L84.7,456.7z"},{"a":-102.2,"d":"M66.1,382.9l7.8-1.6l8.2,39.2l18.2-3.8l-8.1-38.8l7.3-1.5l8.1,38.8l23.9-5l2,9.4l-57.2,12L66.1,382.9z"},{"a":-86.7,"d":"M67.2,309l7.9,0.4l-2,40l18.6,0.9l2-39.6l7.5,0.4l-2,39.6l24.4,1.2l-0.5,9.6l-58.4-3L67.2,309z"},{"a":-64.8,"d":"M97.2,219.3c1.6-3.3,3.4-6.1,5.4-8.1c2-2.1,4-3.6,6.1-4.5s4.1-1.3,6.2-1.3c2.1,0.1,4,0.6,5.9,1.5 c2.7,1.3,4.6,3.1,5.6,5.3s1.4,4.6,1.3,7.2c1.2-1.1,2.5-2,3.8-2.8c1.4-0.8,2.8-1.3,4.4-1.7c1.5-0.4,3.1-0.5,4.7-0.3 c1.6,0.1,3.1,0.6,4.7,1.4c2,1,3.7,2.3,5.1,4.1c1.4,1.8,2.4,3.8,3,6.2s0.7,5,0.3,7.8c-0.4,2.9-1.3,5.8-2.8,9l-16.1,33l-52.6-25.6 L97.2,219.3z M108.6,252.5l11.3-23.2c1.6-3.2,2.1-6,1.5-8.3c-0.5-2.4-1.8-4-4-5.1c-1.1-0.5-2.2-0.8-3.4-0.8 c-1.2,0-2.4,0.3-3.5,0.9c-1.2,0.6-2.3,1.5-3.4,2.7s-2.2,2.8-3.1,4.7l-10.6,21.7L108.6,252.5z M131.7,263.7l11.3-23.2 c0.9-1.9,1.5-3.7,1.8-5.5c0.2-1.7,0.2-3.3-0.1-4.7s-0.9-2.7-1.7-3.8s-1.9-1.9-3.1-2.5c-1.2-0.6-2.5-0.9-3.9-0.9s-2.7,0.3-4,0.9 c-1.3,0.6-2.5,1.5-3.7,2.7s-2.1,2.7-3,4.4L113.7,255L131.7,263.7z"},{"a":-47.7,"d":"M144,153.8c2.4-2.6,4.9-4.6,7.3-5.9c2.5-1.3,4.8-2.1,7.1-2.3s4.4,0.1,6.4,0.8c2,0.8,3.9,1.9,5.5,3.4 c1.3,1.2,2.3,2.5,3.2,4s1.5,3.1,1.8,4.8s0.3,3.5,0,5.4s-1,3.9-2,5.9l33.4,2.1l-7.4,8l-32-2.3l-13.7,14.9l18.4,17l-6.5,7.1 l-43-39.7L144,153.8z M148.8,188.5l14-15.2c1.5-1.6,2.6-3.2,3.4-4.8c0.7-1.5,1.1-3,1.1-4.3c0-1.4-0.2-2.6-0.7-3.7 c-0.5-1.1-1.2-2.1-2.2-3c-0.9-0.9-2-1.5-3.2-1.9s-2.4-0.6-3.8-0.4c-1.3,0.1-2.8,0.6-4.2,1.5c-1.5,0.8-3,2.1-4.5,3.7l-14,15.2 L148.8,188.5z"},{"a":-29,"d":"M211.6,100.6c5.2-2.9,10.2-4.7,15.1-5.5c4.8-0.8,9.3-0.7,13.4,0.2c4.1,0.9,7.7,2.6,10.9,4.9 c3.2,2.4,5.7,5.2,7.6,8.6c1.9,3.3,2.9,7,3.3,10.9c0.3,3.9-0.2,7.9-1.6,11.9c-1.4,4-3.7,7.8-6.9,11.5c-3.2,3.7-7.4,7-12.6,9.9 c-5.3,2.9-10.4,4.8-15.2,5.5s-9.3,0.6-13.4-0.3c-4.1-0.9-7.7-2.6-10.9-5c-3.1-2.4-5.6-5.2-7.5-8.5s-3-7-3.3-10.9 c-0.3-4,0.2-7.9,1.6-11.9c1.4-3.9,3.7-7.8,6.9-11.5C202.2,106.8,206.4,103.5,211.6,100.6z M215.5,107.5c-3.7,2.1-6.7,4.4-9.2,7.1 c-2.4,2.6-4.2,5.4-5.3,8.3s-1.6,5.8-1.4,8.8c0.2,3,1,5.8,2.5,8.5s3.4,4.9,5.8,6.6c2.4,1.7,5.1,2.9,8.2,3.5c3,0.6,6.3,0.6,9.8-0.1 c3.5-0.6,7.1-2,10.8-4s6.7-4.4,9.1-7c2.4-2.6,4.1-5.4,5.2-8.3c1.1-2.9,1.6-5.8,1.4-8.8c-0.2-3-1-5.8-2.5-8.5s-3.5-4.9-5.9-6.7 c-2.4-1.7-5.2-2.9-8.2-3.5s-6.3-0.6-9.8,0.1C222.7,104.1,219.2,105.5,215.5,107.5z"},{"a":-7.2,"d":"M275.5,72.1l22.7,39l19.3-44.6l1.3-0.1l27.1,39.2l14.6-43.2l9.5-1.1l-20.2,61.9l-1.4,0.2l-28.9-42L299.2,129 l-1.3,0.1l-32.3-56L275.5,72.1z"},{"a":16,"d":"M398.6,67.1l40.3,55.4l11.4-39.9l9,2.6l-16.2,57l-1.2-0.4l-40.4-55.5l-11.4,40l-9-2.6l16.2-57L398.6,67.1z"},{"a":41.9,"d":"M519.4,119.9l2.8,35.2l35.4-1.5l8.2,7.2l-44,2l-18.4,20.9l-7.2-6.4l18.4-20.8l-3.6-44.1L519.4,119.9z"},{"a":59.6,"d":"M591.8,198.3l-30.9,61.9l-5.7-9l8-15.7l-18.3-28.9l-17.6,0.5l-5.5-8.7L591,197L591.8,198.3z M552,206.4 l14.4,22.7l12.1-23.5L552,206.4z"},{"a":76,"d":"M619,308.9c1.1-3.8,1.8-7.7,2.1-11.8c0.3-4.1-0.2-8.5-1.4-13.2c-1-3.8-2.4-7.2-4.2-10.3 c-1.8-3-3.9-5.5-6.3-7.5c-2.4-2-5.1-3.3-8.1-4s-6.2-0.6-9.6,0.3c-3.5,0.9-6.3,2.4-8.6,4.5s-4,4.6-5.2,7.6 c-1.2,2.9-1.8,6.1-1.9,9.7c-0.1,3.5,0.3,7.1,1.3,10.8c0.6,2.4,1.5,4.7,2.5,6.9c1,2.2,2.2,4.1,3.4,5.9c1.3,1.8,2.7,3.3,4.2,4.6 c1.5,1.3,3.2,2.2,4.9,2.9l-3.1,8.4c-2.4-1-4.6-2.3-6.7-4c-2.1-1.7-3.9-3.7-5.6-6.1c-1.7-2.3-3.1-4.8-4.3-7.6 c-1.2-2.8-2.2-5.6-3-8.6c-1.4-5.3-1.9-10.3-1.7-15.2c0.2-4.9,1.2-9.3,2.9-13.2c1.7-3.9,4.1-7.3,7.3-10.1c3.1-2.8,6.9-4.8,11.4-5.9 c4.4-1.2,8.7-1.3,12.7-0.3c4,0.9,7.7,2.7,11,5.4c3.3,2.6,6.2,6,8.7,10.2s4.5,8.9,5.8,14.2c1.5,5.8,2.2,11.3,2,16.5 s-1,9.9-2.4,14.1L619,308.9z"},{"a":93.5,"d":"M635.4,348l-24.5-1.5l-2.4,39.2l24.5,1.5l-0.6,9.6l-58.4-3.5l0.6-9.6l26,1.6L603,346l-25.9-1.6l0.6-9.6 l58.4,3.5L635.4,348z"},{"a":111.4,"d":"M608,474.4l-7.5-2.7l8.2-22.7l-47.5-17.2l3.3-9.1l47.5,17.2l8.2-22.6l7.5,2.7L608,474.4z"},{"a":125.4,"d":"M558,528.4c3.6-2.3,7-5.1,10.4-8.1c3.4-3.1,6.3-6.4,8.9-9.9c3.1-4.3,4.8-8.1,5.4-11.4 c0.5-3.3-0.4-5.9-2.9-7.7c-1.8-1.3-3.6-1.5-5.6-0.8c-1.9,0.8-4.3,2.3-7,4.7c-1.2,1-2.5,2.2-3.9,3.6s-2.9,2.8-4.5,4.3 c-1.5,1.5-3.1,2.9-4.7,4.3c-1.6,1.4-3.1,2.7-4.6,3.9c-1.8,1.4-3.6,2.6-5.2,3.6c-1.6,1-3.2,1.6-4.8,1.9c-1.6,0.3-3.1,0.3-4.5,0 c-1.5-0.3-3-1-4.5-2.1c-4.4-3.1-6.4-7.5-6.1-13c0.4-5.5,3.2-12,8.4-19.3c1.2-1.6,2.6-3.4,4.2-5.4c1.6-2,3.4-4,5.3-6 c1.9-2,3.9-3.9,6.1-5.7c2.1-1.8,4.3-3.3,6.5-4.6l4.8,5.9c-2,1.2-4,2.7-6.1,4.4c-2,1.7-3.9,3.5-5.7,5.3s-3.5,3.7-5.1,5.5 c-1.6,1.9-2.9,3.6-4.1,5.2c-3.4,4.8-5.3,8.9-5.7,12.2c-0.4,3.3,0.7,5.9,3.2,7.6c1.7,1.2,3.6,1.6,5.4,1.1c1.9-0.5,4.2-2,6.9-4.4 c1-0.9,2.1-1.9,3.4-3.2c1.3-1.3,2.7-2.6,4.2-4.1c1.5-1.4,3-2.9,4.5-4.3c1.5-1.5,3.1-2.8,4.5-4c1.8-1.5,3.6-2.8,5.4-3.9 c1.8-1.1,3.5-1.8,5.2-2.3c1.7-0.4,3.4-0.5,5-0.2c1.7,0.3,3.3,1,4.9,2.1c2.2,1.5,3.7,3.5,4.5,5.7c0.9,2.3,1.1,4.8,0.8,7.5 s-1.2,5.7-2.6,8.8c-1.4,3.2-3.3,6.4-5.7,9.7c-2.9,4-6,7.6-9.4,10.8s-7,5.9-10.7,8.1L558,528.4z"}];
+
+  /* Each glyph travels in its own square, 80 artwork units on a side, centred
+     on the point of the ring it belongs to — 257 above the middle of a 700
+     box. Inside the square the glyph is counter-rotated by its own angle, so
+     it stands upright while the line is straight; putting the square back at
+     that angle returns it exactly where the artwork had it. */
+  const CELL   = 80;
+  const CELL_X = 350 - CELL / 2;
+  const CELL_Y = 350 - 257 - CELL / 2;
+  /* How far apart the line starts, as a multiple of the ring spacing. Read off
+     the screen rather than fixed, so the widest moment fills about half the
+     window on any of them and never runs off the edge. */
+  const SPREAD_MIN = 1.45;
+  const SPREAD_MAX = 2.10;
 
   /* Where the letters end up. Measured off the artwork rather than guessed:
      its own ring text sits at radius 257 in a 700-unit square with caps 37.6
@@ -2052,47 +2074,49 @@ html.intro-lock .nav .logo{opacity:0}
     const ringR  = markPx * RING_R;
     const ringEm = markPx * RING_EM;
 
-    /* The line starts as wide as the screen can carry and lands on the ring's
-       own letter spacing, which is set by the circle rather than by taste:
-       seventeen characters have to close the top of it. */
-    const vw      = Math.min(window.innerWidth, 1600);
-    const startEm = vw <= 560 ? 11 : vw <= 980 ? 13 : 15;   /* cap height, px */
-    const endEm   = ringEm;
-    const endArc  = (2 * Math.PI * ringR) * RING_ARC;       /* of the circle  */
-    const startSp = Math.min(vw * 0.024, 34);               /* px per letter  */
-    const endSp   = endArc / (TEXT.length - 1);
+    /* Every glyph knows where it belongs: the angle it sits at on the printed
+       ring, turned into a distance along the line. The move is then one number
+       — the line starts SPREAD times that distance apart and closes to exactly
+       it, so the last frame is the artwork and not an approximation of it. */
+    const cellPx = markPx * CELL / 700;
+    const arcPos = GLYPHS.map(function(g){ return g.a * Math.PI / 180 * ringR; });
+    const reach  = Math.max.apply(null, arcPos.map(Math.abs));
+    const want   = Math.min(window.innerWidth * 0.52, 780) / 2;
+    const SPREAD = Math.min(SPREAD_MAX, Math.max(SPREAD_MIN, want / reach));
 
-    const letters = Array.prototype.map.call(TEXT, function(ch){
+    const letters = GLYPHS.map(function(g){
       const el = document.createElement('i');
-      el.textContent = ch === ' ' ? ' ' : ch;
+      el.style.width = el.style.height = cellPx + 'px';
+      el.innerHTML =
+        '<svg viewBox="' + CELL_X + ' ' + CELL_Y + ' ' + CELL + ' ' + CELL + '" ' +
+             'width="' + cellPx + '" height="' + cellPx + '" aria-hidden="true">' +
+          '<path transform="rotate(' + (-g.a) + ' 350 350)" fill="#fff" d="' + g.d + '"/>' +
+        '</svg>';
       word.appendChild(el);
       return el;
     });
-    const mid = (TEXT.length - 1) / 2;
+    const mid = (letters.length - 1) / 2;
 
     /* One frame of the move. `close` runs the tracking, `bend` the curve, `lit`
        the letters arriving; every other value is read off them, so the letters
        cannot drift out of agreement with each other. One clock, one frame — no
        transition on a letter races the geometry. */
     function frame(close, bend, lit){
-      const sp   = startSp + (endSp - startSp) * close;
-      /* Size belongs to the bend, not to the close: while the tracking is
-         coming in the letters must stay exactly as big as they were, or the
-         word reads as retreating rather than gathering. */
-      const em   = startEm + (endEm - startEm) * bend;
-      const curv = bend;                       /* 0 flat, 1 on the ring */
-      const R    = curv > 0.0001 ? ringR / curv : Infinity;
+      const spread = SPREAD + (1 - SPREAD) * close;
+      /* A hair larger while the line is straight, settling to the printed size
+         as it wraps: the letters gather rather than merely sliding together. */
+      const scale  = 1.14 + (1 - 1.14) * bend;
+      const curv   = bend;                     /* 0 flat, 1 on the ring */
+      const R      = curv > 0.0001 ? ringR / curv : Infinity;
 
-      word.style.fontSize = em.toFixed(3) + 'px';
-
-      /* The word rides up by the ring's radius as it bends, so at the end of
-         the move its centre letter is standing on top of the circle rather
-         than in the middle of it. Written as one expression with the bend, so
-         the rise and the curve are the same gesture. */
+      /* The line rides up by the ring's radius as it bends, so at the end of
+         the move it is standing on top of the circle rather than through the
+         middle of it. One expression with the bend: the rise and the curve are
+         the same gesture. */
       const riseY = -ringR * curv;
 
       letters.forEach(function(el, i){
-        const s = (i - mid) * sp;              /* distance along the line */
+        const s = arcPos[i] * spread;          /* distance along the line */
         let x = s, y = riseY, rot = 0;
         if (R !== Infinity){
           const th = s / R;
@@ -2102,7 +2126,7 @@ html.intro-lock .nav .logo{opacity:0}
         }
         el.style.transform =
           'translate(-50%,-50%) translate(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px)' +
-          ' rotate(' + rot.toFixed(3) + 'deg)';
+          ' rotate(' + rot.toFixed(3) + 'deg) scale(' + scale.toFixed(4) + ')';
 
         /* They arrive from the middle outward, each a breath after the one
            inside it, so the line assembles rather than switching on. */
