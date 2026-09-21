@@ -244,7 +244,10 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
 .cat-cta,
 .cta-band button,
 .btn-sm,
-.shr-copy{
+.shr-copy,
+/* The knowledge centre's event card: the call to action is a span
+   inside the card, and the card carries the hover. */
+.ecard .ec-cta{
   height:var(--jby-btn-h);
   padding:var(--jby-btn-pad);
   border-radius:var(--jby-btn-radius);
@@ -347,6 +350,23 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
   background:var(--jby-blue);
   border-color:var(--jby-rule-hover);
   color:#fff;
+}
+
+/* The card owns the hover, not the button inside it, so this is written
+   the way the page writes it — at 0,3,0, above the white it used. */
+.ecard:hover .ec-cta{
+  background:var(--jby-blue);
+  border-color:var(--jby-rule-hover);
+  color:#fff;
+}
+
+/* The knowledge centre's band stacks its two buttons: .cb-inner is
+   720px wide with 40px of padding, leaving 640 for a row that needs 663.
+   It wrapped before the buttons took the shared padding too. Rather than
+   widen the column — which would re-wrap the paragraph above — the row
+   alone reaches into the padding. It still wraps on a narrow screen. */
+@media (min-width:760px){
+  .cta-band .actions{margin-left:-40px;margin-right:-40px}
 }
 
 /* The brand-blue CTA band. It runs under three names — .expert, .help

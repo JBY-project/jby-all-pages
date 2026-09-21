@@ -1,4 +1,4 @@
-/* What the hover rule still misses on this page.
+/* Every hover on this page that does not land on the brand blue.
 
    For every visible clickable element it works out which :hover rule
    actually wins — by specificity first, then document order, the way the
@@ -49,9 +49,13 @@
   const resolve = v => { const d = document.createElement('div'); d.style.color = v;
     document.body.appendChild(d); const c = getComputedStyle(d).color; d.remove(); return c; };
   const rgb = c => (c.match(/[\d.]+/g) || []).map(Number);
-  const neutralDark = c => { const [r, g, b, al = 1] = rgb(c);
-    if (al < 0.25) return false;
-    return Math.max(r, g, b) - Math.min(r, g, b) <= 12 && (r + g + b) / 3 < 170; };
+  // Anything that is not the brand blue. An earlier version only looked
+  // for black and grey, so the knowledge centre's card, which hovers to
+  // white, went unreported.
+  const BRAND = [[65, 100, 123], [54, 84, 102], [44, 74, 92]];
+  const offBrand = c => { const [r, g, b, al = 1] = rgb(c);
+    if (al < 0.15) return false;
+    return !BRAND.some(([R, G, B]) => Math.abs(r - R) + Math.abs(g - G) + Math.abs(b - B) <= 30); };
 
   let order = 0;
   const winner = new Map();
@@ -78,9 +82,9 @@
   const found = {};
   for (const [el, v] of winner) {
     const fill = resolve(getComputedStyle(el).getPropertyValue(v.bg.replace(/var\(|\)/g, '').trim()) || v.bg);
-    if (!neutralDark(fill)) continue;
+    if (!offBrand(fill)) continue;
     found[v.sel] = found[v.sel] || { fill, count: 0, label: el.textContent.trim().slice(0, 20) || `${el.tagName.toLowerCase()} icon` };
     found[v.sel].count++;
   }
-  return JSON.stringify({ page: document.title.slice(0, 34), stillDark: found });
+  return JSON.stringify({ page: document.title.slice(0, 34), notBrandBlue: found });
 })()
