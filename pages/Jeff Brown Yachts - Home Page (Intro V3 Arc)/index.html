@@ -736,11 +736,11 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 /* ======================================================================= */
 html.intro-lock,html.intro-lock body{overflow:hidden}
 html.intro-lock .nav .logo{opacity:0}
-/* The header wears the printed artwork, whose ring text is not the face the
-   intro just drew. The two are the same size and in the same place by then,
-   so they cross rather than cut, and at 52px the change of face passes. */
-.nav .logo{transition:opacity .34s cubic-bezier(.4,0,.2,1)}
-#intro.done{opacity:0;transition:opacity .34s cubic-bezier(.4,0,.2,1)}
+/* The last handover is one fade, not two. The header's own logo is put back
+   at full strength underneath first — hidden, because ours is opaque and on
+   top — and only then does ours leave. Fading both at once was the blink: two
+   half-transparent marks over the hero add up to less ink than one. */
+#intro.done{opacity:0;transition:opacity .3s cubic-bezier(.4,0,.2,1)}
 
 #intro{position:fixed;inset:0;z-index:2000;pointer-events:none;
   --mark:205px;    /* the roundel at full size, before it flies   */
@@ -2161,10 +2161,15 @@ const GLYPHS = [{"a":-130,"d":"M123.5,523.4l30.9-26.6c2.4-2.1,4.8-3.4,7.3-4.1s4.
     /* The handover waits for the arc to close. Letting it start early left the
        live letters dissolving on their way to the ring, which reads as a
        mistake rather than a move. */
+    /* The flight's own duration, so the landing can be waited for rather than
+       guessed at: fading while the mark is still moving was half the blink. */
+    const FLY = 1050 * k;
+    intro.style.setProperty('--fly', (FLY / 1000).toFixed(3) + 's');
+
     const T = {
       handover: CLOSE + HOLD + BEND +  80 * k,
       lift:     CLOSE + HOLD + BEND + 420 * k,
-      land:     CLOSE + HOLD + BEND + 1250 * k
+      land:     CLOSE + HOLD + BEND + 420 * k + FLY + 90 * k
     };
 
     /* The artwork comes up under the live letters and stops there. It carries
@@ -2194,11 +2199,11 @@ const GLYPHS = [{"a":-130,"d":"M123.5,523.4l30.9-26.6c2.4-2.1,4.8-3.4,7.3-4.1s4.
        arriving in the same frame read as one logo that never moved. */
     timers.push(setTimeout(function(){
       cancelAnimationFrame(raf);
-      root.classList.remove('intro-lock');   /* the header logo fades up */
-      intro.classList.add('done');           /* and the overlay fades out */
+      root.classList.remove('intro-lock');   /* the header logo is back, at full */
+      intro.classList.add('done');           /* and only ours fades, off the top */
       timers.push(setTimeout(function(){
         if (intro.parentNode) intro.remove();
-      }, 380 * k));
+      }, 340 * k));
     }, T.land));
 
     return T.land;
