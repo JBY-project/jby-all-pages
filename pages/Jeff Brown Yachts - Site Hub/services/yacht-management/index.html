@@ -339,7 +339,15 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
 .btn-white,
 .btn-ghost-light,
 .btn-ghost-dark,
-.searchbar .btn{
+.searchbar .btn,
+/* Named small, or sitting in a dense column, but each of these is the
+   action of its section: "See details" on every event, "View all yachts"
+   on the office page, "Book a consultation" in the listing's band. */
+.ev-btn,
+.cat-cta,
+.cta-band button,
+.btn-sm,
+.shr-copy{
   height:var(--jby-btn-h);
   padding:var(--jby-btn-pad);
   border-radius:var(--jby-btn-radius);
@@ -373,8 +381,9 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
 .loc-modal-cta.secondary:hover,
 .s-link:hover,
 .btn-line:hover,
-/* Compact controls — the events filter, the office category chip. They
-   keep their own smaller size; only the colour is the rule's business. */
+/* The remaining compact controls keep their own size — .terms button is
+   a segmented choice of loan term, .chip is a tag, neither is a call to
+   action. Only their colour is the rule's business. */
 .ev-btn:hover,
 .cat-cta:hover,
 .btn-basic:hover,
