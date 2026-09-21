@@ -7,7 +7,8 @@
 #
 # Blank lines and lines starting with # are ignored.
 
-# This branch is the client's pass over the home page: the page published at
-# ywteamyw.github.io/jby-homepage.github.io, which this folder's JBY-Home.html
-# matches byte for byte. The folder carries its own 150MB of media.
-pages/Jeff Brown Yachts - Home Page
+# This branch publishes nothing. It is the design-system pass over every
+# page, reviewed on a local server rather than a link, and the home page
+# it started from carries 150MB of media — enough to push the previews
+# site past its 900MB budget and fail the build for every branch.
+# Name a page here when something on this branch needs sharing.
