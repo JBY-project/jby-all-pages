@@ -7,8 +7,7 @@
 #
 # Blank lines and lines starting with # are ignored.
 
-pages/Jeff Brown Yachts - Locations Page
-pages/Jeff Brown Yachts - Office Page
-pages/Jeff Brown Yachts - Site Hub
-pages/Jeff Brown Yachts - Home Page V1
-pages/Jeff Brown Yachts - Brand Page (Axopar)
+# This branch is the client's pass over the home page: the page published at
+# ywteamyw.github.io/jby-homepage.github.io, which this folder's JBY-Home.html
+# matches byte for byte. The folder carries its own 150MB of media.
+pages/Jeff Brown Yachts - Home Page

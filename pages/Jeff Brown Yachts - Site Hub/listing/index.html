@@ -721,6 +721,198 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--secondary);bor
 </style>
 <link rel="stylesheet" href="/jby-site/site.css?v=6">
 <script defer src="/jby-site/site.js?v=6"></script>
+<style data-jby-system>
+/* ======================================================================
+   JBY design rules
+   ----------------------------------------------------------------------
+   The rules the client asked for across the whole site, in one place.
+   Each page is a standalone site with its own inline <style>, so this
+   file is copied into the page's folder and linked *after* that style
+   block — last one in wins, and no !important is needed.
+
+   Roll it out with: node design-system/apply.mjs "<page folder>"
+   ====================================================================== */
+
+:root{
+  /* The brand blue already lives in every page as --navy; these are the
+     fallbacks for the few that do not define it. */
+  --jby-blue:var(--navy,#41647b);
+  --jby-blue-d:var(--navy-d,#365466);
+  /* On hover an outlined button drops its rule: the fill carries the
+     shape from there. */
+  --jby-rule-hover:transparent;
+
+  /* One button, everywhere. */
+  --jby-btn-h:48px;
+  --jby-btn-pad:0 28px;
+  --jby-btn-radius:0;
+
+  /* A white button standing on a photograph or video: a veil the image
+     shows through, with white type — not a white slab with dark type. */
+  --jby-veil:rgba(255,255,255,0.28);
+}
+
+/* ---- 1. One shape and size -------------------------------------------
+   Before this, the home page alone carried heights of 40, 44 and 48px
+   and four different paddings. */
+.nav .cta,
+.hero .btn-hero,
+.btn-solid,
+.btn-outline,
+.bento-cta,
+.expert .btn,
+.event-card .cta,
+.loc-modal-cta,
+.loc-modal-cta-secondary,
+.loc-modal-cta.secondary,
+.s-link,
+.btn-ghost,
+.btn-line,
+/* Pages that shrink one of these on their own — the CTA band's ghost
+   button and the ports header's link. Same specificity as their rule,
+   and this file is read after it. */
+.help .btn-ghost,
+.expert .btn-ghost,
+.ports-head .s-link,
+/* The listing, team-member and V1 templates name their buttons
+   differently; these are their text buttons. */
+.btn-primary,
+.btn-basic,
+.nav-cta,
+.gal-all,
+.btn-navy,
+.btn-out,
+.btn-help,
+.help .btn-help,
+.nf-actions a,
+/* The brand, model and knowledge-centre templates, which run at 48 and
+   50 with names of their own. */
+.ax-btn,
+.btn-md,
+.btn-white,
+.btn-ghost-light,
+.btn-ghost-dark,
+.searchbar .btn{
+  height:var(--jby-btn-h);
+  padding:var(--jby-btn-pad);
+  border-radius:var(--jby-btn-radius);
+  font-family:'Mesmerize',sans-serif;
+  font-weight:300;
+  font-size:16px;
+  line-height:20px;
+  letter-spacing:0;
+  text-transform:uppercase;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  transition:background .25s,color .25s,border-color .25s;
+}
+
+/* The event card's button spans the foot of its card rather than sitting
+   inline, so it keeps its own width and margin. */
+.event-card .cta{display:flex;justify-content:center;margin:24px 20px 20px}
+
+/* The brand carousel's pair is already 48 / 0 28px, so it needs the
+   colours only. */
+
+/* ---- 2. Hover turns blue, never black --------------------------------
+   Outlined buttons fill with the brand blue and let their rule go. */
+.btn-outline:hover,
+.loc-modal-cta-secondary:hover,
+.loc-modal-cta.secondary:hover,
+.s-link:hover,
+.btn-line:hover,
+/* Compact controls — the events filter, the office category chip. They
+   keep their own smaller size; only the colour is the rule's business. */
+.ev-btn:hover,
+.cat-cta:hover,
+.btn-basic:hover,
+.btn-out:hover,
+.btn-sm:hover,
+.shr-copy:hover,
+.chip:hover,
+.terms button:hover,
+.nf-actions a.ghost:hover,
+.ax-btn-ghost-dark:hover,
+.btn-ghost-dark:hover,
+/* Beats the page's own `.nav:not(.scrolled) .cta:hover`, which outranks a
+   plain `.nav .cta:hover` and would otherwise keep its grey wash. */
+.nav:not(.scrolled) .cta:hover{
+  background:var(--jby-blue);
+  border-color:var(--jby-rule-hover);
+  color:#fff;
+}
+
+/* Buttons already filled blue deepen rather than change colour. */
+.btn-solid:hover,
+.event-card .cta:hover,
+.loc-modal-cta:hover,
+.btn-primary:hover,
+.btn-navy:hover,
+.gal-all:hover,
+.nf-actions a.solid:hover{background:var(--jby-blue-d)}
+
+/* ---- 3. White buttons over a photograph or video ---------------------
+   A veil the picture shows through, with white type. The blur is what
+   keeps white type legible: 28% white over a bright frame is otherwise
+   white on near-white, and the type reads grey. */
+.hero .btn-hero,
+.builders .a.solid,
+.v-cta{
+  background:var(--jby-veil);
+  color:#fff;
+  border:0;
+  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px);
+}
+
+/* On media the hover is the solid blue too — no translucency. */
+.nav .cta:hover,
+.bento-cta:hover,
+.expert .btn:hover,
+.hero .btn-hero:hover,
+.builders .a.solid:hover,
+.builders .a.ghost:hover,
+.btn-ghost:hover,
+.nav-cta:hover,
+.cta-band button:hover,
+.ax-btn-light:hover,
+.ax-btn-ghost-light:hover,
+.btn-white:hover,
+.btn-ghost-light:hover,
+.lb-btn:hover,
+.v-cta:hover{
+  background:var(--jby-blue);
+  border-color:var(--jby-rule-hover);
+  color:#fff;
+}
+
+/* The brand-blue CTA band. It runs under three names — .expert, .help
+   and .cta-band — and it is painted #41647b, the very colour the hover
+   fills with. A button standing on it would disappear into its own
+   background, so inside the band the hover goes one step down.
+
+   :is() keeps this one rule instead of a band-by-class-by-class list,
+   and lands at 0,3,0 — above the plain hovers above, below nothing. */
+:is(.expert, .help, .cta-band)
+:is(.btn, .btn-ghost, .btn-outline, .btn-line, .btn-help, .btn-solid,
+    .btn-primary, .btn-white, .btn-ghost-light, .btn-ghost-dark,
+    .ax-btn, .cta, .s-link, button):hover{
+  background:var(--jby-blue-d);
+}
+
+/* The round and square icon affordances — carousel arrows, the scroll
+   arrow — keep their own 44px geometry: they are not buttons in the
+   shape-and-size sense. The hover rule still reaches them, and the scroll
+   arrow is one of the two that went black. */
+.hero-arr:hover,
+.builders-arr:hover,
+.cards-scroll-arr:hover{
+  background:var(--jby-blue);
+  border-color:var(--jby-rule-hover);
+  color:#fff;
+}
+</style>
 </head>
 <body>
 <div class="progress"><div class="progress-bar"></div></div>
