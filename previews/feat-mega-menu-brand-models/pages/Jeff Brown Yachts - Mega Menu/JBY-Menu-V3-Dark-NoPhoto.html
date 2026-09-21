@@ -731,7 +731,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .mega.open .mega-panel{transform:translateX(0)}
 
 /* dark version: cinematic image inside the content area only + stroke button */
-.mega[data-theme="dark"] .mega-panel{background:rgba(0,0,0,0.58);
+.mega[data-theme="dark"] .mega-panel{background:rgba(65,100,123,0.68);
   -webkit-backdrop-filter:blur(26px);backdrop-filter:blur(26px)}
 .mega[data-theme="dark"] .mega-detail{background:transparent}
 .mega[data-theme="dark"] .mega-feature,.mega[data-theme="dark"] .mega-scrim{display:none}
@@ -770,7 +770,11 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .mega-detail{position:relative;overflow:hidden;background:var(--m-detail)}
 .mega-back,.mega-models-back{display:none}
 
-.mega-pane{position:absolute;inset:0;padding:44px 52px;overflow:hidden;
+/* 27 rather than 44 at the top: it puts the column headings on the same
+   line as the first item in the rail. The rail's first row starts at
+   14px of its own padding plus the button's 2px margin and 13px padding,
+   and the heading's line box sits 2px inside its own box. */
+.mega-pane{position:absolute;inset:0;padding:27px 52px 44px;overflow:hidden;
   display:none;flex-wrap:wrap;gap:34px 60px;align-content:flex-start}
 .mega-pane.on{display:flex;animation:megaFade .55s ease both}
 @keyframes megaFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -1089,7 +1093,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
             <a href="#">Our Team</a>
             <a href="#">Locations</a>
             <a href="#">Contact Us</a>
-            <a href="#">Careers</a>
             <a href="#">FAQ</a>
           </div>
         </div>
