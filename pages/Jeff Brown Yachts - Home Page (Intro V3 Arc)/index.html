@@ -742,15 +742,16 @@ html.intro-lock .nav .logo{opacity:0}
    half-transparent marks over the hero add up to less ink than one. */
 #intro.done{opacity:0;transition:opacity .3s cubic-bezier(.4,0,.2,1)}
 
+/* The move itself is timed in the script, one clock for all of it. What is
+   left here is what CSS owns: the two dissolves and the flight, whose duration
+   the script writes into `--fly` so it can wait for the landing. */
 #intro{position:fixed;inset:0;z-index:2000;pointer-events:none;
   --mark:205px;    /* the roundel at full size, before it flies   */
-  --close:1.25s;   /* tracking closing                            */
-  --bend:1.45s;    /* the line bending onto the ring              */
-  --dissolve:.55s; /* live letters handing over to the artwork    */
+  --dissolve:.6s;  /* the mark rising under the letters           */
   --bgfade:.85s;   /* navy field dissolving                       */
-  --fly:1.05s;     /* roundel travelling to the header            */
+  --fly:1s;        /* roundel travelling to the header            */
   animation:introSafety .01s linear 14s forwards}
-#intro.slow{--close:3.75s;--bend:4.35s;--dissolve:1.65s;--bgfade:2.55s;--fly:3.15s}
+#intro.slow{--dissolve:1.8s;--bgfade:2.55s}
 @keyframes introSafety{to{opacity:0;visibility:hidden}}
 
 #intro-bg{position:absolute;inset:0;background:var(--navy);
@@ -792,7 +793,7 @@ html.intro-lock .nav .logo{opacity:0}
 @media (max-width:560px){ #intro{--mark:132px} }
 
 @media (prefers-reduced-motion:reduce){
-  #intro{--close:.01s;--bend:.01s;--dissolve:.2s;--bgfade:.3s;--fly:.3s}
+  #intro{--dissolve:.2s;--bgfade:.3s;--fly:.3s}
 }
 </style>
 <script>
@@ -2047,7 +2048,11 @@ const GLYPHS = [{"a":-130,"d":"M123.5,523.4l30.9-26.6c2.4-2.1,4.8-3.4,7.3-4.1s4.
 
   /* Two easings, both slow to leave and slower to arrive. Nothing overshoots:
      a bounce would undo the one thing this sequence is for. */
-  const easeInOut = (t) => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+  /* Both are second order rather than third: a cubic tail flattens so far that
+     the last tenth of a move reads as a stop, which is the thing this sequence
+     must not have. */
+  const easeOut   = (t) => 1 - (1 - t) * (1 - t);
+  const easeInOut = (t) => t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2;
 
   /* ?intro=hold stops the sequence the moment the arc closes and leaves it
      there, so the ring can be looked at against the artwork underneath. */
@@ -2139,42 +2144,43 @@ const GLYPHS = [{"a":-130,"d":"M123.5,523.4l30.9-26.6c2.4-2.1,4.8-3.4,7.3-4.1s4.
     frame(0, 0, 0);
     window.scrollTo(0, 0);
 
-    const CLOSE = (reduce ? 10 : 1050) * k;    /* tracking closing  */
-    const HOLD  = (reduce ?  0 :  100) * k;    /* a beat, closed    */
-    const BEND  = (reduce ? 10 : 1250) * k;    /* bending onto ring */
+    /* One continuous move, not three with pauses between them. The windows
+       overlap: the line is still closing when it starts to bend, the mark is
+       already coming up before the arc has finished closing, and the flight
+       begins while the last letters are seating. At no point is the screen
+       still — something is always on its way somewhere. */
+    const LIGHT      = (reduce ? 10 :  700) * k;   /* letters arriving        */
+    const CLOSE_END  = (reduce ? 10 : 1350) * k;   /* tracking closed         */
+    const BEND_FROM  = (reduce ?  0 :  700) * k;   /* bend starts, mid-close  */
+    const BEND_END   = (reduce ? 20 : 2200) * k;   /* line lying on the ring  */
+    const FLY        = (reduce ? 200 : 1000) * k;  /* mark travelling         */
+    intro.style.setProperty('--fly', (FLY / 1000).toFixed(3) + 's');
 
     const timers = [];
     let raf = 0;
     const t0 = performance.now();
 
-    const LIGHT = (reduce ? 10 : 780) * k;      /* letters arriving  */
-
     requestAnimationFrame(function step(now){
       const t     = now - t0;
       const lit   = Math.min(1, Math.max(0, t / LIGHT));
-      const close = Math.min(1, Math.max(0, t / CLOSE));
-      const bend  = Math.min(1, Math.max(0, (t - CLOSE - HOLD) / BEND));
-      frame(easeInOut(close), easeInOut(bend), lit);
+      const close = Math.min(1, Math.max(0, t / CLOSE_END));
+      const bend  = Math.min(1, Math.max(0, (t - BEND_FROM) / (BEND_END - BEND_FROM)));
+      /* The tracking decelerates into its end while the bend is accelerating
+         out of its start, so the handover between them has no dead frame. */
+      frame(easeOut(close), easeInOut(bend), lit);
       if (bend < 1) raf = requestAnimationFrame(step);
     });
 
-    /* The handover waits for the arc to close. Letting it start early left the
-       live letters dissolving on their way to the ring, which reads as a
-       mistake rather than a move. */
-    /* The flight's own duration, so the landing can be waited for rather than
-       guessed at: fading while the mark is still moving was half the blink. */
-    const FLY = 1050 * k;
-    intro.style.setProperty('--fly', (FLY / 1000).toFixed(3) + 's');
-
     const T = {
-      handover: CLOSE + HOLD + BEND +  80 * k,
-      lift:     CLOSE + HOLD + BEND + 420 * k,
-      land:     CLOSE + HOLD + BEND + 420 * k + FLY + 90 * k
+      /* The mark comes up under the letters while the arc is still closing the
+         last of the way, so it is there to be landed on rather than appearing
+         once everything has stopped. */
+      handover: BEND_END - 300 * k,
+      /* And the flight starts while the last letters are still seating. */
+      lift:     BEND_END - 120 * k,
+      land:     BEND_END - 120 * k + FLY + 60 * k
     };
 
-    /* The artwork comes up under the live letters and stops there. It carries
-       no ring text of its own, so nothing is swapped and nothing dissolves:
-       the letters that crossed the screen are the ones on the finished mark. */
     if (hold) return T.handover;
 
     timers.push(setTimeout(function(){ intro.classList.add('handover'); }, T.handover));
