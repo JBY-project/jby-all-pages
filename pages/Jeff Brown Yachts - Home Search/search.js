@@ -351,7 +351,8 @@
       drop  = document.getElementById('jbs-drop'),
       closeB= document.getElementById('jbs-close'),
       countE= document.getElementById('jbs-count'),
-      openB = document.getElementById('nav-search-btn');
+      openB = document.getElementById('nav-search-btn'),
+      shell = document.querySelector('.jbs-shell');
   if (!root || !input || !openB) return;   // no header panel on this page
 
   // The four shortcuts that sit under the empty field, YachtWay-style
@@ -397,6 +398,8 @@
     }).join('') + '</div>';
   }
 
+  // Unused since the quick links came out of the panel — they repeated the
+  // hamburger menu. Kept with QUICK above in case they are wanted back.
   function quickLinks(){
     return '<section class="jbs-sec"><h2 class="jbs-lbl">Quick links</h2><div class="jbs-quick">' +
       QUICK.map(function(q){
@@ -405,17 +408,13 @@
       }).join('') + '</div></section>';
   }
 
-  // Empty field: what you searched before, then somewhere to go. Nothing is
-  // invented here — a hand-written "suggested" list would only go stale.
+  // Empty field: the bar on its own. The quick links and recent searches
+  // that used to sit here repeat what the hamburger menu already says, so
+  // nothing opens until there is something to answer with.
   function renderIdle(){
-    var recent = getRecent();
-    var html = '';
-    if (recent.length){
-      html += '<section class="jbs-sec"><h2 class="jbs-lbl">Recent searches</h2>' +
-              chips(recent, true) + '</section>';
-    }
-    html += quickLinks();
-    drop.innerHTML = html;
+    drop.innerHTML = '';
+    drop.hidden = true;
+    shell.classList.add('is-idle');
     countE.textContent = '';
     rows = []; sel = -1;
   }
@@ -471,6 +470,8 @@
 
 
   function renderResults(q){
+    drop.hidden = false;
+    shell.classList.remove('is-idle');
     var qt   = terms(q);
     var hits;
 
@@ -495,8 +496,7 @@
         pinnedRows(qt) +
         '<div class="jbs-none"><h3>' +
         (q.trim() ? 'No matches for &ldquo;'+esc(q)+'&rdquo;' : 'Nothing to show yet') + '</h3>' +
-        '<p>Try a builder, a model, a city or a service.</p></div>' +
-        quickLinks();
+        '<p>Try a builder, a model, a city or a service.</p></div>';
       countE.textContent = 'No results';
       rows = []; sel = -1;
       return;
