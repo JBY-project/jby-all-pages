@@ -46,6 +46,42 @@ token already defined in 122 files.
 white type, no border — the picture shows through. Not a white slab with dark
 type.
 
+## Rule 5, not written yet: the type scale
+
+The client's September note was that the headers are too large, and they named
+`20` for a section header. The home page has been taken down to four sizes, by
+hand, in its own inline style:
+
+| | |
+|---|---|
+| `20/30` | section header |
+| `18/28` | card title, sub-head |
+| `16/26` | body copy |
+| `14/22` | meta, captions, the small print inside a card |
+
+The hero sits above the scale at `26/38`, one line a slide.
+
+**This has to reach every page**, and it is not yet a rule in this file. It
+belongs here rather than in each page's own CSS, for the same reason the button
+did: the sizes are currently spelled out separately in thirty-odd files, and a
+client who asks for 18 next month should not need thirty-odd edits.
+
+Writing it is the same shape of job as rule 2. Each tier becomes one selector
+list holding every name the pages use for that tier — the home page alone has
+`.s-title`, `.s-title-row h2`, `.intro h2`, `.what-we-do .head h2`,
+`.vessels-head-row h2`, `.videos .head h2`, `.visit-head-row h2` and
+`.expert h2` all meaning *section header*. The other pages have to be read for
+theirs before the list is complete.
+
+Two things to watch when it is written:
+
+* **Do not touch buttons.** They are `16px` by rule 2, and several of them are
+  `<h4>`-ish in their markup. A tier selector that catches a button label
+  breaks rule 2 silently.
+* **The narrow breakpoints carry their own sizes.** Every page overrides
+  heading sizes under `900px` and `640px`. A desktop-only rule leaves phones
+  with headings larger than the desktop ones.
+
 ## Checking a page
 
 Open it and paste `audit.js` into the console. It prints the height of every
