@@ -49,17 +49,33 @@ import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from '
 import { join } from 'node:path';
 
 /* ---- the scale -------------------------------------------------------- */
+/* The client's 20 is the section header. A page title stays above it: the
+   hero tier was taken down to 20 once and put back, because a page whose
+   title is the same size as every heading under it has no first line. */
 const TIER = {
   hero:    { base: [26, 38], narrow: [20, 30] },
   section: { base: [20, 30], narrow: [18, 26] },
   card:    { base: [18, 28], narrow: [16, 24] },
 };
 
+/* Anything under this is left alone. Buttons are 16px by rule 2, so the
+   floor only has to clear them; it used to be 22 and walked past nine
+   headings sitting at 21. */
+const FLOOR = 21;
+
 /* ---- what counts as a heading ----------------------------------------- */
 const HEADINGISH = /(^|[\s,>.+~])h[1-5]\b|title|head|heading/i;
+/* Headings the markup does not call headings. `<p class="eyebrow">Our Story</p>`
+   is the section title on the about page and was sitting at 24px because
+   nothing in its name says heading; `.h-lg` down to `.h-xs` are an explicit
+   type-helper scale; `.ax-h2` and `.t-h1` are headings spelled oddly. */
+const NAMED_HEADINGS = /\.h-(lg|md|sm|xs)\b|\.t-h1\b|\.ax-h2\b|eyebrow|voices-sub/i;
+
 /* Looks like a heading by name, is not one: figures, wordmarks, quote marks,
-   icon glyphs. */
+   icon glyphs, prices. Every one of these sits at 21px or more and would
+   otherwise be swept up. */
 const DECOR = /\.(qm|mk|num|amt|word|rs-v|d|t-mono|datebig)\b|\bi$|icon|arr\b/i;
+const NOT_TYPE = /price|\bprc\b|hm-v|\bplay\b|close|check|-word\b|\.n$|\.v$|\.dy$|\.dbig\b/i;
 /* Bare classes whose tier cannot be read off a tag. Names beat sizes here:
    `.s-title` is a section title at 32px on eight pages, and reading 32 as
    "big, therefore a hero" promoted every one of them. */
@@ -73,6 +89,10 @@ function tierFromSelector(selector, px) {
   /* Being inside a card beats the tag. `.article-card h1` is a card title
      that happens to be marked up as an h1, and the tag alone made it a hero
      the size of a page title. */
+  /* the type-helper scale, largest to smallest */
+  if (/\.h-lg\b|\.t-h1\b/i.test(selector)) return 'hero';
+  if (/\.h-md\b|\.ax-h2\b|eyebrow/i.test(selector)) return 'section';
+  if (/\.h-sm\b|\.h-xs\b|voices-sub/i.test(selector)) return 'card';
   if (CARD_NAMED.test(selector)) return 'card';
   if (/(^|[\s,>.+~])h1\b/i.test(selector)) return 'hero';
   if (/(^|[\s,>.+~])h2\b/i.test(selector)) return 'section';
@@ -140,7 +160,9 @@ function rewrite(html) {
       const fs = /font-size:\s*(\d+)px/.exec(m[2]);
       if (!fs) continue;
       const px = Number(fs[1]);
-      if (px < 22 || !HEADINGISH.test(selector) || DECOR.test(selector)) continue;
+      if (px < FLOOR) continue;
+      if (!HEADINGISH.test(selector) && !NAMED_HEADINGS.test(selector)) continue;
+      if (DECOR.test(selector) || NOT_TYPE.test(selector)) continue;
       const isNarrow = narrow.some(([a, b]) => m.index >= a && m.index < b);
       if (isNarrow || tierOfSelector.has(selector)) continue;
       tierOfSelector.set(selector, tierFromSelector(selector, px));
@@ -162,7 +184,9 @@ function rewrite(html) {
       const fs = /font-size:\s*(\d+)px/.exec(decls);
       if (!fs) continue;
       const px = Number(fs[1]);
-      if (px < 22 || !HEADINGISH.test(selector) || DECOR.test(selector)) continue;
+      if (px < FLOOR) continue;
+      if (!HEADINGISH.test(selector) && !NAMED_HEADINGS.test(selector)) continue;
+      if (DECOR.test(selector) || NOT_TYPE.test(selector)) continue;
 
       const isNarrow = narrow.some(([a, b]) => m.index >= a && m.index < b);
       const tier = TIER[tierOfSelector.get(selector) ?? tierFromSelector(selector, px)];
@@ -206,13 +230,7 @@ const args = process.argv.slice(2);
 const dry = args.includes('--dry');
 const only = args.find(a => !a.startsWith('--'));
 
-/* The home page was taken to this scale by hand. Its hero is already 26,
-   which this pass would read as a base rule and leave alone, but its modal
-   heading was judged a section header rather than a card one. Leave it. */
-const DONE = 'Jeff Brown Yachts - Home Page';
-
 let folders = only ? [only.replace(/^pages\//, '').replace(/\/$/, '')] : publishedFolders();
-if (!only) folders = folders.filter(f => f !== DONE);
 
 let files = 0, ruleCount = 0;
 for (const folder of folders) {
