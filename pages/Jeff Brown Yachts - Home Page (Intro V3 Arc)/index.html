@@ -2175,9 +2175,12 @@ const GLYPHS = [{"a":-130,"d":"M123.5,523.4l30.9-26.6c2.4-2.1,4.8-3.4,7.3-4.1s4.
          last of the way, so it is there to be landed on rather than appearing
          once everything has stopped. */
       handover: BEND_END - 300 * k,
-      /* And the flight starts while the last letters are still seating. */
-      lift:     BEND_END - 120 * k,
-      land:     BEND_END - 120 * k + FLY + 60 * k
+      /* The flight waits for the mark to finish arriving. Starting it before
+         that left the roundel with no moment of its own: it was formed and
+         already leaving, which reads as though the logo were never there. The
+         wait is not a pause — the emblem is still coming up through all of it. */
+      lift:     BEND_END - 300 * k + 600 * k,
+      land:     BEND_END - 300 * k + 600 * k + FLY + 60 * k
     };
 
     if (hold) return T.handover;
