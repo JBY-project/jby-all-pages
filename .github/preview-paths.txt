@@ -7,8 +7,8 @@
 #
 # Blank lines and lines starting with # are ignored.
 
-pages/Jeff Brown Yachts - Locations Page
-pages/Jeff Brown Yachts - Office Page
-pages/Jeff Brown Yachts - Site Hub
-pages/Jeff Brown Yachts - Home Page V1
-pages/Jeff Brown Yachts - Brand Page (Axopar)
+# This branch is about the intro on the V3 page. The page itself is a single
+# HTML file; the folder beside it is where its media lives — it carries none of
+# its own so the repository does not hold a second copy of 150MB.
+pages/Jeff Brown Yachts - Home Page (Intro V3 Arc)
+pages/Jeff Brown Yachts - Home Page (Intro Animation)
