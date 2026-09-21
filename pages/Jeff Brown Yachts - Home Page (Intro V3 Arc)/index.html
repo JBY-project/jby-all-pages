@@ -768,16 +768,20 @@ html.intro-lock .nav .logo{opacity:0}
    the handover needs no second coordinate system. */
 #intro-ring{position:relative;width:var(--mark);height:var(--mark);
   will-change:transform,opacity;transform-origin:50% 50%}
-/* The exit, taken from the loader this was asked to feel like: the mark rises
-   half the viewport while shrinking to a fifth of itself, and only lets go of
-   its opacity at the very end. Linear on purpose — an eased climb reads as a
-   thing being pulled away, a linear one as a thing leaving under its own
-   steam. */
+/* The exit, on the shape of the loader this was asked to feel like: the mark
+   rises while shrinking, and holds its opacity most of the way. Linear on
+   purpose — an eased climb reads as a thing being pulled away, a linear one as
+   a thing leaving under its own steam.
+   The climb is shorter than the reference's half-viewport: it stops at 28vh,
+   so the mark is gone in open air rather than arriving at the header, where a
+   second logo is already sitting. The last of the opacity goes in the final
+   fifth, which is above the hero's text and clear of everything. */
 @keyframes introAway{
   0%   {transform:translateY(0)     scale(1);   opacity:1}
-  25%  {transform:translateY(-10vh) scale(.5);  opacity:1}
-  50%  {transform:translateY(-25vh) scale(.3);  opacity:1}
-  100% {transform:translateY(-50vh) scale(.2);  opacity:0}
+  25%  {transform:translateY(-6vh)  scale(.58); opacity:1}
+  55%  {transform:translateY(-16vh) scale(.36); opacity:.9}
+  80%  {transform:translateY(-24vh) scale(.26); opacity:.35}
+  100% {transform:translateY(-28vh) scale(.22); opacity:0}
 }
 #intro.away #intro-ring{animation:introAway var(--away) linear forwards}
 
