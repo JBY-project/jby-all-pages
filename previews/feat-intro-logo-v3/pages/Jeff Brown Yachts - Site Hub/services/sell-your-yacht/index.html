@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="https://ywteamyw.github.io/jby-sell-your-yacht-v2/">
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sell Your Yacht — Jeff Brown Yachts</title>
+<meta name="description" content="Sell your yacht with Jeff Brown Yachts, a licensed, bonded brokerage team with three decades of experience. Prepare, list, market, negotiate and close with cinematic global exposure and hands-on coordination." />
+
+<link rel="stylesheet" href="assets/fonts.css" />
+
+<style>
+:root{
+  --ink:#1d1d1b;--c0:#000000;--c2:#575760;--c4:#727279;
+  --white:#ffffff;--white-soft:#dcdcde;--navy:#41647b;--navy-d:#365466;--navy-deep:#22333f;
+  --border:#eeeef0;--line:rgba(0,0,0,0.08);--page:#fcfcfd;--section:#f4f6f9;--sand:#bdb19d;
+  --maxw:1440px;--content:1360px;--pad:40px;
+  --ease:cubic-bezier(.22,.61,.36,1);--ease-out:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Myriad Pro',system-ui,-apple-system,sans-serif;color:var(--c0);background:var(--page);
+  font-weight:300;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* Type ramp */
+.h-lg{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:clamp(24px,2.6vw,28px);line-height:1.22;text-transform:uppercase;letter-spacing:0}
+.h-md{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:48px;text-transform:uppercase;letter-spacing:0}
+.h-sm{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:28px;line-height:40px;text-transform:uppercase;letter-spacing:0}
+.h-xs{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:24px;line-height:36px;text-transform:uppercase;letter-spacing:0}
+.h-2xs{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:28px;text-transform:uppercase;letter-spacing:0}
+.eyebrow{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;line-height:1;letter-spacing:.26em;text-transform:uppercase;color:var(--navy)}
+.t-xl{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:20px;line-height:30px}
+.t-lg{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px}
+.t-md{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:2px;
+  font-family:'Mesmerize',sans-serif;font-weight:300;text-transform:uppercase;letter-spacing:0;transition:.25s;white-space:nowrap}
+.btn-sm{height:40px;padding:0 24px;font-size:12px;line-height:18px}
+.btn-md{height:48px;padding:0 24px;font-size:14px;line-height:20px}
+.btn svg{width:16px;height:16px;transition:transform .4s var(--ease-out)}
+.btn:hover svg{transform:translateX(4px)}
+.btn-solid{background:var(--navy);color:var(--white)}
+.btn-solid:hover{background:var(--navy-d)}
+.btn-white{background:var(--white);color:var(--ink)}
+.btn-white:hover{background:var(--ink);color:var(--white)}
+.btn-dark{background:var(--ink);color:var(--white)}
+.btn-dark:hover{background:var(--navy)}
+.btn-ghost{background:rgba(255,255,255,.01);color:var(--c0);border:1px solid var(--c0)}
+.btn-ghost:hover{background:var(--c0);color:var(--white)}
+.btn-ghost-light{background:rgba(255,255,255,.01);color:var(--white);border:1px solid rgba(255,255,255,.9);backdrop-filter:blur(8px)}
+.btn-ghost-light:hover{background:var(--white);color:var(--ink)}
+
+/* ===== HEADER — transparent → navy blur ===== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  gap:16px;padding:24px 40px;color:#fff;background:transparent;backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0);
+  border-bottom:.5px solid transparent;transition:background .45s ease,backdrop-filter .45s ease,border-color .45s ease,padding .35s ease}
+.nav.scrolled{background:linear-gradient(180deg,rgba(65,100,123,.62) 0%,rgba(65,100,123,.76) 100%);
+  backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);
+  border-bottom:.5px solid rgba(255,255,255,.15);padding:16px 40px}
+.nav .left{display:flex;align-items:center;justify-self:start}
+.nav .burger{width:24px;height:24px;display:flex;flex-direction:column;justify-content:space-between;background:transparent;border:0;padding:0;cursor:pointer}
+.nav .burger span{display:block;height:1px;width:100%;background:#fff;transition:.3s}
+.nav .logo{width:72px;height:72px;justify-self:center;display:flex;align-items:center;justify-content:center;transition:width .35s,height .35s}
+.nav.scrolled .logo{width:60px;height:60px}
+.nav .logo img{width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1)}
+.nav .right{display:flex;gap:12px;align-items:center;justify-self:end}
+.nav .icon{width:40px;height:40px;border:.5px solid rgba(255,255,255,.7);color:#fff;display:flex;align-items:center;justify-content:center;transition:.25s;background:transparent;cursor:pointer}
+.nav .icon:hover{background:rgba(255,255,255,.14)}
+.nav .icon svg{width:18px;height:18px}
+.nav .cta{padding:0 24px;height:40px;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;
+  text-transform:uppercase;color:#fff;border:.5px solid rgba(255,255,255,.75);transition:.25s;display:inline-flex;align-items:center;white-space:nowrap;cursor:pointer;background:transparent}
+.nav .cta:hover{background:rgba(255,255,255,.14)}
+@media(max-width:980px){.nav{padding:16px 24px}.nav.scrolled{padding:12px 24px}.nav .logo{width:56px;height:56px}.nav.scrolled .logo{width:50px;height:50px}.nav .cta{display:none}}
+
+/* ===== HERO ===== */
+.hero{position:relative;height:100vh;min-height:640px;overflow:hidden;color:#fff}
+.hero-media{position:absolute;inset:0;z-index:0}
+.hero-media video,.hero-media img{width:100%;height:100%;object-fit:cover;will-change:transform}
+.hero-media::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.15) 42%,rgba(0,0,0,0) 66%),
+             linear-gradient(0deg,rgba(0,0,0,.6) 0%,rgba(0,0,0,0) 46%)}
+.hero-inner{position:relative;z-index:2;height:100%;max-width:var(--maxw);margin:0 auto;padding:0 40px 64px;
+  display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:24px}
+@media(max-width:980px){.hero-inner{padding:0 24px 64px}}
+.hero-title{color:#fff;font-family:'Mesmerize',sans-serif;font-weight:300;text-transform:uppercase;
+  font-size:32px;line-height:48px;letter-spacing:0}
+@media(max-width:560px){.hero-title{font-size:26px;line-height:38px}}
+.hero-sub{max-width:560px;font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:rgba(255,255,255,.92)}
+.hero-metrics{display:flex;align-items:center;gap:30px;flex-wrap:wrap;margin-top:4px}
+.hero-metrics .hm{display:flex;flex-direction:column;gap:6px}
+.hero-metrics .hm-v{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:38px;line-height:1;color:#fff}
+.hero-metrics .hm-k{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:14px;line-height:20px;letter-spacing:.01em;color:rgba(255,255,255,.82);text-transform:none}
+.hero-metrics .hm-div{width:1px;align-self:stretch;background:rgba(255,255,255,.3)}
+@media(max-width:560px){.hero-metrics{gap:22px}.hero-metrics .hm-v{font-size:30px}}
+.hero-scroll{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:rgba(255,255,255,.7);font-family:'Mesmerize',sans-serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+.hero-scroll .mouse{width:22px;height:34px;border:1px solid rgba(255,255,255,.55);border-radius:12px;position:relative}
+.hero-scroll .mouse::after{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);width:3px;height:7px;border-radius:2px;background:#fff;animation:scrolldot 1.9s var(--ease-out) infinite}
+@keyframes scrolldot{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
+@media(max-width:760px){.hero-scroll{display:none}}
+
+/* ===== SECTION NAV (sticky mini-menu) ===== */
+.secnav{position:fixed;left:0;right:0;top:0;z-index:900;background:rgba(252,252,253,.86);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);border-bottom:.5px solid var(--border);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .35s ease,transform .35s ease,visibility .35s;pointer-events:none}
+.secnav.show{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+.secnav-inner{max-width:var(--maxw);margin:0 auto;padding:0 40px;display:flex;justify-content:center;gap:34px;overflow-x:auto;scrollbar-width:none}
+.secnav-inner::-webkit-scrollbar{display:none}
+.secnav a{position:relative;flex:0 0 auto;padding:16px 0;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--c4);white-space:nowrap;transition:color .25s}
+.secnav a::after{content:"";position:absolute;left:0;right:0;bottom:-.5px;height:2px;background:var(--ink);transform:scaleX(0);transition:transform .3s ease}
+.secnav a:hover{color:var(--ink)}
+.secnav a.active{color:var(--ink)}
+.secnav a.active::after{transform:scaleX(1)}
+@media(max-width:760px){.secnav-inner{justify-content:flex-start;gap:22px;padding:0 22px}.secnav a{font-size:13px;padding:14px 0}}
+/* mobile gutters: match site standard 24px (nav, hero, sections, footer) */
+@media(max-width:980px){:root{--pad:24px}.secnav-inner{padding:0 24px}}
+
+/* ===== SUPPORT (intro + feature cards) ===== */
+.support{padding:104px 0 96px}
+.support-head{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;margin-bottom:56px}
+.support-head .st-text{max-width:860px;display:flex;flex-direction:column;gap:18px}
+.support-head h2{color:var(--ink);font-size:28px;line-height:1.2;white-space:nowrap}
+@media(max-width:820px){.support-head h2{white-space:normal;font-size:26px}}
+.support-head p{color:var(--c2);font-size:17px;line-height:28px;max-width:640px}
+.support-head .btn{flex:0 0 auto}
+.feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.feat{position:relative;background:var(--white);border:1px solid var(--border);border-radius:2px;padding:28px 24px 30px;
+  display:flex;flex-direction:column;gap:18px}
+.feat .fi{width:36px;height:36px;color:var(--navy);display:flex;align-items:center}
+.feat .fi svg{width:32px;height:32px}
+.feat h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:22px;line-height:30px;text-transform:uppercase;color:var(--ink)}
+.feat p{color:var(--c2);font-size:15px;line-height:23px}
+@media(max-width:980px){.feat-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.feat-grid{grid-template-columns:1fr}.support-head{flex-direction:column;align-items:flex-start}
+  .h-sm{font-size:24px;line-height:34px}.support-head h2{font-size:24px}}
+
+/* ===== CINEMATIC BAND (NEW luxury section) ===== */
+.cine{position:relative;height:min(100vh,800px);min-height:600px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;color:#fff;text-align:center}
+.cine-bg{position:absolute;inset:0;z-index:0}
+.cine-bg img,.cine-bg video{width:100%;height:100%;object-fit:cover;will-change:transform;transform:scale(1.12)}
+.cine-bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(10,16,20,.72) 0%,rgba(10,16,20,.15) 46%,rgba(10,16,20,0) 70%),
+             linear-gradient(180deg,rgba(10,16,20,.32),rgba(10,16,20,0) 30%)}
+.cine-inner{position:relative;z-index:2;max-width:var(--maxw);width:100%;margin:0 auto;padding:0 40px 72px}
+@media(max-width:980px){.cine-inner{padding:0 24px 72px}}
+.cine-inner .in-box{max-width:900px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:20px}
+.cine h2{font-family:'Mesmerize',sans-serif;font-weight:300;text-transform:uppercase;font-size:28px;line-height:40px;color:#fff}
+.cine p{color:rgba(255,255,255,.9);font-size:17px;line-height:27px;max-width:600px;margin:0 auto}
+@media(max-width:560px){.cine h2{font-size:24px;line-height:34px}}
+
+/* ===== PROCESS (staggered staircase) ===== */
+.process{padding:104px 0 100px;background:var(--section)}
+.process .p-head{text-align:center;max-width:720px;margin:0 auto 60px;display:flex;flex-direction:column;gap:16px;align-items:center}
+.process .p-head h2{color:var(--ink)}
+.process .p-head p{color:var(--c2);font-size:17px;line-height:28px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-items:end}
+.step{position:relative;background:var(--white);border:1px solid var(--border);border-radius:2px;padding:32px 24px 24px;
+  display:flex;flex-direction:column;gap:18px}
+.step:nth-child(1){min-height:300px}
+.step:nth-child(2){min-height:360px}
+.step:nth-child(3){min-height:430px}
+.step:nth-child(4){min-height:500px}
+.step .num{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:42px;line-height:1;color:var(--ink)}
+.step .st-body{margin-top:auto;display:flex;flex-direction:column;gap:14px}
+.step .tag{align-self:flex-start;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:24px;text-transform:uppercase;color:var(--ink)}
+.step p{color:var(--c2);font-size:15px;line-height:23px;min-height:115px}
+@media(max-width:980px){.step p{min-height:0}}
+@media(max-width:980px){.steps{grid-template-columns:1fr 1fr}.step,.step:nth-child(n){min-height:0}}
+@media(max-width:560px){.steps{grid-template-columns:1fr}}
+
+/* ===== EXPOSURE (image + checklist) ===== */
+.expo{padding:110px 0}
+.expo-head{max-width:none;margin:0 auto 44px;text-align:center}
+.expo-head h2{color:var(--ink);white-space:nowrap}
+@media(max-width:640px){.expo-head h2{white-space:normal}}
+/* Listing marketing — FULL-BLEED model-page gallery */
+.show-tabs{display:flex;width:fit-content;max-width:100%;margin:0 auto 26px;gap:36px;border-bottom:1px solid var(--border)}
+.show-tab{padding:0 0 15px;background:none;border:0;position:relative;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--c4);cursor:pointer;transition:color .25s}
+.show-tab::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--navy);transform:scaleX(0);transition:transform .3s var(--ease-out)}
+.show-tab:hover{color:var(--ink)}
+.show-tab.on{color:var(--ink)}
+.show-tab.on::after{transform:scaleX(1)}
+/* full-bleed: break out of .wrap to the full viewport width */
+.show-stage{position:relative;width:100vw;margin-left:calc(50% - 50vw);height:min(74vh,720px);min-height:460px;overflow:hidden;background:#0a1218}
+.show-stage>img,.show-stage>video{width:100%;height:100%;object-fit:cover;display:block}
+.show-stage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:50%;z-index:1;pointer-events:none;
+  background:linear-gradient(0deg,rgba(6,11,15,.82) 0%,rgba(6,11,15,.32) 46%,rgba(6,11,15,0) 100%)}
+.show-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:52px;height:52px;background:rgba(12,18,23,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:.5px solid rgba(255,255,255,.32);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .25s}
+.show-arrow:hover{background:rgba(12,18,23,.95)}
+.show-arrow svg{width:22px;height:22px;display:block}
+.show-arrow.prev{left:32px}.show-arrow.next{right:32px}
+/* 3D-tour centered CTA (eyebrow + yacht title + take-the-tour) */
+.show-cta{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center;padding:0 24px;pointer-events:none}
+.show-cta::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at center,rgba(6,11,16,.68) 0%,rgba(6,11,16,.5) 50%,rgba(6,11,16,.3) 100%)}
+.show-cta-eye{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.82)}
+.show-cta-h{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:clamp(24px,2.7vw,34px);line-height:1.25;text-transform:uppercase;color:#fff;max-width:20ch;text-shadow:0 2px 26px rgba(0,0,0,.45)}
+.show-cta .btn{pointer-events:auto}
+.show-word{position:absolute;left:0;right:0;bottom:132px;z-index:3;text-align:center;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:28px;letter-spacing:.06em;text-transform:uppercase;color:#fff;text-shadow:0 2px 22px rgba(0,0,0,.45)}
+.show-thumbs{position:absolute;left:0;right:0;bottom:24px;z-index:5;display:flex;gap:12px;justify-content:center;padding:0 24px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.show-thumbs::-webkit-scrollbar{display:none}
+.show-thumb{flex:0 0 128px;height:78px;border-radius:2px;overflow:hidden;cursor:pointer;position:relative;opacity:.6;transition:opacity .25s,box-shadow .25s;background:#0a1218;border:1px solid rgba(255,255,255,.25);padding:0}
+.show-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.show-thumb.on{opacity:1;box-shadow:0 0 0 2px #fff}
+.show-thumb:hover{opacity:1}
+@media(max-width:640px){.show-tabs{gap:22px}.show-tab{font-size:14px}
+  .show-arrow{width:44px;height:44px}.show-arrow.prev{left:14px}.show-arrow.next{right:14px}
+  .show-word{bottom:112px;font-size:17px}.show-thumb{flex-basis:104px;height:64px}.show-cta-h{font-size:22px}}
+/* Lightbox — enlarge photos / play videos (functionality from the model page) */
+.lightbox{position:fixed;inset:0;z-index:2000;background:rgba(10,15,19,.95);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s}
+.lightbox.open{opacity:1;pointer-events:auto}
+.lb-stage{position:relative;display:flex;align-items:center;justify-content:center;max-width:90vw;max-height:80vh}
+.lb-media{width:min(90vw,calc(80vh * 16 / 9));aspect-ratio:16/9;max-width:90vw;background:#0a1218;border:1px solid rgba(255,255,255,.18);border-radius:0;box-shadow:none}
+.lb-media img,.lb-media video{width:100%;height:100%;object-fit:cover;display:block;border:0;border-radius:0;box-shadow:none;outline:0}
+.lb-cap,.lb-count{display:none}
+.lb-btn{position:absolute;z-index:5;width:52px;height:52px;border-radius:2px;display:flex;align-items:center;justify-content:center;background:#fff;color:#000;border:0;cursor:pointer;transition:background .25s}
+.lb-btn:hover{background:rgba(255,255,255,.72)}
+.lb-btn svg{width:24px;height:24px}
+.lb-prev{position:fixed;left:20px;top:50%;transform:translateY(-50%)}
+.lb-next{position:fixed;right:20px;top:50%;transform:translateY(-50%)}
+.lb-close{position:fixed;top:20px;right:20px;width:46px;height:46px}
+@media(max-width:640px){.lb-prev{left:8px}.lb-next{right:8px}.lb-btn{width:44px;height:44px}}
+/* social reach metrics */
+.reach{margin-top:64px;background:var(--navy);color:#fff;border-radius:2px;padding:clamp(32px,4vw,52px)}
+.reach-head{text-align:center;margin-bottom:36px;display:flex;flex-direction:column;gap:12px;align-items:center}
+.reach-head .eyebrow{color:var(--sand)}
+.reach-head h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:clamp(22px,2.4vw,28px);line-height:1.1;text-transform:uppercase;color:#fff}
+.reach-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.reach-stat{text-align:center;padding:22px 12px;border:1px solid rgba(255,255,255,.14);border-radius:2px}
+.reach-stat .rs-v{display:block;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:40px;line-height:1;color:#fff}
+.reach-stat .rs-k{display:block;margin-top:12px;font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:14px;line-height:20px;color:rgba(255,255,255,.72)}
+.reach-note{text-align:center;margin-top:22px;font-family:'Myriad Pro',sans-serif;font-size:13px;color:rgba(255,255,255,.5)}
+@media(max-width:640px){.reach-grid{grid-template-columns:1fr 1fr;gap:14px}}
+/* ===== TESTIMONIALS ===== */
+.tmon{padding:96px 0;background:var(--section)}
+.tmon-head{text-align:center;margin:0 auto 40px}
+.tmon-head h2{color:var(--ink)}
+.tmon-view{position:relative;overflow:hidden}
+.tmon-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none}
+.tmon-track::-webkit-scrollbar{display:none}
+.tmon-q{flex:0 0 50%;scroll-snap-align:start;padding:0 clamp(28px,3.5vw,60px);display:flex;flex-direction:column;gap:22px}
+/* divider belongs to the 2nd card of each pair, so it travels with the pair (no fixed line) */
+.tmon-q:nth-child(even){border-left:1px solid var(--line)}
+.tmon-q blockquote{margin:0;font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:19px;line-height:31px;color:var(--ink)}
+.tmon-q .who{display:flex;flex-direction:column;gap:3px;margin-top:auto}
+.tmon-q .who .nm{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:15px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
+.tmon-q .who .bt{font-family:'Myriad Pro',sans-serif;font-size:14px;color:var(--c4)}
+.tmon-nav{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:44px}
+.tmon-btn{width:48px;height:48px;border:1px solid var(--border);border-radius:2px;display:inline-flex;align-items:center;justify-content:center;color:var(--ink);background:none;cursor:pointer;padding:0;line-height:0;transition:border-color .25s,color .25s,opacity .25s}
+.tmon-btn:hover{border-color:var(--navy);color:var(--navy)}
+.tmon-btn:disabled{opacity:.32;cursor:default}
+.tmon-btn:disabled:hover{border-color:var(--border);color:var(--ink)}
+.tmon-btn svg{width:20px;height:20px;display:block}
+@media(max-width:760px){.tmon-q{flex-basis:100%;padding:0}.tmon-q:nth-child(even){border-left:0}}
+
+/* ===== CONTACT / VALUATION ===== */
+.contact{padding:96px 0 104px}
+.contact-band{max-width:var(--maxw);margin:0 auto;padding:0;
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:center}
+.contact-left{max-width:560px;display:flex;flex-direction:column;gap:20px}
+.contact-left h2{color:var(--ink);white-space:nowrap}
+.contact-left p{color:var(--c2);font-size:17px;line-height:28px}
+.form{background:var(--white);border-radius:2px;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:30px;
+  box-shadow:0 30px 80px -50px rgba(34,51,63,.45)}
+.form .row2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.field{display:flex;flex-direction:column}
+.field input,.field textarea{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:16px;color:var(--ink);background:transparent;
+  border:none;border-bottom:1px solid var(--border);border-radius:0;padding:4px 2px 10px;transition:border-color .3s;width:100%}
+.field textarea{resize:none;min-height:30px;line-height:24px;overflow:hidden}
+.field input::placeholder,.field textarea::placeholder{color:#5f6069;opacity:1}
+.field input:focus,.field textarea:focus{outline:none;border-bottom-color:var(--navy)}
+.form .btn{width:100%;margin-top:6px}
+.form .note{font-size:13px;color:var(--navy);text-align:center;line-height:18px}
+@media(max-width:900px){.contact-band{grid-template-columns:1fr;gap:36px}.contact-left h2{white-space:normal}}
+@media(max-width:480px){.form .row2{grid-template-columns:1fr}}
+
+/* ===== FOOTER ===== */
+footer{background:var(--page);padding:40px 40px 80px;color:var(--c2);font-size:16px;border-top:.5px solid var(--line);position:relative}
+.foot-grid{display:grid;grid-template-columns:312px 1fr 1fr;gap:40px;align-items:flex-start;max-width:1440px;margin:0 auto}
+.foot-logo{width:80px;height:80px;border-radius:50%;overflow:hidden;margin-bottom:32px;background:#fff;display:flex;align-items:center;justify-content:center}
+.foot-logo img{width:100%;height:100%;object-fit:contain;filter:invert(1)}
+.foot-nav{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:24px;letter-spacing:0;text-transform:uppercase;color:var(--ink);display:flex;flex-wrap:wrap;align-items:center;gap:0 10px;max-width:320px}
+.foot-nav a{color:var(--ink);transition:.2s}
+.foot-nav a:hover{color:var(--navy)}
+.foot-nav .sep{color:var(--c2);opacity:0.4}
+.foot-col{padding-top:112px}
+.foot-col h6{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:16px;line-height:24px;letter-spacing:0;color:var(--c2);margin:0 0 10px;text-transform:none}
+.foot-col p{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;color:var(--ink);margin:0 0 28px;text-transform:uppercase}
+.foot-col p:last-child{margin-bottom:0}
+.foot-social{display:flex;gap:16px;margin-top:0}
+.foot-social a{width:28px;height:28px;color:var(--ink);display:flex;align-items:center;justify-content:center;transition:opacity .2s}
+.foot-social a svg{width:28px;height:28px;display:block}
+.foot-social a:hover{opacity:0.6}
+.foot-locs{display:flex;flex-direction:column;gap:14px;margin:0}
+.foot-locs a{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;text-transform:uppercase;color:var(--ink);transition:color .2s}
+.foot-locs a:hover{color:var(--navy)}
+.back-top{position:absolute;right:40px;top:40px;width:40px;height:40px;border:0;background:rgba(0,0,0,0.7);border-radius:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;transition:background .2s}
+.back-top:hover{background:rgba(0,0,0,0.85)}
+.back-top svg{width:20px;height:20px;display:block;transform:rotate(-90deg)}
+@media(max-width:860px){
+  .foot-grid{grid-template-columns:1fr}.foot-col{padding-top:0}
+  footer{padding:40px 24px 64px}.back-top{display:none}
+}
+
+/* ===== REVEAL / MOTION ===== */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 1.1s var(--ease-out),transform 1.1s var(--ease-out)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.09s}.reveal.d2{transition-delay:.18s}.reveal.d3{transition-delay:.27s}
+.reveal.d4{transition-delay:.36s}.reveal.d5{transition-delay:.45s}
+/* left-slide for checklist */
+.slide-l{opacity:0;transform:translateX(-28px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
+.slide-l.in{opacity:1;transform:none}
+/* cascade children (feature cards, steps, listings) */
+.casc>*{opacity:0;transform:translateY(38px);transition:opacity 1s var(--ease-out),transform 1s var(--ease-out);will-change:opacity,transform}
+.casc>.lx-in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal,.slide-l,.casc>*{transition:none!important;opacity:1!important;transform:none!important}html{scroll-behavior:auto}.marquee-track{animation:none}}
+
+/* ====== MOBILE POLISH (phones only) ====== */
+@media (max-width:600px){
+  /* "info@jeffbrownyachts.com" is one unbreakable token in uppercase Mesmerize:
+     one size step down keeps the footer inside a phone screen */
+  .foot-col p{font-size:14px;line-height:18px}
+  .foot-col p a{font-size:inherit}
+}
+
+</style>
+<link rel="stylesheet" href="/jby-site/site.css?v=6">
+<script defer src="/jby-site/site.js?v=6"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<nav class="nav" id="site-nav" aria-label="Primary">
+  <div class="left"><button class="burger" aria-label="Menu"><span></span><span></span><span></span></button></div>
+  <a class="logo" href="#top" aria-label="Jeff Brown Yachts — Home"><img src="assets/jby_logo.svg" alt="Jeff Brown Yachts"/></a>
+  <div class="right">
+    <button class="icon" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
+    <a class="cta" href="#contact">Contact an expert</a>
+  </div>
+</nav>
+<span id="top"></span>
+
+<!-- SECTION NAV -->
+<nav class="secnav" id="secnav" aria-label="Section navigation">
+  <div class="secnav-inner">
+    <a href="#support" data-spy>Full Service</a>
+    <a href="#process" data-spy>The Process</a>
+    <a href="#exposure" data-spy>Exposure</a>
+    <a href="#contact" data-spy>Get a Valuation</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-media" id="heroMedia">
+    <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg">
+      <source src="assets/hero.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="hero-inner">
+    <h1 class="hero-title reveal in">Sell your yacht</h1>
+    <p class="hero-sub reveal in d1">Jeff Brown Yachts helps owners prepare, list, market, negotiate, and close with a licensed and bonded brokerage team across key coastal offices.</p>
+    <div class="hero-metrics reveal in d2">
+      <!-- placeholder figures — impressive round numbers for a 30+ year brokerage; confirm real values with JBY -->
+      <div class="hm"><span class="hm-v">$1B+</span><span class="hm-k">Sold in brokerage yachts</span></div>
+      <div class="hm-div"></div>
+      <div class="hm"><span class="hm-v">2,000+</span><span class="hm-k">Boats sold</span></div>
+    </div>
+    <a href="#contact" class="btn btn-md btn-white reveal in d3">Request evaluation</a>
+  </div>
+</section>
+
+<!-- SUPPORT — intro + 4 feature cards -->
+<section class="support" id="support">
+  <div class="wrap">
+    <div class="support-head">
+      <div class="st-text">
+        <h2 class="h-lg reveal">Experience and full-service support</h2>
+        <p class="reveal d1">Jeff Brown Yachts combines personalized brokerage guidance with broad market exposure, professional listing support, and hands-on coordination through the sale.</p>
+      </div>
+    </div>
+    <div class="feat-grid casc" id="featGrid">
+      <div class="feat">
+        <span class="fi"><svg viewBox="0 0 23.9967 24.9966" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.997 0H1.99973C1.46937 0 0.960727 0.210685 0.585706 0.585706C0.210685 0.960727 0 1.46937 0 1.99973V8.99877C0 15.5879 3.18956 19.5811 5.86545 21.7708C8.74755 24.1279 11.6147 24.9278 11.7396 24.9616C11.9115 25.0083 12.0927 25.0083 12.2646 24.9616C12.3896 24.9278 15.2529 24.1279 18.1388 21.7708C20.8071 19.5811 23.9967 15.5879 23.9967 8.99877V1.99973C23.9967 1.46937 23.786 0.960727 23.411 0.585706C23.036 0.210685 22.5273 0 21.997 0ZM17.7076 8.70631L10.7085 15.7053C10.6157 15.7983 10.5054 15.8721 10.384 15.9224C10.2626 15.9727 10.1325 15.9986 10.0011 15.9986C9.86973 15.9986 9.73962 15.9727 9.61824 15.9224C9.49686 15.8721 9.38659 15.7983 9.29373 15.7053L6.29414 12.7058C6.10652 12.5181 6.00112 12.2637 6.00112 11.9984C6.00112 11.733 6.10652 11.4786 6.29414 11.291C6.48175 11.1033 6.73621 10.9979 7.00154 10.9979C7.26687 10.9979 7.52133 11.1033 7.70894 11.291L9.99863 13.5844L16.2903 7.2915C16.3832 7.1986 16.4935 7.12491 16.6148 7.07464C16.7362 7.02436 16.8663 6.99849 16.9977 6.99849C17.129 6.99849 17.2591 7.02436 17.3805 7.07464C17.5019 7.12491 17.6122 7.1986 17.7051 7.2915C17.798 7.3844 17.8717 7.49468 17.9219 7.61606C17.9722 7.73744 17.9981 7.86753 17.9981 7.9989C17.9981 8.13028 17.9722 8.26037 17.9219 8.38175C17.8717 8.50312 17.798 8.61341 17.7051 8.70631H17.7076Z" fill="#41647B"/></svg></span>
+        <h3>Licensed</h3>
+        <p>Licensed and bonded yacht sales professionals you can trust from first consultation to closing.</p>
+      </div>
+      <div class="feat">
+        <span class="fi"><svg viewBox="0 0 26.1576 22.6636" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M25.2545 20.92H23.5403V8.71487C23.5403 8.25244 23.3566 7.80895 23.0297 7.48197C22.7027 7.15498 22.2592 6.97128 21.7968 6.97128H17.0019C16.8863 6.97128 16.7754 7.01721 16.6937 7.09895C16.6119 7.1807 16.566 7.29157 16.566 7.40718V20.92H14.8224V1.7852C14.8253 1.51362 14.7664 1.24493 14.6501 0.999494C14.5338 0.754055 14.3631 0.538291 14.1511 0.368535C13.8621 0.143217 13.5095 0.0146816 13.1433 0.00118368C12.7771 -0.0123142 12.4159 0.0899117 12.1111 0.293343L3.39319 6.09949C3.15404 6.25905 2.95805 6.47527 2.82268 6.7289C2.6873 6.98253 2.61675 7.26571 2.6173 7.5532V20.92H0.903132C0.677845 20.9166 0.459656 20.9988 0.292455 21.1498C0.125255 21.3008 0.0214473 21.5095 0.00191549 21.734C-0.00600249 21.8533 0.010683 21.9729 0.0509355 22.0854C0.0911879 22.1979 0.154148 22.301 0.235904 22.3881C0.31766 22.4753 0.416467 22.5448 0.526187 22.5921C0.635907 22.6395 0.754197 22.6638 0.873709 22.6636H25.2839C25.4034 22.6638 25.5217 22.6395 25.6315 22.5921C25.7412 22.5448 25.84 22.4753 25.9217 22.3881C26.0035 22.301 26.0664 22.1979 26.1067 22.0854C26.147 21.9729 26.1636 21.8533 26.1557 21.734C26.1362 21.5095 26.0324 21.3008 25.8652 21.1498C25.698 20.9988 25.4798 20.9166 25.2545 20.92Z" fill="#41647B"/></svg></span>
+        <h3>30 years in industry</h3>
+        <p>Three decades of yacht sales, service, refits, deliveries, and ownership support experience.</p>
+      </div>
+      <div class="feat">
+        <span class="fi"><svg viewBox="0 0 24.3148 29.6626" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.0051 15.7039L17.3316 20.3568L21.9845 22.6832L17.3316 25.0097L15.0051 29.6626L12.6787 25.0097L8.02578 22.6832L12.6787 20.3568L15.0051 15.7039Z" fill="#41647B"/><path d="M15.5297 3.42016H16.8847C18.5121 3.4203 20.1981 4.31812 20.6279 5.89565L20.6974 6.22009L20.6988 6.22963L21.7102 13.254L23.3801 14.1169L23.3787 14.1182C23.7564 14.3049 24.0236 14.6244 24.1707 14.9579L24.228 15.1079L24.2362 15.131C24.3659 15.5531 24.3527 16.0623 24.0631 16.5174C24.0494 16.5389 24.0346 16.5597 24.0194 16.5801L22.126 19.121C21.7805 19.5846 21.1242 19.6805 20.6606 19.335C20.197 18.9895 20.1012 18.3332 20.4466 17.8696L22.0129 15.7663L20.2857 14.8748L12.1518 10.6912L4.01919 14.8734L4.02056 14.8748L2.23073 15.7976L4.73758 20.3956C5.0142 20.9031 4.82797 21.5392 4.32045 21.816C3.81289 22.0927 3.17688 21.9049 2.90004 21.3975L0.20508 16.456L0.206443 16.4547C-0.0230148 16.0334 -0.0406832 15.562 0.0537691 15.1842C0.0601987 15.1585 0.067222 15.133 0.0755796 15.1079C0.20371 14.7235 0.49209 14.3327 0.92619 14.1182L0.923463 14.1169L2.57697 13.2622L3.59116 6.23235C3.84503 4.43438 5.68321 3.42016 7.40664 3.42016H8.77388V1.46539C8.774 0.847894 9.18429 0.461149 9.46228 0.286263C9.76795 0.0941322 10.1335 0 10.4915 0H13.8135C14.1559 2.07004e-05 14.5194 0.0836108 14.8318 0.275358C15.1316 0.459563 15.5296 0.850954 15.5297 1.46539V3.42016Z" fill="#41647B"/></svg></span>
+        <h3>Full service</h3>
+        <p>Brokerage, service, warranty, and delivery guidance handled with personal coordination.</p>
+      </div>
+      <div class="feat">
+        <span class="fi"><svg viewBox="0 0 21.3304 29.0939" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.3304 10.6715C21.3315 8.87421 20.8783 7.10576 20.013 5.53045C19.1477 3.95514 17.8983 2.62407 16.3808 1.66086C14.8634 0.697646 13.1271 0.133546 11.3333 0.0209508C9.53954 -0.0916448 7.74638 0.250916 6.12041 1.01682C4.49444 1.78272 3.0884 2.94711 2.03289 4.40185C0.977369 5.85659 0.306615 7.55449 0.0829251 9.33784C-0.140765 11.1212 0.0898638 12.9322 0.75339 14.6025C1.41692 16.2729 2.49182 17.7485 3.87826 18.8922V28.1237C3.87814 28.289 3.92031 28.4517 4.00077 28.5961C4.08122 28.7406 4.19729 28.8621 4.33793 28.949C4.47857 29.036 4.63911 29.0855 4.8043 29.093C4.96949 29.1004 5.13383 29.0654 5.2817 28.9914L10.6652 26.3058L16.0499 28.9975C16.1849 29.0621 16.3329 29.0949 16.4826 29.0933C16.7397 29.0933 16.9863 28.9911 17.1682 28.8093C17.35 28.6274 17.4522 28.3808 17.4522 28.1237V18.8922C18.6652 17.8931 19.6421 16.6379 20.3126 15.2165C20.9832 13.7952 21.3307 12.2431 21.3304 10.6715ZM1.93913 10.6715C1.93913 8.94568 2.4509 7.25858 3.40974 5.82359C4.36857 4.38859 5.7314 3.27015 7.32588 2.60969C8.92036 1.94924 10.6749 1.77643 12.3676 2.11313C14.0603 2.44983 15.6151 3.28091 16.8355 4.50127C18.0558 5.72163 18.8869 7.27647 19.2236 8.96916C19.5603 10.6619 19.3875 12.4164 18.7271 14.0109C18.0666 15.6053 16.9481 16.9682 15.5132 17.927C14.0782 18.8858 12.3911 19.3976 10.6652 19.3976C8.35169 19.395 6.13367 18.4749 4.49777 16.839C2.86187 15.2031 1.9417 12.985 1.93913 10.6715ZM10.6652 4.02326C14.337 4.02326 17.3136 6.99986 17.3136 10.6717C17.3136 14.3435 14.337 17.3201 10.6652 17.3201C6.99337 17.3201 4.01677 14.3435 4.01677 10.6717C4.01677 6.99986 6.99337 4.02326 10.6652 4.02326Z" fill="#41647B"/></svg></span>
+        <h3>Premium brands</h3>
+        <p>Representing Riva, Sirena, Axopar, Pershing, Wally, and other premium yacht brands.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CINEMATIC BAND (NEW luxury section 1) -->
+<section class="cine" aria-label="Positioning">
+  <div class="cine-bg" id="cineBg">
+    <video id="cineVideo" autoplay muted loop playsinline preload="auto" poster="assets/cine-poster.jpg">
+      <source src="assets/cine.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="cine-inner">
+    <div class="in-box">
+      <h2 class="reveal">The right buyer<br/>is already looking</h2>
+      <p class="reveal d1">We prepare your yacht as a cinematic listing, then place it in front of the brokers<br/>and qualified buyers who move first.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS — four-step staircase -->
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="p-head">
+      <h2 class="h-sm reveal">A proven four-step selling process</h2>
+      <p class="reveal d1">A clear, transparent path from valuation to handover,<br/>coordinated by your dedicated broker at every stage.</p>
+    </div>
+    <div class="steps casc" id="steps">
+      <div class="step">
+        <span class="num">1</span>
+        <div class="st-body">
+          <span class="tag">Prep</span>
+          <p>Review valuation, market analysis, staging, detailing, survey recommendations, repairs, and listing agreement setup.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="num">2</span>
+        <div class="st-body">
+          <span class="tag">Listing</span>
+          <p>Create professional photography, drone footage, 360 tours, written descriptions, MLS exposure, international listings, and website placement.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="num">3</span>
+        <div class="st-body">
+          <span class="tag">Cultivate</span>
+          <p>Generate and follow up with qualified leads, promote your yacht across social media, coordinate private, virtual, and open-house events, facilitate offers, and provide regular seller updates.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="num">4</span>
+        <div class="st-body">
+          <span class="tag">Sold</span>
+          <p>Support contract management, negotiation, taxes, duties, documentation, transport, delivery, final handover, and after-sales support.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPOSURE -->
+<section class="expo" id="exposure">
+  <div class="wrap">
+    <div class="expo-head reveal">
+      <h2 class="h-sm">The exposure your yacht deserves</h2>
+    </div>
+
+    <div class="show reveal">
+      <div class="show-tabs" role="tablist">
+        <button class="show-tab on" data-cat="tour">3D Tour</button>
+        <button class="show-tab" data-cat="video">Videos</button>
+        <button class="show-tab" data-cat="photo">Photos</button>
+      </div>
+      <div class="show-stage" id="showStage"></div>
+    </div>
+
+    <!-- Social reach — placeholder figures (IG grounded on ~7.6K real followers); confirm real numbers with JBY -->
+    <div class="reach reveal">
+      <div class="reach-head">
+        <h3>Your listing, seen across our social channels</h3>
+      </div>
+      <div class="reach-grid casc">
+        <div class="reach-stat"><span class="rs-v">10.3K</span><span class="rs-k">Instagram audience</span></div>
+        <div class="reach-stat"><span class="rs-v">2.7K</span><span class="rs-k">YouTube audience</span></div>
+        <div class="reach-stat"><span class="rs-v">1.2M</span><span class="rs-k">Monthly reach</span></div>
+        <div class="reach-stat"><span class="rs-v">9</span><span class="rs-k">Marketing channels</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS — editorial column slider (sample copy; replace with real JBY reviews).
+     Subtitle is flexible: closed sales use "Sold a [Model] · [Location]";
+     non-sale reviews use a neutral context like "Brokerage consultation · [Location]" or "Repeat client · [Location]". -->
+<section class="tmon" id="testimonials">
+  <div class="wrap">
+    <div class="tmon-head reveal">
+      <h2 class="h-sm">What our clients say</h2>
+    </div>
+    <div class="tmon-view reveal">
+      <div class="tmon-track" id="tmonTrack">
+        <figure class="tmon-q">
+          <blockquote>From valuation to closing, the JBY team handled every detail. They positioned our yacht beautifully and brought us a qualified buyer within weeks.</blockquote>
+          <figcaption class="who"><span class="nm">James H.</span><span class="bt">Sold a Riva 88&rsquo; &middot; Newport Harbor</span></figcaption>
+        </figure>
+        <figure class="tmon-q">
+          <blockquote>The marketing was in a different league. The photography and video made our yacht look extraordinary, and the whole sale felt effortless.</blockquote>
+          <figcaption class="who"><span class="nm">Margaret &amp; Tom R.</span><span class="bt">Sold a Sirena 68 &middot; San Diego</span></figcaption>
+        </figure>
+        <figure class="tmon-q">
+          <blockquote>Professional, discreet, and genuinely knowledgeable. Jeff and his team made selling our yacht a genuinely enjoyable experience.</blockquote>
+          <figcaption class="who"><span class="nm">David C.</span><span class="bt">Sold a Pershing 7X &middot; Marina del Rey</span></figcaption>
+        </figure>
+        <figure class="tmon-q">
+          <blockquote>They understood exactly what our yacht was worth and found the right buyer, quickly and without any fuss.</blockquote>
+          <figcaption class="who"><span class="nm">Elena V.</span><span class="bt">Sold a Riva 76&rsquo; &middot; Sausalito</span></figcaption>
+        </figure>
+        <figure class="tmon-q">
+          <blockquote>The valuation consultation alone was worth it. Clear, honest advice with no pressure, and a real sense of the market.</blockquote>
+          <figcaption class="who"><span class="nm">Robert &amp; Lisa M.</span><span class="bt">Brokerage consultation &middot; San Diego</span></figcaption>
+        </figure>
+        <figure class="tmon-q">
+          <blockquote>They found a buyer faster than we imagined and handled the paperwork from start to finish. Completely seamless.</blockquote>
+          <figcaption class="who"><span class="nm">Michael T.</span><span class="bt">Sold an Axopar 37 &middot; Seattle</span></figcaption>
+        </figure>
+        <figure class="tmon-q">
+          <blockquote>I came in just to understand my options. I left with a clear plan and complete confidence in the team.</blockquote>
+          <figcaption class="who"><span class="nm">Caroline B.</span><span class="bt">Listing consultation &middot; Newport Harbor</span></figcaption>
+        </figure>
+        <figure class="tmon-q">
+          <blockquote>Every detail was coordinated beautifully. It genuinely felt like a premium, white-glove service throughout.</blockquote>
+          <figcaption class="who"><span class="nm">Andrew P.</span><span class="bt">Sold a Wally 48 &middot; Charleston</span></figcaption>
+        </figure>
+        <figure class="tmon-q">
+          <blockquote>Communication was constant and clear. We always knew exactly where we stood at every stage of the sale.</blockquote>
+          <figcaption class="who"><span class="nm">Sophia &amp; Daniel K.</span><span class="bt">Sold a Pershing 5X &middot; Marina del Rey</span></figcaption>
+        </figure>
+        <figure class="tmon-q">
+          <blockquote>This is the second yacht the team has sold for us. We simply wouldn&rsquo;t go anywhere else.</blockquote>
+          <figcaption class="who"><span class="nm">Thomas W.</span><span class="bt">Repeat client &middot; Kona</span></figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="tmon-nav">
+      <button class="tmon-btn prev" aria-label="Previous reviews"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m15 18-6-6 6-6"/></svg></button>
+      <button class="tmon-btn next" aria-label="More reviews"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / VALUATION -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-band reveal">
+      <div class="contact-left">
+        <h2 class="h-sm">Find the right starting point</h2>
+        <p>Request a personalized market review. A broker will help you understand pricing, preparation, timing, and next steps.</p>
+      </div>
+      <form class="form" id="valForm" novalidate>
+        <div class="row2">
+          <div class="field"><input id="f-name" name="name" type="text" placeholder="Name" aria-label="Name" autocomplete="name"/></div>
+          <div class="field"><input id="f-phone" name="phone" type="tel" placeholder="Phone" aria-label="Phone" autocomplete="tel"/></div>
+        </div>
+        <div class="row2">
+          <div class="field"><input id="f-boat" name="boat" type="text" placeholder="Make / Model" aria-label="Make and model"/></div>
+          <div class="field"><input id="f-year" name="year" type="text" inputmode="numeric" placeholder="Year" aria-label="Year"/></div>
+        </div>
+        <div class="field"><input id="f-loc" name="location" type="text" placeholder="Location" aria-label="Location"/></div>
+        <div class="field"><textarea id="f-msg" name="message" rows="1" placeholder="Message" aria-label="Message"></textarea></div>
+        <button type="submit" class="btn btn-md btn-solid">Request evaluation</button>
+        <p class="note" id="formNote" hidden></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-logo" aria-label="JBY"><img src="./assets/jby_logo.svg" alt=""/></div>
+      <nav class="foot-nav">
+        <a href="#top">Home</a>
+        <span class="sep">/</span>
+        <a href="#listings">Portfolio</a>
+        <span class="sep">/</span>
+        <a href="#models">Brands</a>
+        <span class="sep">/</span>
+        <a href="#">Services</a>
+        <span class="sep">/</span>
+        <a href="#">Experiences</a>
+        <span class="sep">/</span>
+        <a href="#about">About JBY</a>
+      </nav>
+    </div>
+    <div class="foot-col">
+      <!-- "Contact us" IS the phone line — placeholder toll-free until a real number is provided -->
+      <h6>Contact us</h6>
+      <p>+1 (888) 693-8099</p>
+      <!-- General company inbox (routes to Audrey) — placeholder address, not final -->
+      <h6>Email</h6>
+      <p>info@jeffbrownyachts.com</p>
+      <h6>Social Media</h6>
+      <div class="foot-social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.63985 3.13281H16.3198C18.9708 3.13281 21.1198 5.33895 21.1198 8.06035V15.9444C21.1198 18.6658 18.9708 20.8719 16.3198 20.8719H8.63985C5.98888 20.8719 3.83984 18.6658 3.83984 15.9444V8.06035C3.83984 5.33895 5.98888 3.13281 8.63985 3.13281ZM17.0442 8.30519C17.5743 8.30519 18.0041 7.86396 18.0041 7.31967C18.0041 6.7754 17.5743 6.33417 17.0442 6.33417C16.5139 6.33417 16.0841 6.7754 16.0841 7.31967C16.0841 7.86396 16.5139 8.30519 17.0442 8.30519ZM12.4809 7.56761C10.095 7.56761 8.16083 9.55312 8.16083 12.0024C8.16083 14.4517 10.095 16.4372 12.4809 16.4372C14.8667 16.4372 16.8009 14.4517 16.8009 12.0024C16.8034 10.8254 16.3491 9.69588 15.5384 8.86363C14.7276 8.03138 13.6274 7.56498 12.4809 7.56761ZM9.84073 12.0008C9.84073 13.4977 11.0227 14.711 12.4808 14.711C13.9387 14.711 15.1207 13.4977 15.1207 12.0008C15.1207 10.5041 13.9387 9.29069 12.4808 9.29069C11.0227 9.29069 9.84073 10.5041 9.84073 12.0008Z"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M21 4.88889V18.1111C21 19.1543 20.1543 20 19.1111 20H15.5694C15.3086 20 15.0973 19.7886 15.0973 19.5277V13.8611H17.3073C17.5317 13.8612 17.7251 13.7032 17.77 13.4833L18.11 11.7833C18.1241 11.7147 18.1068 11.6433 18.0631 11.5885C18.0192 11.5339 17.9534 11.5014 17.8833 11.5H15.0973V8.43056C15.0973 8.30016 15.203 8.19444 15.3333 8.19444H17.6944C17.9553 8.19444 18.1667 7.98303 18.1667 7.72223V6.30556C18.1667 6.04476 17.9553 5.83333 17.6944 5.83333H15.3333C13.7685 5.83333 12.5 7.10186 12.5 8.66667V11.5H11.3383C11.0775 11.5 10.8661 11.7114 10.8661 11.9723V13.3889C10.8661 13.6497 11.0775 13.8611 11.3383 13.8611H12.5V19.5277C12.5 19.7886 12.2886 20 12.0277 20H5.88889C4.84568 20 4 19.1543 4 18.1111V4.88889C4 3.84568 4.84568 3 5.88889 3H19.1111C20.1543 3 21 3.84568 21 4.88889Z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.7425 4.31649L19.1361 4.45716C20.7859 4.64038 22.0248 6.02396 21.9996 7.65505V15.345C22.0248 16.9761 20.7859 18.3596 19.1361 18.5429L17.7997 18.6836C13.6301 19.1055 9.42722 19.1055 5.25749 18.6836L3.86391 18.5429C2.21405 18.3596 0.975134 16.9761 1.00038 15.345V7.65505C0.975134 6.02396 2.21405 4.64038 3.86391 4.45716L5.20022 4.31649C9.36995 3.8945 13.5728 3.8945 17.7425 4.31649ZM10.6505 14.5197L14.3635 12.0815H14.4208C14.6209 11.9534 14.7416 11.7346 14.7416 11.5C14.7416 11.2654 14.6209 11.0466 14.4208 10.9186L10.7078 8.48029C10.4885 8.3347 10.2055 8.31979 9.97165 8.44152C9.73785 8.56325 9.59145 8.80175 9.59097 9.06172V13.9383C9.60329 14.1802 9.74154 14.399 9.95686 14.5172C10.1722 14.6353 10.4343 14.6364 10.6505 14.5197Z"/></svg></a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <!-- Full JBY office list — each city links to its Location Detail page (full address lives there). Site-wide. -->
+      <h6>Locations</h6>
+      <nav class="foot-locs">
+        <a href="#">San Diego</a>
+        <a href="#">Newport Harbor</a>
+        <a href="#">Marina del Rey</a>
+        <a href="#">Sausalito</a>
+        <a href="#">Seattle</a>
+        <a href="#">Kona</a>
+        <a href="#">Wrightsville Beach</a>
+        <a href="#">Charleston</a>
+      </nav>
+    </div>
+  </div>
+  <button class="back-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M13.9842 10.6509L7.7342 16.9009C7.67613 16.9589 7.60719 17.005 7.53132 17.0364C7.45545 17.0679 7.37414 17.084 7.29201 17.084C7.20989 17.084 7.12857 17.0679 7.0527 17.0364C6.97683 17.005 6.9079 16.9589 6.84983 16.9009C6.79176 16.8428 6.74569 16.7739 6.71427 16.698C6.68284 16.6221 6.66667 16.5408 6.66667 16.4587C6.66667 16.3766 6.68284 16.2952 6.71427 16.2194C6.74569 16.1435 6.79176 16.0746 6.84983 16.0165L12.6584 10.2087L6.84983 4.40087C6.73255 4.28359 6.66667 4.12453 6.66667 3.95868C6.66667 3.79283 6.73255 3.63377 6.84983 3.51649C6.9671 3.39922 7.12616 3.33333 7.29201 3.33333C7.45787 3.33333 7.61693 3.39922 7.7342 3.51649L13.9842 9.76649C14.0423 9.82454 14.0884 9.89347 14.1199 9.96934C14.1513 10.0452 14.1675 10.1265 14.1675 10.2087C14.1675 10.2908 14.1513 10.3721 14.1199 10.448C14.0884 10.5239 14.0423 10.5928 13.9842 10.6509Z"/></svg></button>
+</footer>
+
+<!-- Lightbox (enlarge photos / play videos) -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Media viewer">
+  <button class="lb-btn lb-close" aria-label="Close viewer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div class="lb-stage">
+    <button class="lb-btn lb-prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m15 18-6-6 6-6"/></svg></button>
+    <div class="lb-media"></div>
+    <button class="lb-btn lb-next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></button>
+    <div class="lb-cap"></div><div class="lb-count"></div>
+  </div>
+</div>
+
+<script>
+/* Header scroll state */
+const hdr=document.getElementById('site-nav');
+function onScroll(){if(hdr)hdr.classList.toggle('scrolled',window.scrollY>40);}
+window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+/* Resilient hero autoplay */
+/* resilient autoplay — re-queries so JS-injected videos are covered too */
+function kick(){[].slice.call(document.querySelectorAll('video')).forEach(function(v){if(v.paused){v.play().catch(function(){});}});}
+document.addEventListener('visibilitychange',function(){if(!document.hidden)kick();});
+['click','touchstart','scroll','keydown'].forEach(function(ev){window.addEventListener(ev,kick,{passive:true});});kick();
+
+/* Listing marketing — model-page-style gallery: tabs (3D Tour / Videos / Photos) + big hero + thumbnail strip + arrows */
+(function(){
+  var show=document.querySelector('.show');if(!show)return;
+  var GAL={
+    tour:{items:[
+      {type:'img',src:'assets/gallery/interior.jpg',title:'Step aboard the Riva 112&rsquo; Dolcevita Super.',cap:"Riva 112' Dolcevita Super"},
+      {type:'img',src:'assets/gallery/tour-2.jpg',title:'Step aboard the Riva 88&rsquo; Folgore.',cap:"Riva 88' Folgore"}
+    ]},
+    video:{word:'Video',items:[
+      {type:'video',src:'assets/cine.mp4',poster:'assets/cine-poster.jpg',cap:'Cinematic walkthrough'},
+      {type:'video',src:'assets/hero.mp4',poster:'assets/hero-poster.jpg',cap:'On the water'}
+    ]},
+    photo:{word:'Photography',items:[
+      {type:'img',src:'assets/gallery/promo.jpg',cap:'Underway at golden hour'},
+      {type:'img',src:'assets/gallery/riva-profile.jpg',cap:'Profile at anchor'},
+      {type:'img',src:'assets/gallery/riva-aerial.jpg',cap:'Aerial off the coast'},
+      {type:'img',src:'assets/gallery/tahoe-riva.jpg',cap:'Classic Riva at Lake Tahoe'},
+      {type:'img',src:'assets/gallery/riva-bow.jpg',cap:'Sculpted Italian bow'}
+    ]}
+  };
+  var stage=document.getElementById('showStage');
+  var tabs=[].slice.call(show.querySelectorAll('.show-tab'));
+  var arrows='<button class="show-arrow prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m15 18-6-6 6-6"/></svg></button><button class="show-arrow next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></button>';
+  var tourBtn='<button type="button" class="btn btn-md btn-ghost-light">Take the tour <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></button>';
+  var cat='tour',idx=0;
+  function media(it){return it.type==='video'?'<video autoplay muted loop playsinline poster="'+(it.poster||'')+'"><source src="'+it.src+'" type="video/mp4"></video>':'<img src="'+it.src+'" alt="">';}
+  /* Lightbox — enlarge photos / play videos with sound (model-page functionality) */
+  var lb=document.getElementById('lightbox');
+  var lbMedia=lb.querySelector('.lb-media'),lbCap=lb.querySelector('.lb-cap'),lbCount=lb.querySelector('.lb-count');
+  var lbItems=[],lbIdx=0,lbRet=null;
+  function lbHTML(it){return it.type==='video'
+    ?'<video src="'+it.src+'" poster="'+(it.poster||'')+'" controls autoplay playsinline></video>'
+    :'<img src="'+it.src+'" alt="'+(it.cap||'')+'">';}
+  function lbRender(){var it=lbItems[lbIdx];lbMedia.innerHTML=lbHTML(it);var v=lbMedia.querySelector('video');if(v){v.play().catch(function(){});}lbCap.textContent=it.cap||'';lbCount.textContent=(lbIdx+1)+' / '+lbItems.length;}
+  function lbOpen(items,i,ret){lbItems=items;lbIdx=i;lbRet=ret||null;lbRender();lb.classList.add('open');document.body.style.overflow='hidden';}
+  function lbClose(){lb.classList.remove('open');document.body.style.overflow='';var v=lbMedia.querySelector('video');if(v)v.pause();lbMedia.innerHTML='';if(lbRet){try{lbRet.focus();}catch(e){}}}
+  function lbGo(n){lbIdx=(n%lbItems.length+lbItems.length)%lbItems.length;lbRender();}
+  lb.querySelector('.lb-next').addEventListener('click',function(){lbGo(lbIdx+1);});
+  lb.querySelector('.lb-prev').addEventListener('click',function(){lbGo(lbIdx-1);});
+  lb.querySelector('.lb-close').addEventListener('click',lbClose);
+  lb.addEventListener('click',function(e){if(e.target===lb||e.target.classList.contains('lb-stage'))lbClose();});
+  document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='Escape')lbClose();else if(e.key==='ArrowRight')lbGo(lbIdx+1);else if(e.key==='ArrowLeft')lbGo(lbIdx-1);});
+  var lbsx=null;
+  lb.addEventListener('pointerdown',function(e){lbsx=e.clientX;});
+  lb.addEventListener('pointerup',function(e){if(lbsx===null)return;var dx=e.clientX-lbsx;lbsx=null;if(Math.abs(dx)>45){dx<0?lbGo(lbIdx+1):lbGo(lbIdx-1);}});
+  function render(){
+    var g=GAL[cat],it=g.items[idx];
+    var thumbsHTML=g.items.map(function(x,n){return '<button class="show-thumb'+(n===idx?' on':'')+'" data-i="'+n+'" aria-label="View '+(n+1)+'"><img src="'+(x.type==='video'?(x.poster||''):x.src)+'" alt=""></button>';}).join('');
+    var overlay=(cat==='tour')
+      ?'<div class="show-cta"><h3 class="show-cta-h">'+(it.title||'')+'</h3>'+tourBtn+'</div>'
+      :'<div class="show-word">'+g.word+'</div>';
+    stage.innerHTML=media(it)+arrows+overlay+'<div class="show-thumbs">'+thumbsHTML+'</div>';
+    [].slice.call(stage.querySelectorAll('.show-thumb')).forEach(function(b){b.addEventListener('click',function(){idx=+b.dataset.i;render();});});
+    stage.querySelector('.show-arrow.prev').addEventListener('click',function(){idx=(idx-1+g.items.length)%g.items.length;render();});
+    stage.querySelector('.show-arrow.next').addEventListener('click',function(){idx=(idx+1)%g.items.length;render();});
+    var mediaEl=stage.querySelector('img,video');
+    if(mediaEl){mediaEl.style.cursor=(cat==='video'?'pointer':'zoom-in');mediaEl.addEventListener('click',function(){lbOpen(g.items,idx,mediaEl);});}
+    if(cat==='tour'){var tb=stage.querySelector('.show-cta .btn');if(tb)tb.addEventListener('click',function(){lbOpen(g.items,idx,tb);});}
+    kick();
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){tabs.forEach(function(b){b.classList.toggle('on',b===t);});cat=t.dataset.cat;idx=0;render();});});
+  render();
+})();
+
+/* Parallax — hero video + cinematic band */
+const heroMedia=document.getElementById('heroMedia');const cineBg=document.getElementById('cineBg');
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;
+  if(heroMedia&&y<1000) heroMedia.style.transform='translateY('+(y*0.24)+'px)';
+  if(cineBg){const r=cineBg.getBoundingClientRect();
+    if(r.bottom>0&&r.top<window.innerHeight){const p=(window.innerHeight-r.top)/(window.innerHeight+r.height);
+      const cm=cineBg.querySelector('video,img');if(cm)cm.style.transform='translateY('+((p-0.5)*60)+'px)';}}
+},{passive:true});
+
+/* Reveal */
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.14});
+document.querySelectorAll('.reveal,.slide-l').forEach(el=>io.observe(el));
+/* stagger the checklist slide-ins */
+document.querySelectorAll('.expo-list').forEach(list=>{
+  [...list.children].forEach((li,i)=>li.style.transitionDelay=(i*0.1)+'s');
+});
+
+/* Process steps — guaranteed sequential reveal 1 -> 2 -> 3 -> 4 (whole row fires together, staggered) */
+(function(){
+  var steps=document.getElementById('steps');if(!steps)return;
+  var kids=[].slice.call(steps.children);
+  kids.forEach(function(k){k.dataset.lxseen='1';}); /* keep the generic cascade from touching these */
+  function reveal(){kids.forEach(function(k,i){k.style.transitionDelay=(i*0.16)+'s';k.classList.add('lx-in');});}
+  var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){reveal();so.disconnect();}});},{threshold:0.2});
+  so.observe(steps);
+  setTimeout(reveal,2000); /* fallback */
+})();
+
+/* Cascade — feature cards / listings unveil one-by-one */
+(function(){
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting)return;
+      var el=en.target,i=parseFloat(el.dataset.lxi)||0;
+      el.style.transitionDelay=(i*0.1)+'s';
+      el.classList.add('lx-in');
+      obs.unobserve(el);
+    });
+  },{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+  function scan(){
+    document.querySelectorAll('.casc').forEach(function(parent){
+      var n=0;
+      [].forEach.call(parent.children,function(k){
+        if(k.dataset.lxseen)return;k.dataset.lxseen='1';k.dataset.lxi=n++;obs.observe(k);
+      });
+    });
+  }
+  scan();setTimeout(scan,300);setTimeout(scan,900);
+})();
+
+/* Section nav — reveal after hero, scroll spy */
+(function(){
+  var secnav=document.getElementById('secnav');if(!secnav)return;
+  var nav=document.querySelector('.nav');
+  var links=[].slice.call(secnav.querySelectorAll('a[data-spy]'));
+  var map=links.map(function(a){return {a:a,sec:document.querySelector(a.getAttribute('href'))};}).filter(function(o){return o.sec;});
+  var hero=document.querySelector('.hero');
+  function navH(){return nav?Math.round(nav.getBoundingClientRect().height):80;}
+  function offset(){return navH()+secnav.getBoundingClientRect().height+8;}
+  function spy(){
+    var h=navH();
+    var heroBottom=hero?hero.getBoundingClientRect().bottom:0;
+    secnav.classList.toggle('show',heroBottom<=h+4);
+    var line=offset()+24,current=map[0];
+    for(var i=0;i<map.length;i++){if(map[i].sec.getBoundingClientRect().top<=line)current=map[i];}
+    links.forEach(function(a){a.classList.remove('active');});
+    if(current)current.a.classList.add('active');
+  }
+  links.forEach(function(a){a.addEventListener('click',function(e){
+    e.preventDefault();var s=document.querySelector(a.getAttribute('href'));if(!s)return;
+    var y=s.getBoundingClientRect().top+window.scrollY-offset()-12;window.scrollTo({top:Math.max(0,y),behavior:'smooth'});
+  });});
+  window.addEventListener('scroll',spy,{passive:true});window.addEventListener('resize',spy,{passive:true});spy();
+})();
+
+/* Valuation form — front-end demo only (no submission wired) */
+(function(){
+  var form=document.getElementById('valForm'),note=document.getElementById('formNote');if(!form)return;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=form.querySelector('#f-name').value.trim();
+    note.hidden=false;
+    note.textContent=(name?('Thank you, '+name+'. '):'Thank you. ')+'A Jeff Brown Yachts broker will be in touch within one business day.';
+    form.querySelector('button[type=submit]').textContent='Request sent';
+  });
+})();
+
+/* Testimonials — editorial column slider with SEAMLESS INFINITE loop */
+(function(){
+  var track=document.getElementById('tmonTrack');if(!track)return;
+  var prev=document.querySelector('.tmon-btn.prev'),next=document.querySelector('.tmon-btn.next');
+  /* clone the whole set once; the two copies are pixel-identical, so jumping by one set width is invisible */
+  [].slice.call(track.children).forEach(function(c){track.appendChild(c.cloneNode(true));});
+  function step(){var c=track.querySelector('.tmon-q');return c?Math.round(c.getBoundingClientRect().width):320;}
+  function page(){return (window.innerWidth<=760?1:2)*step();}
+  function oneSet(){return track.scrollWidth/2;}
+  var settleTmr;
+  track.addEventListener('scroll',function(){
+    clearTimeout(settleTmr);
+    settleTmr=setTimeout(function(){
+      var one=oneSet();
+      if(track.scrollLeft>=one)track.scrollLeft-=one;      /* looped past the end -> back into copy 1 */
+      else if(track.scrollLeft<1)track.scrollLeft+=one;    /* sit inside copy 2 so prev always has room */
+    },140);
+  },{passive:true});
+  if(prev)prev.addEventListener('click',function(){
+    if(track.scrollLeft<page()+1)track.scrollLeft+=oneSet(); /* hop to identical spot in copy 2 first */
+    track.scrollBy({left:-page(),behavior:'smooth'});
+  });
+  if(next)next.addEventListener('click',function(){track.scrollBy({left:page(),behavior:'smooth'});});
+})();
+</script>
+</body>
+</html>
