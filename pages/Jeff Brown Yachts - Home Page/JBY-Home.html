@@ -286,7 +286,10 @@ a{color:inherit;text-decoration:none}
 .builders .brand-fade.active{opacity:0.5}
 .builders-inner{position:relative;z-index:5;padding:64px 64px 64px;min-height:760px;
   display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:32px}
-.builders-top{display:flex;flex-direction:column;align-items:center;gap:24px;width:100%}
+/* margin:auto 0 centres this between the section's top edge and the tab row.
+   Without it the column's space-between pins the block to the top and leaves
+   the whole gap underneath. */
+.builders-top{display:flex;flex-direction:column;align-items:center;gap:24px;width:100%;margin:auto 0}
 .builders .caption{color:rgba(255,255,255,0.92);font-family:'Myriad Pro',sans-serif;font-weight:300;
   font-size:14px;line-height:22px;margin:0;font-style:italic;text-align:center}
 /* The row is a fixed height, not a min-height: the seven logos now render at
@@ -853,7 +856,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   /* --- BRANDS: only logo + 2 buttons in one compact row --- */
   .builders .caption{display:none}
   .builders-inner{min-height:560px;justify-content:flex-start;gap:14px;padding:28px 24px 32px}
-  .builders-top{gap:12px}
+  .builders-top{gap:12px;margin:0}   /* the phone layout starts from the top */
   .builders .mark{height:96px}   /* tighter: logo higher, buttons closer */
   .builders .mark img{height:64px;width:auto;max-width:100%;object-fit:contain}
   .builders .mark img[src*="brand_everglades_logo"]{height:33px}
