@@ -3,10 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Jeff Brown Yachts — Home V3.31 + Chat</title>
+<title>Jeff Brown Yachts — Home V3.31</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.30.0/tabler-icons.min.css">
-<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v3.9.0/mapbox-gl.css"/>
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.9.0/mapbox-gl.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <style>
@@ -41,10 +39,10 @@ a{color:inherit;text-decoration:none}
 .s-title-row{display:flex;justify-content:space-between;align-items:center;gap:24px;max-width:1440px;margin:0 auto}
 .s-title-row h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:48px;letter-spacing:0;
   color:var(--navy);text-transform:uppercase;margin:0}
-.s-link{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
+.s-link{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;line-height:20px;letter-spacing:0;
   text-transform:uppercase;color:var(--ink);padding:0 24px;height:40px;border:0.5px solid rgba(0,0,0,0.18);
   display:inline-flex;align-items:center;transition:.25s;white-space:nowrap;background:transparent}
-.s-link:hover{background:rgba(0,0,0,0.05)}
+.s-link:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
 
 /* ====================================================================== */
 /* HEADER NAV — STICKY (always visible); navy gradient #41647B + blur on scroll */
@@ -77,9 +75,9 @@ a{color:inherit;text-decoration:none}
 
 .nav .right{display:flex;gap:12px;align-items:center;justify-self:end}
 .nav .icon{width:40px;height:40px;border:0.5px solid rgba(255,255,255,0.7);color:#fff;
-  display:flex;align-items:center;justify-content:center;font-size:16px;transition:.25s;background:transparent;cursor:pointer}
+  display:flex;align-items:center;justify-content:center;font-size:14px;transition:.25s;background:transparent;cursor:pointer}
 .nav .icon:hover{background:rgba(255,255,255,0.14)}
-.nav .cta{padding:0 24px;height:40px;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;
+.nav .cta{padding:0 24px;height:40px;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;line-height:20px;
   letter-spacing:0;text-transform:uppercase;color:#fff;border:0.5px solid rgba(255,255,255,0.75);
   transition:.25s;display:inline-flex;align-items:center;cursor:pointer;background:transparent;white-space:nowrap}
 .nav .cta:hover{background:rgba(255,255,255,0.14)}
@@ -107,7 +105,7 @@ a{color:inherit;text-decoration:none}
   transition:opacity .5s cubic-bezier(0.22,1,0.36,1),
              transform .5s cubic-bezier(0.22,1,0.36,1)}
 .section-index.show{opacity:1;pointer-events:auto;transform:translateY(0)}
-.si-item{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;
+.si-item{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:12px;
   letter-spacing:0.1em;text-transform:uppercase;color:var(--ink);
   padding:6px 0;position:relative;background:transparent;border:0;cursor:pointer;
   opacity:0.6;transition:opacity .25s, color .3s;white-space:nowrap}
@@ -123,7 +121,7 @@ a{color:inherit;text-decoration:none}
   .section-index{gap:18px;padding:10px 20px;overflow-x:auto;justify-content:flex-start;
     flex-wrap:nowrap;scrollbar-width:none}
   .section-index::-webkit-scrollbar{display:none}
-  .si-item{font-size:13px}
+  .si-item{font-size:11px}
 }
 
 /* ====================================================================== */
@@ -135,7 +133,7 @@ a{color:inherit;text-decoration:none}
   background-size:cover;background-position:center;background-color:#0a1620;
   object-fit:cover;object-position:center;
   transition:opacity 1s ease;opacity:1;will-change:opacity,transform;
-  transform:translate3d(0,0,0)}
+  transform:translate3d(0,0,0) scale(1.04)}
 .hero-bg.alt{opacity:0}
 .hero-veil{position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.18) 14%,rgba(0,0,0,0) 35%,rgba(0,0,0,0.1) 60%,rgba(0,0,0,0.5) 100%)}
@@ -143,13 +141,13 @@ a{color:inherit;text-decoration:none}
   border:0.5px solid rgba(255,255,255,0.55);color:#fff;display:flex;align-items:center;justify-content:center;
   cursor:pointer;z-index:6;transition:.25s,transform .35s;font-size:18px}
 .hero-arr.l{left:40px}.hero-arr.r{right:40px}
-.hero-arr:hover{background:rgba(255,255,255,0.12);transform:translateY(-50%)}
+.hero-arr:hover{background:rgba(255,255,255,0.12);transform:translateY(-50%) scale(1.08)}
 .hero-text{position:absolute;bottom:80px;left:64px;right:64px;z-index:5;max-width:1280px;transition:opacity .6s}
 .hero-text.swap{opacity:0}
 .hero h1{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:40px;line-height:56px;color:#fff;
   letter-spacing:0;text-transform:uppercase;margin:0 0 32px}
 .hero .btn-hero{background:#fff;color:#000;padding:0 28px;height:44px;font-family:'Mesmerize',sans-serif;
-  font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;text-transform:uppercase;
+  font-weight:300;font-size:14px;line-height:20px;letter-spacing:0;text-transform:uppercase;
   transition:.25s;display:inline-flex;align-items:center}
 .hero .btn-hero:hover{background:#000;color:#fff}
 .hero-dots{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:5}
@@ -168,7 +166,7 @@ a{color:inherit;text-decoration:none}
 .intro{padding:var(--section-pad) 40px 0;max-width:1080px;margin:0 auto;text-align:center}
 .intro h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:48px;letter-spacing:0;
   color:var(--navy);text-transform:uppercase;margin:0 0 24px}
-.intro p{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:18px;line-height:28px;color:#2a2a36;
+.intro p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#2a2a36;
   max-width:1080px;margin:0 auto 32px}
 .intro-cta{display:inline-flex;gap:20px;flex-wrap:wrap;justify-content:center}
 .btn-solid{height:48px;padding:0 24px;background:var(--navy);color:#fff;font-family:'Mesmerize',sans-serif;
@@ -178,7 +176,7 @@ a{color:inherit;text-decoration:none}
 .btn-outline{height:48px;padding:0 24px;background:transparent;color:var(--ink);font-family:'Mesmerize',sans-serif;
   font-weight:300;font-size:16px;line-height:24px;letter-spacing:0;text-transform:uppercase;
   border:0.5px solid var(--ink);display:inline-flex;align-items:center;gap:10px;transition:.25s}
-.btn-outline:hover{background:rgba(0,0,0,0.05)}
+.btn-outline:hover{background:var(--ink);color:#fff}
 
 /* EVENTS — featured event video (NO play button — auto-plays), then grid */
 .events-zone{padding-top:var(--section-pad);background:var(--paper)}
@@ -211,12 +209,9 @@ a{color:inherit;text-decoration:none}
   transition:transform .55s cubic-bezier(0.22,1,0.36,1), box-shadow .55s ease;
   padding:8px;display:flex;flex-direction:column;box-shadow:0 4px 20px rgba(0,0,0,0.04)}
 .event-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,0.09)}
-.event-card .img{position:relative;height:220px;background-size:cover;background-position:center;
-  transition:transform .85s cubic-bezier(0.22,1,0.36,1);overflow:hidden}
+.event-card .img{height:220px;background-size:cover;background-position:center;
+  transition:transform .85s cubic-bezier(0.22,1,0.36,1)}
 .event-card:hover .img{transform:scale(1.06)}
-.event-card .event-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  opacity:0;transition:opacity .5s ease;pointer-events:none}
-.event-card.has-video:hover .event-video{opacity:1}
 .event-card .body{padding:24px 20px 0;flex:1}
 .event-card .body h4{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:28px;
   letter-spacing:0;text-transform:uppercase;color:var(--ink);margin:0 0 16px;min-height:56px}
@@ -225,7 +220,7 @@ a{color:inherit;text-decoration:none}
 .event-card .row .l{color:#2a2a36;font-weight:300}
 .event-card .row .r{color:var(--ink);font-weight:400}
 .event-card .cta{display:block;margin:24px 20px 20px;height:40px;background:var(--navy);color:#fff;
-  text-align:center;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:40px;
+  text-align:center;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;line-height:40px;
   letter-spacing:0;text-transform:uppercase;transition:.25s}
 .event-card .cta:hover{background:var(--navy-d)}
 
@@ -241,7 +236,7 @@ a{color:inherit;text-decoration:none}
 .what-we-do .head h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:48px;
   letter-spacing:0;text-transform:uppercase;margin:0 0 24px;color:var(--navy);
   transition:color .4s cubic-bezier(0.22,1,0.36,1)}
-.what-we-do .head p{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:18px;line-height:28px;
+.what-we-do .head p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;
   margin:0 auto;max-width:1080px;color:#2a2a36;
   transition:color .4s cubic-bezier(0.22,1,0.36,1)}
 .what-we-do.has-dark .head h2{color:#ffffff}
@@ -261,7 +256,7 @@ a{color:inherit;text-decoration:none}
 .pillar h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:24px;line-height:36px;letter-spacing:0;
   text-transform:uppercase;margin:0 0 18px;color:var(--ink);
   transition:color .4s cubic-bezier(0.22,1,0.36,1)}
-.pillar p{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:18px;line-height:28px;
+.pillar p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;
   margin:0;max-width:380px;color:#2a2a36;
   transition:color .4s cubic-bezier(0.22,1,0.36,1)}
 .what-we-do.has-dark .pillar h3{color:#ffffff}
@@ -281,9 +276,6 @@ a{color:inherit;text-decoration:none}
 .builders:hover .bg,
 .builders:hover .bg-video{transform:scale(1.04)}
 .builders .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,32,0.28) 0%,rgba(10,22,32,0.45) 100%)}
-.builders .brand-fade{position:absolute;inset:0;background:rgba(10,22,32,1);z-index:3;
-  opacity:0;pointer-events:none;transition:opacity .45s cubic-bezier(0.4, 0, 0.2, 1)}
-.builders .brand-fade.active{opacity:0.5}
 .builders-inner{position:relative;z-index:5;padding:64px 64px 64px;min-height:760px;
   display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:32px}
 .builders-top{display:flex;flex-direction:column;align-items:center;gap:24px;width:100%}
@@ -295,7 +287,7 @@ a{color:inherit;text-decoration:none}
   letter-spacing:0;text-transform:uppercase;text-shadow:0 4px 22px rgba(0,0,0,0.55)}
 .builders .mark .word.italic{font-style:italic;font-weight:400}
 .builders .actions{display:flex;gap:12px}
-.builders .a{height:48px;padding:0 28px;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;
+.builders .a{height:48px;padding:0 28px;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;
   line-height:20px;letter-spacing:0;text-transform:uppercase;cursor:pointer;transition:.25s;
   display:inline-flex;align-items:center}
 .builders .a.solid{background:#fff;color:#000}
@@ -306,11 +298,11 @@ a{color:inherit;text-decoration:none}
   border:0.5px solid rgba(255,255,255,0.55);color:#fff;display:flex;align-items:center;justify-content:center;
   cursor:pointer;z-index:6;transition:.25s}
 .builders-arr.l{left:40px}.builders-arr.r{right:40px}
-.builders-arr:hover{background:rgba(255,255,255,0.1);transform:translateY(-50%)}
+.builders-arr:hover{background:rgba(255,255,255,0.1);transform:translateY(-50%) scale(1.08)}
 .builders-tabs{position:relative;z-index:6;display:flex;justify-content:center;gap:36px;
   padding:0 24px 0;flex-wrap:wrap;width:100%}
-.b-tab{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;letter-spacing:0;text-transform:uppercase;
-  color:rgba(255,255,255,0.72);padding:8px 0;position:relative;cursor:pointer;
+.b-tab{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;letter-spacing:0;text-transform:uppercase;
+  color:rgba(255,255,255,0.55);padding:8px 0;position:relative;cursor:pointer;
   opacity:0;transform:translateY(40px);
   transition:opacity 900ms cubic-bezier(0.22,1,0.36,1), transform 900ms cubic-bezier(0.22,1,0.36,1), color .25s}
 .b-tab.tab-in{opacity:1;transform:translateY(0)}
@@ -337,11 +329,17 @@ a{color:inherit;text-decoration:none}
   display:flex;align-items:center;justify-content:center;font-size:20px;
   cursor:pointer;z-index:10;
   transition:background .3s ease, transform .35s cubic-bezier(0.22, 1, 0.36, 1)}
-.cards-scroll-arr:hover{background:rgba(0,0,0,0.7);transform:translateY(-50%)}
+.cards-scroll-arr:hover{background:rgba(0,0,0,0.7);transform:translateY(-50%) scale(1.06)}
 /* Grid template columns transition — buttery smooth, browser optimizes better
    than flex-grow (no layout thrashing per card). :has() lets each card control the row. */
-.vessels-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
-  padding:24px 40px 32px;align-items:stretch}
+.vessels-strip{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:20px;
+  padding:24px 40px 32px;align-items:stretch;overflow:hidden;
+  transition:grid-template-columns 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change:grid-template-columns}
+.vessels-strip:has(.vessel-card:nth-child(1):hover){grid-template-columns:1.2fr 1fr 1fr 1fr}
+.vessels-strip:has(.vessel-card:nth-child(2):hover){grid-template-columns:1fr 1.2fr 1fr 1fr}
+.vessels-strip:has(.vessel-card:nth-child(3):hover){grid-template-columns:1fr 1fr 1.2fr 1fr}
+.vessels-strip:has(.vessel-card:nth-child(4):hover){grid-template-columns:1fr 1fr 1fr 1.2fr}
 .vessels-arr{display:none}
 
 /* Cards fill their grid column — no flex needed */
@@ -367,11 +365,11 @@ a{color:inherit;text-decoration:none}
 .vessel-card .info{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:16px 20px 20px;
   background:linear-gradient(179.96deg,rgba(65,100,123,0) 24.756%,rgba(65,100,123,0.9) 81.07%,rgba(65,100,123,0.9) 88.822%);
   backdrop-filter:blur(1px);display:flex;flex-direction:column;gap:12px}
-.vessel-card .event-label{font-family:'Myriad Pro',sans-serif;font-weight:700;font-size:16px;line-height:20px;
+.vessel-card .event-label{font-family:'Myriad Pro',sans-serif;font-weight:700;font-size:14px;line-height:20px;
   color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin:0;text-shadow:0 1px 8px rgba(0,0,0,0.3)}
 /* SAND pill — original yellow-ish chip */
 .vessel-card .chip-loc{background:var(--sand);color:#fff;padding:3px 10px 2px;font-family:'Myriad Pro',sans-serif;
-  font-weight:400;font-size:16px;line-height:20px;border-radius:2px;align-self:flex-start;display:inline-block}
+  font-weight:400;font-size:14px;line-height:20px;border-radius:2px;align-self:flex-start;display:inline-block}
 .vessel-card .name{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:18px;line-height:28px;color:#fff;
   margin:0;text-transform:none}
 .vessel-card .price{font-family:'Myriad Pro',sans-serif;font-weight:600;font-size:24px;line-height:36px;color:#fff;margin:0}
@@ -380,7 +378,7 @@ a{color:inherit;text-decoration:none}
 .v-cta{position:absolute;bottom:24px;right:24px;z-index:4;
   height:44px;width:44px;border-radius:4px;
   background:rgba(255,255,255,0.95);color:var(--ink);
-  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:15px;
+  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;
   letter-spacing:0.1em;text-transform:uppercase;
   display:flex;align-items:center;justify-content:center;
   padding:0;border:0;cursor:pointer;overflow:hidden;white-space:nowrap;
@@ -417,7 +415,7 @@ a{color:inherit;text-decoration:none}
 .videos .head{text-align:center;max-width:880px;margin:0 auto 56px}
 .videos .head h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:48px;letter-spacing:0;
   color:var(--navy);text-transform:uppercase;margin:0 0 20px}
-.videos .head p{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:18px;line-height:28px;color:#2a2a36;text-wrap:balance;
+.videos .head p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#2a2a36;
   margin:0 auto;max-width:680px}
 .video-hero{position:relative;width:100%;aspect-ratio:16/9;background:#1a2a3a;border-radius:2px;overflow:hidden;cursor:pointer}
 .video-hero .bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 1s}
@@ -427,33 +425,31 @@ a{color:inherit;text-decoration:none}
   border-radius:50%;background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);
   border:0.5px solid rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:center;color:#fff;
   font-size:30px;z-index:3;transition:.3s}
-.video-hero:hover .play{background:rgba(255,255,255,0.28);transform:translate(-50%,-50%)}
+.video-hero:hover .play{background:rgba(255,255,255,0.28);transform:translate(-50%,-50%) scale(1.08)}
 .video-hero .meta{position:absolute;left:36px;bottom:32px;color:#fff;z-index:3}
 .video-hero .meta .who{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:28px;letter-spacing:0;
   text-transform:uppercase;margin:0 0 4px}
-.video-hero .meta .vessel{font-family:'Myriad Pro',sans-serif;font-weight:400;font-style:normal;font-size:16px;
+.video-hero .meta .vessel{font-family:'Myriad Pro',sans-serif;font-weight:300;font-style:normal;font-size:14px;
   line-height:20px;color:rgba(255,255,255,0.85)}
-.voices-sub{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:22px;line-height:32px;
-  letter-spacing:0;text-transform:uppercase;color:var(--ink);margin:64px 0 20px}
-.video-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:0}
-.v-thumb{position:relative;aspect-ratio:16/9;background:#0a1620;border-radius:2px;overflow:hidden;cursor:pointer}
-.v-thumb .bg{position:absolute;inset:0;background-size:cover;background-position:center;
-  transition:transform 1s cubic-bezier(0.22,1,0.36,1)}
-.v-thumb:hover .bg{transform:scale(1.06)}
-.v-thumb .veil{position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.65) 100%);
-  transition:background .5s ease}
-.v-thumb:hover .veil{background:linear-gradient(180deg,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.9) 100%)}
-.v-thumb .v-body{position:absolute;left:24px;right:24px;bottom:22px;color:#fff;z-index:2;
-  transition:transform .55s cubic-bezier(0.22,1,0.36,1)}
-.v-thumb:hover .v-body{transform:translateY(-4px)}
-.v-thumb .v-body h4{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:26px;
-  letter-spacing:0;text-transform:uppercase;color:#fff;margin:0 0 8px}
-.v-thumb .v-body p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-style:italic;
-  font-size:16px;line-height:24px;color:rgba(255,255,255,0.95);margin:0;
-  max-height:0;opacity:0;overflow:hidden;
-  transition:max-height .55s cubic-bezier(0.22,1,0.36,1), opacity .35s ease .1s}
-.v-thumb:hover .v-body p{max-height:160px;opacity:1}
+.video-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px;perspective:1400px}
+.v-thumb{position:relative;aspect-ratio:16/9;border-radius:2px;cursor:pointer}
+.v-thumb .flip-inner{position:absolute;inset:0;transform-style:preserve-3d;
+  transition:transform .9s cubic-bezier(0.22,1,0.36,1)}
+.v-thumb:hover .flip-inner{transform:rotateY(180deg)}
+.flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border-radius:2px;overflow:hidden;background:#1a2a3a}
+.flip-back{transform:rotateY(180deg);background:var(--navy);
+  display:flex;flex-direction:column;justify-content:center;padding:24px 28px;color:#fff}
+.flip-back blockquote{margin:0 0 14px;font-family:'Myriad Pro',sans-serif;font-weight:300;font-style:italic;
+  font-size:17px;line-height:26px;color:rgba(255,255,255,0.95);
+  padding-left:14px;border-left:1px solid rgba(255,255,255,0.35)}
+.flip-back cite{font-family:'Mesmerize',sans-serif;font-weight:300;font-style:normal;font-size:11px;line-height:16px;
+  letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.75)}
+.v-thumb .bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .6s}
+.v-thumb:hover .bg{transform:scale(1.05)}
+.v-thumb .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.55) 100%)}
+.v-thumb .lbl{position:absolute;left:16px;bottom:14px;color:#fff;font-family:'Mesmerize',sans-serif;font-weight:300;
+  font-size:12px;line-height:18px;letter-spacing:0;text-transform:uppercase;z-index:3}
 
 /* AFTERCARE BENTO */
 .aftercare{padding-top:var(--section-pad);background:var(--paper)}
@@ -480,10 +476,10 @@ a{color:inherit;text-decoration:none}
 .bento-cell:hover .bento-body{transform:translateY(-8px)}
 .bento-body h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:24px;line-height:36px;color:#fff;
   letter-spacing:0;text-transform:uppercase;margin:0 0 12px}
-.bento-body p{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:16px;line-height:20px;
+.bento-body p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:14px;line-height:20px;
   color:rgba(255,255,255,0.85);margin:0 0 20px;max-width:480px}
 .bento-cta{display:inline-flex;align-items:center;gap:10px;height:40px;padding:0 24px;
-  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
+  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;line-height:20px;letter-spacing:0;
   text-transform:uppercase;border:0.5px solid rgba(255,255,255,0.65);color:#fff;transition:.25s}
 .bento-cta:hover{background:rgba(255,255,255,0.14)}
 
@@ -505,77 +501,61 @@ a{color:inherit;text-decoration:none}
 .visit-item:hover{padding-left:8px}
 .visit-item-l h5{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:28px;letter-spacing:0;
   text-transform:uppercase;color:var(--ink);margin:0 0 8px}
-.visit-item-l small{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:16px;line-height:24px;color:#2a2a36}
+.visit-item-l small{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;color:#2a2a36}
 .visit-item-r{color:rgba(0,0,0,0.4);transition:.25s;font-size:20px}
 .visit-item:hover .visit-item-r{color:var(--navy);transform:translateX(4px)}
 
-#leaflet-map{position:relative;height:580px;border-radius:2px;overflow:hidden;background:#ecf0f3;cursor:grab}
-#leaflet-map .mapboxgl-canvas{border-radius:2px}
-/* Round office markers (ported from office page) */
-.jby-divicon{background:transparent;border:0}
-.jby-marker{position:relative;width:16px;height:16px;border-radius:50%;background:var(--navy);border:2px solid #fff;
-  box-shadow:0 1px 6px rgba(0,0,0,0.35);cursor:pointer;transition:transform .2s ease}
-.jby-marker:hover{transform:scale(1.25)}
-.jby-marker.maritime{width:22px;height:22px;background:var(--sand);border-color:#fff;z-index:2}
-.jby-pin-wrap{width:30px;height:40px;cursor:pointer}
-.jby-pin{width:30px;height:40px;background:transparent;border:0;color:var(--navy);filter:drop-shadow(0 3px 6px rgba(0,0,0,0.25));transition:filter .25s,transform .25s;transform-origin:50% 100%}
-.jby-pin.maritime{color:var(--sand)}
-.jby-pin svg{width:100%;height:100%;display:block}
-.jby-pin-wrap:hover .jby-pin{transform:scale(1.14);filter:drop-shadow(0 6px 12px rgba(0,0,0,0.4))}
-.jby-map-popup .mapboxgl-popup-content{padding:8px 14px;border-radius:2px;box-shadow:0 6px 24px rgba(0,0,0,0.12);font-family:'Mesmerize',sans-serif;font-size:14px;line-height:18px;letter-spacing:0.02em;text-transform:uppercase;color:var(--navy)}
-.jby-map-popup .mapboxgl-popup-content span{white-space:nowrap}
-.jby-map-popup .mapboxgl-popup-tip{border-top-color:#fff;border-bottom-color:#fff}
-.mapboxgl-ctrl-group{border-radius:2px !important;box-shadow:0 2px 10px rgba(0,0,0,0.12) !important}
-.mapboxgl-ctrl-group button{width:34px !important;height:34px !important}
+#leaflet-map{position:relative;height:580px;border-radius:2px;overflow:hidden;background:#ecf0f3}
+.leaflet-pin{background:transparent;border:0}
+.leaflet-pin-inner{width:18px;height:18px;border-radius:50%;background:var(--navy);border:3px solid #fff;
+  box-shadow:0 2px 12px rgba(0,0,0,0.3);transition:.3s}
+.leaflet-pin-inner.boatyard{background:var(--sand)}
+.leaflet-pin-inner.maritime{background:var(--sand);width:22px;height:22px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Mesmerize',sans-serif;font-size:11px;font-weight:400;color:var(--navy)}
+.leaflet-pin-inner:hover{transform:scale(1.25)}
 
-/* Maritime pill above Newport Harbor name — sand background, black text */
-.brow-maritime{display:inline-block;font-family:'Mesmerize',sans-serif;font-weight:300;
-  font-size:13px;line-height:14px;letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--ink);background:var(--sand);padding:5px 10px 4px;border-radius:1px;
-  margin-bottom:10px}
-.maritime-item h5{position:relative}
+/* Maritime badge on Newport Harbor list item */
+.maritime-badge{display:inline-block;margin-left:8px;padding:2px 8px;
+  background:var(--sand);color:var(--navy);
+  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:10px;letter-spacing:0.08em;
+  text-transform:uppercase;line-height:14px;border-radius:1px;vertical-align:middle}
 
-/* Small "by appointment" line under hours */
-.visit-appt{color:var(--mute);opacity:0.75}
+/* Private-viewing note under the list */
+.visit-note{margin:28px 24px 0;font-family:'Myriad Pro',sans-serif;font-size:13px;line-height:20px;
+  color:var(--mute);font-style:italic}
+.visit-note a{color:var(--navy);text-decoration:underline;text-underline-offset:2px}
 
 /* LOCATION PREVIEW MODAL */
 .loc-modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:24px}
 .loc-modal.open{display:flex}
 .loc-modal-veil{position:absolute;inset:0;background:rgba(10,22,32,0.55);backdrop-filter:blur(4px);cursor:pointer}
-.loc-modal-panel{position:relative;background:var(--paper);width:min(680px,100%);max-height:90vh;overflow:auto;
+.loc-modal-panel{position:relative;background:var(--paper);width:min(720px,100%);max-height:90vh;overflow:auto;
   border-radius:4px;box-shadow:0 30px 80px rgba(0,0,0,0.35);display:flex;flex-direction:column}
-.loc-modal-close{position:absolute;top:14px;right:14px;z-index:3;width:36px;height:36px;border-radius:2px;
+.loc-modal-close{position:absolute;top:14px;right:14px;z-index:3;width:36px;height:36px;border-radius:50%;
   background:rgba(255,255,255,0.95);border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  color:var(--ink);font-size:18px;transition:.25s;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
-.loc-modal-close:hover{background:#fff}
-.loc-modal-photo{width:100%;aspect-ratio:2/1;background-size:cover;background-position:center;background-color:#1a2a3a}
-.loc-modal-body{padding:22px 30px 26px}
-.loc-modal-body h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:28px;line-height:36px;letter-spacing:0;
-  text-transform:uppercase;color:var(--ink);margin:0 0 6px}
-.loc-modal-subtitle{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:16px;line-height:22px;
-  color:var(--ink);margin:0 0 18px;text-transform:none;opacity:0.85}
-.loc-modal-info{margin:0 0 16px;padding:12px 0;border-top:0.5px solid var(--line);border-bottom:0.5px solid var(--line)}
-.loc-modal-row{display:grid;grid-template-columns:100px 1fr;gap:32px;padding:6px 0;margin:0}
-.loc-modal-row dt{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;line-height:20px;
-  letter-spacing:0.08em;text-transform:uppercase;color:var(--mute);margin:0}
-.loc-modal-row dd{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:16px;line-height:24px;
-  color:var(--ink);margin:0}
-.loc-modal-row dd a{color:var(--ink);text-decoration:none;transition:color .2s}
-.loc-modal-row dd a:hover{color:var(--navy)}
-.loc-modal-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
-.loc-modal-cta{display:inline-flex;align-items:center;gap:6px;padding:11px 20px;background:var(--navy);color:#fff;text-decoration:none;
-  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--ink);font-size:18px;transition:.25s}
+.loc-modal-close:hover{background:#fff;transform:scale(1.06)}
+.loc-modal-photo{width:100%;aspect-ratio:16/9;background-size:cover;background-position:center;background-color:#1a2a3a}
+.loc-modal-body{padding:28px 32px 32px}
+.loc-modal-body h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:24px;line-height:32px;letter-spacing:0;
+  text-transform:uppercase;color:var(--ink);margin:0 0 10px}
+.loc-modal-body p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:15px;line-height:24px;color:var(--ink);
+  margin:0 0 20px;opacity:0.88}
+.loc-modal-services{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.loc-modal-services span{padding:4px 10px;background:rgba(65,100,123,0.1);color:var(--navy);
+  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;
+  line-height:14px;border-radius:1px}
+.loc-modal-services span.maritime{background:var(--sand);color:var(--navy)}
+.loc-modal-hours{font-family:'Myriad Pro',sans-serif;font-size:13px;color:var(--mute);margin-bottom:22px}
+.loc-modal-cta{display:inline-block;padding:12px 24px;background:var(--navy);color:#fff;text-decoration:none;
+  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;
   border-radius:1px;transition:.25s}
-.loc-modal-cta i{font-size:16px;line-height:1}
 .loc-modal-cta:hover{background:#2c4a5c}
-.loc-modal-cta-secondary{display:inline-flex;align-items:center;padding:11px 20px;background:transparent;color:var(--ink);
-  text-decoration:none;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;letter-spacing:0.08em;
-  text-transform:uppercase;border:0.5px solid rgba(0,0,0,0.25);border-radius:1px;transition:.25s}
-.loc-modal-cta-secondary:hover{border-color:var(--ink);background:rgba(0,0,0,0.03)}
 .leaflet-popup-content-wrapper{border-radius:2px;padding:0;font-family:'Mesmerize',sans-serif !important}
-.leaflet-popup-content{margin:14px 16px;font-family:'Mesmerize',sans-serif;font-size:16px;line-height:20px;letter-spacing:0;
+.leaflet-popup-content{margin:14px 16px;font-family:'Mesmerize',sans-serif;font-size:14px;line-height:20px;letter-spacing:0;
   text-transform:uppercase;color:var(--ink)}
-.leaflet-popup-content small{display:block;font-family:'Myriad Pro',sans-serif;font-size:14px;text-transform:none;
+.leaflet-popup-content small{display:block;font-family:'Myriad Pro',sans-serif;font-size:12px;text-transform:none;
   color:var(--mute);margin-top:4px;letter-spacing:0}
 
 /* GET EXPERT GUIDANCE */
@@ -583,48 +563,37 @@ a{color:inherit;text-decoration:none}
   display:flex;flex-direction:column;align-items:center;justify-content:center}
 .expert h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:48px;color:#fff;
   letter-spacing:0;text-transform:uppercase;margin:0 0 12px}
-.expert p{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:16px;line-height:24px;
+.expert p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;
   color:rgba(255,255,255,0.85);margin:0 0 28px;font-style:normal}
 .expert .btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 32px;background:transparent;
-  color:#fff;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
+  color:#fff;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;line-height:20px;letter-spacing:0;
   text-transform:uppercase;border:0.5px solid #fff;cursor:pointer;transition:.25s}
-.expert .btn:hover{background:rgba(255,255,255,0.14)}
+.expert .btn:hover{background:#fff;color:var(--navy)}
 
 /* FOOTER */
-footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-size:16px;border-top:0.5px solid var(--line);position:relative}
-.foot-top{max-width:1440px;margin:0 auto 44px;display:flex;flex-wrap:wrap;align-items:center;gap:20px 32px}
-.foot-brand{display:flex;align-items:center;gap:28px;flex-wrap:wrap;flex:1 1 auto;min-width:0}
+footer{background:var(--paper);padding:40px 40px;color:var(--mute);font-size:14px;border-top:0.5px solid var(--line);position:relative}
 .foot-grid{display:grid;grid-template-columns:312px 1fr 1fr;gap:40px;align-items:flex-start;max-width:1440px;margin:0 auto}
-.foot-col{padding-top:0}
-.foot-logo{width:80px;height:80px;border-radius:50%;overflow:hidden;margin:0;background:#fff;flex:0 0 auto;
+.foot-logo{width:80px;height:80px;border-radius:50%;overflow:hidden;margin-bottom:32px;background:#fff;
   display:flex;align-items:center;justify-content:center}
 .foot-logo img{width:100%;height:100%;display:block;object-fit:contain;filter:invert(1)}
-.foot-nav{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:24px;letter-spacing:0;
-  text-transform:uppercase;color:var(--ink);display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;max-width:none}
+.foot-nav{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;line-height:24px;letter-spacing:0;
+  text-transform:uppercase;color:var(--ink);display:flex;flex-wrap:wrap;align-items:center;gap:0 10px;max-width:320px}
 .foot-nav a{color:var(--ink);text-decoration:none;transition:.2s}
 .foot-nav a:hover{color:var(--navy)}
 .foot-nav .sep{color:var(--mute);opacity:0.4}
-.foot-col h6{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:16px;line-height:24px;letter-spacing:0;
-  color:var(--mute);margin:0 0 10px;text-transform:none}
-.foot-col p{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
-  color:var(--ink);margin:0 0 28px;text-transform:uppercase}
+.foot-col h6{font-family:'Myriad Pro',sans-serif;font-weight:600;font-size:14px;line-height:20px;letter-spacing:0;
+  color:var(--ink);margin:0 0 12px;text-transform:none}
+.foot-col p{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;line-height:20px;letter-spacing:0;
+  color:var(--mute);margin:0 0 28px;text-transform:uppercase}
 .foot-col p:last-child{margin-bottom:0}
-.foot-social{display:flex;gap:16px;margin-top:0;align-items:center;flex:0 0 auto}
-.foot-social a{width:28px;height:28px;color:var(--ink);display:flex;align-items:center;justify-content:center;
-  transition:opacity .2s}
-.foot-social a svg{width:28px;height:28px;display:block}
-.foot-social a:hover{opacity:0.6}
-.back-top{position:absolute;right:40px;top:152px;width:40px;height:40px;border:0;
-  background:rgba(0,0,0,0.7);border-radius:2px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;color:#fff;transition:background .2s}
-.back-top:hover{background:rgba(0,0,0,0.85)}
-.back-top svg{width:20px;height:20px;display:block;transform:rotate(-90deg)}
+.foot-social{display:flex;gap:10px;margin-top:0}
+.foot-social a{width:24px;height:24px;color:var(--ink);display:flex;align-items:center;justify-content:center;font-size:18px}
+.back-top{position:absolute;right:40px;top:40px;width:40px;height:40px;border:0.5px solid rgba(0,0,0,0.18);
+  background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
 
 /* ====================================================================== */
 /* REVEAL — snappy slide-up. Fires when element is well into viewport (IO -15%) */
 /* ====================================================================== */
-/* Vessel cards: no entrance animation — prevents any flicker on scroll-in */
-.vessel-card.reveal,.vessel-card.reveal.in{opacity:1;transform:none;transition:none;will-change:auto;transition-delay:0s}
 .reveal{opacity:0;transform:translate3d(0,40px,0);will-change:opacity,transform;
   transition:opacity .6s cubic-bezier(0.22,1,0.36,1),
              transform .6s cubic-bezier(0.22,1,0.36,1)}
@@ -662,21 +631,7 @@ body{padding-top:0}
   .reveal,.split-words .w,.hero h1,.hero .btn-hero{transition:none;opacity:1;transform:none}
   .parallax > .pfx{transform:none !important}
   .nav{transition:background .25s, color .25s}
-  .v-thumb .bg,.v-thumb .veil,.v-thumb .v-body,.v-thumb .v-body p,
-  .event-card,.event-card .img,.event-card .event-video,
-  .vessels-strip,.vessel-card,.v-cta,
-  .builders .bg,.builders .bg-video,.brand-fade,
-  .featured-event,.owners-hero,.foot-social a{transition:none !important;animation:none !important}
-  .b-tab{transition:color .25s !important;opacity:1 !important;transform:none !important}
 }
-
-/* Focus-visible for keyboard navigation (WCAG 2.1 AA) */
-a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-visible{
-  outline:2px solid var(--navy);outline-offset:2px;border-radius:2px}
-.hero .btn-hero:focus-visible,.expert .btn:focus-visible,.loc-modal-cta:focus-visible,
-.builders .a:focus-visible{outline-color:var(--sand)}
-.nav .icon:focus-visible,.builders-arr:focus-visible,.cards-scroll-arr:focus-visible,
-.loc-modal-close:focus-visible,.back-top:focus-visible{outline-offset:3px}
 
 @media (max-width:1100px){
   :root{--section-pad: 80px}
@@ -692,7 +647,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .bento{grid-template-columns:1fr}.bento-cell,.bento-cell.span2{grid-column:auto;height:420px}
   .visit-grid{grid-template-columns:1fr;gap:40px}#leaflet-map{height:380px}
   .foot-grid{grid-template-columns:1fr}
-  .foot-col{padding-top:0}
   .what-we-do{padding-left:24px;padding-right:24px}.craft-visual{height:340px}
   .pillars{grid-template-columns:1fr;gap:40px}
   .events-grid{grid-template-columns:1fr}
@@ -704,22 +658,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .builders-arr.l{left:16px}.builders-arr.r{right:16px}.builders-arr{width:36px;height:36px}
 }
 
-
-/* SECTION REGION FILTER — underline pills (Events + Locations) */
-.sec-filter{display:flex;gap:28px;align-items:center;max-width:1440px;margin:20px auto 6px;padding:0 40px}
-.sec-filter button{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;letter-spacing:0.04em;
-  text-transform:uppercase;color:var(--mute);background:transparent;border:0;padding:6px 2px 10px;cursor:pointer;
-  position:relative;transition:color .2s}
-.sec-filter button::after{content:"";position:absolute;left:2px;right:2px;bottom:0;height:1px;background:var(--navy);
-  transform:scaleX(0);transform-origin:left;transition:transform .28s cubic-bezier(0.22,1,0.36,1)}
-.sec-filter button.on{color:var(--ink)}
-.sec-filter button.on::after{transform:scaleX(1)}
-.sec-filter-visit{max-width:none;padding:0;margin:0 0 28px}
-.region-hide{display:none !important}
-.magnetic{transform:none!important}
-.foot-locs{display:flex;flex-direction:column;gap:14px;margin:0}
-.foot-locs a{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:color .2s}
-.foot-locs a:hover{color:var(--navy)}
 </style>
 </head>
 <body>
@@ -730,13 +668,13 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   <a class="logo" href="#hero" aria-label="Jeff Brown Yachts &mdash; Home"><img src="./JBY-V3.3-assets/jby_logo.svg" alt="Jeff Brown Yachts"/></a>
   <div class="right">
     <button class="icon" aria-label="Search"><i class="ti ti-search"></i></button>
-    <button class="cta" data-target="contact">Contact an expert</button>
+    <button class="cta magnetic" data-target="contact">Contact an expert</button>
   </div>
 </nav>
 
 <nav class="section-index" id="section-index" aria-label="Homepage section navigation">
-  <button class="si-item" data-si-target="yachts">Brands</button>
   <button class="si-item" data-si-target="events">Events</button>
+  <button class="si-item" data-si-target="yachts">Brands</button>
   <button class="si-item" data-si-target="voices">Client Stories</button>
   <button class="si-item" data-si-target="services">Services</button>
   <button class="si-item" data-si-target="visit">Locations</button>
@@ -764,7 +702,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 
 <section class="intro" id="story">
   <h2>Bespoke yacht sales and brokerage</h2>
-  <p>Whether you&rsquo;re searching for the right yacht or ready to sell, the team at Jeff Brown Yachts works with you one-on-one, from the first conversation through the last detail of the sale.</p>
+  <p>Whether you&rsquo;re searching for the perfect yacht or you&rsquo;re ready to sell, the experienced team at Jeff Brown Yachts is standing by to provide you with a boutique experience. Our sales and bonded agents will work with you one-on-one to make sure you receive personalized service that is tailored to your unique needs.</p>
   <div class="intro-cta">
     <button class="btn-solid magnetic">Explore inventory</button>
     <button class="btn-outline magnetic">Get expert guidance</button>
@@ -777,7 +715,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     <div class="bg" id="builders-bg" style="background-image:url('./JBY-V3.3-assets/brand_riva.webp')"></div>
     <video class="bg-video" id="builders-bg-video" muted loop playsinline preload="auto"></video>
     <div class="veil"></div>
-    <div class="brand-fade" id="brand-fade"></div>
     <button class="builders-arr l" aria-label="Previous brand" onclick="brandStep(-1)"><i class="ti ti-chevron-left"></i></button>
     <button class="builders-arr r" aria-label="Next brand" onclick="brandStep(1)"><i class="ti ti-chevron-right"></i></button>
     <div class="builders-inner">
@@ -789,7 +726,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
           <button class="a ghost">Inventory</button>
         </div>
       </div>
-      <div class="builders-tabs"><button class="b-tab active" data-b="0">Riva</button><button class="b-tab" data-b="1">Axopar</button><button class="b-tab" data-b="2">Brabus</button><button class="b-tab" data-b="3">Pershing</button><button class="b-tab" data-b="4">Wally</button><button class="b-tab" data-b="5">Sirena Yachts</button><button class="b-tab" data-b="6">Everglades</button></div>
+      <div class="builders-tabs"><button class="b-tab active" data-b="0">Riva</button><button class="b-tab" data-b="1">Axopar</button><button class="b-tab" data-b="2">Brabus</button><button class="b-tab" data-b="3">Pershing</button><button class="b-tab" data-b="4">Wally</button><button class="b-tab" data-b="5">Four Winns</button><button class="b-tab" data-b="6">Sirena Yachts</button><button class="b-tab" data-b="7">Jeanneau</button></div>
     </div>
   </div>
   <div class="vessels">
@@ -861,7 +798,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 </section>
 
 <section class="events-zone" id="events">
-  <h2 class="s-title reveal split-words" data-split>Upcoming events &amp; private experiences</h2>
+  <h2 class="s-title reveal split-words" data-split>Part of something more &mdash; where ownership begins</h2>
   <div class="featured-event-stage" id="featured-event-stage">
     <div class="featured-event" data-parallax="0.18">
       <div class="bg" style="background-image:url('./JBY-V3.3-assets/clean_feature_event.jpg')"></div>
@@ -875,20 +812,11 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
       <h2>Upcoming events &amp; private experiences</h2>
       <a class="s-link" href="#">View all events</a>
     </div>
-    <div class="sec-filter reveal" role="tablist" aria-label="Filter events by region">
-      <button class="on" data-region="all">All</button>
-      <button data-region="west">West Coast</button>
-      <button data-region="east">East Coast</button>
-    </div>
     <div class="events-strip-wrap reveal" style="position:relative">
       <button class="cards-scroll-arr" aria-label="Next events" onclick="eventsScroll(1)"><i class="ti ti-chevron-right"></i></button>
       <div class="events-strip" id="events-strip">
-        <article class="event-card has-video" data-region="west">
-          <div class="img" style="background-image:url('./JBY-V3.3-assets/08_event_newport.jpg')">
-            <video class="event-video" muted loop playsinline preload="metadata">
-              <source src="./JBY-V3.3-assets/event_newport_video.mp4" type="video/mp4">
-            </video>
-          </div>
+        <article class="event-card">
+          <div class="img" style="background-image:url('./JBY-V3.3-assets/08_event_newport.jpg')"></div>
           <div class="body">
             <h4>Newport Beach International Boat Show</h4>
             <div class="row"><span class="l">Location</span><span class="r">Newport Beach, CA</span></div>
@@ -897,12 +825,8 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
           </div>
           <a class="cta" href="#">Request to attend</a>
         </article>
-        <article class="event-card has-video" data-region="west">
-          <div class="img" style="background-image:url('./JBY-V3.3-assets/09_event_axopar38.jpg')">
-            <video class="event-video" muted loop playsinline preload="metadata">
-              <source src="./JBY-V3.3-assets/event_axopar38_video.mp4" type="video/mp4">
-            </video>
-          </div>
+        <article class="event-card">
+          <div class="img" style="background-image:url('./JBY-V3.3-assets/09_event_axopar38.jpg')"></div>
           <div class="body">
             <h4>Axopar 38 West Coast Premier</h4>
             <div class="row"><span class="l">Location</span><span class="r">Newport Beach, CA</span></div>
@@ -911,21 +835,17 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
           </div>
           <a class="cta" href="#">Request to attend</a>
         </article>
-        <article class="event-card has-video" data-region="east">
-          <div class="img" style="background-image:url('./JBY-V3.3-assets/10_event_portcity.jpg')">
-            <video class="event-video" muted loop playsinline preload="metadata">
-              <source src="./JBY-V3.3-assets/event_portcity_video.mp4" type="video/mp4">
-            </video>
-          </div>
+        <article class="event-card">
+          <div class="img" style="background-image:url('./JBY-V3.3-assets/10_event_portcity.jpg')"></div>
           <div class="body">
             <h4>Port City Marina Boat Show</h4>
-            <div class="row"><span class="l">Location</span><span class="r">Wilmington, NC</span></div>
+            <div class="row"><span class="l">Location</span><span class="r">Newport Beach, CA</span></div>
             <div class="row"><span class="l">Date</span><span class="r">Fri, Apr 17 &ndash; Sun, Apr 19</span></div>
             <div class="row"><span class="l">Event Time</span><span class="r">8:00am &ndash; 8:00pm</span></div>
           </div>
           <a class="cta" href="#">Request to attend</a>
         </article>
-        <article class="event-card" data-region="west">
+        <article class="event-card">
           <div class="img" style="background-image:url('./JBY-V3.3-assets/brand_riva.webp')"></div>
           <div class="body">
             <h4>Riva Heritage Day at the Harbor</h4>
@@ -935,7 +855,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
           </div>
           <a class="cta" href="#">Request to attend</a>
         </article>
-        <article class="event-card" data-region="west">
+        <article class="event-card">
           <div class="img" style="background-image:url('./JBY-V3.3-assets/brand_brabus.webp')"></div>
           <div class="body">
             <h4>Brabus Shadow Sea Trial Weekend</h4>
@@ -945,7 +865,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
           </div>
           <a class="cta" href="#">Request to attend</a>
         </article>
-        <article class="event-card" data-region="west">
+        <article class="event-card">
           <div class="img" style="background-image:url('./JBY-V3.3-assets/brand_pershing.jpg')"></div>
           <div class="body">
             <h4>Pershing Owners&rsquo; Reception</h4>
@@ -963,23 +883,23 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 <section class="what-we-do" id="craft">
   <div class="head reveal">
     <h2 class="split-words" data-split>Three decades on the water</h2>
-    <p>From the first conversation to the last line of the survey, we handle the parts of buying and selling that don&rsquo;t belong on a website. That&rsquo;s the experience our owners return for, season after season.</p>
+    <p>Quiet expertise &mdash; louder than any brochure. From the first conversation to the last detail of the survey, we handle the parts of buying and selling that don&rsquo;t belong on a website. Three decades of reading the water and the people on it &mdash; that&rsquo;s the quiet experience our owners trust us with, season after season.</p>
   </div>
   <div class="pillars">
     <div class="pillar reveal">
       <div class="pic" style="background-image:url('./JBY-V3.3-assets/pillar_discretion.jpg')"></div>
       <h3>Discretion</h3>
-      <p>Every conversation, every transaction, held in confidence. Privacy is the first thing we promise.</p>
+      <p>Every conversation, every transaction &mdash; held in confidence. Privacy is the first thing we promise.</p>
     </div>
     <div class="pillar reveal d1">
       <div class="pic" style="background-image:url('./JBY-V3.3-assets/pillar_expertise.jpg')"></div>
       <h3>Expertise</h3>
-      <p>Three decades of reading the water, and the people on it. We match vessels to lives, not just budgets.</p>
+      <p>Three decades of reading the water &mdash; and the people on it. We match vessels to lives, not just budgets.</p>
     </div>
     <div class="pillar reveal d2">
       <div class="pic" style="background-image:url('./JBY-V3.3-assets/pillar_legacy.jpg')"></div>
       <h3>Legacy</h3>
-      <p>We measure success in returning owners, not single transactions.</p>
+      <p>The dock is the beginning, not the end. Our crews keep your vessel afloat &mdash; season after season.</p>
     </div>
   </div>
 </section>
@@ -987,7 +907,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 <section class="videos" id="voices">
   <div class="head reveal">
     <h2 class="split-words" data-split>Owners, in their own words</h2>
-    <p>A few conversations with owners, on their first boat and their fifth.</p>
+    <p>A few short conversations with owners who&rsquo;ve trusted us with their first &mdash; and their fifth &mdash; boat.</p>
   </div>
   <div class="video-stage reveal d1">
     <div class="video-hero">
@@ -999,32 +919,46 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <p class="vessel">Pershing 5X &middot; Sausalito &middot; 2:14</p>
       </div>
     </div>
-    <h3 class="voices-sub reveal">More client stories</h3>
     <div class="video-thumbs">
-      <article class="v-thumb reveal">
-        <div class="bg" style="background-image:url('./JBY-V3.3-assets/clean_bento_sell.jpg')"></div>
-        <div class="veil"></div>
-        <div class="v-body">
-          <h4>Eleanor Harker &middot; Riva 56</h4>
-          <p>&ldquo;Buying a Riva should feel special. With Jeff Brown Yachts, it did.&rdquo;</p>
+      <div class="v-thumb reveal">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div class="bg" style="background-image:url('./JBY-V3.3-assets/clean_bento_sell.jpg')"></div>
+            <div class="veil"></div>
+            <div class="lbl">Eleanor Harker</div>
+          </div>
+          <div class="flip-face flip-back">
+            <blockquote>&ldquo;They understood what I meant before I finished saying it. Not many people do.&rdquo;</blockquote>
+            <cite>Eleanor Harker &middot; Riva 56</cite>
+          </div>
         </div>
-      </article>
-      <article class="v-thumb reveal d1">
-        <div class="bg" style="background-image:url('./JBY-V3.3-assets/clean_bento_financing.jpg')"></div>
-        <div class="veil"></div>
-        <div class="v-body">
-          <h4>David Aoki &middot; Axopar 37</h4>
-          <p>&ldquo;Third boat with Jeff Brown Yachts. Every time smoother than the last.&rdquo;</p>
+      </div>
+      <div class="v-thumb reveal d1">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div class="bg" style="background-image:url('./JBY-V3.3-assets/clean_bento_financing.jpg')"></div>
+            <div class="veil"></div>
+            <div class="lbl">David Aoki</div>
+          </div>
+          <div class="flip-face flip-back">
+            <blockquote>&ldquo;Three boats later, they still remember what my wife wants in a cabin. That&rsquo;s not a broker &mdash; that&rsquo;s a friend.&rdquo;</blockquote>
+            <cite>David Aoki &middot; Axopar 37</cite>
+          </div>
         </div>
-      </article>
-      <article class="v-thumb reveal d2">
-        <div class="bg" style="background-image:url('./JBY-V3.3-assets/clean_bento_ym.jpg')"></div>
-        <div class="veil"></div>
-        <div class="v-body">
-          <h4>Hill Family &middot; Four Winns H4</h4>
-          <p>&ldquo;We came looking for a boat. We left with a team that treats our first summer like it&rsquo;s their fifth.&rdquo;</p>
+      </div>
+      <div class="v-thumb reveal d2">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div class="bg" style="background-image:url('./JBY-V3.3-assets/clean_bento_ym.jpg')"></div>
+            <div class="veil"></div>
+            <div class="lbl">The Hill family</div>
+          </div>
+          <div class="flip-face flip-back">
+            <blockquote>&ldquo;We came looking for a boat. We left with a team that treats our first summer like it&rsquo;s their fifth.&rdquo;</blockquote>
+            <cite>The Hill Family &middot; Four Winns H4</cite>
+          </div>
         </div>
-      </article>
+      </div>
     </div>
   </div>
 </section>
@@ -1034,7 +968,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   <div class="bento">
     <div class="bento-cell span2 reveal" data-parallax-bg="0.20">
       <div class="bento-img">
-        <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/service_yacht_management.jpg')"></div>
+        <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/clean_bento_ym.jpg')"></div>
       </div>
       <div class="bento-veil"></div>
       <div class="bento-body">
@@ -1045,12 +979,12 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     </div>
     <div class="bento-cell reveal d2" data-parallax-bg="0.20">
       <div class="bento-img">
-        <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/service_maintenance.jpg')"></div>
+        <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/clean_bento_sm.jpg')"></div>
       </div>
       <div class="bento-veil"></div>
       <div class="bento-body">
         <h3>Service &amp; maintenance</h3>
-        <p>Yacht service, maintenance coordination, and technical support to keep your vessel ready for the water.</p>
+        <p>Reliable yacht service, maintenance coordination, and technical support to keep your vessel ready for the water.</p>
         <button class="bento-cta">Explore service &amp; maintenance <i class="ti ti-chevron-right"></i></button>
       </div>
     </div>
@@ -1061,7 +995,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
       <div class="bento-veil"></div>
       <div class="bento-body">
         <h3>Sell your yacht</h3>
-        <p>Pricing, marketing, and expert brokerage to connect your yacht with the right qualified buyers.</p>
+        <p>Strategic pricing, marketing, and expert brokerage to connect your yacht with the right qualified buyers.</p>
         <button class="bento-cta">Explore selling services <i class="ti ti-chevron-right"></i></button>
       </div>
     </div>
@@ -1072,7 +1006,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
       <div class="bento-veil"></div>
       <div class="bento-body">
         <h3>Co-ownership</h3>
-        <p>Access to premium boating, with less complexity and ownership responsibility.</p>
+        <p>Flexible access to premium boating experiences with less complexity, commitment, and ownership responsibility.</p>
         <button class="bento-cta">Explore Mari-Time <i class="ti ti-chevron-right"></i></button>
       </div>
     </div>
@@ -1104,55 +1038,53 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 <section class="visit" id="visit">
   <div class="visit-head-row reveal">
     <h2 class="split-words" data-split>Locations, Marinas &amp; Boatyards</h2>
-    <a class="s-link" href="#">View all</a>
-  </div>
-  <div class="sec-filter sec-filter-visit reveal" role="tablist" aria-label="Filter locations by region">
-    <button class="on" data-region="all">All</button>
-    <button data-region="west">West Coast</button>
-    <button data-region="east">East Coast</button>
+    <a class="s-link" href="#contact">Schedule a private viewing &rarr;</a>
   </div>
   <div class="visit-grid">
     <div class="visit-list reveal">
       <h4>Marinas &amp; Boatyards</h4>
-      <div class="visit-item" data-loc="san-diego-boatyard" data-region="west" data-photo="office_san_diego_boatyard.png" data-type="BOATYARD" data-city="San Diego, CA" data-address="2614 Shelter Island Drive, Suite A, San Diego, CA 92106" data-phone="(619) 222-9899" data-phone-href="tel:+16192229899" data-hours="Mon &ndash; Sat, 8am &ndash; 5pm" data-services="Sales,Service,Boatyard,Marina" data-fact="This full-service boatyard offers refit, repair, and rigging on the water.">
-        <div class="visit-item-l"><h5>San Diego Marina &amp; Boatyard</h5><small>Mon &ndash; Sat, 8am &ndash; 5pm <span class="visit-appt">&middot; By appointment anytime</span></small></div>
+      <div class="visit-item" data-loc="san-diego-boatyard" data-photo="clean_bento_ym.jpg" data-services="Sales,Service,Boatyard,Marina" data-desc="Full-service boatyard on San Diego Bay with in-house craftsmen, refit and repair services on the water.">
+        <div class="visit-item-l"><h5>San Diego Marina &amp; Boatyard</h5><small>Monday &ndash; Saturday: 8am &ndash; 5pm</small></div>
         <div class="visit-item-r"><i class="ti ti-chevron-right"></i></div>
       </div>
       <h4>Sales Offices</h4>
-      <div class="visit-item" data-loc="san-diego" data-region="west" data-photo="office_san_diego.jpg" data-type="SALES OFFICE" data-city="San Diego, CA" data-address="2330 Shelter Island Drive, Suite 105, San Diego, CA 92106" data-phone="(619) 222-9899" data-phone-href="tel:+16192229899" data-hours="Mon &ndash; Sat, 8am &ndash; 5pm" data-services="Sales,Service" data-fact="Our West Coast flagship, representing Axopar, BRABUS, Riva, and Pershing.">
-        <div class="visit-item-l"><h5>San Diego</h5><small>Mon &ndash; Sat, 8am &ndash; 5pm <span class="visit-appt">&middot; By appointment anytime</span></small></div>
+      <div class="visit-item" data-loc="san-diego" data-photo="clean_bento_sm.jpg" data-services="Sales,Service" data-desc="Flagship office overlooking San Diego Bay. Brokerage, new-boat sales, and after-sale support.">
+        <div class="visit-item-l"><h5>San Diego</h5><small>Monday &ndash; Saturday: 8am &ndash; 5pm</small></div>
         <div class="visit-item-r"><i class="ti ti-chevron-right"></i></div>
       </div>
-      <div class="visit-item maritime-item" data-loc="newport-harbor" data-region="west" data-photo="office_newport_harbor.jpg" data-type="MARITIME" data-city="Newport Beach, CA" data-address="3101 West Coast Highway, Suite 130, Newport Beach, CA 92663" data-phone="(949) 524-3143" data-phone-href="tel:+19495243143" data-hours="Mon &ndash; Sat, 8am &ndash; 5pm" data-services="Sales,Service,Maritime" data-fact="Our Newport Beach Maritime office. Private management and co-ownership programs.">
-        <div class="visit-item-l"><span class="brow-maritime">Maritime</span>
-          <h5>Newport Harbor</h5><small>Mon &ndash; Sat, 8am &ndash; 5pm <span class="visit-appt">&middot; By appointment anytime</span></small></div>
+      <div class="visit-item maritime-item" data-loc="newport-harbor" data-photo="08_event_newport.jpg" data-services="Sales,Service,Maritime" data-desc="Home of Jeff Brown Maritime &mdash; our Newport Beach concierge program for owners on the water.">
+        <div class="visit-item-l">
+          <h5>Newport Harbor <span class="maritime-badge">Maritime</span></h5>
+          <small>Monday &ndash; Saturday: 8am &ndash; 5pm &middot; Newport Beach, CA</small>
+        </div>
         <div class="visit-item-r"><i class="ti ti-chevron-right"></i></div>
       </div>
-      <div class="visit-item" data-loc="marina-del-rey" data-region="west" data-photo="office_marina_del_rey.webp" data-type="SALES OFFICE" data-city="Marina del Rey, CA" data-address="13900 Marquesas Way, Marina del Rey, CA 90292" data-phone="(310) 295-9236" data-phone-href="tel:+13102959236" data-hours="Mon &ndash; Sat, 8am &ndash; 5pm" data-services="Sales,Service" data-fact="Our Los Angeles sales office, representing Axopar, BRABUS, and luxury brands.">
-        <div class="visit-item-l"><h5>Marina del Rey</h5><small>Mon &ndash; Sat, 8am &ndash; 5pm <span class="visit-appt">&middot; By appointment anytime</span></small></div>
+      <div class="visit-item" data-loc="marina-del-rey" data-photo="clean_bento_financing.jpg" data-services="Sales,Service" data-desc="Marina del Rey office serving Los Angeles and the greater Southern California coast.">
+        <div class="visit-item-l"><h5>Marina del Rey</h5><small>Monday &ndash; Saturday: 8am &ndash; 5pm</small></div>
         <div class="visit-item-r"><i class="ti ti-chevron-right"></i></div>
       </div>
-      <div class="visit-item" data-loc="sausalito" data-region="west" data-photo="office_sausalito.jpg" data-type="SALES OFFICE" data-city="Sausalito, CA" data-address="300B Harbor Drive, Sausalito, CA 94965" data-phone="(510) 701-4880" data-phone-href="tel:+15107014880" data-hours="Mon &ndash; Sat, 8am &ndash; 5pm" data-services="Sales,Service" data-fact="Our Bay Area brokerage, representing Riva, Wally, and Pershing.">
-        <div class="visit-item-l"><h5>Sausalito</h5><small>Mon &ndash; Sat, 8am &ndash; 5pm <span class="visit-appt">&middot; By appointment anytime</span></small></div>
+      <div class="visit-item" data-loc="sausalito" data-photo="clean_bento_insurance.jpg" data-services="Sales,Service" data-desc="Bay Area office at the entrance to San Francisco Bay. Brokerage and support services.">
+        <div class="visit-item-l"><h5>Sausalito</h5><small>Monday &ndash; Saturday: 8am &ndash; 5pm</small></div>
         <div class="visit-item-r"><i class="ti ti-chevron-right"></i></div>
       </div>
-      <div class="visit-item" data-loc="seattle" data-region="west" data-photo="office_seattle.jpg" data-type="SALES OFFICE" data-city="Seattle, WA" data-address="2288 W Commodore Way, Suite 110, Seattle, WA 98199" data-phone="(206) 274-5257" data-phone-href="tel:+12062745257" data-hours="Mon &ndash; Sat, 8am &ndash; 5pm" data-services="Sales,Service" data-fact="Our Pacific Northwest sales office, representing Axopar, BRABUS, and Riva.">
-        <div class="visit-item-l"><h5>Seattle</h5><small>Mon &ndash; Sat, 8am &ndash; 5pm <span class="visit-appt">&middot; By appointment anytime</span></small></div>
+      <div class="visit-item" data-loc="seattle" data-photo="03_vessel1_axopar.jpg" data-services="Sales,Service" data-desc="Pacific Northwest office serving Seattle, the San Juans, and Puget Sound.">
+        <div class="visit-item-l"><h5>Seattle</h5><small>Monday &ndash; Saturday: 8am &ndash; 5pm</small></div>
         <div class="visit-item-r"><i class="ti ti-chevron-right"></i></div>
       </div>
-      <div class="visit-item" data-loc="kona" data-region="west" data-photo="office_kona.jpg" data-type="SALES OFFICE" data-city="Kailua-Kona, HI" data-address="73-4539 Iki Place, Kailua-Kona, HI 96740" data-phone="(808) 989-8305" data-phone-href="tel:+18089898305" data-hours="By appointment" data-services="Sales" data-fact="Our Hawaiian outpost. Private viewings by appointment only.">
+      <div class="visit-item" data-loc="kona" data-photo="clean_bento_sell.jpg" data-services="Sales" data-desc="Hawaiian outpost on the Big Island. Available by appointment.">
         <div class="visit-item-l"><h5>Kona</h5><small>By appointment</small></div>
         <div class="visit-item-r"><i class="ti ti-chevron-right"></i></div>
       </div>
-      <div class="visit-item" data-loc="wrightsville-beach" data-region="east" data-photo="office_wrightsville_beach.jpg" data-type="SALES OFFICE" data-city="Wrightsville Beach, NC" data-address="100 Keel Street, Wrightsville Beach, NC 28480" data-phone="(910) 679-4158" data-phone-href="tel:+19106794158" data-hours="Mon &ndash; Sat, 8am &ndash; 5pm" data-services="Sales,Service" data-fact="Our East Coast sales office, representing Axopar, BRABUS, and Everglades.">
-        <div class="visit-item-l"><h5>Wrightsville Beach</h5><small>Mon &ndash; Sat, 8am &ndash; 5pm <span class="visit-appt">&middot; By appointment anytime</span></small></div>
+      <div class="visit-item" data-loc="wrightsville-beach" data-photo="04_vessel2_pershing.jpg" data-services="Sales,Service" data-desc="East Coast presence on the North Carolina coast. Brokerage and support.">
+        <div class="visit-item-l"><h5>Wrightsville Beach</h5><small>Monday &ndash; Saturday: 8am &ndash; 5pm</small></div>
         <div class="visit-item-r"><i class="ti ti-chevron-right"></i></div>
       </div>
-      <div class="visit-item" data-loc="charleston" data-region="east" data-photo="office_charleston.jpg" data-type="SALES OFFICE" data-city="Charleston, SC" data-address="49 Immigration Street, Suite 101F, Charleston, SC 29403" data-phone="(843) 277-0777" data-phone-href="tel:+18432770777" data-hours="Mon &ndash; Sat, 8am &ndash; 5pm" data-services="Sales,Service" data-fact="Our South Atlantic sales office, representing Axopar, Everglades, and BRABUS.">
-        <div class="visit-item-l"><h5>Charleston</h5><small>Mon &ndash; Sat, 8am &ndash; 5pm <span class="visit-appt">&middot; By appointment anytime</span></small></div>
+      <div class="visit-item" data-loc="charleston" data-photo="05_vessel3_brabus.jpg" data-services="Sales,Service" data-desc="Historic Charleston office serving the South Atlantic coast.">
+        <div class="visit-item-l"><h5>Charleston</h5><small>Monday &ndash; Saturday: 8am &ndash; 5pm</small></div>
         <div class="visit-item-r"><i class="ti ti-chevron-right"></i></div>
       </div>
-        </div>
+      <p class="visit-note">Weekend and after-hours viewings available <a href="#contact">by appointment</a>.</p>
+    </div>
     <div id="leaflet-map" class="reveal d1"></div>
   </div>
 </section>
@@ -1165,22 +1097,17 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     <div class="loc-modal-photo" id="loc-modal-photo"></div>
     <div class="loc-modal-body">
       <h3 id="loc-modal-title"></h3>
-      <p class="loc-modal-subtitle" id="loc-modal-subtitle"></p>
-      <dl class="loc-modal-info">
-        <div class="loc-modal-row"><dt>Address</dt><dd><a id="loc-modal-address-link" target="_blank" rel="noopener"></a></dd></div>
-        <div class="loc-modal-row"><dt>Phone</dt><dd><a id="loc-modal-phone"></a></dd></div>
-        <div class="loc-modal-row"><dt>Hours</dt><dd id="loc-modal-hours"></dd></div>
-      </dl>
-      <div class="loc-modal-ctas">
-        <a class="loc-modal-cta" href="#contact" data-close>Explore this office <i class="ti ti-chevron-right"></i></a>
-      </div>
+      <p id="loc-modal-desc"></p>
+      <div class="loc-modal-services" id="loc-modal-services"></div>
+      <div class="loc-modal-hours" id="loc-modal-hours"></div>
+      <a class="loc-modal-cta" href="#contact" data-close>Schedule a private viewing &rarr;</a>
     </div>
   </div>
 </div>
 
 <section class="expert" id="contact">
   <h2 class="reveal split-words" data-split>Get expert guidance</h2>
-  <p class="reveal d1">Every conversation starts with you. We take it from there.</p>
+  <p class="reveal d1">Tell us what the water means to you. We&rsquo;ll take it from there.</p>
   <button class="btn reveal d2 magnetic">Book a consultation</button>
 </section>
 
@@ -1189,49 +1116,37 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     <div>
       <div class="foot-logo" aria-label="JBY"><img src="./JBY-V3.3-assets/jby_logo.svg" alt=""/></div>
       <nav class="foot-nav">
-        <a href="#top">Home</a>
+        <a href="#">Home</a>
         <span class="sep">/</span>
-        <a href="#listings">Portfolio</a>
+        <a href="#">Portfolio</a>
         <span class="sep">/</span>
-        <a href="#models">Brands</a>
+        <a href="#">Brands</a>
         <span class="sep">/</span>
         <a href="#">Services</a>
         <span class="sep">/</span>
         <a href="#">Experiences</a>
         <span class="sep">/</span>
-        <a href="#about">About JBY</a>
+        <a href="#">About JBY</a>
       </nav>
     </div>
     <div class="foot-col">
-      <!-- "Contact us" IS the phone line — placeholder toll-free until a real number is provided -->
       <h6>Contact us</h6>
-      <p>+1 (888) 693-8099</p>
-      <!-- General company inbox (routes to Audrey) — placeholder address, not final -->
+      <p>+1 619-222-9899</p>
       <h6>Email</h6>
-      <p>info@jeffbrownyachts.com</p>
-      <h6>Social Media</h6>
+      <p>jeff@jeffbrownyachts.com</p>
+    </div>
+    <div class="foot-col">
+      <h6>Address</h6>
+      <p>2330 Shelter Island Drive,<br/>Suite 105 San Diego, CA 92106</p>
+      <h6>Social media</h6>
       <div class="foot-social">
-        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.63985 3.13281H16.3198C18.9708 3.13281 21.1198 5.33895 21.1198 8.06035V15.9444C21.1198 18.6658 18.9708 20.8719 16.3198 20.8719H8.63985C5.98888 20.8719 3.83984 18.6658 3.83984 15.9444V8.06035C3.83984 5.33895 5.98888 3.13281 8.63985 3.13281ZM17.0442 8.30519C17.5743 8.30519 18.0041 7.86396 18.0041 7.31967C18.0041 6.7754 17.5743 6.33417 17.0442 6.33417C16.5139 6.33417 16.0841 6.7754 16.0841 7.31967C16.0841 7.86396 16.5139 8.30519 17.0442 8.30519ZM12.4809 7.56761C10.095 7.56761 8.16083 9.55312 8.16083 12.0024C8.16083 14.4517 10.095 16.4372 12.4809 16.4372C14.8667 16.4372 16.8009 14.4517 16.8009 12.0024C16.8034 10.8254 16.3491 9.69588 15.5384 8.86363C14.7276 8.03138 13.6274 7.56498 12.4809 7.56761ZM9.84073 12.0008C9.84073 13.4977 11.0227 14.711 12.4808 14.711C13.9387 14.711 15.1207 13.4977 15.1207 12.0008C15.1207 10.5041 13.9387 9.29069 12.4808 9.29069C11.0227 9.29069 9.84073 10.5041 9.84073 12.0008Z"/></svg></a>
-        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M21 4.88889V18.1111C21 19.1543 20.1543 20 19.1111 20H15.5694C15.3086 20 15.0973 19.7886 15.0973 19.5277V13.8611H17.3073C17.5317 13.8612 17.7251 13.7032 17.77 13.4833L18.11 11.7833C18.1241 11.7147 18.1068 11.6433 18.0631 11.5885C18.0192 11.5339 17.9534 11.5014 17.8833 11.5H15.0973V8.43056C15.0973 8.30016 15.203 8.19444 15.3333 8.19444H17.6944C17.9553 8.19444 18.1667 7.98303 18.1667 7.72223V6.30556C18.1667 6.04476 17.9553 5.83333 17.6944 5.83333H15.3333C13.7685 5.83333 12.5 7.10186 12.5 8.66667V11.5H11.3383C11.0775 11.5 10.8661 11.7114 10.8661 11.9723V13.3889C10.8661 13.6497 11.0775 13.8611 11.3383 13.8611H12.5V19.5277C12.5 19.7886 12.2886 20 12.0277 20H5.88889C4.84568 20 4 19.1543 4 18.1111V4.88889C4 3.84568 4.84568 3 5.88889 3H19.1111C20.1543 3 21 3.84568 21 4.88889Z"/></svg></a>
-        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.7425 4.31649L19.1361 4.45716C20.7859 4.64038 22.0248 6.02396 21.9996 7.65505V15.345C22.0248 16.9761 20.7859 18.3596 19.1361 18.5429L17.7997 18.6836C13.6301 19.1055 9.42722 19.1055 5.25749 18.6836L3.86391 18.5429C2.21405 18.3596 0.975134 16.9761 1.00038 15.345V7.65505C0.975134 6.02396 2.21405 4.64038 3.86391 4.45716L5.20022 4.31649C9.36995 3.8945 13.5728 3.8945 17.7425 4.31649ZM10.6505 14.5197L14.3635 12.0815H14.4208C14.6209 11.9534 14.7416 11.7346 14.7416 11.5C14.7416 11.2654 14.6209 11.0466 14.4208 10.9186L10.7078 8.48029C10.4885 8.3347 10.2055 8.31979 9.97165 8.44152C9.73785 8.56325 9.59145 8.80175 9.59097 9.06172V13.9383C9.60329 14.1802 9.74154 14.399 9.95686 14.5172C10.1722 14.6353 10.4343 14.6364 10.6505 14.5197Z"/></svg></a>
+        <a href="#" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
+        <a href="#" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
+        <a href="#" aria-label="YouTube"><i class="ti ti-brand-youtube"></i></a>
       </div>
     </div>
-    <div class="foot-col">
-      <!-- Full JBY office list — each city links to its Location Detail page (full address lives there). Site-wide. -->
-      <h6>Locations</h6>
-      <nav class="foot-locs">
-        <a href="#">San Diego</a>
-        <a href="#">Newport Harbor</a>
-        <a href="#">Marina del Rey</a>
-        <a href="#">Sausalito</a>
-        <a href="#">Seattle</a>
-        <a href="#">Kona</a>
-        <a href="#">Wrightsville Beach</a>
-        <a href="#">Charleston</a>
-      </nav>
-    </div>
   </div>
-  <button class="back-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M13.9842 10.6509L7.7342 16.9009C7.67613 16.9589 7.60719 17.005 7.53132 17.0364C7.45545 17.0679 7.37414 17.084 7.29201 17.084C7.20989 17.084 7.12857 17.0679 7.0527 17.0364C6.97683 17.005 6.9079 16.9589 6.84983 16.9009C6.79176 16.8428 6.74569 16.7739 6.71427 16.698C6.68284 16.6221 6.66667 16.5408 6.66667 16.4587C6.66667 16.3766 6.68284 16.2952 6.71427 16.2194C6.74569 16.1435 6.79176 16.0746 6.84983 16.0165L12.6584 10.2087L6.84983 4.40087C6.73255 4.28359 6.66667 4.12453 6.66667 3.95868C6.66667 3.79283 6.73255 3.63377 6.84983 3.51649C6.9671 3.39922 7.12616 3.33333 7.29201 3.33333C7.45787 3.33333 7.61693 3.39922 7.7342 3.51649L13.9842 9.76649C14.0423 9.82454 14.0884 9.89347 14.1199 9.96934C14.1513 10.0452 14.1675 10.1265 14.1675 10.2087C14.1675 10.2908 14.1513 10.3721 14.1199 10.448C14.0884 10.5239 14.0423 10.5928 13.9842 10.6509Z"/></svg></button>
+  <button class="back-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="ti ti-chevron-up"></i></button>
 </footer>
 <script>
 (function(){
@@ -1397,8 +1312,8 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
       const r = hero.getBoundingClientRect();
       if (r.top < 0 && r.top > -window.innerHeight) {
         const py = -r.top * 0.22;
-        if (heroBgA) heroBgA.style.transform = 'translate3d(0,' + py.toFixed(1) + 'px,0)';
-        if (heroBgB) heroBgB.style.transform = 'translate3d(0,' + py.toFixed(1) + 'px,0)';
+        if (heroBgA) heroBgA.style.transform = 'translate3d(0,' + py.toFixed(1) + 'px,0) scale(1.04)';
+        if (heroBgB) heroBgB.style.transform = 'translate3d(0,' + py.toFixed(1) + 'px,0) scale(1.04)';
         if (heroText){
           const fadeProgress = Math.min(1, -r.top / (window.innerHeight * 0.7));
           heroText.style.opacity = (1 - fadeProgress * 0.9).toFixed(3);
@@ -1407,8 +1322,8 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
       } else if (r.top >= 0 && heroText){
         heroText.style.opacity = '1';
         heroText.style.transform = 'translate3d(0,0,0)';
-        if (heroBgA) heroBgA.style.transform = 'translate3d(0,0,0)';
-        if (heroBgB) heroBgB.style.transform = 'translate3d(0,0,0)';
+        if (heroBgA) heroBgA.style.transform = 'translate3d(0,0,0) scale(1.04)';
+        if (heroBgB) heroBgB.style.transform = 'translate3d(0,0,0) scale(1.04)';
       }
     }
 
@@ -1538,7 +1453,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   // HERO SLIDER — autoplay videos with crossfade between slides
   const heroSlides = [
     {video:"hero_axopar.mp4", poster:"clean_hero.png",              h1:"The new Axopar 29 CCX<br/>arrived on the West Coast", cta:"Discover now"},
-    {video:"hero_riva.mp4",   poster:"clean_builders_riva.png",     h1:"Riva.<br/>Where the history of yachting lives", cta:"Explore Riva"},
+    {video:"hero_riva.mp4",   poster:"clean_builders_riva.png",     h1:"Riva &mdash; where the history<br/>of yachting lives", cta:"Explore Riva"},
     {video:"hero_brabus.mp4", poster:"hero_brabus_shadow_900.webp", h1:"Brabus Shadow 900<br/>Engineered for the sea",        cta:"See the spec"},
   ];
   let hi = 0;
@@ -1589,12 +1504,13 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   // cta field per brand (BRABUS uppercase per brand guidelines)
   const brands = [
     {name:"Riva",          cta:"Explore Riva",       caption:"Where the history of yachting lives",  img:"brand_riva.webp",      logo:"riva_real.png", video:"brand_riva_video.mp4"},
-    {name:"Axopar",        cta:"Explore Axopar",     caption:"Built for adventure on every coast",   img:"brand_axopar.jpeg",    logo:"brand_axopar_raw.png",    video:"brand_axopar_video.mp4"},
-    {name:"Brabus",        cta:"Explore BRABUS",     caption:"Performance, engineered on the water", img:"brand_brabus.webp",    logo:"brand_brabus_raw.png",    video:"brand_brabus_video.mp4"},
-    {name:"Pershing",      cta:"Explore Pershing",   caption:"Italian speed, unmistakable presence", img:"brand_pershing.jpg",   logo:"brand_pershing_raw.png", video:"brand_pershing_video.mp4"},
+    {name:"Axopar",        cta:"Explore Axopar",     caption:"Built for adventure on every coast",   img:"brand_axopar.jpeg",    logo:"brand_axopar_raw.png"},
+    {name:"Brabus",        cta:"Explore BRABUS",     caption:"Performance, engineered on the water", img:"brand_brabus.webp",    logo:"brand_brabus_raw.png"},
+    {name:"Pershing",      cta:"Explore Pershing",   caption:"Italian speed, unmistakable presence", img:"brand_pershing.jpg",   logo:"brand_pershing_raw.png"},
     {name:"Wally",         cta:"Explore Wally",      caption:"Form follows the horizon",             img:"brand_wally.jpg",      logo:"brand_wally_logo.svg"},
+    {name:"Four Winns",    cta:"Explore Four Winns", caption:"American craft, family days on water", img:"brand_fourwinns.webp", logo:"brand_fourwinns_logo.svg"},
     {name:"Sirena Yachts", cta:"Explore Sirena",     caption:"Refined long-range cruising",          img:"brand_sirena.jpeg",    logo:"brand_sirena_logo.svg"},
-    {name:"Everglades",    cta:"Explore Everglades", caption:"Offshore capability, built to last",   img:"brand_everglades.jpg", logo:"brand_everglades_logo.png"},
+    {name:"Jeanneau",      cta:"Explore Jeanneau",   caption:"Three centuries of seamanship",        img:"brand_jeanneau.jpg",   logo:"brand_jeanneau_logo.svg"},
   ];
   let bi = 0;
   function setBrand(i){
@@ -1602,54 +1518,26 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     const b = brands[bi];
     const bg = document.getElementById('builders-bg');
     const bgv = document.getElementById('builders-bg-video');
-    const fade = document.getElementById('brand-fade');
     const mark = document.getElementById('brand-mark');
     const cap = document.getElementById('brand-caption');
-    // Trigger a soft dim between brand switches so the swap is noticeable
-    if (fade){
-      fade.classList.add('active');
-      setTimeout(() => fade.classList.remove('active'), 500);
+    if (b.video && bgv){
+      // Brand has video — load + play it, fade in, hide image bg
+      const vsrc = './JBY-V3.3-assets/' + b.video;
+      if (bgv.getAttribute('src') !== vsrc){ bgv.src = vsrc; bgv.load(); }
+      bgv.muted = true;
+      bgv.play().catch(()=>{});
+      if (bg) bg.style.opacity = 0;
+      bgv.style.opacity = 1;
+    } else if (bg){
+      // No video — use image bg, hide video
+      if (bgv){ bgv.style.opacity = 0; bgv.pause && bgv.pause(); }
+      bg.style.opacity = 0;
+      const url = b.img.startsWith('http') ? b.img : './JBY-V3.3-assets/' + b.img;
+      setTimeout(() => { bg.style.backgroundImage = "url('" + url + "')"; bg.style.opacity = 1; }, 240);
     }
-    // Swap media at the peak of the dim (~350ms in) so cross-fade feels natural.
-    // Always set the image bg first so something is visible while the video downloads.
-    const doSwap = () => {
-      if (bg){
-        const imgUrl = b.img.startsWith('http') ? b.img : './JBY-V3.3-assets/' + b.img;
-        bg.style.backgroundImage = "url('" + imgUrl + "')";
-        bg.style.opacity = 1;
-      }
-      if (b.video && bgv){
-        const vsrc = './JBY-V3.3-assets/' + b.video;
-        // Hide video until it can play so we don't show the dark placeholder
-        bgv.style.opacity = 0;
-        const showVideo = () => {
-          bgv.muted = true;
-          bgv.play().catch(()=>{});
-          bgv.style.opacity = 1;
-          if (bg) bg.style.opacity = 0;
-        };
-        if (bgv.getAttribute('src') !== vsrc){
-          bgv.src = vsrc;
-          bgv.load();
-          bgv.addEventListener('canplay', showVideo, { once: true });
-        } else {
-          // Same video already loaded — show immediately
-          showVideo();
-        }
-      } else if (bgv){
-        bgv.style.opacity = 0;
-        try { bgv.pause(); } catch(e){}
-      }
-    };
-    setTimeout(doSwap, 300);
     if (mark){
-      if (b.logo){
-        const logoUrl = b.logo.startsWith('data:') ? b.logo : './JBY-V3.3-assets/' + b.logo;
-        mark.innerHTML = '<img src="' + logoUrl + '" alt="' + b.name + '"/>';
-      } else {
-        // No logo image yet — render brand name as a text wordmark
-        mark.innerHTML = '<span class="word">' + (b.logoText || b.name) + '</span>';
-      }
+      const logoUrl = (b.logo && b.logo.startsWith('data:')) ? b.logo : './JBY-V3.3-assets/' + b.logo;
+      mark.innerHTML = '<img src="' + logoUrl + '" alt="' + b.name + '"/>';
     }
     if (cap) cap.textContent = b.caption;
     const brandCta = document.getElementById('brand-cta');
@@ -1704,111 +1592,35 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     const strip = document.getElementById('events-strip');
     if (strip) strip.scrollBy({left: dir * 444, behavior: 'smooth'});
   };
-  // Event cards with video — play on hover, pause on leave
-  document.querySelectorAll('.event-card.has-video').forEach(function(card){
-    var v = card.querySelector('.event-video');
-    if (!v) return;
-    card.addEventListener('mouseenter', function(){
-      try { v.currentTime = 0; v.play().catch(function(){}); } catch(e){}
-    });
-    card.addEventListener('mouseleave', function(){
-      v.pause();
-    });
-  });
   // Vessels row — grid layout doesn't scroll; arrow scrolls to next section (portfolio)
   window.vesselsScroll = function(){
     const target = document.querySelector('.vessels');
     if (target) target.scrollIntoView({behavior: 'smooth', block: 'start'});
   };
 
-  // MAP — Mapbox (production) with Leaflet + CARTO fallback (staging/localhost).
-  // Ported from the office page so the map renders on any domain. Defaults to
-  // fit ALL offices; region filter re-fits to the selected coast.
-  (function(){
-    var el = document.getElementById('leaflet-map');
-    if (!el) return;
-    var MAPBOX_TOKEN = 'pk.' + 'eyJ1IjoiaGVpZ29wIiwiYSI6ImNtc3JlcmUxOTAybHIyd3B6' + 'Nmg2NnF2bWoifQ.SG3e_SKUkcE6ncuI28PveQ';
-    var MAPBOX_STYLE = 'mapbox://styles/mapbox/light-v11';
-    var MIN_ZOOM = 2, MAX_ZOOM = 15;
-    // coords in [lng, lat]
-    var OFFICES = [
-      {slug:'san-diego-boatyard', region:'west', coords:[-117.2300,32.7100]},
-      {slug:'san-diego',          region:'west', coords:[-117.1611,32.7157]},
-      {slug:'newport-harbor',     region:'west', maritime:true, coords:[-117.9298,33.6189]},
-      {slug:'marina-del-rey',     region:'west', coords:[-118.4517,33.9802]},
-      {slug:'sausalito',          region:'west', coords:[-122.4853,37.8590]},
-      {slug:'seattle',            region:'west', coords:[-122.3321,47.6062]},
-      {slug:'kona',               region:'west', coords:[-155.9969,19.6400]},
-      {slug:'wrightsville-beach', region:'east', coords:[-77.7964,34.2085]},
-      {slug:'charleston',         region:'east', coords:[-79.9311,32.7765]}
+  // LEAFLET
+  if (typeof L !== 'undefined'){
+    const map = L.map('leaflet-map', { zoomControl:true, scrollWheelZoom:false, attributionControl:false }).setView([37, -98], 4);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', { subdomains:'abcd', maxZoom:19 }).addTo(map);
+    const locs = [
+      {name:'San Diego Marina &amp; Boatyard', sub:'Boatyard &middot; Mon&ndash;Sat 8&ndash;5', coords:[32.7100,-117.2300], type:'boatyard'},
+      {name:'San Diego',          sub:'Office &middot; Mon&ndash;Sat 8&ndash;5', coords:[32.7157,-117.1611]},
+      {name:'Newport Harbor',     sub:'Maritime &middot; Newport Beach &middot; Mon&ndash;Sat 8&ndash;5', coords:[33.6189,-117.9298], type:'maritime', label:'M'},
+      {name:'Marina del Rey',     sub:'Office &middot; Mon&ndash;Sat 8&ndash;5', coords:[33.9802,-118.4517]},
+      {name:'Sausalito',          sub:'Office &middot; Mon&ndash;Sat 8&ndash;5', coords:[37.8590,-122.4853]},
+      {name:'Seattle',            sub:'Office &middot; Mon&ndash;Sat 8&ndash;5', coords:[47.6062,-122.3321]},
+      {name:'Kona',               sub:'By appointment',                          coords:[19.6400,-155.9969]},
+      {name:'Wrightsville Beach', sub:'Office &middot; Mon&ndash;Sat 8&ndash;5', coords:[34.2085, -77.7964]},
+      {name:'Charleston',         sub:'Office &middot; Mon&ndash;Sat 8&ndash;5', coords:[32.7765, -79.9311]},
     ];
-    function openBySlug(slug){ var it = document.querySelector('[data-loc="'+slug+'"]'); if (it) it.click(); }
-    function markerEl(o){
-      var m = document.createElement('div');
-      m.className = 'jby-marker' + (o.maritime ? ' maritime' : '');
-      m.title = o.slug;
-      m.addEventListener('click', function(ev){ ev.stopPropagation(); openBySlug(o.slug); });
-      return m;
-    }
-    function initMap(){
-      var validToken = window.mapboxgl && /^pk\./.test(MAPBOX_TOKEN);
-      function goLeaflet(){ if (window.L){ el.style.backgroundImage='none'; initLeaflet(); } }
-      if (validToken){
-        // Probe whether this domain may use the (URL-restricted) token: OK -> Mapbox; else -> Leaflet.
-        fetch('https://api.mapbox.com/styles/v1/mapbox/light-v11/tiles/256/2/0/1?access_token=' + MAPBOX_TOKEN)
-          .then(function(r){ if (r.ok){ el.style.backgroundImage='none'; initMapbox(); } else { goLeaflet(); } })
-          .catch(function(){ goLeaflet(); });
-      } else { goLeaflet(); }
-    }
-    // ---- Mapbox (production domain) ----
-    function initMapbox(){
-      mapboxgl.accessToken = MAPBOX_TOKEN;
-      var map = new mapboxgl.Map({ container:'leaflet-map', style:MAPBOX_STYLE,
-        center:[-98,39], zoom:3, minZoom:MIN_ZOOM, maxZoom:MAX_ZOOM,
-        attributionControl:false, cooperativeGestures:true, dragRotate:false, pitchWithRotate:false });
-      map.addControl(new mapboxgl.NavigationControl({showCompass:false}), 'top-right');
-      map.addControl(new mapboxgl.AttributionControl({compact:true}), 'bottom-right');
-      map.on('load', function(){
-        try{ map.setPaintProperty('water','fill-color','#ccd8e0'); }catch(e){}
-      });
-      var mk = [];
-      OFFICES.forEach(function(o){
-        var elm = markerEl(o);
-        new mapboxgl.Marker({element:elm, anchor:'center'}).setLngLat(o.coords).addTo(map);
-        mk.push({el:elm, region:o.region, coords:o.coords});
-      });
-      function fit(region){
-        var pts = mk.filter(function(m){ var sh=(region==='all'||m.region===region); m.el.style.display=sh?'':'none'; return sh; }).map(function(m){return m.coords;});
-        if (!pts.length) return;
-        if (pts.length===1){ map.flyTo({center:pts[0], zoom:9, duration:800}); return; }
-        var b=new mapboxgl.LngLatBounds(); pts.forEach(function(p){b.extend(p);});
-        map.fitBounds(b, {padding:70, maxZoom:8, duration:800});
-      }
-      map.on('load', function(){ map.resize(); fit('all'); });
-      window._jbyMapFilter = fit;
-    }
-    // ---- Leaflet + CARTO Positron (staging / no-token fallback) ----
-    function initLeaflet(){
-      var map = L.map('leaflet-map', { scrollWheelZoom:false, zoomControl:true, attributionControl:true, minZoom:MIN_ZOOM, maxZoom:MAX_ZOOM }).setView([39,-98], 4);
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { subdomains:'abcd', maxZoom:19, attribution:'&copy; OpenStreetMap &copy; CARTO' }).addTo(map);
-      var mk = [];
-      OFFICES.forEach(function(o){
-        var sz = o.maritime ? 22 : 16;
-        var icon = L.divIcon({ className:'jby-divicon', html:'<div class="jby-marker'+(o.maritime?' maritime':'')+'"></div>', iconSize:[sz,sz], iconAnchor:[sz/2,sz/2] });
-        var marker = L.marker([o.coords[1],o.coords[0]], {icon:icon}).on('click', function(){ openBySlug(o.slug); }).addTo(map);
-        mk.push({marker:marker, region:o.region, latlng:[o.coords[1],o.coords[0]]});
-      });
-      function fit(region){
-        var pts = mk.filter(function(m){ var sh=(region==='all'||m.region===region); if(sh){ if(!map.hasLayer(m.marker)) m.marker.addTo(map); } else map.removeLayer(m.marker); return sh; }).map(function(m){return m.latlng;});
-        if (!pts.length) return;
-        if (pts.length===1){ map.setView(pts[0], 9); return; }
-        map.fitBounds(pts, {padding:[60,60], maxZoom:8});
-      }
-      setTimeout(function(){ map.invalidateSize(); fit('all'); }, 150);
-      window._jbyMapFilter = fit;
-    }
-    initMap();
-  })();
+    locs.forEach(l => {
+      const isMaritime = l.type === 'maritime';
+      const size = isMaritime ? 22 : 18;
+      const inner = '<div class="leaflet-pin-inner '+(l.type||'')+'">' + (l.label || '') + '</div>';
+      const icon = L.divIcon({ className:'leaflet-pin', html:inner, iconSize:[size,size], iconAnchor:[size/2,size/2] });
+      L.marker(l.coords, { icon }).addTo(map).bindPopup(l.name + '<small>' + l.sub + '</small>');
+    });
+  }
 
   // LOCATION PREVIEW MODAL — open on chevron click; click name (h5) also opens
   (function(){
@@ -1819,29 +1631,21 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     var descEl = document.getElementById('loc-modal-desc');
     var servicesEl = document.getElementById('loc-modal-services');
     var hoursEl = document.getElementById('loc-modal-hours');
-    var subtitleEl = document.getElementById('loc-modal-subtitle');
-    var addressLinkEl = document.getElementById('loc-modal-address-link');
-    var phoneEl = document.getElementById('loc-modal-phone');
     function openModal(item){
       var photo = item.getAttribute('data-photo') || '';
-      var type = item.getAttribute('data-type') || '';
-      var city = item.getAttribute('data-city') || '';
-      var address = item.getAttribute('data-address') || '';
-      var phone = item.getAttribute('data-phone') || '';
-      var phoneHref = item.getAttribute('data-phone-href') || '';
-      var hours = item.getAttribute('data-hours') || '';
       var services = (item.getAttribute('data-services') || '').split(',').filter(Boolean);
-      var fact = item.getAttribute('data-fact') || '';
+      var desc = item.getAttribute('data-desc') || '';
       var h5 = item.querySelector('h5');
       var title = h5.childNodes[0].nodeValue ? h5.childNodes[0].nodeValue.trim() : h5.textContent.trim();
+      var hours = item.querySelector('small').textContent.trim();
       photoEl.style.backgroundImage = photo ? "url('./JBY-V3.3-assets/" + photo + "')" : '';
-      titleEl.textContent = title + (type === 'MARITIME' ? ': Maritime' : '');
-      subtitleEl.textContent = fact;
-      addressLinkEl.textContent = address;
-      addressLinkEl.setAttribute('href', 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(address));
-      phoneEl.textContent = phone;
-      phoneEl.setAttribute('href', phoneHref);
-      hoursEl.textContent = hours + (hours !== 'By appointment' ? '  · By appointment anytime' : '');
+      titleEl.textContent = title;
+      descEl.textContent = desc;
+      servicesEl.innerHTML = services.map(function(s){
+        var cls = s.trim().toLowerCase() === 'maritime' ? ' class="maritime"' : '';
+        return '<span'+cls+'>' + s.trim() + '</span>';
+      }).join('');
+      hoursEl.textContent = hours;
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
@@ -1867,1404 +1671,5 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   })();
 })();
 </script>
-<script>
-(function(){
-  document.querySelectorAll('.sec-filter').forEach(function(bar){
-    var section = bar.closest('section');
-    if(!section) return;
-    // Content items only — exclude the filter buttons (which also carry data-region)
-    var items = Array.prototype.filter.call(
-      section.querySelectorAll('[data-region]'),
-      function(el){ return !el.closest('.sec-filter'); }
-    );
-    var subheads = section.querySelectorAll('.visit-list > h4');
-    var isVisit = !!section.querySelector('#leaflet-map');
-    bar.querySelectorAll('button').forEach(function(b){
-      b.addEventListener('click', function(){
-        bar.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});
-        b.classList.add('on');
-        var r = b.getAttribute('data-region');
-        items.forEach(function(it){
-          it.classList.toggle('region-hide', !(r==='all' || it.getAttribute('data-region')===r));
-        });
-        // hide the "Marinas & Boatyards" / "Sales Offices" sub-headers while a region is active
-        subheads.forEach(function(h){ h.classList.toggle('region-hide', r!=='all'); });
-        // update the map pins to match the selected region
-        if (isVisit && window._jbyMapFilter) window._jbyMapFilter(r);
-      });
-    });
-  });
-})();
-</script>
-<!-- ==========================================================================
-     JBY CHAT  ("Crisp Chat", rebuilt in the Jeff Brown Yachts design system)
-     --------------------------------------------------------------------------
-     Self contained block. Nothing above this comment was changed.
-
-     WHAT IT IS
-       A full re-skin and re-build of the Crisp chatbox using JBY fonts
-       (Mesmerize / Myriad Pro), JBY colours (--navy #41647b, --ink #2f2f39)
-       and JBY component rules (squared corners, no hover movement).
-
-     STRUCTURE  (mirrors the real Crisp chatbox 1:1)
-       .jc-dock      floating plate, bottom right, appears on section 2
-                     [ EXPLORE INVENTORY ] | [ CHAT WITH US ]
-       .jc-teaser    proactive message preview shown while the box is closed
-       .jc-box       the chatbox itself, 400 x 730 (same as Crisp)
-         .jc-head      navy header: hero block, or compact operator bar
-         .jc-view-chat messages list + composer
-       Message kinds implemented: date separator, operator text, visitor text,
-       delivery state, typing indicator, picker chips, guide card, vessel
-       card, file bubble, image bubble, rating block, pre chat form,
-       hover timestamp. There is no search tab, messages only.
-
-     DEV NOTES
-       All state lives in the JC object at the bottom of this block. To wire
-       the real Crisp back end, replace JC.bot.* with the $crisp SDK calls
-       named in the comments (chat:open, message:send, message:show, ...).
-     ========================================================================== -->
-<style>
-/* ---------- tokens ------------------------------------------------------- */
-.jc-root{
-  --jc-navy:#41647b; --jc-navy-d:#365466; --jc-navy-l:#4a7189;
-  --jc-ink:#2f2f39; --jc-mute:#7a7a85; --jc-paper:#fff;
-  --jc-bubble:#f0f2f5;            /* same grey Crisp uses for operator bubbles */
-  --jc-line:rgba(0,0,0,0.10);
-  --jc-line-soft:rgba(0,0,0,0.06);
-  --jc-shadow:0 24px 80px rgba(20,32,44,0.22);
-  --jc-r:2px;                     /* single radius for every surface in the widget */
-  --jc-w:472px;                   /* plate and chat window share one width */
-  --jc-h:730px;                   /* Crisp large view height */
-}
-
-/* ---------- 1. DOCK: EXPLORE BUTTON + LAUNCHER DISC ----------------------
-   Not a plate any more, and no white CHAT WITH US button: the chat is a
-   launcher again. The navy Explore inventory button, then Crisp's own 54px
-   launcher tile 16px to its right, colours inverted so it reads on the near
-   white page: a white disc carrying the navy speech bubble glyph, held by a
-   hairline and a drop shadow.
-
-   Thirty seconds in, the disc becomes the operator's face. The glyph stays
-   underneath it, so opening the box brings the close cross back over. */
-.jc-dock{
-  position:fixed; right:40px; bottom:32px; z-index:1000;
-  display:flex; align-items:center; gap:16px;
-  opacity:0; transform:translateY(18px); pointer-events:none;
-  transition:opacity .55s cubic-bezier(0.22,1,0.36,1), transform .55s cubic-bezier(0.22,1,0.36,1);
-}
-.jc-dock.on{opacity:1; transform:none; pointer-events:auto}
-
-.jc-dock-btn{
-  flex:0 0 auto; display:inline-flex; align-items:center; gap:10px; height:56px; padding:0 22px;
-  font-family:'Mesmerize',sans-serif; font-weight:300; font-size:14px; line-height:24px;
-  letter-spacing:0.02em; text-transform:uppercase; white-space:nowrap;
-  background:var(--jc-navy); color:#fff; border:0; border-radius:var(--jc-r);
-  box-shadow:0 10px 30px rgba(20,32,44,0.18); transition:background .25s;
-}
-.jc-dock-btn:hover{background:var(--jc-navy-d)}
-.jc-dock-btn i{font-size:17px}
-
-.jc-launcher{
-  position:relative; flex:0 0 54px; width:54px; height:54px; padding:0; border-radius:50%;
-  background:var(--jc-paper); border:1.5px solid var(--jc-navy); color:var(--jc-navy);
-  display:flex; align-items:center; justify-content:center;
-  box-shadow:0 4px 16px rgba(20,32,44,0.22); transition:box-shadow .22s, background .22s;
-}
-.jc-launcher:hover{
-  background:#f4f6f8;
-  box-shadow:0 0 0 7px rgba(65,100,123,0.16), 0 4px 16px rgba(20,32,44,0.22);
-}
-.jc-launcher svg{width:26px; height:26px}
-.jc-launcher .glyph-close{display:none}
-.jc-dock.open .jc-launcher .glyph-open{display:none}
-.jc-dock.open .jc-launcher .glyph-close{display:block}
-
-/* The face that takes the disc over. Hidden until it is a face, and hidden
-   again while the box is open, so the cross is what there is to click.
-
-   Scoped to .jc-launcher on purpose: .jc-mark sets position:relative further
-   down the sheet, and at equal specificity that would win and drop the face
-   back into the flex row beside the glyph, where the two squeeze each other. */
-.jc-launcher .jc-face{
-  position:absolute; inset:0; display:none; border-radius:50%; background:var(--jc-paper);
-}
-.jc-launcher .jc-face.human{display:block}
-.jc-dock.open .jc-launcher .jc-face{display:none}
-
-/* once she is on the disc the glyph has no job: the photo fills the circle
-   edge to edge, and a speech bubble underneath it is one thing too many */
-.jc-launcher:has(.jc-face.human) .glyph-open{display:none}
-
-/* No unread flag. The disc carries one dot and it is the green one: a red
-   counter next to her face turns an available person into an alarm. Unread is
-   still counted in S.unread, so a badge can be drawn from there if the
-   decision changes. */
-
-/* ---------- 2. TEASER (proactive message while closed) ------------------ */
-.jc-teaser{
-  position:fixed; right:40px; bottom:104px; z-index:1000; width:296px;
-  padding:14px 30px 14px 16px;
-  background:#fff; border:0.5px solid var(--jc-line); border-radius:var(--jc-r); box-shadow:var(--jc-shadow);
-  opacity:0; transform:translateY(10px); pointer-events:none;
-  transition:opacity .4s, transform .4s cubic-bezier(0.22,1,0.36,1);
-  text-align:left; cursor:pointer;
-}
-.jc-teaser.on{opacity:1; transform:none; pointer-events:auto}
-.jc-teaser .who{font-family:'Mesmerize',sans-serif; font-weight:300; font-size:12px; letter-spacing:0.06em;
-  text-transform:uppercase; color:var(--jc-navy); margin:0 0 4px}
-.jc-teaser .msg{font-family:'Myriad Pro',sans-serif; font-weight:400; font-size:14px; line-height:20px;
-  color:var(--jc-ink); margin:0}
-.jc-teaser .x{position:absolute; top:6px; right:6px; width:24px; height:24px; display:flex;
-  align-items:center; justify-content:center; color:var(--jc-mute); font-size:14px; background:transparent}
-.jc-teaser .x:hover{color:var(--jc-ink)}
-
-/* ---------- 3. CHATBOX SHELL -------------------------------------------- */
-.jc-box{
-  position:fixed; right:40px; bottom:100px; z-index:1001;
-  width:var(--jc-w); height:min(var(--jc-h), calc(100vh - 148px));
-  display:flex; flex-direction:column; overflow:hidden;
-  background:#fff; border:0.5px solid var(--jc-line); border-radius:var(--jc-r); box-shadow:var(--jc-shadow);
-  opacity:0; transform:translateY(16px) scale(0.99); transform-origin:100% 100%;
-  pointer-events:none; visibility:hidden;
-  transition:opacity .34s cubic-bezier(0.22,1,0.36,1), transform .34s cubic-bezier(0.22,1,0.36,1), visibility .34s;
-}
-.jc-box.on{opacity:1; transform:none; pointer-events:auto; visibility:visible}
-
-/* ---------- 4. HEADER --------------------------------------------------- */
-.jc-head{
-  position:relative; flex:0 0 auto; color:#fff;
-  background:linear-gradient(180deg,var(--jc-navy-l) 0%,var(--jc-navy) 58%,var(--jc-navy-d) 100%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,0.20), inset 0 -1px 0 rgba(0,0,0,0.16);
-  transition:padding .3s cubic-bezier(0.22,1,0.36,1);
-}
-.jc-head-top{position:absolute; top:0; right:0; z-index:2; display:flex; padding:10px 10px 0 0}
-.jc-head-x{
-  width:32px; height:32px; display:flex; align-items:center; justify-content:center;
-  color:rgba(255,255,255,0.78); font-size:20px; background:transparent; transition:color .2s;
-}
-.jc-head-x:hover{color:#fff}
-
-/* hero block, shown while the conversation is still empty */
-.jc-hero{padding:30px 24px 30px; text-align:center}
-.jc-hero h3{
-  font-family:'Mesmerize',sans-serif; font-weight:300; font-size:16px; line-height:24px;
-  letter-spacing:0.05em; text-transform:uppercase; color:#fff; margin:0;
-}
-
-/* compact bar, shown once the conversation has messages */
-.jc-compact{display:none; align-items:center; gap:12px; padding:10px 52px 10px 14px; position:relative}
-.jc-compact .mark{width:32px; height:32px; flex:0 0 32px; border-radius:50%; background:rgba(0,0,0,0.18);
-  display:flex; align-items:center; justify-content:center}
-.jc-compact .mark img{width:22px; height:22px}
-.jc-compact .nm{
-  font-family:'Mesmerize',sans-serif; font-weight:300; font-size:14px; letter-spacing:0.04em;
-  text-transform:uppercase; color:#fff;
-}
-.jc-compact .more{
-  margin-left:auto; width:32px; height:32px; display:flex; align-items:center; justify-content:center;
-  background:transparent; color:rgba(255,255,255,0.78); font-size:17px; transition:color .2s;
-}
-.jc-compact .more:hover{color:#fff}
-.jc-box.ongoing .jc-hero{display:none}
-.jc-box.ongoing .jc-compact{display:flex}
-
-
-/* operator dropdown menu */
-.jc-menu{
-  position:absolute; top:100%; right:12px; z-index:5; min-width:214px; padding:6px 0;
-  background:#fff; border:0.5px solid var(--jc-line); border-radius:var(--jc-r); box-shadow:0 14px 40px rgba(20,32,44,0.18);
-  opacity:0; transform:translateY(-6px); pointer-events:none; transition:.22s;
-}
-.jc-menu.on{opacity:1; transform:none; pointer-events:auto}
-.jc-menu button{
-  display:flex; align-items:center; gap:10px; width:100%; padding:10px 16px; text-align:left;
-  font-family:'Myriad Pro',sans-serif; font-weight:400; font-size:13px; color:var(--jc-ink);
-  background:transparent; transition:background .18s;
-}
-.jc-menu button:hover{background:#f4f6f9}
-.jc-menu button i{font-size:15px; color:var(--jc-mute); width:16px}
-.jc-menu hr{border:0; border-top:0.5px solid var(--jc-line-soft); margin:6px 0}
-
-/* ---------- 5. VIEWS ---------------------------------------------------- */
-.jc-view{flex:1 1 auto; min-height:0; display:none; flex-direction:column}
-.jc-view.on{display:flex}
-
-/* messages list */
-.jc-log{flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:18px 15px 10px}
-.jc-log::-webkit-scrollbar{width:8px}
-.jc-log::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.14)}
-.jc-log::-webkit-scrollbar-track{background:transparent}
-
-/* a message row: 36px avatar gutter + bubble column, exactly like Crisp */
-.jc-row{display:flex; gap:9px; margin:0 0 12px; align-items:flex-start}
-.jc-row.me{justify-content:flex-end}
-.jc-av{width:27px; height:27px; flex:0 0 27px; border-radius:50%; background:var(--jc-navy);
-  display:flex; align-items:center; justify-content:center; margin-top:2px}
-.jc-av img{width:19px; height:19px}
-.jc-row.tp .jc-av{margin-top:0}
-.jc-av.ghost{visibility:hidden}
-.jc-col{max-width:340px; min-width:0}
-/* rich content needs the wider column Crisp uses for pickers and cards */
-.jc-col:has(.jc-chips),.jc-col:has(.jc-card),.jc-col:has(.jc-vessel),.jc-col:has(.jc-form){max-width:404px}
-.jc-bub{
-  position:relative; display:inline-block; max-width:100%; padding:9px 14px 10px;
-  background:var(--jc-bubble); color:var(--jc-ink); border-radius:var(--jc-r);
-  font-family:'Myriad Pro',sans-serif; font-weight:400; font-size:16px; line-height:24px;
-  word-wrap:break-word; overflow-wrap:anywhere;
-}
-.jc-bub a{color:var(--jc-navy); text-decoration:underline; text-underline-offset:2px}
-.jc-row.me .jc-bub{background:var(--jc-navy); color:#fff}
-.jc-row.me .jc-bub a{color:#fff}
-/* hover timestamp, matching the dark Crisp tooltip */
-.jc-bub .jc-time{
-  position:absolute; bottom:calc(100% + 6px); left:0; white-space:nowrap; padding:0 10px; height:24px;
-  background:rgba(0,0,0,0.94); color:#fff; border-radius:var(--jc-r);
-  font-family:'Myriad Pro',sans-serif; font-weight:400; font-size:11px; line-height:24px;
-  opacity:0; pointer-events:none; transition:opacity .18s;
-}
-.jc-row.me .jc-bub .jc-time{left:auto; right:0}
-.jc-bub:hover .jc-time{opacity:1}
-.jc-state{
-  font-family:'Myriad Pro',sans-serif; font-weight:400; font-size:11px; color:var(--jc-mute);
-  margin:4px 1px 0; text-align:right; display:flex; align-items:center; gap:4px; justify-content:flex-end;
-}
-.jc-state i{font-size:12px}
-.jc-state.seen{color:var(--jc-navy)}
-
-/* typing indicator */
-.jc-typing{display:inline-flex; gap:4px; align-items:center; padding:12px 15px; background:var(--jc-bubble);
-  border-radius:var(--jc-r)}
-.jc-typing span{width:6px; height:6px; border-radius:50%; background:#a4a4ae; animation:jcBounce 1.25s infinite}
-.jc-typing span:nth-child(2){animation-delay:.16s}
-.jc-typing span:nth-child(3){animation-delay:.32s}
-@keyframes jcBounce{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}
-
-/* picker chips (operator asks the visitor to choose) */
-.jc-chips{display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 4px}
-.jc-chip{
-  padding:7px 14px 8px; background:transparent; border:1px solid var(--jc-navy); border-radius:var(--jc-r);
-  color:var(--jc-navy);
-  font-family:'Mesmerize',sans-serif; font-weight:300; font-size:12px; line-height:16px;
-  letter-spacing:0.05em; text-transform:uppercase; transition:background .22s,color .22s;
-}
-.jc-chip:hover{background:var(--jc-navy); color:#fff}
-.jc-chip[disabled]{opacity:.4; pointer-events:none}
-
-/* guide card: a short answer the operator can offer inside the thread */
-.jc-card{
-  display:flex; align-items:center; gap:12px; width:100%; margin:8px 0 0; padding:13px 14px;
-  background:#fff; border:0.5px solid var(--jc-line); border-radius:var(--jc-r); text-align:left;
-  transition:border-color .22s,background .22s;
-}
-.jc-card:hover{background:#f9fafc; border-color:rgba(0,0,0,0.2)}
-.jc-card .cat{
-  font-family:'Mesmerize',sans-serif; font-weight:300; font-size:10px; letter-spacing:0.10em;
-  text-transform:uppercase; color:var(--jc-navy); display:block; margin:0 0 4px;
-}
-.jc-card .ttl{font-family:'Myriad Pro',sans-serif; font-weight:400; font-size:13px; line-height:18px; color:var(--jc-ink)}
-.jc-card i{margin-left:auto; font-size:15px; color:var(--jc-navy)}
-
-/* vessel card (rich message an operator can push into the thread) */
-.jc-vessel{width:100%; margin:8px 0 0; background:#fff; border:0.5px solid var(--jc-line);
-  border-radius:var(--jc-r); overflow:hidden; text-align:left; display:block}
-.jc-vessel img{width:100%; height:130px; object-fit:cover}
-.jc-vessel .b{padding:12px 14px 14px}
-.jc-vessel .nm{font-family:'Mesmerize',sans-serif; font-weight:300; font-size:13px; letter-spacing:0.04em;
-  text-transform:uppercase; color:var(--jc-ink); margin:0 0 5px}
-.jc-vessel .mt{font-family:'Myriad Pro',sans-serif; font-weight:400; font-size:12px; color:var(--jc-mute); margin:0 0 11px}
-.jc-vessel .go{
-  display:inline-flex; align-items:center; gap:8px; height:34px; padding:0 15px; background:var(--jc-navy);
-  border-radius:var(--jc-r); color:#fff; font-family:'Mesmerize',sans-serif; font-weight:300; font-size:12px; letter-spacing:0.06em;
-  text-transform:uppercase; transition:background .22s;
-}
-.jc-vessel .go:hover{background:var(--jc-navy-d)}
-
-/* file + image attachments */
-.jc-file{display:flex; align-items:center; gap:11px; padding:11px 14px; background:var(--jc-bubble); border-radius:var(--jc-r)}
-.jc-row.me .jc-file{background:var(--jc-navy); color:#fff}
-.jc-file i{font-size:17px}
-.jc-file .fn{font-family:'Myriad Pro',sans-serif; font-weight:400; font-size:13px; line-height:17px}
-.jc-file .fs{font-family:'Myriad Pro',sans-serif; font-weight:400; font-size:11px; opacity:.7}
-.jc-img{border-radius:var(--jc-r); overflow:hidden; max-width:100%}
-.jc-img img{display:block; width:100%}
-
-/* rating block */
-.jc-rate{
-  margin:14px 0 6px; padding:16px 14px; background:#f4f6f9; border:0.5px solid var(--jc-line-soft);
-  border-radius:var(--jc-r); text-align:center;
-}
-.jc-rate p{font-family:'Myriad Pro',sans-serif; font-weight:400; font-size:13px; line-height:19px;
-  color:var(--jc-ink); margin:0 0 12px}
-.jc-rate .btns{display:flex; gap:8px; justify-content:center}
-.jc-rate button{
-  width:42px; height:38px; display:inline-flex; align-items:center; justify-content:center;
-  background:#fff; border:0.5px solid var(--jc-line); border-radius:var(--jc-r); color:var(--jc-ink); font-size:17px;
-  transition:background .22s,color .22s,border-color .22s;
-}
-.jc-rate button:hover{background:var(--jc-navy); border-color:var(--jc-navy); color:#fff}
-.jc-rate.done .btns{display:none}
-
-/* pre chat form */
-.jc-form{margin:8px 0 2px; padding:16px 15px 17px; background:#f4f6f9; border:0.5px solid var(--jc-line-soft);
-  border-radius:var(--jc-r)}
-.jc-form h4{font-family:'Mesmerize',sans-serif; font-weight:300; font-size:13px; letter-spacing:0.06em;
-  text-transform:uppercase; color:var(--jc-navy); margin:0 0 4px}
-.jc-form p{font-family:'Myriad Pro',sans-serif; font-weight:400; font-size:13px; line-height:19px;
-  color:var(--jc-mute); margin:0 0 13px}
-.jc-form label{display:block; font-family:'Mesmerize',sans-serif; font-weight:300; font-size:10px;
-  letter-spacing:0.10em; text-transform:uppercase; color:var(--jc-mute); margin:0 0 5px}
-.jc-form input{
-  width:100%; height:40px; padding:0 12px; margin:0 0 11px; background:#fff; color:var(--jc-ink);
-  border:0.5px solid var(--jc-line); border-radius:var(--jc-r); outline:0;
-  font-family:'Myriad Pro',sans-serif; font-weight:400; font-size:14px;
-}
-.jc-form input:focus{border-color:var(--jc-navy)}
-.jc-form .go{
-  width:100%; height:42px; background:var(--jc-navy); border-radius:var(--jc-r); color:#fff;
-  font-family:'Mesmerize',sans-serif; font-weight:300; font-size:13px; letter-spacing:0.06em;
-  text-transform:uppercase; transition:background .22s;
-}
-.jc-form .go:hover{background:var(--jc-navy-d)}
-.jc-form .skip{
-  display:block; width:100%; margin:9px 0 0; background:transparent; color:var(--jc-mute);
-  font-family:'Myriad Pro',sans-serif; font-weight:400; font-size:12px; text-decoration:underline;
-  text-underline-offset:2px; transition:color .2s;
-}
-.jc-form .skip:hover{color:var(--jc-ink)}
-
-/* ---------- 6. COMPOSER ------------------------------------------------- */
-.jc-composer{position:relative; flex:0 0 auto; padding:8px 10px 14px}
-.jc-cwrap{
-  background:#fff; border:1px solid var(--jc-line); border-radius:var(--jc-r); padding:10px 8px 6px 13px;
-  transition:border-color .2s, box-shadow .2s;
-}
-.jc-cwrap.focus{border-color:var(--jc-navy)}
-.jc-ta{
-  width:100%; max-height:112px; min-height:24px; border:0; outline:0; resize:none; overflow-y:auto;
-  background:transparent; color:var(--jc-ink);
-  font-family:'Myriad Pro',sans-serif; font-weight:400; font-size:16px; line-height:24px; letter-spacing:0.01em;
-}
-.jc-ta::placeholder{color:#9a9aa3}
-.jc-crow{display:flex; align-items:center; gap:2px; margin:4px 0 0}
-.jc-ic{
-  width:30px; height:30px; display:inline-flex; align-items:center; justify-content:center;
-  background:transparent; color:#8e8e98; font-size:17px; transition:color .2s;
-}
-.jc-ic:hover{color:var(--jc-navy)}
-/* flat send glyph, no plate. Grey until there is something to send, the way
-   Crisp does it. */
-.jc-send{
-  margin-left:auto; width:30px; height:30px; display:inline-flex; align-items:center; justify-content:center;
-  background:transparent; color:#9a9aa4; transition:color .22s;
-}
-.jc-send svg{width:21px; height:21px; display:block}
-.jc-send[disabled]{pointer-events:none}
-.jc-send:not([disabled]){color:var(--jc-navy)}
-.jc-send:not([disabled]):hover{color:var(--jc-navy-d)}
-/* emoji popover */
-.jc-emoji{
-  position:absolute; bottom:calc(100% + 4px); left:10px; z-index:6; width:250px; padding:10px;
-  display:grid; grid-template-columns:repeat(8,1fr); gap:2px;
-  background:#fff; border:0.5px solid var(--jc-line); border-radius:var(--jc-r); box-shadow:0 14px 40px rgba(20,32,44,0.18);
-  opacity:0; transform:translateY(6px); pointer-events:none; transition:.2s;
-}
-.jc-emoji.on{opacity:1; transform:none; pointer-events:auto}
-.jc-emoji button{height:28px; font-size:16px; background:transparent; transition:background .16s}
-.jc-emoji button:hover{background:#f4f6f9}
-
-/* ---------- 8. RESPONSIVE ----------------------------------------------- */
-@media (max-width:900px){
-  .jc-dock{right:24px; bottom:24px}
-  .jc-box{right:24px; bottom:92px; width:calc(100vw - 48px); max-width:var(--jc-w)}
-  .jc-teaser{right:24px; bottom:96px}
-}
-@media (max-width:640px){
-  /* the button takes the width it is given, the disc keeps its 54px */
-  .jc-dock{left:24px; right:24px}
-  .jc-dock-btn{flex:1 1 auto; height:54px; justify-content:center; padding:0 12px; font-size:13px}
-  .jc-teaser{left:24px; right:24px; width:auto; bottom:92px}
-  /* full screen chatbox, same as the Crisp mobile behaviour */
-  .jc-box{inset:0; width:100%; height:100%; max-width:none; border:0; transform:translateY(20px)}
-  .jc-box.on{transform:none}
-  .jc-col{max-width:78%}
-  .jc-col:has(.jc-chips),.jc-col:has(.jc-card),.jc-col:has(.jc-vessel),.jc-col:has(.jc-form){max-width:82%}
-  .jc-composer{padding-bottom:calc(14px + env(safe-area-inset-bottom))}
-  .jc-dock{bottom:calc(24px + env(safe-area-inset-bottom))}
-}
-@media (prefers-reduced-motion:reduce){
-  .jc-dock,.jc-box,.jc-teaser{transition:opacity .01s}
-  .jc-typing span{animation:none}
-}
-
-/* ---------- 9. BLUE GLASS SKIN ------------------------------------------
-   The chatbox carries the site's translucent blue instead of white: the same
-   glass the page header uses, navy at 78-90% over a 22px blur. Only colour
-   changes here. The layout, the radii, the type scale and every measurement
-   above are untouched, so deleting this section returns the widget to white.
-   The visitor bubble is the one solid surface left, which is what separates
-   it from the operator's glass bubble now that both sit on blue. */
-.jc-root{
-  --jc-glass:linear-gradient(180deg, rgba(65,100,123,0.78) 0%, rgba(65,100,123,0.90) 100%);
-  --jc-blur:blur(22px) saturate(140%);
-  --jc-on-mute:rgba(255,255,255,0.62);   /* secondary type on the glass */
-  --jc-on-line:rgba(255,255,255,0.22);   /* hairline on the glass */
-  --jc-on-fill:rgba(255,255,255,0.12);   /* a raised surface on the glass */
-  --jc-on-fill-h:rgba(255,255,255,0.18); /* the same surface, hovered */
-  --jc-dot:#4cc07a;                      /* availability */
-}
-
-/* shell. The header keeps its weight by being one shade lighter, not by
-   being a different colour. */
-.jc-box{
-  background:var(--jc-glass);
-  backdrop-filter:var(--jc-blur); -webkit-backdrop-filter:var(--jc-blur);
-  border-color:rgba(255,255,255,0.20);
-}
-.jc-head{
-  background:linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.04) 100%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(255,255,255,0.14);
-}
-.jc-log::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.26)}
-
-/* messages */
-.jc-av{background:rgba(255,255,255,0.16)}
-.jc-bub{background:var(--jc-on-fill); color:#fff; border:0.5px solid var(--jc-on-line)}
-.jc-bub a{color:#fff}
-.jc-row.me .jc-bub{background:#fff; color:var(--jc-ink); border-color:transparent}
-.jc-row.me .jc-bub a{color:var(--jc-navy)}
-.jc-state{color:var(--jc-on-mute)}
-.jc-state.seen{color:#fff}
-.jc-typing{background:var(--jc-on-fill)}
-.jc-typing span{background:rgba(255,255,255,0.75)}
-
-/* picker chips */
-.jc-chip{border-color:rgba(255,255,255,0.55); color:#fff}
-.jc-chip:hover{background:#fff; color:var(--jc-navy)}
-
-/* guide card, vessel card, rating, pre chat form, attachments */
-.jc-card,.jc-vessel,.jc-rate,.jc-form{background:var(--jc-on-fill); border-color:var(--jc-on-line)}
-.jc-card:hover{background:var(--jc-on-fill-h); border-color:rgba(255,255,255,0.38)}
-.jc-card .cat,.jc-card i,.jc-form h4{color:rgba(255,255,255,0.74)}
-.jc-card .ttl,.jc-vessel .nm,.jc-rate p{color:#fff}
-.jc-vessel .mt,.jc-form p,.jc-form label,.jc-form .skip{color:var(--jc-on-mute)}
-.jc-form .skip:hover{color:#fff}
-.jc-vessel .go,.jc-form .go{background:#fff; color:var(--jc-navy)}
-.jc-vessel .go:hover,.jc-form .go:hover{background:rgba(255,255,255,0.84)}
-.jc-rate button{background:var(--jc-on-fill); border-color:var(--jc-on-line); color:#fff}
-.jc-rate button:hover{background:#fff; border-color:#fff; color:var(--jc-navy)}
-.jc-form input{background:rgba(255,255,255,0.94); border-color:transparent; color:var(--jc-ink)}
-.jc-form input:focus{border-color:#fff}
-.jc-file{background:var(--jc-on-fill); color:#fff}
-.jc-row.me .jc-file{background:#fff; color:var(--jc-ink)}
-
-/* composer */
-.jc-cwrap{background:rgba(255,255,255,0.10); border-color:rgba(255,255,255,0.24)}
-.jc-cwrap.focus{border-color:#fff}
-.jc-ta{color:#fff}
-.jc-ta::placeholder{color:rgba(255,255,255,0.55)}
-.jc-ic{color:rgba(255,255,255,0.62)}
-.jc-ic:hover{color:#fff}
-.jc-send{color:rgba(255,255,255,0.42)}
-.jc-send:not([disabled]){color:#fff}
-.jc-send:not([disabled]):hover{color:rgba(255,255,255,0.78)}
-
-/* popovers sit on the same glass rather than punching a white hole in it */
-.jc-menu,.jc-emoji{
-  background:rgba(48,76,94,0.92);
-  backdrop-filter:var(--jc-blur); -webkit-backdrop-filter:var(--jc-blur);
-  border-color:rgba(255,255,255,0.18);
-}
-.jc-menu button{color:#fff}
-.jc-menu button:hover{background:rgba(255,255,255,0.12)}
-.jc-menu button i{color:rgba(255,255,255,0.6)}
-.jc-menu hr{border-top-color:rgba(255,255,255,0.16)}
-.jc-emoji button:hover{background:rgba(255,255,255,0.14)}
-
-/* the teaser is the chatbox speaking while it is closed, so it wears the
-   same glass */
-.jc-teaser{
-  background:var(--jc-glass);
-  backdrop-filter:var(--jc-blur); -webkit-backdrop-filter:var(--jc-blur);
-  border-color:rgba(255,255,255,0.20);
-}
-.jc-teaser .who{color:rgba(255,255,255,0.74)}
-.jc-teaser .msg{color:#fff}
-.jc-teaser .x{color:rgba(255,255,255,0.6)}
-.jc-teaser .x:hover{color:#fff}
-
-/* ---------- 10. OPERATOR FACE -------------------------------------------
-   The brand mark answers first. Thirty seconds in, every mark becomes the
-   person actually on the desk, with a dot while the desk is open. The timer,
-   the photo and the hours live in OPERATOR at the top of the script. */
-.jc-mark{position:relative}
-.jc-mark.human{background:#fff; overflow:visible}
-.jc-mark.human img{width:100%; height:100%; border-radius:50%; object-fit:cover}
-.jc-dot{
-  position:absolute; right:-1px; bottom:-1px; width:9px; height:9px; border-radius:50%;
-  background:var(--jc-dot); box-shadow:0 0 0 2px rgba(255,255,255,0.92);
-}
-/* the dot on the launcher carries the whole 54px disc, so it is drawn a size
-   up from the one beside a 27px message avatar */
-.jc-face .jc-dot{width:13px; height:13px; right:1px; bottom:1px; box-shadow:0 0 0 2.5px #fff}
-</style>
-
-<!-- ====================== EXPLORE BUTTON + LAUNCHER ====================== -->
-<div class="jc-root">
-<div class="jc-dock" id="jc-dock">
-  <button class="jc-dock-btn" id="jc-explore">
-    Explore inventory <i class="ti ti-chevron-right"></i>
-  </button>
-  <button class="jc-launcher" id="jc-open" aria-haspopup="dialog" aria-expanded="false"
-          aria-controls="jc-box" aria-label="Chat with us">
-    <!-- Crisp's own launcher glyph, a rounded speech bubble, in JBY navy -->
-    <svg class="glyph-open" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-      <defs><linearGradient id="jcG" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#4a7189"/><stop offset="1" stop-color="#365466"/>
-      </linearGradient></defs>
-      <path d="M5.2 4.8h17.6a2.5 2.5 0 0 1 2.5 2.5v9.9a2.5 2.5 0 0 1-2.5 2.5h-7.4l-3.2 3.5a.85.85 0 0 1-1.47-.58v-2.92H5.2a2.5 2.5 0 0 1-2.5-2.5V7.3a2.5 2.5 0 0 1 2.5-2.5Z" fill="url(#jcG)"/>
-    </svg>
-    <svg class="glyph-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
-         stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-    <span class="jc-face jc-mark" aria-hidden="true"></span>
-  </button>
-</div>
-
-<!-- =========================== TEASER ==================================== -->
-<div class="jc-teaser" id="jc-teaser" role="button" tabindex="0">
-  <button class="x" id="jc-teaser-x" aria-label="Dismiss"><i class="ti ti-x"></i></button>
-  <!-- no avatar here on purpose: the face is already on the disc right below,
-       and the same photo twice in one corner reads as a duplicate -->
-  <div>
-    <p class="who">Our team</p>
-    <p class="msg" id="jc-teaser-msg">Is there a particular vessel on your mind? We can send the full specification.</p>
-  </div>
-</div>
-
-<!-- =========================== CHATBOX =================================== -->
-<div class="jc-box" id="jc-box" role="dialog" aria-modal="false" aria-label="Chat with Jeff Brown Yachts">
-
-  <!-- ------- header ------- -->
-  <div class="jc-head">
-    <div class="jc-head-top">
-      <button class="jc-head-x" id="jc-close" aria-label="Close chat"><i class="ti ti-chevron-down"></i></button>
-    </div>
-
-    <!-- initial state -->
-    <div class="jc-hero">
-      <h3>Chat with our team</h3>
-    </div>
-
-    <!-- ongoing state -->
-    <div class="jc-compact">
-      <span class="mark jc-mark"><img src="./JBY-V3.3-assets/jby_logo.svg" alt=""/></span>
-      <div class="nm">Our team</div>
-      <button class="more" id="jc-more" aria-label="Conversation options"><i class="ti ti-dots"></i></button>
-      <div class="jc-menu" id="jc-menu" role="menu">
-        <button id="jc-m-mail" role="menuitem"><i class="ti ti-mail"></i>Email me this transcript</button>
-        <button id="jc-m-sound" role="menuitem"><i class="ti ti-volume"></i>Turn off sounds</button>
-        <hr/>
-        <button id="jc-m-new" role="menuitem"><i class="ti ti-refresh"></i>Start a new conversation</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ------- messages view ------- -->
-  <div class="jc-view on" id="jc-view-chat">
-    <div class="jc-log" id="jc-log" aria-live="polite" aria-atomic="false"></div>
-    <div class="jc-composer">
-      <div class="jc-cwrap" id="jc-cwrap">
-        <textarea class="jc-ta" id="jc-ta" rows="1" placeholder="Compose your message..." aria-label="Compose your message"></textarea>
-        <div class="jc-crow">
-          <button class="jc-ic" id="jc-emoji-btn" aria-label="Insert an emoji"><i class="ti ti-mood-smile"></i></button>
-          <button class="jc-ic" id="jc-file-btn" aria-label="Send a file"><i class="ti ti-paperclip"></i></button>
-          <button class="jc-ic" id="jc-mic-btn" aria-label="Record an audio message"><i class="ti ti-microphone"></i></button>
-          <button class="jc-send" id="jc-send" disabled aria-label="Send message">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M2.6 20.4 22 12 2.6 3.6v6.7L16 12 2.6 13.7z"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-      <input type="file" id="jc-file" hidden multiple/>
-      <div class="jc-emoji" id="jc-emoji"></div>
-    </div>
-  </div>
-</div>
-</div>
-
-<script>
-/* ==========================================================================
-   JBY CHAT engine
-   --------------------------------------------------------------------------
-   Everything is local so the page can be demoed offline. Swap the marked
-   calls for the Crisp Web SDK when wiring the real back end:
-
-     JC.open()            ->  $crisp.push(["do","chat:open"])
-     JC.close()           ->  $crisp.push(["do","chat:close"])
-     JC.sendVisitor(t)    ->  $crisp.push(["do","message:send",["text",t]])
-     JC.say(...)          ->  arrives via $crisp.push(["on","message:received",fn])
-     JC.bot.*             ->  Crisp Bot scenario / operator, delete it here
-     form submit          ->  $crisp.push(["set","user:email",[v]]) + user:nickname
-   ========================================================================== */
-(function(){
-  'use strict';
-
-  var $  = function(id){ return document.getElementById(id); };
-  var el = function(tag, cls, html){
-    var n = document.createElement(tag);
-    if (cls) n.className = cls;
-    if (html != null) n.innerHTML = html;
-    return n;
-  };
-  var esc = function(s){
-    return String(s).replace(/[&<>"']/g, function(c){
-      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
-    });
-  };
-
-  var box = $('jc-box'), dock = $('jc-dock'), log = $('jc-log'),
-      ta = $('jc-ta'), send = $('jc-send'), teaser = $('jc-teaser');
-
-  /* ---------- state ---------- */
-  var S = {
-    open:false, ongoing:false, unread:0, sounds:true,
-    identified:false, exchanges:0, rated:false, teased:false, greeted:false,
-    busy:false, human:false
-  };
-
-  /* ---------- sender identity ----------
-     The brand mark answers first. Thirty seconds in, the mark becomes the
-     person who is actually on the desk, with an availability dot while the
-     desk is open. Everything about that swap lives in OPERATOR: the photo,
-     the delay, and the hours. Set OPERATOR to null to go back to one
-     nameless brand identity. */
-  var MARK = './JBY-V3.3-assets/jby_logo.svg';
-  var OPERATOR = {
-    name : 'Audrey',
-    photo: './JBY-V3.3-assets/operator_audrey.jpg',
-    after: 30000,                 /* ms on the page before the mark becomes a face */
-    tz   : 'America/Los_Angeles', /* the desk runs on Pacific time */
-    from : 8, to : 18,            /* 8am to 6pm, the hours the script quotes */
-    /* The prototype is shown outside those hours as often as inside them, and
-       a dot nobody can see is a dot nobody can sign off. So the mockup always
-       draws it. Set this to false to watch the real hours do their work, and
-       delete the line entirely when the Crisp back end takes the question
-       over through website:availability:changed. */
-    alwaysOnDuty: true
-  };
-  var TEAM = 'Our team';          /* the label while the sender is still the brand */
-
-  /* business hours, read in the desk's own timezone rather than the
-     visitor's, so a visitor in Monaco still sees the dot only while somebody
-     is at the desk in California */
-  function onDuty(){
-    if (!OPERATOR) return false;
-    if (OPERATOR.alwaysOnDuty) return true;
-    var h = parseInt(new Date().toLocaleString('en-US', {
-      timeZone:OPERATOR.tz, hour:'numeric', hour12:false
-    }), 10) % 24;
-    return h >= OPERATOR.from && h < OPERATOR.to;
-  }
-
-  /* one mark: the monogram, or the face plus its dot */
-  function paintMark(node){
-    if (S.human && OPERATOR){
-      node.classList.add('human');
-      node.innerHTML = '<img src="' + OPERATOR.photo + '" alt=""/>' +
-        (onDuty() ? '<span class="jc-dot" aria-hidden="true"></span>' : '');
-    } else {
-      node.classList.remove('human');
-      node.innerHTML = '<img src="' + MARK + '" alt=""/>';
-    }
-  }
-
-  /* repaints every mark at once: the thread, the teaser, the header bar and
-     the launcher, so the identity changes in one moment rather than drifting in
-     message by message */
-  function paintMarks(){
-    var marks = document.querySelectorAll('.jc-root .jc-mark'), i;
-    for (i = 0; i < marks.length; i++) paintMark(marks[i]);
-
-    var label = (S.human && OPERATOR) ? OPERATOR.name : TEAM;
-    var nm  = document.querySelector('.jc-root .jc-compact .nm');
-    var who = document.querySelector('.jc-root .jc-teaser .who');
-    if (nm)  nm.textContent  = label;
-    if (who) who.textContent = label;
-
-    var openBtn = $('jc-open');
-    if (openBtn) openBtn.setAttribute('aria-label',
-      (S.human && OPERATOR && onDuty()) ? 'Chat with us. ' + OPERATOR.name + ' is online'
-                                        : 'Chat with us');
-  }
-
-  function markEl(cls){
-    var node = el('span', (cls || '') + ' jc-mark');
-    paintMark(node);
-    return node;
-  }
-
-  /* Anything that would put a message on screen while the visitor can still
-     see the glyph waits here instead. There is to be no in between state: the
-     face arrives first, then she speaks. */
-  var waitingForHer = [];
-  function whenHuman(fn){
-    if (!OPERATOR || S.human) fn();
-    else waitingForHer.push(fn);
-  }
-
-  if (OPERATOR){
-    paintMarks();
-    setTimeout(function(){
-      S.human = true;
-      paintMarks();
-      while (waitingForHer.length) waitingForHer.shift()();
-    }, OPERATOR.after);
-    /* a box left open across the boundary should not keep claiming somebody
-       is there, so the dot is re-checked every minute and only redrawn when
-       the answer actually changes */
-    var duty = onDuty();
-    setInterval(function(){
-      var d = onDuty();
-      if (d !== duty){ duty = d; paintMarks(); }
-    }, 60000);
-  }
-
-  var now = function(){
-    var d = new Date();
-    return d.toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
-  };
-  /* ---------- log helpers ----------   /* ---------- log helpers ---------- */
-  function toBottom(){ log.scrollTop = log.scrollHeight; }
-
-  function markOngoing(){
-    if (S.ongoing) return;
-    S.ongoing = true;
-    box.classList.add('ongoing');
-  }
-
-  /* one operator row. body is either a plain string or a DOM node */
-  function opRow(body, opts){
-    opts = opts || {};
-    var row = el('div','jc-row');
-    var av  = markEl('jc-av' + (opts.stack ? ' ghost' : ''));
-    var col = el('div','jc-col');
-
-    if (typeof body === 'string'){
-      var bub = el('div','jc-bub', body + '<span class="jc-time">' + esc(now()) + '</span>');
-      col.appendChild(bub);
-    } else {
-      col.appendChild(body);
-    }
-    row.appendChild(av); row.appendChild(col);
-    log.appendChild(row);
-    toBottom();
-    return col;
-  }
-
-  /* visitor row, with the Sent -> Seen delivery state Crisp shows */
-  function meRow(body, isNode){
-    var row = el('div','jc-row me');
-    var col = el('div','jc-col');
-    if (isNode) col.appendChild(body);
-    else col.appendChild(el('div','jc-bub', body + '<span class="jc-time">' + esc(now()) + '</span>'));
-    var st = el('div','jc-state','<i class="ti ti-check"></i>Sent');
-    col.appendChild(st);
-    row.appendChild(col);
-    log.appendChild(row);
-    markOngoing();
-    toBottom();
-    setTimeout(function(){
-      st.className = 'jc-state seen';
-      st.innerHTML = '<i class="ti ti-checks"></i>Seen';
-    }, 1400);
-    return col;
-  }
-
-  /* typing bubble, resolved by the caller */
-  function typing(){
-    var row = el('div','jc-row tp');
-    var av  = markEl('jc-av');
-    var col = el('div','jc-col');
-    col.appendChild(el('div','jc-typing','<span></span><span></span><span></span>'));
-    row.appendChild(av); row.appendChild(col);
-    log.appendChild(row);
-    toBottom();
-    return row;
-  }
-
-  /* say(): operator speaks after a human-looking delay */
-  function say(body, delay, opts){
-    var t = typing();
-    S.busy = true;
-    setTimeout(function(){
-      t.remove();
-      S.busy = false;
-      var col = opRow(body, opts);
-      if (!S.open) bump(typeof body === 'string' ? body.replace(/<[^>]+>/g,'') : 'New message');
-      if (opts && opts.after) opts.after(col);
-    }, delay || 900);
-  }
-
-  /* ---------- unread + teaser ---------- */
-  function bump(preview){
-    S.unread++;                     /* counted, not drawn: see the note in the CSS */
-    if (preview){
-      $('jc-teaser-msg').textContent = preview;
-      teaser.classList.add('on');
-    }
-    ping();
-  }
-  function clearUnread(){
-    S.unread = 0;
-    teaser.classList.remove('on');
-  }
-
-  /* short notification blip, generated so no audio file is needed */
-  function ping(){
-    if (!S.sounds) return;
-    try {
-      var Ctx = window.AudioContext || window.webkitAudioContext;
-      if (!Ctx) return;
-      var c = new Ctx(), o = c.createOscillator(), g = c.createGain();
-      o.type = 'sine'; o.frequency.value = 880;
-      g.gain.setValueAtTime(0.0001, c.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.06, c.currentTime + 0.01);
-      g.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + 0.22);
-      o.connect(g); g.connect(c.destination);
-      o.start(); o.stop(c.currentTime + 0.24);
-    } catch(e){}
-  }
-
-  /* ---------- picker chips ---------- */
-  function chips(items){
-    var wrap = el('div','jc-chips');
-    items.forEach(function(it){
-      var b = el('button','jc-chip', esc(it.label));
-      b.addEventListener('click', function(){
-        wrap.querySelectorAll('.jc-chip').forEach(function(x){ x.disabled = true; });
-        meRow(esc(it.label));
-        route(it.value, it.label);
-      });
-      wrap.appendChild(b);
-    });
-    return wrap;
-  }
-
-  /* ---------- rich message builders ---------- */
-  function articleCard(a){
-    var b = el('button','jc-card',
-      '<span><span class="cat">' + esc(a.cat) + '</span><span class="ttl">' + esc(a.t) + '</span></span>' +
-      '<i class="ti ti-chevron-right"></i>');
-    b.addEventListener('click', function(){
-      b.disabled = true;
-      meRow(esc(a.t));
-      /* the operator answers in the thread, no separate reader view */
-      say(a.b.map(esc).join('<br/><br/>'), 1000, {
-        after:function(col){
-          col.appendChild(chips([{value:'human', label:'Talk to a broker'}]));
-          toBottom();
-        }
-      });
-    });
-    return b;
-  }
-
-  function vesselCard(v){
-    var c = el('div','jc-vessel',
-      '<img src="' + v.img + '" alt=""/>' +
-      '<div class="b"><div class="nm">' + esc(v.nm) + '</div>' +
-      '<div class="mt">' + esc(v.mt) + '</div>' +
-      '<span class="go">View listing <i class="ti ti-chevron-right"></i></span></div>');
-    c.addEventListener('click', function(){
-      close();
-      var t = document.getElementById('yachts');
-      if (t) t.scrollIntoView({behavior:'smooth', block:'start'});
-    });
-    return c;
-  }
-
-  function ratingBlock(){
-    var r = el('div','jc-rate',
-      '<p>How did we do?</p>' +
-      '<div class="btns">' +
-        '<button data-v="up" aria-label="Good"><i class="ti ti-thumb-up"></i></button>' +
-        '<button data-v="down" aria-label="Not good"><i class="ti ti-thumb-down"></i></button>' +
-      '</div>');
-    r.querySelectorAll('button').forEach(function(b){
-      b.addEventListener('click', function(){
-        r.classList.add('done');
-        r.querySelector('p').textContent = b.dataset.v === 'up'
-          ? 'Thank you. We will pass that to the team.'
-          : 'Thank you. A manager will review this conversation.';
-      });
-    });
-    return r;
-  }
-
-  /* pre chat form, Crisp asks for these before routing to a human */
-  function preChatForm(){
-    var f = el('div','jc-form',
-      '<h4>Before we continue</h4>' +
-      '<p>So the right broker can reach you, even after you close this window.</p>' +
-      '<label for="jc-f-nm">Your name</label><input id="jc-f-nm" type="text" placeholder="Full name"/>' +
-      '<label for="jc-f-em">Email</label><input id="jc-f-em" type="email" placeholder="you@example.com"/>' +
-      '<button class="go" type="button">Continue</button>' +
-      '<button class="skip" type="button">Continue without sharing</button>');
-    var done = function(named){
-      S.identified = true;
-      f.remove();
-      if (named) meRow(esc(named));
-      say('Thank you. Ask us anything, or we can place you with a broker directly.', 900);
-    };
-    f.querySelector('.go').addEventListener('click', function(){
-      var nm = f.querySelector('#jc-f-nm').value.trim();
-      var em = f.querySelector('#jc-f-em').value.trim();
-      if (!nm || !em || em.indexOf('@') < 0){
-        f.querySelector('#jc-f-em').focus();
-        return;
-      }
-      /* $crisp.push(["set","user:nickname",[nm]]); $crisp.push(["set","user:email",[em]]); */
-      done(nm + ' - ' + em);
-    });
-    f.querySelector('.skip').addEventListener('click', function(){ done(null); });
-    return f;
-  }
-
-  /* ---------- conversation script ---------- */
-  var VESSELS = {
-    axopar:   { nm:'Axopar 29 CCX',     mt:'2026 - San Diego, CA - from $289,000', img:'./JBY-V3.3-assets/03_vessel1_axopar.jpg' },
-    pershing: { nm:'Pershing 7X',       mt:'2024 - Newport Beach, CA - $4,950,000', img:'./JBY-V3.3-assets/04_vessel2_pershing.jpg' },
-    brabus:   { nm:'Brabus Shadow 900', mt:'2025 - Sausalito, CA - $895,000',      img:'./JBY-V3.3-assets/05_vessel3_brabus.jpg' }
-  };
-
-  function greet(){
-    if (S.greeted) return;
-    S.greeted = true;
-    say('Welcome to Jeff Brown Yachts. Tell us what you have in mind.', 700, {
-      after:function(col){
-        col.appendChild(chips([
-          {value:'buy',     label:'Buying a yacht'},
-          {value:'sell',    label:'Selling my yacht'},
-          {value:'service', label:'Service and management'},
-          {value:'visit',   label:'Visiting an office'}
-        ]));
-        toBottom();
-      }
-    });
-  }
-
-  function route(value){
-    S.exchanges++;
-    if (value === 'buy'){
-      say('A considered place to begin. We represent Riva, Axopar, Brabus, Pershing, Wally, Sirena and Everglades. This one rarely stays long on the West Coast.', 1100, {
-        after:function(col){
-          col.appendChild(vesselCard(VESSELS.axopar));
-          col.appendChild(articleCard(GUIDES[0]));
-          toBottom();
-        }
-      });
-      setTimeout(function(){
-        if (!S.identified) opRow(preChatForm(), {stack:true});
-      }, 2600);
-    }
-    else if (value === 'sell'){
-      say('We list, market and close on terms the owner sets. Most sellers ask for two figures first: what she is worth today, and what our commission looks like.', 1100, {
-        after:function(col){
-          col.appendChild(articleCard(GUIDES[3]));
-          col.appendChild(articleCard(GUIDES[2]));
-          col.appendChild(chips([
-            {value:'valuation', label:'Request a valuation'},
-            {value:'human',     label:'Talk to a broker'}
-          ]));
-          toBottom();
-        }
-      });
-    }
-    else if (value === 'service'){
-      say('Our San Diego marina and boatyard looks after refit, systems and haul out. Yacht management carries crew, compliance and scheduling through the year.', 1100, {
-        after:function(col){
-          col.appendChild(articleCard(GUIDES[4]));
-          col.appendChild(articleCard(GUIDES[5]));
-          toBottom();
-        }
-      });
-    }
-    else if (value === 'visit'){
-      say('We keep nine offices, along with the marina and boatyard in San Diego. Which coast are you nearest to?', 1000, {
-        after:function(col){
-          col.appendChild(chips([
-            {value:'west', label:'West coast'},
-            {value:'east', label:'East coast'},
-            {value:'hi',   label:'Hawaii'}
-          ]));
-          toBottom();
-        }
-      });
-    }
-    else if (value === 'west' || value === 'east' || value === 'hi'){
-      var line = value === 'west'
-        ? 'San Diego, Newport Harbor, Marina del Rey, Sausalito and Seattle. San Diego is where the boatyard sits.'
-        : value === 'east'
-          ? 'Charleston and Wrightsville Beach, with brokers covering the Carolinas and Florida.'
-          : 'Kona, on the Big Island.';
-      say(line + ' Shall we arrange a private walkthrough?', 1000, {
-        after:function(col){
-          col.appendChild(articleCard(GUIDES[6]));
-          col.appendChild(chips([
-            {value:'human', label:'Arrange a walkthrough'},
-            {value:'later', label:'Perhaps later'}
-          ]));
-          toBottom();
-        }
-      });
-    }
-    else if (value === 'valuation'){
-      say('We can begin now. Send us the make, model, year and where she is berthed, and we will return with a range alongside recent comparable sales.', 1000);
-      if (!S.identified) setTimeout(function(){ opRow(preChatForm(), {stack:true}); }, 2400);
-    }
-    else if (value === 'human'){
-      say('We are bringing a broker to the conversation. Should we miss you here, we will follow up by email, and we are always reachable on (888) 693 8099.', 1000, {
-        after:function(){ maybeRate(); }
-      });
-    }
-    else if (value === 'later'){
-      say('Of course. We are here whenever you would like to continue.', 800, { after:function(){ maybeRate(); } });
-    }
-    else {
-      freeText(value);
-    }
-  }
-
-  /* keyword routing for anything typed by hand */
-  function freeText(text){
-    S.exchanges++;
-    var t = String(text).toLowerCase();
-    var hit = function(){ for (var i=0;i<arguments.length;i++){ if (t.indexOf(arguments[i]) > -1) return true; } return false; };
-
-    if (hit('axopar')){
-      return say('The Axopar 29 CCX has just arrived on the West Coast. Impeccable day boat manners with genuine range, and she sits well against the 37 if you would prefer more shelter.', 1100,
-        { after:function(col){ col.appendChild(vesselCard(VESSELS.axopar)); toBottom(); } });
-    }
-    if (hit('pershing')){
-      return say('Pershing sits at the swiftest end of our book. This is the 7X we are representing at present.', 1000,
-        { after:function(col){ col.appendChild(vesselCard(VESSELS.pershing)); toBottom(); } });
-    }
-    if (hit('brabus')){
-      return say('The Brabus Shadow 900 is the one asked for by name. Unmistakable on the water, and remarkably straightforward to run.', 1000,
-        { after:function(col){ col.appendChild(vesselCard(VESSELS.brabus)); toBottom(); } });
-    }
-    if (hit('riva')){
-      return say('Riva is where the history of yachting lives, and we are among the few West Coast representatives. Tell us the length you have in mind and we will show you what is available.', 1100);
-    }
-    if (hit('price','cost','how much','budget','$')){
-      return say('It depends on the platform. Axopar opens in the high two hundreds, while Pershing and Riva run well into the millions. Give us a budget and how you intend to use her, and we will narrow it to three.', 1100,
-        { after:function(col){ col.appendChild(articleCard(GUIDES[7])); toBottom(); } });
-    }
-    if (hit('sell','trade','list my','valuation','worth')){
-      return route('sell');
-    }
-    if (hit('service','maintenance','refit','haul','yard','management')){
-      return route('service');
-    }
-    if (hit('office','location','address','where are you','marina','boatyard')){
-      return route('visit');
-    }
-    if (hit('finance','loan','insurance','payment')){
-      return say('We work alongside marine lenders and insurers on most of our closings, and the calculator on each listing will bring you close to a monthly figure.', 1100,
-        { after:function(col){ col.appendChild(articleCard(GUIDES[7])); toBottom(); } });
-    }
-    if (hit('event','open house','concours','show')){
-      return say('We host open houses and attend the Concours events through the season. The events chapter on this page carries the current calendar.', 1000,
-        { after:function(col){ col.appendChild(articleCard(GUIDES[9])); toBottom(); } });
-    }
-    if (hit('human','person','broker','call','phone','speak')){
-      return route('human');
-    }
-    if (hit('hour','open','availab')){
-      return say('Our brokers are available from 8am to 6pm Pacific, seven days through the season. Beyond those hours everything sent here is still read.', 950);
-    }
-    if (hit('hello','hi ','hey','good morning','good afternoon') || t === 'hi'){
-      return say('Welcome. Are you looking to buy, to sell, or is this about a yacht you already own?', 850, {
-        after:function(col){
-          col.appendChild(chips([
-            {value:'buy',     label:'Buying'},
-            {value:'sell',    label:'Selling'},
-            {value:'service', label:'Service'}
-          ]));
-          toBottom();
-        }
-      });
-    }
-    if (hit('thank','thanks','cheers','great')){
-      return say('With pleasure. Is there anything else we can look into for you?', 800, { after:function(){ maybeRate(); } });
-    }
-    return say('Noted, thank you. A broker is joining shortly. In the meantime, is this a purchase, a sale, or service?', 1100, {
-      after:function(col){
-        col.appendChild(chips([
-          {value:'buy',     label:'Buying'},
-          {value:'sell',    label:'Selling'},
-          {value:'service', label:'Service'}
-        ]));
-        toBottom();
-      }
-    });
-  }
-
-  function maybeRate(){
-    if (S.rated || S.exchanges < 2) return;
-    S.rated = true;
-    setTimeout(function(){ log.appendChild(ratingBlock()); toBottom(); }, 1600);
-  }
-
-  /* ---------- composer ---------- */
-  function sizeTa(){
-    ta.style.height = 'auto';
-    ta.style.height = Math.min(ta.scrollHeight, 112) + 'px';   /* matches max-height */
-  }
-  function submit(){
-    var v = ta.value.trim();
-    if (!v) return;
-    ta.value = ''; sizeTa(); send.disabled = true;
-    meRow(esc(v));                       /* $crisp.push(["do","message:send",["text",v]]) */
-    freeText(v);
-  }
-
-  ta.addEventListener('input', function(){ sizeTa(); send.disabled = !ta.value.trim(); });
-  ta.addEventListener('keydown', function(e){
-    if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); submit(); }
-  });
-  ta.addEventListener('focus', function(){ $('jc-cwrap').classList.add('focus'); });
-  ta.addEventListener('blur',  function(){ $('jc-cwrap').classList.remove('focus'); });
-  send.addEventListener('click', submit);
-
-  /* emoji picker */
-  var EMOJI = ['👋','🙂','👍','🙏','🎉','❤️','🔥','⭐',
-               '⛵','🛥️','🏝️','🌊','☀️','⚓','🧭','🗺️',
-               '📅','📞','✉️','💰','📄','✅','❗','❓'];
-  (function(){
-    var wrap = $('jc-emoji');
-    EMOJI.forEach(function(e){
-      var b = el('button', null, e);
-      b.type = 'button';
-      b.addEventListener('click', function(){
-        ta.value += e; sizeTa(); send.disabled = false; ta.focus();
-        wrap.classList.remove('on');
-      });
-      wrap.appendChild(b);
-    });
-  })();
-  $('jc-emoji-btn').addEventListener('click', function(e){
-    e.stopPropagation();
-    $('jc-emoji').classList.toggle('on');
-  });
-
-  /* file upload, rendered as a Crisp style attachment bubble */
-  $('jc-file-btn').addEventListener('click', function(){ $('jc-file').click(); });
-  $('jc-file').addEventListener('change', function(){
-    var files = Array.prototype.slice.call(this.files || []);
-    files.forEach(function(f){
-      var kb = f.size / 1024;
-      var size = kb > 1024 ? (kb/1024).toFixed(1) + ' MB' : Math.max(1, Math.round(kb)) + ' KB';
-      if (/^image\//.test(f.type)){
-        var url = URL.createObjectURL(f);
-        var box2 = el('div','jc-img','<img src="' + url + '" alt="' + esc(f.name) + '"/>');
-        meRow(box2, true);
-      } else {
-        meRow(el('div','jc-file',
-          '<i class="ti ti-file"></i><div><div class="fn">' + esc(f.name) + '</div>' +
-          '<div class="fs">' + size + '</div></div>'), true);
-      }
-    });
-    this.value = '';
-    if (files.length) say('Received, thank you. Allow us a moment to review it.', 1200);
-  });
-
-  $('jc-mic-btn').addEventListener('click', function(){
-    meRow(el('div','jc-file',
-      '<i class="ti ti-microphone"></i><div><div class="fn">Audio message</div>' +
-      '<div class="fs">Recording is handled by the Crisp SDK in production</div></div>'), true);
-  });
-
-  /* ---------- open / close ---------- */
-  function open(){
-    S.open = true;
-    dock.classList.add('on');
-    dock.classList.add('open');      /* swaps the launcher glyph to the cross */
-    box.classList.add('on');
-    $('jc-open').setAttribute('aria-expanded','true');
-    clearUnread();
-    if (!S.greeted) greet();
-    setTimeout(function(){ if (window.innerWidth > 640) ta.focus(); }, 320);
-    toBottom();
-  }
-  function close(){
-    S.open = false;
-    dock.classList.remove('open');
-    box.classList.remove('on');
-    $('jc-open').setAttribute('aria-expanded','false');
-    $('jc-emoji').classList.remove('on');
-    $('jc-menu').classList.remove('on');
-    if (typeof syncDock === 'function') syncDock();
-  }
-  function toggle(){ S.open ? close() : open(); }
-
-  $('jc-open').addEventListener('click', toggle);
-  $('jc-close').addEventListener('click', close);
-  document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape' && S.open){ close(); }
-  });
-  document.addEventListener('click', function(e){
-    if (!e.target.closest('#jc-emoji') && !e.target.closest('#jc-emoji-btn')) $('jc-emoji').classList.remove('on');
-    if (!e.target.closest('#jc-menu')  && !e.target.closest('#jc-more'))      $('jc-menu').classList.remove('on');
-  });
-
-  /* teaser */
-  teaser.addEventListener('click', function(e){
-    if (e.target.closest('#jc-teaser-x')) return;
-    teaser.classList.remove('on'); open();
-  });
-  teaser.addEventListener('keydown', function(e){
-    if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); teaser.classList.remove('on'); open(); }
-  });
-  $('jc-teaser-x').addEventListener('click', function(e){
-    e.stopPropagation(); teaser.classList.remove('on');
-  });
-
-  /* operator menu */
-  $('jc-more').addEventListener('click', function(e){
-    e.stopPropagation(); $('jc-menu').classList.toggle('on');
-  });
-  $('jc-m-mail').addEventListener('click', function(){
-    $('jc-menu').classList.remove('on');
-    say('Sent. The transcript is on its way to the address on file.', 700);
-  });
-  $('jc-m-sound').addEventListener('click', function(){
-    S.sounds = !S.sounds;
-    this.innerHTML = '<i class="ti ti-volume' + (S.sounds ? '' : '-off') + '"></i>' +
-                     (S.sounds ? 'Turn off sounds' : 'Turn on sounds');
-    $('jc-menu').classList.remove('on');
-  });
-  $('jc-m-new').addEventListener('click', function(){
-    $('jc-menu').classList.remove('on');
-    log.innerHTML = '';
-    S.ongoing = false; S.greeted = false; S.exchanges = 0; S.rated = false;
-    box.classList.remove('ongoing');
-    greet();
-  });
-
-  /* ---------- guide library ----------
-     Short answers an operator (or a Crisp bot scenario) can drop into the
-     thread. Rendered as cards; clicking one posts the full answer as a
-     message. There is no search view, this is the whole helpdesk surface. */
-  var GUIDES = [
-    { cat:'Buying',    t:'How our buying process works',
-      b:['You start with a conversation, not a listing. We ask what you want the boat to do, who is on board, and where it lives, then we shortlist against that.',
-         'From there we arrange viewings, sea trials and survey. We negotiate on your behalf and hold the deposit in escrow until closing.',
-         'Most purchases close in four to eight weeks once an offer is accepted.'] },
-    { cat:'Buying',    t:'What to expect at a sea trial',
-      b:['A sea trial is a working test, not a demo ride. Plan on two hours and bring anyone who will regularly be aboard.',
-         'We run through cold start, acceleration, cruise at several RPM bands, handling at low speed and docking. Systems get checked under load, not at the dock.',
-         'Your surveyor should attend. Their notes become leverage in the final negotiation.'] },
-    { cat:'Selling',   t:'Understanding brokerage fees',
-      b:['Our fee is a percentage of the final sale price and is paid at closing, out of proceeds. Nothing is due while the boat is listed.',
-         'That fee covers photography, video, listing syndication, show presence, buyer qualification, negotiation and closing paperwork.',
-         'Co-brokerage is common on larger vessels. The fee is split between the two houses and does not increase for you.'] },
-    { cat:'Selling',   t:'Preparing your yacht for sale',
-      b:['Presentation moves price more than any other lever. Deep clean, clear the lockers, fix the small things a buyer will point at.',
-         'Have service records, manuals and warranty paperwork in one folder. Buyers pay more for a documented boat.',
-         'We shoot on a clear morning with the boat washed and empty. Those images are what a buyer sees first.'] },
-    { cat:'Ownership', t:'What yacht management covers',
-      b:['Management means we run the boat so ownership stays effortless. Crew placement and payroll, maintenance scheduling, class and flag compliance, insurance renewals, provisioning and berth logistics.',
-         'You get one point of contact and a monthly report with everything spent and everything due.',
-         'Most owners come to us after a season of coordinating it themselves.'] },
-    { cat:'Ownership', t:'Service and maintenance intervals',
-      b:['Engines and generators follow the manufacturer hour schedule. Everything else follows the water it sits in.',
-         'Bottom paint and zincs run yearly in warm salt water, closer to two years in cooler northern berths. Impellers, belts and filters are annual regardless.',
-         'Our San Diego marina and boatyard handles haul out, systems and full refit in house.'] },
-    { cat:'Company',   t:'Our offices and the San Diego boatyard',
-      b:['Nine sales offices, plus the marina and boatyard in San Diego where the service work happens.',
-         'West coast: San Diego, Newport Harbor, Marina del Rey, Sausalito, Seattle. East coast: Charleston, Wrightsville Beach. Pacific: Kona.',
-         'Every office can arrange a walkthrough on any vessel in our inventory, wherever it is berthed.'] },
-    { cat:'Buying',    t:'Financing and insurance options',
-      b:['Marine lenders typically want twenty percent down on a recreational vessel, with terms from ten to twenty years depending on age and value.',
-         'Insurance is priced on cruising area, hull value, age and the experience of whoever is at the helm. A captain on the policy usually lowers it.',
-         'Each listing on this site carries a calculator so you can size a monthly payment before you call anyone.'] },
-    { cat:'Ownership', t:'Co-ownership with Mari-Time',
-      b:['Mari-Time is shared ownership for people who want the boat without the whole boat. You hold a share, we handle everything else.',
-         'Scheduling is done through the app, and maintenance, berthing and cleaning are covered in the monthly cost.',
-         'It is the most common way our clients start, and many move to full ownership later.'] },
-    { cat:'Events',    t:'Attending a JBY open house',
-      b:['Open houses are informal. Come aboard, walk the boat, talk to the broker who knows it. No appointment needed.',
-         'We run them through the season at the marina and alongside the Concours events we attend.',
-         'The events section on the homepage carries the current calendar.'] }
-  ];
-
-  /* ---------- dock reveal on section 2 ----------
-     The launcher belongs to the second block ("Bespoke yacht sales and brokerage",
-     the Explore inventory / Get expert guidance section). It slides in once that
-     block comes up, and slides back out while the visitor is on the hero.
-     Driven by one rAF throttled scroll handler so the state is deterministic. */
-  var story = document.getElementById('story');
-  var storyTop = 0;
-
-  function measure(){
-    if (!story) return;
-    storyTop = story.getBoundingClientRect().top + window.pageYOffset;
-  }
-  function syncDock(){
-    if (!story) { dock.classList.add('on'); return; }
-    var show = S.open || (window.pageYOffset > storyTop - window.innerHeight * 0.62);
-    dock.classList.toggle('on', show);
-    /* the teaser belongs to the launcher, so it never floats on its own */
-    if (!show) teaser.classList.remove('on');
-    if (show && !S.teased){
-      S.teased = true;
-      /* proactive nudge, the way a Crisp trigger fires after a dwell. It is
-         held back until the face is on the disc, so the visitor never sees a
-         message open next to the anonymous glyph. */
-      setTimeout(function(){
-        whenHuman(function(){
-          if (!S.open) bump('Is there a particular vessel on your mind? We can send the full specification.');
-        });
-      }, 9000);
-    }
-  }
-  /* syncDock reads no layout (storyTop is cached), so it is safe to call
-     straight off the scroll event. Re-measure whenever the document height
-     changes, which covers hero video and lazy images settling in. */
-  function remeasure(){ measure(); syncDock(); }
-
-  measure();
-  syncDock();
-  window.addEventListener('scroll', syncDock, {passive:true});
-  window.addEventListener('resize', remeasure);
-  window.addEventListener('load', remeasure);
-  if ('ResizeObserver' in window){
-    try { new ResizeObserver(remeasure).observe(document.body); } catch(e){}
-  }
-
-  /* Explore inventory, next to the launcher */
-  $('jc-explore').addEventListener('click', function(){
-    var t = document.getElementById('yachts');
-    if (t) t.scrollIntoView({behavior:'smooth', block:'start'});
-  });
-
-  /* the two buttons already in section 2 keep working the same way */
-  document.querySelectorAll('.intro-cta .btn-solid').forEach(function(b){
-    b.addEventListener('click', function(){
-      var t = document.getElementById('yachts');
-      if (t) t.scrollIntoView({behavior:'smooth', block:'start'});
-    });
-  });
-  document.querySelectorAll('.intro-cta .btn-outline').forEach(function(b){
-    b.addEventListener('click', function(){ open(); });
-  });
-
-  /* ---------- boot ---------- */
-  window.JBYChat = { open:open, close:close, toggle:toggle, say:say,
-                     sync:remeasure, state:S };
-})();
-</script>
-
 </body>
 </html>
