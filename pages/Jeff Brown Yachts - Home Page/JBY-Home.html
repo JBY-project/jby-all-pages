@@ -415,20 +415,24 @@ a{color:inherit;text-decoration:none}
   background:linear-gradient(179.96deg,rgba(54,84,102,0) 22%,rgba(54,84,102,0.82) 62%,rgba(54,84,102,0.94) 100%);
   backdrop-filter:blur(1px);display:flex;flex-direction:column;gap:12px}
 /* A light veil the photograph shows through, in place of the sand pill */
-.vessel-card .chip-loc{background:linear-gradient(180deg,rgba(255,255,255,0.30),rgba(255,255,255,0.16));
-  -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);
+.vessel-card .chip-loc{background:linear-gradient(180deg,rgba(255,255,255,0.58),rgba(255,255,255,0.40));
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
   color:#fff;padding:4px 12px 3px;font-family:'Myriad Pro',sans-serif;
   font-weight:400;font-size:16px;line-height:22px;border-radius:2px;align-self:flex-start;display:inline-block}
+/* Held to two lines and kept clear of the View button in the corner. Some of
+   these names run to seven words, and a third line pushed the price out of the
+   gradient and onto the photograph. */
 .vessel-card .name{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
-  margin:0;text-transform:none}
+  margin:0;text-transform:none;max-width:82%;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
 .vessel-card .price{font-family:'Myriad Pro',sans-serif;font-weight:600;font-size:18px;line-height:28px;color:#fff;margin:0}
 
 /* CTA — rounded square (4px) chevron → wider "View" rounded square on hover */
 .v-cta{position:absolute;bottom:24px;right:24px;z-index:4;
-  height:36px;width:36px;border-radius:4px;
-  color:var(--ink);
+  height:36px;width:36px;border-radius:0;
+  color:#fff;
   font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;
-  letter-spacing:0.1em;text-transform:uppercase;
+  letter-spacing:0;text-transform:uppercase;
   display:flex;align-items:center;justify-content:center;
   padding:0;border:0;cursor:pointer;overflow:hidden;white-space:nowrap;
   transition:width 1.5s cubic-bezier(0.16, 1, 0.3, 1),
@@ -438,13 +442,6 @@ a{color:inherit;text-decoration:none}
 .v-cta-icon{display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;
   opacity:1;max-width:18px;
   transition:opacity .5s ease, max-width .9s cubic-bezier(0.16, 1, 0.3, 1)}
-/* The client asked for a white gradient on this button. jby-system.css paints
-   .v-cta with rule 4's flat veil and is read after this stylesheet, so a plain
-   .v-cta rule here loses; .vessel-card .v-cta outranks it. This is a deliberate
-   exception to rule 4, and the only one on the page. */
-.vessel-card .v-cta{
-  background:linear-gradient(180deg,rgba(255,255,255,0.94),rgba(255,255,255,0.70));
-  -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
 .vessel-card:hover .v-cta{width:92px;padding:0 16px}
 .vessel-card:hover .v-cta-text{opacity:1;max-width:80px}
 .vessel-card:hover .v-cta-icon{opacity:0;max-width:0}
