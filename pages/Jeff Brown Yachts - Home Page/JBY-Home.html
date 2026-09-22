@@ -743,9 +743,14 @@ footer{background:var(--navy);padding:36px 40px 32px;color:rgba(255,255,255,0.85
 .foot-lists .foot-row:last-child{margin-bottom:0}
 /* One line of links with slashes between them, wrapping as a line of text
    would. The gap does the spacing on both sides of each slash, so the row
-   stays even however it breaks. */
+   stays even however it breaks.
+
+   400, not the 300 the rest of the footer is set in: this page carries Myriad
+   at 300, 400 and 600 and nothing between, so a request for 500 would be
+   served by 400 anyway — 400 is what medium resolves to in this family. 600
+   is the next step up if these want more still. */
 .foot-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 9px;
-  font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:14px;line-height:22px;letter-spacing:0.01em;
+  font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:15px;line-height:22px;letter-spacing:0.01em;
   text-transform:uppercase}
 .foot-row a{color:rgba(255,255,255,0.85);text-decoration:none;transition:color .2s}
 .foot-row a:hover{color:#fff}
@@ -772,11 +777,17 @@ footer{background:var(--navy);padding:36px 40px 32px;color:rgba(255,255,255,0.85
 .foot-legal-links a:hover{color:#fff}
 .foot-legal-links .sep{color:rgba(255,255,255,0.35)}
 /* A white tile with a dark chevron, not the veil the rest of the blue carries:
-   it is the one control in the footer and the mockup gives it the contrast. */
+   it is the one control in the footer and the mockup gives it the contrast.
+
+   The hover goes to the darker blue. jby-system.css hovers every icon
+   affordance to --jby-blue, which is the footer's own colour — the tile
+   dissolved into the background at the moment it was pointed at. That rule
+   is an :is() list at 0,3,0 and this file is read before it, so the class is
+   named twice to get above it without !important. */
 .back-top{position:absolute;right:40px;top:48px;width:46px;height:46px;border:0;
   background:var(--paper);border-radius:2px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;color:var(--ink);transition:background .2s}
-.back-top:hover{background:#fff}
+  display:flex;align-items:center;justify-content:center;color:var(--ink);transition:background .2s,color .2s}
+footer .back-top.back-top:hover{background:var(--navy-d);color:#fff}
 .back-top svg{width:20px;height:20px;display:block;transform:rotate(-90deg)}
 
 /* ====================================================================== */
