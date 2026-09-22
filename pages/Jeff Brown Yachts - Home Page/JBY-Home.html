@@ -825,19 +825,41 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
    40px and the same gutters as the text put it in line with the other
    full-width buttons on the phone layout, .bento-cta and .s-link.
 
+   36px, not the 40 the full-width buttons elsewhere use. The page's button
+   scale is 40 for the page's own buttons and 36 for this one — it is the
+   height .v-cta already has as a chevron on a pointer device, and the card is
+   280px of a phone screen, so the smaller of the two is the one that fits.
+
    The panel's bottom padding grows by the button's height plus its gap, since
    the button is positioned against the card and not laid out in the panel's
    flow — that padding is what keeps the price off it. And the name gets the
    full width back: 82% was reserving the corner the button no longer sits in.
 
+   That taller panel is what pushed the city chip up into bright water. The
+   panel's own gradient is transparent until 22% of its height and the chip
+   now sits at 11%, so there was nothing behind it — white type on a lit sea.
+   The gradient cannot be painted outside the panel it belongs to, so the
+   extension goes on .v-img-veil, which already spans the whole card: a second
+   layer that starts darkening well above the panel's top edge and hands over
+   to the panel's own gradient below it. Behind the chip the two come to about
+   0.6 of navy, which is what the type needs.
+
    .v-cta:hover lives in jby-system.css, which loads after this block, so the
    override needs the card in front of it to win on specificity. */
 @media (hover:none),(pointer:coarse){
   .vessel-card:hover .v-img{transform:none}
-  .vessel-card .info{padding-bottom:76px}
+  .vessel-card .info{padding-bottom:72px}
   .vessel-card .name{max-width:100%}
-  .vessel-card .v-cta{left:20px;right:20px;bottom:20px;width:auto;height:40px;padding:0;
+  .vessel-card .v-img-veil{background:
+    linear-gradient(180deg,rgba(54,84,102,0.42) 0%,rgba(54,84,102,0) 38%),
+    linear-gradient(180deg,rgba(54,84,102,0) 26%,rgba(54,84,102,0.58) 52%,rgba(54,84,102,0.74) 100%)}
+  .vessel-card .v-cta{left:20px;right:20px;bottom:20px;width:auto;height:36px;padding:0;
     justify-content:center;transition:none}
+  /* The taller panel carried the chip up from 65% of the card to 53%, which is
+     where the strip's chevrons sit — they were landing on the city name. The
+     chevrons move up into the photograph instead: at 32% they clear the brand
+     logo above, which ends at 21%, and the chip below, which starts at 48%. */
+  .vessels-strip-wrap .cards-scroll-arr{top:32%}
   .vessel-card .v-cta .v-cta-text{display:inline;opacity:1;max-width:none}
   .vessel-card .v-cta .v-cta-icon{display:none}
   .vessel-card .v-cta:hover{background:var(--jby-veil);color:#fff}
