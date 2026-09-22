@@ -848,11 +848,24 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
    override needs the card in front of it to win on specificity. */
 @media (hover:none),(pointer:coarse){
   .vessel-card:hover .v-img{transform:none}
+  .vessel-card{height:410px}
   .vessel-card .info{padding-bottom:72px}
-  .vessel-card .name{max-width:100%}
+  /* Full width means the line fills it. text-wrap:balance evens the two lines
+     out, which is what the desktop card wants beside the corner button, but
+     here it was holding both lines to about 140px of the 240 available and
+     leaving a hand's width of empty panel on the right. */
+  .vessel-card .name{max-width:100%;text-wrap:wrap}
+  /* 20px taller card, and the extension pulled back off the boat.
+     The card growing moves the panel's top edge down the photograph — the
+     text and the button sit the same distance from the bottom, so the whole
+     block drops with it and the chip lands lower, on water rather than on
+     sky. That buys back most of what the panel's growth had taken, and the
+     rest is a short ramp that now starts at 34% instead of 26% and holds flat
+     at 0.5 rather than climbing to 0.74: enough behind the chip, and 38px
+     more of clear photograph above it. */
   .vessel-card .v-img-veil{background:
     linear-gradient(180deg,rgba(54,84,102,0.42) 0%,rgba(54,84,102,0) 38%),
-    linear-gradient(180deg,rgba(54,84,102,0) 26%,rgba(54,84,102,0.58) 52%,rgba(54,84,102,0.74) 100%)}
+    linear-gradient(180deg,rgba(54,84,102,0) 34%,rgba(54,84,102,0.5) 48%,rgba(54,84,102,0.5) 100%)}
   .vessel-card .v-cta{left:20px;right:20px;bottom:20px;width:auto;height:36px;padding:0;
     justify-content:center;transition:none}
   /* The taller panel carried the chip up from 65% of the card to 53%, which is
