@@ -415,15 +415,23 @@ a{color:inherit;text-decoration:none}
   background:linear-gradient(179.96deg,rgba(54,84,102,0) 22%,rgba(54,84,102,0.82) 62%,rgba(54,84,102,0.94) 100%);
   backdrop-filter:blur(1px);display:flex;flex-direction:column;gap:12px}
 /* A light veil the photograph shows through, in place of the sand pill */
-.vessel-card .chip-loc{background:linear-gradient(180deg,rgba(255,255,255,0.58),rgba(255,255,255,0.40));
+.vessel-card .chip-loc{background:linear-gradient(180deg,rgba(255,255,255,0.34),rgba(255,255,255,0.20));
   -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-  color:#fff;padding:4px 12px 3px;font-family:'Myriad Pro',sans-serif;
-  font-weight:400;font-size:16px;line-height:22px;border-radius:2px;align-self:flex-start;display:inline-block}
+  color:#fff;padding:5px 12px 4px;font-family:'Mesmerize',sans-serif;
+  font-weight:300;font-size:14px;line-height:20px;letter-spacing:0.04em;text-transform:uppercase;
+  border-radius:2px;align-self:flex-start;display:inline-block}
 /* Held to two lines and kept clear of the View button in the corner. Some of
    these names run to seven words, and a third line pushed the price out of the
-   gradient and onto the photograph. */
+   gradient and onto the photograph.
+
+   min-height is the two-line height, so the box is the same whether the name
+   wraps or not. That is what lines the chip and the first line of the name up
+   across a row: the panel is anchored to the bottom of the card, so a short
+   name used to pull everything above it downwards and a card next to it sat
+   higher. CSS cannot ask whether a sibling wrapped, and reserving the second
+   line costs nothing when it is empty. */
 .vessel-card .name{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
-  margin:0;text-transform:none;max-width:82%;
+  margin:0;text-transform:none;max-width:82%;min-height:56px;
   display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
 .vessel-card .price{font-family:'Myriad Pro',sans-serif;font-weight:600;font-size:18px;line-height:28px;color:#fff;margin:0}
 
