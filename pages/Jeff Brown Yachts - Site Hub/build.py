@@ -8,12 +8,14 @@ every other page sits underneath it.
 """
 import os, re, urllib.request, sys
 
-BASE = "https://ywteamyw.github.io/"
+# The pages moved to the JBY-project organisation, where this branch can
+# publish them. Oksana's ywteamyw copies are still up and still older.
+BASE = "https://jby-project.github.io/"
 OUT = os.path.dirname(os.path.abspath(__file__))
 
 # slug in the assembled site  ->  source path on GitHub Pages
 PAGES = [
-    ("",                             "jby-homepage.github.io/"),
+    ("",                             "jby-home/"),
     ("about/",                       "jby-about/"),
     ("services/",                    "jby-all-services/"),
     ("services/maintenance/",        "jby-service-maintenance-2/"),
