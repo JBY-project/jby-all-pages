@@ -720,6 +720,46 @@ a{color:inherit;text-decoration:none}
   color:#fff;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
   text-transform:uppercase;border:0;cursor:pointer;transition:.25s}
 
+/* ---- Get expert guidance, second version -------------------------------
+   Same band, same three lines, but standing on a photograph instead of the
+   grey. It reuses .expert for the shape — height, centring, padding — and
+   only what the photograph changes is written here.
+
+   The drift is the page's own parallax, the one the bento cells run on:
+   [data-parallax-bg] on the band, a .bg layer inside it, and the engine
+   moves that layer by -centre x speed, so the photograph is centred exactly
+   when the band is centred in the window and drifts either side of it.
+
+0.24, set from the reference rather than copied from the bento's 0.20.
+   There the image travels about 52% of its band's height across the scroll
+   the page has left below it; this band is 315 tall and has 686px of travel
+   before the page ends, and 0.24 spends 165px of image over those 686 — the
+   same 52%. The layer is inset -55% top and bottom, against the 157px the
+   furthest extreme needs, so no edge can come into view.
+
+   The speed is negative, which is what turns the engine around. Left positive
+   it lags the page, the way a background does and the way the bento cells do;
+   the reference runs the other way, panning down through the photograph as
+   the band rises. The sign is the only difference, so the band still rides
+   the one scroll handler the rest of the page uses. */
+.expert-photo{position:relative;overflow:hidden;background:var(--navy);margin-top:0}
+.expert-photo .bg{position:absolute;inset:-55% 0;z-index:0;will-change:transform}
+.expert-photo .bg-inner{position:absolute;inset:0;background-size:cover;background-position:center}
+/* A scrim, not a tint. At 0.42 the subtitle was being read over the hull and
+   the sky behind it; this is what the type needs to hold at 20px and 16 over
+   open water, and the photograph still reads through it. */
+.expert-photo .veil{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(10,22,32,0.56) 0%,rgba(10,22,32,0.64) 100%)}
+.expert-photo .expert-body{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+.expert-photo h2{color:#fff}
+.expert-photo p{color:rgba(255,255,255,0.95)}
+/* Rule 4 of jby-system.css: a button standing on a photograph is a veil the
+   image shows through with white type, not a slab. The hover comes from the
+   band rule in that file and fills --jby-blue-d, which reads on a photograph
+   as well as it does on grey. */
+.expert-photo .btn{background:var(--jby-veil);color:#fff;border:0;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+
 /* FOOTER — on the brand blue, with the band above it now light.
    The rule across the top goes with the colour change: it was there to part
    two light surfaces, and the colour does that on its own now. */
@@ -1584,6 +1624,21 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   <h2 class="reveal split-words" data-split>Get expert guidance</h2>
   <p class="reveal d1">Every conversation starts with you. We take it from there.</p>
   <button class="btn reveal d2 magnetic">Book a consultation</button>
+</section>
+
+<!-- Second version of the band above: the same three lines on a photograph,
+     with the page's parallax drifting it. Sits directly under the first so the
+     two can be read against each other. -->
+<section class="expert expert-photo" id="contact-photo" data-parallax-bg="-0.24">
+  <div class="bg" aria-hidden="true">
+    <div class="bg-inner" style="background-image:url('./JBY-V3.3-assets/brand_riva.webp')"></div>
+  </div>
+  <div class="veil" aria-hidden="true"></div>
+  <div class="expert-body">
+    <h2 class="reveal split-words" data-split>Get expert guidance</h2>
+    <p class="reveal d1">Every conversation starts with you. We take it from there.</p>
+    <button class="btn reveal d2 magnetic">Book a consultation</button>
+  </div>
 </section>
 
 <footer>
