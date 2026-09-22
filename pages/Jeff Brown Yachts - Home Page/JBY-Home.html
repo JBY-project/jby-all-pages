@@ -698,24 +698,27 @@ a{color:inherit;text-decoration:none}
 /* GET EXPERT GUIDANCE */
 /* The band and the footer have traded colours: this one is the light one now
    and the footer below it carries the blue. On light grey the type is the
-   navy and ink the rest of the page uses, and the button is the outlined
-   shape .s-link has — a hairline at 18% black over nothing.
+   navy and ink the rest of the page uses, and the button is solid blue.
 
-   The hover still comes from jby-system.css, which paints every button in a
+   The hover comes from jby-system.css, which paints every button in a
    :is(.expert, .help, .cta-band) band with --jby-blue-d rather than the plain
-   --jby-blue. That rule exists because those bands were blue and a button
-   filling with the band's own colour would have vanished into it. Here the
-   reason is gone and the step down is invisible against grey, so it stays
-   until the site-wide pass, when that rule can go back to the plain blue. */
+   --jby-blue. That rule was written because those bands were blue and a
+   button filling with the band's own colour would have vanished into it. The
+   band is grey now, but the button is that blue, so the rule still lands
+   where a solid blue button wants its hover: one step down. */
 .expert{margin-top:var(--section-pad);background:var(--section);color:var(--ink);padding:0 40px;text-align:center;height:315px;
   display:flex;flex-direction:column;align-items:center;justify-content:center}
 .expert h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;color:var(--navy);
   letter-spacing:0;text-transform:uppercase;margin:0 0 12px}
 .expert p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;
   color:#2a2a36;margin:0 0 28px;font-style:normal}
-.expert .btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 32px;background:transparent;
-  color:var(--ink);font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
-  text-transform:uppercase;border:0.5px solid rgba(0,0,0,0.18);cursor:pointer;transition:.25s}
+/* Solid blue on the grey, the same fill .event-card .cta and .bento-cta use:
+   --navy with white type and no rule. The hover that jby-system.css gives a
+   button in this band, --jby-blue-d, is the step down a solid blue button
+   wants anyway — it is what .event-card .cta hovers to by its own rule. */
+.expert .btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 32px;background:var(--navy);
+  color:#fff;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
+  text-transform:uppercase;border:0;cursor:pointer;transition:.25s}
 
 /* FOOTER — on the brand blue, with the band above it now light.
    The rule across the top goes with the colour change: it was there to part
