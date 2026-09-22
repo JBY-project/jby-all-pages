@@ -819,16 +819,25 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
    running where there is no hover to leave. So they are gated behind a real
    pointer instead, and the button itself can stay.
 
-   On a phone it carries the full "View" label. There is no hover to widen it
-   there, so the collapsed chevron would be the only thing a tap ever showed,
-   and the label is what was asked for. The name's max-width:82% already keeps
-   the corner clear for it.
+   On a phone it leaves the corner and runs the full width under the price,
+   carrying the label rather than the chevron — there is no hover to widen it
+   there, so the collapsed chevron would be the only thing a tap ever showed.
+   40px and the same gutters as the text put it in line with the other
+   full-width buttons on the phone layout, .bento-cta and .s-link.
+
+   The panel's bottom padding grows by the button's height plus its gap, since
+   the button is positioned against the card and not laid out in the panel's
+   flow — that padding is what keeps the price off it. And the name gets the
+   full width back: 82% was reserving the corner the button no longer sits in.
 
    .v-cta:hover lives in jby-system.css, which loads after this block, so the
    override needs the card in front of it to win on specificity. */
 @media (hover:none),(pointer:coarse){
   .vessel-card:hover .v-img{transform:none}
-  .vessel-card .v-cta{width:auto;padding:0 16px;transition:none}
+  .vessel-card .info{padding-bottom:76px}
+  .vessel-card .name{max-width:100%}
+  .vessel-card .v-cta{left:20px;right:20px;bottom:20px;width:auto;height:40px;padding:0;
+    justify-content:center;transition:none}
   .vessel-card .v-cta .v-cta-text{display:inline;opacity:1;max-width:none}
   .vessel-card .v-cta .v-cta-icon{display:none}
   .vessel-card .v-cta:hover{background:var(--jby-veil);color:#fff}
