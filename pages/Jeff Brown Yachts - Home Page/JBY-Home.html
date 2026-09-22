@@ -399,7 +399,7 @@ a{color:inherit;text-decoration:none}
   transition:transform 900ms cubic-bezier(0.22, 1, 0.36, 1)}
 .vessel-card:hover .v-img{transform:scale(1.07)}
 .vessel-card .v-img-veil{position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(180deg,rgba(0,0,0,0.18) 0%,rgba(0,0,0,0) 34%)}
+  background:linear-gradient(180deg,rgba(54,84,102,0.42) 0%,rgba(54,84,102,0) 38%)}
 
 /* Brand logo top */
 .vessel-card .brand{position:absolute;top:10px;left:50%;transform:translateX(-50%);
@@ -410,22 +410,24 @@ a{color:inherit;text-decoration:none}
 
 /* Bottom info — NAVY gradient (original) + white text */
 .vessel-card .info{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:16px 20px 20px;
-  background:linear-gradient(179.96deg,rgba(65,100,123,0) 24.756%,rgba(65,100,123,0.9) 81.07%,rgba(65,100,123,0.9) 88.822%);
+  /* --navy-d #365466, a step under --navy, per the client's note that the
+     listing gradients should be a darker JBY blue than #41647b */
+  background:linear-gradient(179.96deg,rgba(54,84,102,0) 22%,rgba(54,84,102,0.82) 62%,rgba(54,84,102,0.94) 100%);
   backdrop-filter:blur(1px);display:flex;flex-direction:column;gap:12px}
-.vessel-card .event-label{font-family:'Myriad Pro',sans-serif;font-weight:700;font-size:14px;line-height:20px;
-  color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin:0;text-shadow:0 1px 8px rgba(0,0,0,0.3)}
-/* SAND pill — original yellow-ish chip */
-.vessel-card .chip-loc{background:var(--sand);color:#fff;padding:3px 10px 2px;font-family:'Myriad Pro',sans-serif;
-  font-weight:400;font-size:14px;line-height:20px;border-radius:2px;align-self:flex-start;display:inline-block}
+/* A light veil the photograph shows through, in place of the sand pill */
+.vessel-card .chip-loc{background:linear-gradient(180deg,rgba(255,255,255,0.30),rgba(255,255,255,0.16));
+  -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);
+  color:#fff;padding:4px 12px 3px;font-family:'Myriad Pro',sans-serif;
+  font-weight:400;font-size:16px;line-height:22px;border-radius:2px;align-self:flex-start;display:inline-block}
 .vessel-card .name{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
   margin:0;text-transform:none}
-.vessel-card .price{font-family:'Myriad Pro',sans-serif;font-weight:600;font-size:20px;line-height:30px;color:#fff;margin:0}
+.vessel-card .price{font-family:'Myriad Pro',sans-serif;font-weight:600;font-size:18px;line-height:28px;color:#fff;margin:0}
 
 /* CTA — rounded square (4px) chevron → wider "View" rounded square on hover */
 .v-cta{position:absolute;bottom:24px;right:24px;z-index:4;
-  height:44px;width:44px;border-radius:4px;
-  background:rgba(255,255,255,0.95);color:var(--ink);
-  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:15px;
+  height:36px;width:36px;border-radius:4px;
+  color:var(--ink);
+  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;
   letter-spacing:0.1em;text-transform:uppercase;
   display:flex;align-items:center;justify-content:center;
   padding:0;border:0;cursor:pointer;overflow:hidden;white-space:nowrap;
@@ -436,7 +438,14 @@ a{color:inherit;text-decoration:none}
 .v-cta-icon{display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;
   opacity:1;max-width:18px;
   transition:opacity .5s ease, max-width .9s cubic-bezier(0.16, 1, 0.3, 1)}
-.vessel-card:hover .v-cta{width:110px;padding:0 20px}
+/* The client asked for a white gradient on this button. jby-system.css paints
+   .v-cta with rule 4's flat veil and is read after this stylesheet, so a plain
+   .v-cta rule here loses; .vessel-card .v-cta outranks it. This is a deliberate
+   exception to rule 4, and the only one on the page. */
+.vessel-card .v-cta{
+  background:linear-gradient(180deg,rgba(255,255,255,0.94),rgba(255,255,255,0.70));
+  -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.vessel-card:hover .v-cta{width:92px;padding:0 16px}
 .vessel-card:hover .v-cta-text{opacity:1;max-width:80px}
 .vessel-card:hover .v-cta-icon{opacity:0;max-width:0}
 
@@ -775,8 +784,16 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .foot-locs{display:flex;flex-direction:column;gap:14px;margin:0}
 .foot-locs a{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:color .2s}
 .foot-locs a:hover{color:var(--navy)}
-/* Card chevron removed — whole card is the click target (buggy white/scale on tap) */
+/* Card chevron was removed here because tapping it stuck the hover state on
+   phones: the button stayed white and the photo stayed scaled up. The client
+   has asked for the View button back in Our Vessels, so it returns only where
+   there is a real pointer — which is exactly where that bug cannot happen.
+   Touch devices keep the old behaviour, the whole card being the click
+   target. */
 .v-cta{display:none!important}
+@media (hover:hover) and (pointer:fine){
+  .v-cta{display:flex!important}
+}
 /* MOBILE-FIX-KSENIA: kill horizontal scroll on phones */
 @media (max-width:980px){html,body{overflow-x:hidden}}
 @media (max-width:600px){.nav .cta{display:none}}
@@ -967,7 +984,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <div class="v-img-veil"></div>
         <div class="brand"><img src="./JBY-V3.3-assets/brand_axopar_raw.png" alt=""/></div>
         <div class="info">
-          <p class="event-label">Open House, Thu, Sep 17</p>
           <div class="chip-loc">Seattle, WA</div>
           <p class="name">2023 Axopar 37 XC Cross Cabin Wet Bar</p>
           <p class="price">$349,000</p>
@@ -981,7 +997,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <div class="v-img-veil"></div>
         <div class="brand"><img src="./JBY-V3.3-assets/brand_pershing_raw.png" alt=""/></div>
         <div class="info">
-          <p class="event-label">Open House, Thu, Sep 17</p>
           <div class="chip-loc">Seattle, WA</div>
           <p class="name">2023 Pershing 5X Cross Cabin Wet Bar</p>
           <p class="price">$349,000</p>
@@ -995,7 +1010,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <div class="v-img-veil"></div>
         <div class="brand"><img src="./JBY-V3.3-assets/brand_brabus_raw.png" alt=""/></div>
         <div class="info">
-          <p class="event-label">Open House, Thu, Sep 17</p>
           <div class="chip-loc">Seattle, WA</div>
           <p class="name">2023 Brabus Shadow 900 Sun-Top</p>
           <p class="price">$349,000</p>
@@ -1009,7 +1023,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <div class="v-img-veil"></div>
         <div class="brand"><img src="./JBY-V3.3-assets/brand_pershing_raw.png" alt=""/></div>
         <div class="info">
-          <p class="event-label">Open House, Thu, Sep 17</p>
           <div class="chip-loc">Seattle, WA</div>
           <p class="name">2023 Pershing GT55 Sport Yacht</p>
           <p class="price">$349,000</p>
