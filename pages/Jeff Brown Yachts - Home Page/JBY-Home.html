@@ -291,13 +291,14 @@ a{color:inherit;text-decoration:none}
   font-size:14px;line-height:22px;margin:0;font-style:italic;text-align:center}
 .builders .mark{display:flex;align-items:center;justify-content:center;min-height:108px}
 .builders .mark img{height:99px;width:auto;filter:drop-shadow(0 4px 24px rgba(0,0,0,0.55));max-width:600px;object-fit:contain}
-/* Wally, Sirena and Everglades are wide, low wordmarks: at the shared height
+/* Riva, Wally, Sirena and Everglades are wide, low wordmarks: at the shared height
    they read a good deal bigger than Riva's or Axopar's mark, so they take
    20% off it. Matched on the file name because the carousel writes the
    <img> from JS and puts no brand class on it. */
 .builders .mark img[src*="brand_wally_logo"],
 .builders .mark img[src*="brand_sirena_logo"],
-.builders .mark img[src*="brand_everglades_logo"]{height:79px}
+.builders .mark img[src*="brand_everglades_logo"],
+.builders .mark img[src*="riva_real"]{height:79px}
 .builders .mark .word{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:74px;line-height:1;color:#fff;
   letter-spacing:0;text-transform:uppercase;text-shadow:0 4px 22px rgba(0,0,0,0.55)}
 .builders .mark .word.italic{font-style:italic;font-weight:400}
@@ -699,7 +700,8 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .builders .mark img{height:69px}
   .builders .mark img[src*="brand_wally_logo"],
   .builders .mark img[src*="brand_sirena_logo"],
-  .builders .mark img[src*="brand_everglades_logo"]{height:55px}
+  .builders .mark img[src*="brand_everglades_logo"],
+  .builders .mark img[src*="riva_real"]{height:55px}
   .builders-inner{padding:64px 24px 48px;min-height:600px;gap:24px}
   .vessels-strip{padding:0 24px}.vessels-head-row{padding:0 24px 24px;flex-direction:column;align-items:flex-start;gap:16px}
   .video-thumbs{gap:12px}
@@ -830,7 +832,8 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .builders .mark img{height:64px;width:auto;max-width:100%;object-fit:contain}
   .builders .mark img[src*="brand_wally_logo"],
   .builders .mark img[src*="brand_sirena_logo"],
-  .builders .mark img[src*="brand_everglades_logo"]{height:51px}  /* SVG logos render; wide logos never overflow */
+  .builders .mark img[src*="brand_everglades_logo"],
+  .builders .mark img[src*="riva_real"]{height:51px}  /* SVG logos render; wide logos never overflow */
   .builders .mark .word{font-size:33px}
   .builders-tabs{margin-top:auto}   /* keep tabs pinned to the bottom */
   .builders .actions{flex-wrap:nowrap;justify-content:center;gap:10px}
