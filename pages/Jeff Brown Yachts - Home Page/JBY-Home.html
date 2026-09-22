@@ -290,7 +290,11 @@ a{color:inherit;text-decoration:none}
    Without it the column's space-between pins the block to the top and leaves
    the whole gap underneath. */
 .builders-top{display:flex;flex-direction:column;align-items:center;gap:24px;width:100%;margin:auto 0}
-.builders .caption{color:rgba(255,255,255,0.92);font-family:'Myriad Pro',sans-serif;font-weight:300;
+/* The caption keeps the top of the section while the logo and buttons centre
+   below it, so it comes out of the column's flow. Positioned against
+   .builders-inner's padding box, hence the 64s matching its padding. */
+.builders .caption{position:absolute;top:64px;left:64px;right:64px;z-index:5;
+  color:rgba(255,255,255,0.92);font-family:'Myriad Pro',sans-serif;font-weight:300;
   font-size:14px;line-height:22px;margin:0;font-style:italic;text-align:center}
 /* The row is a fixed height, not a min-height: the seven logos now render at
    seven different heights, and a min-height would make the buttons under them
@@ -732,6 +736,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .builders .mark img[src*="brand_pershing_raw"]   {height:80px}
   .builders .mark img[src*="brand_brabus_raw"]     {height:100px}
   .builders-inner{padding:64px 24px 48px;min-height:600px;gap:24px}
+  .builders .caption{position:static}   /* back into the flow on narrow screens */
   .vessels-strip{padding:0 24px}.vessels-head-row{padding:0 24px 24px;flex-direction:column;align-items:flex-start;gap:16px}
   .video-thumbs{gap:12px}
   .video-hero .play{width:64px;height:64px;font-size:20px}
