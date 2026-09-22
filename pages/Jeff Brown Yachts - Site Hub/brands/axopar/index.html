@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<base href="https://ywteamyw.github.io/jby-axopar/">
+<base href="https://jby-project.github.io/jby-axopar/">
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -532,17 +532,9 @@ a{color:inherit;text-decoration:none}
 .loc-modal-panel{position:relative;background:var(--paper);width:min(680px,100%);max-height:90vh;overflow:auto;
   border-radius:4px;box-shadow:0 30px 80px rgba(0,0,0,0.35);display:flex;flex-direction:column}
 .loc-modal-close{position:absolute;top:14px;right:14px;z-index:3;width:36px;height:36px;border-radius:2px;
-  background:transparent;border:0;cursor:pointer;text-shadow:0 1px 2px rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;
-  color:#fff;font-size:18px;transition:.25s}
-.loc-modal-close:hover{background:rgba(255,255,255,0.18)}
-/* The X sits over the office photo, and a white button on a photo of white
-   hulls and boatyard sheds simply disappeared. White icon, and this quarter
-   of shade under it to carry it on any photo. Anchored to the panel's own
-   corner, not the button's, so it reads as the corner going dark. */
-.loc-modal-close::before{content:'';position:absolute;top:-14px;right:-14px;width:172px;height:126px;
-  z-index:-1;pointer-events:none;border-radius:0 4px 0 0;
-  background:radial-gradient(118% 118% at 100% 0%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.34) 38%, rgba(0,0,0,0) 72%)}
-.loc-modal-close svg{filter:drop-shadow(0 1px 2px rgba(0,0,0,0.45))}
+  background:rgba(255,255,255,0.95);border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:var(--ink);font-size:18px;transition:.25s;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.loc-modal-close:hover{background:#fff}
 .loc-modal-photo{width:100%;aspect-ratio:2/1;background-size:cover;background-position:center;background-color:#1a2a3a}
 .loc-modal-body{padding:22px 30px 26px}
 .loc-modal-body h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:28px;letter-spacing:0;
@@ -607,7 +599,7 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
   transition:opacity .2s}
 .foot-social a svg{width:28px;height:28px;display:block}
 .foot-social a:hover{opacity:0.6}
-.back-top{position:absolute;right:40px;top:152px;width:40px;height:40px;border:0;
+.back-top{position:absolute;right:40px;top:40px;width:40px;height:40px;border:0;
   background:rgba(0,0,0,0.7);border-radius:2px;cursor:pointer;
   display:flex;align-items:center;justify-content:center;color:#fff;transition:background .2s}
 .back-top:hover{background:rgba(0,0,0,0.85)}
@@ -806,6 +798,26 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   transition:opacity .6s cubic-bezier(0.22,1,0.36,1),transform .6s cubic-bezier(0.22,1,0.36,1),
              flex-basis .55s cubic-bezier(0.22,1,0.36,1),box-shadow .35s ease}
 .ax-strip .vessel-card.reveal.in{opacity:1;transform:none}
+/* The whole card is the click target — remove the chevron button (buggy white/scale on tap) */
+.v-cta{display:none!important}
+
+/* Model image opens in a lightbox / gallery on click */
+.ax-model-stage img{cursor:zoom-in}
+.ax-lb{position:fixed;inset:0;z-index:1200;display:none;align-items:center;justify-content:center;padding:24px;
+  background:rgba(10,22,32,0.92);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;transition:opacity .3s ease}
+.ax-lb.open{display:flex}.ax-lb.in{opacity:1}
+.ax-lb-stage{display:flex;align-items:center;justify-content:center;width:min(94vw,1200px)}
+.ax-lb img{max-width:100%;max-height:80vh;object-fit:contain;background:#fff;border-radius:2px}
+/* caption pinned to the bottom so the image (and the arrows) stay dead-centre */
+.ax-lb-cap{position:fixed;left:0;right:0;bottom:28px;text-align:center;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;letter-spacing:0.04em;text-transform:uppercase;color:#fff;opacity:.9}
+.ax-lb-close{position:fixed;top:14px;right:16px;width:40px;height:40px;border:0;cursor:pointer;background:transparent;color:#fff;
+  font-size:34px;line-height:1;opacity:.8;transition:opacity .2s;display:flex;align-items:center;justify-content:center}
+.ax-lb-close:hover{opacity:1}
+.ax-lb-arr{position:fixed;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:2px;background:rgba(255,255,255,0.12);
+  color:#fff;border:0;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;transition:background .25s}
+.ax-lb-arr:hover{background:rgba(255,255,255,0.22)}
+.ax-lb-arr.prev{left:12px}.ax-lb-arr.next{right:12px}
+@media (max-width:560px){.ax-lb-arr{width:40px;height:40px}.ax-lb-arr.prev{left:4px}.ax-lb-arr.next{right:4px}}
 
 /* Reveal-friendly section spacing */
 .ax-about{padding-top:96px}
@@ -888,25 +900,46 @@ body.cx-lock{overflow:hidden}
 @media (max-width:560px){.cx-row2{grid-template-columns:1fr}.cx-head{padding:26px 22px 22px}.cx-body{padding:22px}}
 
 @media (max-width:980px){
+  html,body{overflow-x:hidden}
   .ax-wrap{padding:0 24px}
+  /* Footer: stack + smaller gutters on mobile (fixed 312px column caused horizontal scroll) */
+  footer{padding-left:24px;padding-right:24px}
+  .back-top{right:24px}
+  .foot-grid{grid-template-columns:1fr;gap:28px}
+  .foot-grid>*{min-width:0}
+  .foot-nav{flex-wrap:wrap}
   .ax-hero{height:clamp(620px,86vh,860px)}
+  .ax-hero-bg{object-position:66% center;transform:none}
   .ax-hero-inner{padding:0 24px 40px}
   .ax-hero-mark{height:38px}
   .ax-hero-tag{font-size:18px;line-height:26px}
+  /* Hero CTAs stack full-width (edge to edge within the gutters) */
+  .ax-hero-btns{flex-direction:column;gap:14px;width:100%}
+  .ax-hero-btns .ax-btn{width:100%}
   .ax-about-cols{flex-direction:column;gap:32px}
   .ax-about-left{width:100%}
-  .ax-stats{width:100%}
+  /* Stat cards stay 2x2 on mobile */
+  .ax-stats{width:100%;gap:12px}
   .ax-h2{font-size:18px;line-height:26px}
   .ax-model-stage{height:300px}
   .ax-model-stage img{width:92%}
+  /* Model chevrons closer to the edges */
+  .ax-model-arr{width:40px;height:40px}
+  .ax-model-arr.prev{left:4px}
+  .ax-model-arr.next{right:4px}
   .ax-listings-head{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:16px}
   .ax-strip{gap:16px;scroll-snap-type:x mandatory}
-  .ax-strip .vessel-card{flex-basis:270px;scroll-snap-align:start}
-  .ax-strip .vessel-card:hover{flex-basis:270px;box-shadow:none}
+  /* Slightly wider listing cards on mobile */
+  .ax-strip .vessel-card{flex-basis:min(84vw,340px);scroll-snap-align:start}
+  .ax-strip .vessel-card:hover{flex-basis:min(84vw,340px);box-shadow:none}
 }
 @media (max-width:560px){
-  .ax-stats{grid-template-columns:1fr}
   .ax-tab{font-size:20px}
+  .ax-stat{padding:16px}
+  .ax-stat .k{font-size:14px;line-height:20px}
+  .ax-stat .v{font-size:17px;line-height:24px}
+  /* Header CTA doesn't fit on phones (caused horizontal scroll) — hamburger + hero CTAs cover contact */
+  .nav .cta{display:none}
 }
 
 /* ====== MOBILE POLISH (phones only) ====== */
@@ -921,278 +954,9 @@ body.cx-lock{overflow:hidden}
 }
 
 </style>
+<link rel="stylesheet" href="./jby-system.css">
 <link rel="stylesheet" href="/jby-site/site.css?v=6">
 <script defer src="/jby-site/site.js?v=6"></script>
-<style data-jby-system>
-/* ======================================================================
-   JBY design rules
-   ----------------------------------------------------------------------
-   The rules the client asked for across the whole site, in one place.
-   Each page is a standalone site with its own inline <style>, so this
-   file is copied into the page's folder and linked *after* that style
-   block — last one in wins, and no !important is needed.
-
-   Roll it out with: node design-system/apply.mjs "<page folder>"
-   ====================================================================== */
-
-:root{
-  /* The brand blue already lives in every page as --navy; these are the
-     fallbacks for the few that do not define it. */
-  --jby-blue:var(--navy,#41647b);
-  --jby-blue-d:var(--navy-d,#365466);
-  /* On hover an outlined button drops its rule: the fill carries the
-     shape from there. */
-  --jby-rule-hover:transparent;
-
-  /* One button, everywhere. */
-  --jby-btn-h:48px;
-  --jby-btn-pad:0 28px;
-  --jby-btn-radius:0;
-
-  /* A white button standing on a photograph or video: a veil the image
-     shows through, with white type — not a white slab with dark type. */
-  --jby-veil:rgba(255,255,255,0.28);
-}
-
-/* ---- 1. One shape and size -------------------------------------------
-   Before this, the home page alone carried heights of 40, 44 and 48px
-   and four different paddings. */
-.hero .btn-hero,
-.btn-solid,
-.btn-outline,
-.bento-cta,
-.expert .btn,
-.event-card .cta,
-.loc-modal-cta,
-.loc-modal-cta-secondary,
-.loc-modal-cta.secondary,
-.s-link,
-.btn-ghost,
-.btn-line,
-/* Pages that shrink one of these on their own — the CTA band's ghost
-   button and the ports header's link. Same specificity as their rule,
-   and this file is read after it. */
-.help .btn-ghost,
-.expert .btn-ghost,
-.ports-head .s-link,
-/* The listing, team-member and V1 templates name their buttons
-   differently; these are their text buttons. */
-.btn-primary,
-.btn-basic,
-.gal-all,
-.btn-navy,
-.btn-out,
-.btn-help,
-.help .btn-help,
-.nf-actions a,
-/* The brand, model and knowledge-centre templates, which run at 48 and
-   50 with names of their own. */
-.ax-btn,
-.btn-md,
-.btn-white,
-.btn-ghost-light,
-.btn-ghost-dark,
-.searchbar .btn,
-/* Named small, or sitting in a dense column, but each of these is the
-   action of its section: "See details" on every event, "View all yachts"
-   on the office page, "Book a consultation" in the listing's band. */
-.ev-btn,
-.cat-cta,
-.cta-band button,
-.shr-copy,
-/* The knowledge centre's event card: the call to action is a span
-   inside the card, and the card carries the hover. */
-.ecard .ec-cta,
-.scene-link{
-  height:var(--jby-btn-h);
-  padding:var(--jby-btn-pad);
-  border-radius:var(--jby-btn-radius);
-  font-family:'Mesmerize',sans-serif;
-  font-weight:300;
-  font-size:16px;
-  line-height:20px;
-  letter-spacing:0;
-  text-transform:uppercase;
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  transition:background .25s,color .25s,border-color .25s;
-}
-
-/* The header is its own scale: the client asked for the search button and
-   "Contact an expert" smaller than the buttons in the page. They sit at
-   40, square for the icon, and match each other. .nav-cta and .nav-search
-   are the V1 header's names for the same pair.
-
-   Deliberately no `display` here, and the header button is kept out of
-   the shape rule above for the same reason: pages hide this button on a
-   phone, and a display coming from this file would undo that and push
-   the button off the screen. */
-.nav .cta,
-.nav-cta{
-  height:40px;
-  padding:0 24px;
-  border-radius:var(--jby-btn-radius);
-  font-family:'Mesmerize',sans-serif;
-  font-weight:300;
-  font-size:16px;
-  line-height:20px;
-  letter-spacing:0;
-  text-transform:uppercase;
-  transition:background .25s,color .25s,border-color .25s;
-}
-.nav .icon,
-.nav-search{width:40px;height:40px}
-
-/* The event card's button spans the foot of its card rather than sitting
-   inline, so it keeps its own width and margin. */
-.event-card .cta{display:flex;justify-content:center;margin:24px 20px 20px}
-
-/* The brand carousel's pair is already 48 / 0 28px, so it needs the
-   colours only. */
-
-/* ---- 2. Hover turns blue, never black --------------------------------
-   Outlined buttons fill with the brand blue and let their rule go. */
-.btn-outline:hover,
-.loc-modal-cta-secondary:hover,
-.loc-modal-cta.secondary:hover,
-.s-link:hover,
-.btn-line:hover,
-/* The compact controls keep their own size. .terms button is a
-   segmented choice of loan term and .chip is a tag, neither being a call
-   to action; .btn-sm sits beside the 36px bell in the listing's event
-   card, where the whole row is deliberately small. Only their colour is
-   the rule's business. */
-.ev-btn:hover,
-.cat-cta:hover,
-.btn-basic:hover,
-.btn-out:hover,
-.scene-link:hover,
-.idx a:hover,
-.btn-sm:hover,
-.shr-copy:hover,
-.chip:hover,
-.terms button:hover,
-.nf-actions a.ghost:hover,
-.ax-btn-ghost-dark:hover,
-.btn-ghost-dark:hover,
-/* Beats the page's own `.nav:not(.scrolled) .cta:hover`, which outranks a
-   plain `.nav .cta:hover` and would otherwise keep its grey wash. */
-.nav:not(.scrolled) .cta:hover{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-
-/* Buttons already filled blue deepen rather than change colour. The
-   label goes white with them: a few of these rest as white with black
-   type, and the fill underneath it turns dark. */
-.btn-solid:hover,
-.event-card .cta:hover,
-.loc-modal-cta:hover,
-.btn-primary:hover,
-.btn-navy:hover,
-.gal-all:hover,
-.nf-actions a.solid:hover{
-  background:var(--jby-blue-d);
-  color:#fff;
-}
-
-/* ---- 3. White buttons over a photograph or video ---------------------
-   A veil the picture shows through, with white type. The blur is what
-   keeps white type legible: 28% white over a bright frame is otherwise
-   white on near-white, and the type reads grey. */
-.hero .btn-hero,
-.builders .a.solid,
-.v-cta{
-  background:var(--jby-veil);
-  color:#fff;
-  border:0;
-  -webkit-backdrop-filter:blur(8px);
-  backdrop-filter:blur(8px);
-}
-
-/* On media the hover is the solid blue too — no translucency. */
-.nav .cta:hover,
-.bento-cta:hover,
-.expert .btn:hover,
-.hero .btn-hero:hover,
-.builders .a.solid:hover,
-.builders .a.ghost:hover,
-.btn-ghost:hover,
-.nav-cta:hover,
-.cta-band button:hover,
-.ax-btn-light:hover,
-.ax-btn-ghost-light:hover,
-.btn-white:hover,
-.btn-ghost-light:hover,
-.lb-btn:hover,
-.v-cta:hover{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-
-/* The card owns the hover, not the button inside it, so this is written
-   the way the page writes it — at 0,3,0, above the white it used. */
-.ecard:hover .ec-cta{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-
-/* The modal's close button hovered to white on a white card. The cross
-   is drawn with currentColor, so the colour carries it. */
-.loc-modal-close:hover{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-
-/* The knowledge centre's band stacks its two buttons: .cb-inner is
-   720px wide with 40px of padding, leaving 640 for a row that needs 663.
-   It wrapped before the buttons took the shared padding too. Rather than
-   widen the column — which would re-wrap the paragraph above — the row
-   alone reaches into the padding. It still wraps on a narrow screen. */
-@media (min-width:760px){
-  .cta-band .actions{margin-left:-40px;margin-right:-40px}
-}
-
-/* The brand-blue CTA band. It runs under three names — .expert, .help
-   and .cta-band — and it is painted #41647b, the very colour the hover
-   fills with. A button standing on it would disappear into its own
-   background, so inside the band the hover goes one step down.
-
-   :is() keeps this one rule instead of a band-by-class-by-class list,
-   and lands at 0,3,0 — above the plain hovers above, below nothing. */
-:is(.expert, .help, .cta-band)
-:is(.btn, .btn-ghost, .btn-outline, .btn-line, .btn-help, .btn-solid,
-    .btn-primary, .btn-white, .btn-ghost-light, .btn-ghost-dark,
-    .ax-btn, .cta, .s-link, button):hover{
-  background:var(--jby-blue-d);
-  color:#fff;
-}
-
-/* The round and square icon affordances — carousel arrows, the scroll
-   arrow — keep their own 44px geometry: they are not buttons in the
-   shape-and-size sense. The hover rule still reaches them, and the scroll
-   arrow is one of the two that went black. */
-/* The icon affordances: the header's search, the carousel arrows, the
-   scroll arrow, back-to-top. They keep their own 40–48px geometry — they
-   are not buttons in the shape-and-size sense — but the hover rule still
-   reaches them.
-
-   :is() rather than a plain list, so this sits at 0,3,0. A page can carry
-   its own `.ax-listings .cards-scroll-arr:hover` at that weight, and a
-   0,2,0 rule here would lose to it however late this file is read. */
-:is(.nav .icon, .hero-arr, .builders-arr, .cards-scroll-arr,
-    .back-top, .to-top, .ax-model-arr, .pe-nav, .strip-arr,
-    .lb-btn, .show-arrow, .tmon-btn, .sq, .sq.light, .e2-btn):hover{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-</style>
 </head>
 <body class="ax-page" data-interest="Axopar">
 <div class="progress"><div class="progress-bar"></div></div>
@@ -1478,6 +1242,17 @@ body.cx-lock{overflow:hidden}
   </div>
 </div>
 
+<!-- ============================ MODEL LIGHTBOX / GALLERY ============================ -->
+<div class="ax-lb" id="ax-lb" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Model gallery">
+  <button class="ax-lb-close" id="ax-lb-close" aria-label="Close">&times;</button>
+  <button class="ax-lb-arr prev" id="ax-lb-prev" aria-label="Previous model"><i class="ti ti-chevron-left"></i></button>
+  <div class="ax-lb-stage">
+    <img id="ax-lb-img" src="" alt=""/>
+    <div class="ax-lb-cap" id="ax-lb-cap"></div>
+  </div>
+  <button class="ax-lb-arr next" id="ax-lb-next" aria-label="Next model"><i class="ti ti-chevron-right"></i></button>
+</div>
+
 <script>
 (function(){
   // ---- Reveal on load for anything already in view ----
@@ -1558,6 +1333,45 @@ body.cx-lock{overflow:hidden}
   var mn = document.getElementById('ax-model-next');
   if (mp) mp.addEventListener('click', function(){ setModel(active - 1); });
   if (mn) mn.addEventListener('click', function(){ setModel(active + 1); });
+
+  // ---- Model image opens in a lightbox / gallery (tap the render) ----
+  var lb = document.getElementById('ax-lb');
+  var lbImg = document.getElementById('ax-lb-img');
+  var lbCap = document.getElementById('ax-lb-cap');
+  function lbSync(){
+    if (!modelImg || !lbImg) return;
+    lbImg.src = modelImg.getAttribute('src');
+    lbCap.textContent = tabs.length ? tabs[active].getAttribute('data-model') : '';
+    lbImg.alt = lbCap.textContent;
+  }
+  function lbOpen(){
+    if (!lb) return;
+    lbSync();
+    lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
+    document.body.classList.add('cx-lock');
+    requestAnimationFrame(function(){ lb.classList.add('in'); });
+  }
+  function lbClose(){
+    if (!lb) return;
+    lb.classList.remove('in'); document.body.classList.remove('cx-lock');
+    lb.setAttribute('aria-hidden','true');
+    setTimeout(function(){ lb.classList.remove('open'); }, 300);
+  }
+  function lbStep(d){ setModel(active + d); setTimeout(lbSync, 230); }
+  if (modelImg) modelImg.addEventListener('click', lbOpen);
+  var lbCloseBtn = document.getElementById('ax-lb-close');
+  if (lbCloseBtn) lbCloseBtn.addEventListener('click', lbClose);
+  if (lb) lb.addEventListener('click', function(e){ if (e.target === lb) lbClose(); });
+  var lbPrev = document.getElementById('ax-lb-prev');
+  var lbNext = document.getElementById('ax-lb-next');
+  if (lbPrev) lbPrev.addEventListener('click', function(){ lbStep(-1); });
+  if (lbNext) lbNext.addEventListener('click', function(){ lbStep(1); });
+  document.addEventListener('keydown', function(e){
+    if (!lb || !lb.classList.contains('open')) return;
+    if (e.key === 'Escape') lbClose();
+    else if (e.key === 'ArrowLeft') lbStep(-1);
+    else if (e.key === 'ArrowRight') lbStep(1);
+  });
 
   // ---- Listings: sideways scroll via arrow; loops back to start at the end ----
   window.axStripScroll = function(dir){

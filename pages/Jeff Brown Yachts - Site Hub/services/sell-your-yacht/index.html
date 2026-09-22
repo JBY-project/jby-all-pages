@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<base href="https://ywteamyw.github.io/jby-sell-your-yacht-v2/">
+<base href="https://jby-project.github.io/jby-sell-your-yacht-v2/">
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -97,7 +97,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .hero-metrics .hm-v{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:38px;line-height:1;color:#fff}
 .hero-metrics .hm-k{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:14px;line-height:20px;letter-spacing:.01em;color:rgba(255,255,255,.82);text-transform:none}
 .hero-metrics .hm-div{width:1px;align-self:stretch;background:rgba(255,255,255,.3)}
-@media(max-width:560px){.hero-metrics{gap:22px}.hero-metrics .hm-v{font-size:30px}}
+@media(max-width:560px){
+  .hero{height:100svh;min-height:520px}                 /* svh keeps the CTA above the mobile browser bar */
+  .hero-inner{padding:0 24px 40px;gap:16px}
+  .hero-sub{font-size:16px;line-height:24px;max-width:100%}
+  .hero-metrics{gap:20px;margin-top:0}
+  .hero-metrics .hm-v{font-size:28px}
+  .hero-inner .btn{width:100%}                          /* full-width hero CTA on mobile */
+}
 .hero-scroll{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;
   color:rgba(255,255,255,.7);font-family:'Mesmerize',sans-serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase}
 .hero-scroll .mouse{width:22px;height:34px;border:1px solid rgba(255,255,255,.55);border-radius:12px;position:relative}
@@ -149,7 +156,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 @media(max-width:980px){.cine-inner{padding:0 24px 72px}}
 .cine-inner .in-box{max-width:900px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:20px}
 .cine h2{font-family:'Mesmerize',sans-serif;font-weight:300;text-transform:uppercase;font-size:20px;line-height:30px;color:#fff}
-.cine p{color:rgba(255,255,255,.9);font-size:17px;line-height:27px;max-width:600px;margin:0 auto}
+.cine p{color:rgba(255,255,255,.9);font-size:17px;line-height:27px;max-width:720px;margin:0 auto;text-align:justify;text-align-last:center}
 @media(max-width:560px){.cine h2{font-size:18px;line-height:26px}}
 
 /* ===== PROCESS (staggered staircase) ===== */
@@ -200,6 +207,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .show-cta-h{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:clamp(24px,2.7vw,34px);line-height:1.25;text-transform:uppercase;color:#fff;max-width:20ch;text-shadow:0 2px 26px rgba(0,0,0,.45)}
 .show-cta .btn{pointer-events:auto}
 .show-word{position:absolute;left:0;right:0;bottom:132px;z-index:3;text-align:center;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:28px;letter-spacing:.06em;text-transform:uppercase;color:#fff;text-shadow:0 2px 22px rgba(0,0,0,.45)}
+.show-count{position:absolute;top:20px;right:26px;z-index:5;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;letter-spacing:.12em;color:rgba(255,255,255,.6);text-shadow:0 2px 14px rgba(0,0,0,.55)}
+.show-count b{color:#fff;font-weight:300}
 .show-thumbs{position:absolute;left:0;right:0;bottom:24px;z-index:5;display:flex;gap:12px;justify-content:center;padding:0 24px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
 .show-thumbs::-webkit-scrollbar{display:none}
 .show-thumb{flex:0 0 128px;height:78px;border-radius:2px;overflow:hidden;cursor:pointer;position:relative;opacity:.6;transition:opacity .25s,box-shadow .25s;background:#0a1218;border:1px solid rgba(255,255,255,.25);padding:0}
@@ -208,21 +217,36 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .show-thumb:hover{opacity:1}
 @media(max-width:640px){.show-tabs{gap:22px}.show-tab{font-size:14px}
   .show-arrow{width:44px;height:44px}.show-arrow.prev{left:14px}.show-arrow.next{right:14px}
-  .show-word{bottom:112px;font-size:17px}.show-thumb{flex-basis:104px;height:64px}.show-cta-h{font-size:22px}}
+  .show-word{bottom:112px;font-size:17px}.show-thumb{flex-basis:104px;height:64px}
+  .show-cta{padding:0 20px}.show-cta-h{font-size:16px;line-height:1.3;max-width:100%}}
+/* MOBILE: gallery becomes a 2-col editorial grid (like the event page); tabs stay as the switcher */
+@media(max-width:760px){
+  .show-stage{height:auto;min-height:0;overflow:visible;background:transparent}
+  .show-stage>img,.show-stage>video,.show-arrow,.show-count,.show-word,.show-cta{display:none!important}
+  .show-stage::after{display:none}
+  .show-thumbs{position:static;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:0 22px;overflow:visible}
+  .show-thumb{width:100%;height:auto;aspect-ratio:4/5;flex:none;border:0;box-shadow:none;opacity:1;cursor:zoom-in;border-radius:2px}
+  .show-thumb.on{box-shadow:none}
+  .show-thumb:nth-child(4n+3),.show-thumb:nth-child(4n){aspect-ratio:3/2}
+  .show-thumb:last-child:nth-child(odd){grid-column:1 / -1;aspect-ratio:16/9}
+}
 /* Lightbox — enlarge photos / play videos (functionality from the model page) */
 .lightbox{position:fixed;inset:0;z-index:2000;background:rgba(10,15,19,.95);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s}
 .lightbox.open{opacity:1;pointer-events:auto}
 .lb-stage{position:relative;display:flex;align-items:center;justify-content:center;max-width:90vw;max-height:80vh}
-.lb-media{width:min(90vw,calc(80vh * 16 / 9));aspect-ratio:16/9;max-width:90vw;background:#0a1218;border:1px solid rgba(255,255,255,.18);border-radius:0;box-shadow:none}
+.lb-media{position:relative;width:min(90vw,calc(80vh * 16 / 9));aspect-ratio:16/9;max-width:90vw;background:#0a1218;border:1px solid rgba(255,255,255,.18);border-radius:0;box-shadow:none}
 .lb-media img,.lb-media video{width:100%;height:100%;object-fit:cover;display:block;border:0;border-radius:0;box-shadow:none;outline:0}
-.lb-cap,.lb-count{display:none}
+.lb-tour{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3}
+.lb-cap{display:none}
+.lb-count{position:absolute;right:0;bottom:-42px;z-index:6;color:rgba(255,255,255,.7);font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;letter-spacing:.08em}
 .lb-btn{position:absolute;z-index:5;width:52px;height:52px;border-radius:2px;display:flex;align-items:center;justify-content:center;background:#fff;color:#000;border:0;cursor:pointer;transition:background .25s}
 .lb-btn:hover{background:rgba(255,255,255,.72)}
 .lb-btn svg{width:24px;height:24px}
 .lb-prev{position:fixed;left:20px;top:50%;transform:translateY(-50%)}
 .lb-next{position:fixed;right:20px;top:50%;transform:translateY(-50%)}
 .lb-close{position:fixed;top:20px;right:20px;width:46px;height:46px}
-@media(max-width:640px){.lb-prev{left:8px}.lb-next{right:8px}.lb-btn{width:44px;height:44px}}
+@media(max-width:640px){.lb-prev{left:8px}.lb-next{right:8px}.lb-btn{width:44px;height:44px}
+  .lb-count{position:fixed;top:34px;left:22px;right:auto;bottom:auto;z-index:6;color:rgba(255,255,255,.85)}}
 /* social reach metrics */
 .reach{margin-top:64px;background:var(--navy);color:#fff;border-radius:2px;padding:clamp(32px,4vw,52px)}
 .reach-head{text-align:center;margin-bottom:36px;display:flex;flex-direction:column;gap:12px;align-items:center}
@@ -302,7 +326,7 @@ footer{background:var(--page);padding:40px 40px 80px;color:var(--c2);font-size:1
 .back-top svg{width:20px;height:20px;display:block;transform:rotate(-90deg)}
 @media(max-width:860px){
   .foot-grid{grid-template-columns:1fr}.foot-col{padding-top:0}
-  footer{padding:40px 24px 64px}.back-top{display:none}
+  footer{padding:40px 24px 64px}.back-top{right:24px;top:32px}
 }
 
 /* ===== REVEAL / MOTION ===== */
@@ -327,278 +351,9 @@ footer{background:var(--page);padding:40px 40px 80px;color:var(--c2);font-size:1
 }
 
 </style>
+<link rel="stylesheet" href="./jby-system.css">
 <link rel="stylesheet" href="/jby-site/site.css?v=6">
 <script defer src="/jby-site/site.js?v=6"></script>
-<style data-jby-system>
-/* ======================================================================
-   JBY design rules
-   ----------------------------------------------------------------------
-   The rules the client asked for across the whole site, in one place.
-   Each page is a standalone site with its own inline <style>, so this
-   file is copied into the page's folder and linked *after* that style
-   block — last one in wins, and no !important is needed.
-
-   Roll it out with: node design-system/apply.mjs "<page folder>"
-   ====================================================================== */
-
-:root{
-  /* The brand blue already lives in every page as --navy; these are the
-     fallbacks for the few that do not define it. */
-  --jby-blue:var(--navy,#41647b);
-  --jby-blue-d:var(--navy-d,#365466);
-  /* On hover an outlined button drops its rule: the fill carries the
-     shape from there. */
-  --jby-rule-hover:transparent;
-
-  /* One button, everywhere. */
-  --jby-btn-h:48px;
-  --jby-btn-pad:0 28px;
-  --jby-btn-radius:0;
-
-  /* A white button standing on a photograph or video: a veil the image
-     shows through, with white type — not a white slab with dark type. */
-  --jby-veil:rgba(255,255,255,0.28);
-}
-
-/* ---- 1. One shape and size -------------------------------------------
-   Before this, the home page alone carried heights of 40, 44 and 48px
-   and four different paddings. */
-.hero .btn-hero,
-.btn-solid,
-.btn-outline,
-.bento-cta,
-.expert .btn,
-.event-card .cta,
-.loc-modal-cta,
-.loc-modal-cta-secondary,
-.loc-modal-cta.secondary,
-.s-link,
-.btn-ghost,
-.btn-line,
-/* Pages that shrink one of these on their own — the CTA band's ghost
-   button and the ports header's link. Same specificity as their rule,
-   and this file is read after it. */
-.help .btn-ghost,
-.expert .btn-ghost,
-.ports-head .s-link,
-/* The listing, team-member and V1 templates name their buttons
-   differently; these are their text buttons. */
-.btn-primary,
-.btn-basic,
-.gal-all,
-.btn-navy,
-.btn-out,
-.btn-help,
-.help .btn-help,
-.nf-actions a,
-/* The brand, model and knowledge-centre templates, which run at 48 and
-   50 with names of their own. */
-.ax-btn,
-.btn-md,
-.btn-white,
-.btn-ghost-light,
-.btn-ghost-dark,
-.searchbar .btn,
-/* Named small, or sitting in a dense column, but each of these is the
-   action of its section: "See details" on every event, "View all yachts"
-   on the office page, "Book a consultation" in the listing's band. */
-.ev-btn,
-.cat-cta,
-.cta-band button,
-.shr-copy,
-/* The knowledge centre's event card: the call to action is a span
-   inside the card, and the card carries the hover. */
-.ecard .ec-cta,
-.scene-link{
-  height:var(--jby-btn-h);
-  padding:var(--jby-btn-pad);
-  border-radius:var(--jby-btn-radius);
-  font-family:'Mesmerize',sans-serif;
-  font-weight:300;
-  font-size:16px;
-  line-height:20px;
-  letter-spacing:0;
-  text-transform:uppercase;
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  transition:background .25s,color .25s,border-color .25s;
-}
-
-/* The header is its own scale: the client asked for the search button and
-   "Contact an expert" smaller than the buttons in the page. They sit at
-   40, square for the icon, and match each other. .nav-cta and .nav-search
-   are the V1 header's names for the same pair.
-
-   Deliberately no `display` here, and the header button is kept out of
-   the shape rule above for the same reason: pages hide this button on a
-   phone, and a display coming from this file would undo that and push
-   the button off the screen. */
-.nav .cta,
-.nav-cta{
-  height:40px;
-  padding:0 24px;
-  border-radius:var(--jby-btn-radius);
-  font-family:'Mesmerize',sans-serif;
-  font-weight:300;
-  font-size:16px;
-  line-height:20px;
-  letter-spacing:0;
-  text-transform:uppercase;
-  transition:background .25s,color .25s,border-color .25s;
-}
-.nav .icon,
-.nav-search{width:40px;height:40px}
-
-/* The event card's button spans the foot of its card rather than sitting
-   inline, so it keeps its own width and margin. */
-.event-card .cta{display:flex;justify-content:center;margin:24px 20px 20px}
-
-/* The brand carousel's pair is already 48 / 0 28px, so it needs the
-   colours only. */
-
-/* ---- 2. Hover turns blue, never black --------------------------------
-   Outlined buttons fill with the brand blue and let their rule go. */
-.btn-outline:hover,
-.loc-modal-cta-secondary:hover,
-.loc-modal-cta.secondary:hover,
-.s-link:hover,
-.btn-line:hover,
-/* The compact controls keep their own size. .terms button is a
-   segmented choice of loan term and .chip is a tag, neither being a call
-   to action; .btn-sm sits beside the 36px bell in the listing's event
-   card, where the whole row is deliberately small. Only their colour is
-   the rule's business. */
-.ev-btn:hover,
-.cat-cta:hover,
-.btn-basic:hover,
-.btn-out:hover,
-.scene-link:hover,
-.idx a:hover,
-.btn-sm:hover,
-.shr-copy:hover,
-.chip:hover,
-.terms button:hover,
-.nf-actions a.ghost:hover,
-.ax-btn-ghost-dark:hover,
-.btn-ghost-dark:hover,
-/* Beats the page's own `.nav:not(.scrolled) .cta:hover`, which outranks a
-   plain `.nav .cta:hover` and would otherwise keep its grey wash. */
-.nav:not(.scrolled) .cta:hover{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-
-/* Buttons already filled blue deepen rather than change colour. The
-   label goes white with them: a few of these rest as white with black
-   type, and the fill underneath it turns dark. */
-.btn-solid:hover,
-.event-card .cta:hover,
-.loc-modal-cta:hover,
-.btn-primary:hover,
-.btn-navy:hover,
-.gal-all:hover,
-.nf-actions a.solid:hover{
-  background:var(--jby-blue-d);
-  color:#fff;
-}
-
-/* ---- 3. White buttons over a photograph or video ---------------------
-   A veil the picture shows through, with white type. The blur is what
-   keeps white type legible: 28% white over a bright frame is otherwise
-   white on near-white, and the type reads grey. */
-.hero .btn-hero,
-.builders .a.solid,
-.v-cta{
-  background:var(--jby-veil);
-  color:#fff;
-  border:0;
-  -webkit-backdrop-filter:blur(8px);
-  backdrop-filter:blur(8px);
-}
-
-/* On media the hover is the solid blue too — no translucency. */
-.nav .cta:hover,
-.bento-cta:hover,
-.expert .btn:hover,
-.hero .btn-hero:hover,
-.builders .a.solid:hover,
-.builders .a.ghost:hover,
-.btn-ghost:hover,
-.nav-cta:hover,
-.cta-band button:hover,
-.ax-btn-light:hover,
-.ax-btn-ghost-light:hover,
-.btn-white:hover,
-.btn-ghost-light:hover,
-.lb-btn:hover,
-.v-cta:hover{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-
-/* The card owns the hover, not the button inside it, so this is written
-   the way the page writes it — at 0,3,0, above the white it used. */
-.ecard:hover .ec-cta{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-
-/* The modal's close button hovered to white on a white card. The cross
-   is drawn with currentColor, so the colour carries it. */
-.loc-modal-close:hover{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-
-/* The knowledge centre's band stacks its two buttons: .cb-inner is
-   720px wide with 40px of padding, leaving 640 for a row that needs 663.
-   It wrapped before the buttons took the shared padding too. Rather than
-   widen the column — which would re-wrap the paragraph above — the row
-   alone reaches into the padding. It still wraps on a narrow screen. */
-@media (min-width:760px){
-  .cta-band .actions{margin-left:-40px;margin-right:-40px}
-}
-
-/* The brand-blue CTA band. It runs under three names — .expert, .help
-   and .cta-band — and it is painted #41647b, the very colour the hover
-   fills with. A button standing on it would disappear into its own
-   background, so inside the band the hover goes one step down.
-
-   :is() keeps this one rule instead of a band-by-class-by-class list,
-   and lands at 0,3,0 — above the plain hovers above, below nothing. */
-:is(.expert, .help, .cta-band)
-:is(.btn, .btn-ghost, .btn-outline, .btn-line, .btn-help, .btn-solid,
-    .btn-primary, .btn-white, .btn-ghost-light, .btn-ghost-dark,
-    .ax-btn, .cta, .s-link, button):hover{
-  background:var(--jby-blue-d);
-  color:#fff;
-}
-
-/* The round and square icon affordances — carousel arrows, the scroll
-   arrow — keep their own 44px geometry: they are not buttons in the
-   shape-and-size sense. The hover rule still reaches them, and the scroll
-   arrow is one of the two that went black. */
-/* The icon affordances: the header's search, the carousel arrows, the
-   scroll arrow, back-to-top. They keep their own 40–48px geometry — they
-   are not buttons in the shape-and-size sense — but the hover rule still
-   reaches them.
-
-   :is() rather than a plain list, so this sits at 0,3,0. A page can carry
-   its own `.ax-listings .cards-scroll-arr:hover` at that weight, and a
-   0,2,0 rule here would lose to it however late this file is read. */
-:is(.nav .icon, .hero-arr, .builders-arr, .cards-scroll-arr,
-    .back-top, .to-top, .ax-model-arr, .pe-nav, .strip-arr,
-    .lb-btn, .show-arrow, .tmon-btn, .sq, .sq.light, .e2-btn):hover{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-</style>
 </head>
 <body>
 
@@ -687,7 +442,7 @@ footer{background:var(--page);padding:40px 40px 80px;color:var(--c2);font-size:1
   <div class="cine-inner">
     <div class="in-box">
       <h2 class="reveal">The right buyer<br/>is already looking</h2>
-      <p class="reveal d1">We prepare your yacht as a cinematic listing, then place it in front of the brokers<br/>and qualified buyers who move first.</p>
+      <p class="reveal d1">A cinematic listing, placed in front of the buyers who move first.</p>
     </div>
   </div>
 </section>
@@ -955,7 +710,7 @@ document.addEventListener('visibilitychange',function(){if(!document.hidden)kick
   function lbHTML(it){return it.type==='video'
     ?'<video src="'+it.src+'" poster="'+(it.poster||'')+'" controls autoplay playsinline></video>'
     :'<img src="'+it.src+'" alt="'+(it.cap||'')+'">';}
-  function lbRender(){var it=lbItems[lbIdx];lbMedia.innerHTML=lbHTML(it);var v=lbMedia.querySelector('video');if(v){v.play().catch(function(){});}lbCap.textContent=it.cap||'';lbCount.textContent=(lbIdx+1)+' / '+lbItems.length;}
+  function lbRender(){var it=lbItems[lbIdx];lbMedia.innerHTML=lbHTML(it)+(it.title?'<button type="button" class="lb-tour btn btn-md btn-ghost-light">Take the tour <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></button>':'');var v=lbMedia.querySelector('video');if(v){v.play().catch(function(){});}lbCap.textContent=it.cap||'';var n=lbIdx+1,t=lbItems.length;lbCount.textContent=(n<10?'0'+n:n)+' / '+(t<10?'0'+t:t);}
   function lbOpen(items,i,ret){lbItems=items;lbIdx=i;lbRet=ret||null;lbRender();lb.classList.add('open');document.body.style.overflow='hidden';}
   function lbClose(){lb.classList.remove('open');document.body.style.overflow='';var v=lbMedia.querySelector('video');if(v)v.pause();lbMedia.innerHTML='';if(lbRet){try{lbRet.focus();}catch(e){}}}
   function lbGo(n){lbIdx=(n%lbItems.length+lbItems.length)%lbItems.length;lbRender();}
@@ -973,8 +728,13 @@ document.addEventListener('visibilitychange',function(){if(!document.hidden)kick
     var overlay=(cat==='tour')
       ?'<div class="show-cta"><h3 class="show-cta-h">'+(it.title||'')+'</h3>'+tourBtn+'</div>'
       :'<div class="show-word">'+g.word+'</div>';
-    stage.innerHTML=media(it)+arrows+overlay+'<div class="show-thumbs">'+thumbsHTML+'</div>';
-    [].slice.call(stage.querySelectorAll('.show-thumb')).forEach(function(b){b.addEventListener('click',function(){idx=+b.dataset.i;render();});});
+    function pad(n){return (n<10?'0':'')+n;}
+    var count='<span class="show-count"><b>'+pad(idx+1)+'</b> / '+pad(g.items.length)+'</span>';
+    stage.innerHTML=media(it)+arrows+count+overlay+'<div class="show-thumbs">'+thumbsHTML+'</div>';
+    [].slice.call(stage.querySelectorAll('.show-thumb')).forEach(function(b){b.addEventListener('click',function(){
+      if(window.matchMedia('(max-width:760px)').matches){lbOpen(g.items,+b.dataset.i,b);}
+      else{idx=+b.dataset.i;render();}
+    });});
     stage.querySelector('.show-arrow.prev').addEventListener('click',function(){idx=(idx-1+g.items.length)%g.items.length;render();});
     stage.querySelector('.show-arrow.next').addEventListener('click',function(){idx=(idx+1)%g.items.length;render();});
     var mediaEl=stage.querySelector('img,video');

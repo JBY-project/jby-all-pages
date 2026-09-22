@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<base href="https://ywteamyw.github.io/jby-team/">
+<base href="https://jby-project.github.io/jby-team/">
 
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -91,7 +91,7 @@ main{padding-top:128px}
 .expert{margin-top:88px;background:var(--navy);color:#fff;padding:0 40px;text-align:center;min-height:315px;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .expert h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;color:#fff;letter-spacing:0;text-transform:uppercase;margin:0 0 12px}
 .expert p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;color:rgba(255,255,255,0.85);margin:0 0 28px;max-width:640px}
-.expert .btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 32px;background:transparent;color:#fff;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;text-transform:uppercase;border:0.5px solid #fff;cursor:pointer;transition:.25s}
+.expert .btn{display:inline-flex;justify-content:center;align-items:center;gap:10px;height:48px;padding:0 32px;background:transparent;color:#fff;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;text-transform:uppercase;border:0.5px solid #fff;cursor:pointer;transition:.25s}
 .expert .btn:hover{background:rgba(255,255,255,0.14)} /* subtle light overlay on the navy band — colour only, no move */
 
 /* FOOTER */
@@ -130,14 +130,19 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
 @media (max-width:820px){
   .nav{padding:16px 24px}.nav.scrolled{padding:12px 24px}
   main{padding-top:104px}.wrap{padding:0 24px}
-  .team-body{grid-template-columns:1fr;gap:20px}.facets{position:static}
-  .facet-block{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 18px}
-  .facet-block h3{width:100%}
-  .facet-block button{width:auto}
+  .team-body{grid-template-columns:1fr;gap:20px}.team-body>*{min-width:0}.facets{position:static}
+  /* mobile: each facet is a single horizontal-scroll row (label above), keeping counts + active underline */
+  .facet-block{display:block}
+  .facet-block h3{margin:0 0 8px}
+  .facet-items{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:0 22px;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+  .facet-items::-webkit-scrollbar{display:none}
+  .facet-block button{width:auto;flex:0 0 auto;white-space:nowrap;padding:8px 0 5px}
+  .facet-block button.on{box-shadow:inset 0 -1.5px 0 currentColor} /* underline the whole option (label + count) on mobile */
+  .facet-block button.on .lbl{box-shadow:none;padding-bottom:0}
   .team-grid{grid-template-columns:repeat(2,1fr)}
   .team-head h1{font-size:20px;line-height:30px}.team-head p{font-size:18px;line-height:26px}
   .foot-grid{grid-template-columns:1fr}.foot-col{padding-top:0}
-  footer{padding:40px 24px 64px}.back-top{display:none}
+  footer{padding:40px 24px 64px}.back-top{right:24px}
   .expert{padding:56px 24px;min-height:auto}.expert h2{font-size:18px;line-height:26px}
 }
 @media (max-width:520px){ .team-grid{grid-template-columns:1fr;max-width:360px;margin:0 auto} }
@@ -162,279 +167,19 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
   .foot-col p a{font-size:inherit}
 }
 
+/* MOBILE-FIX-KSENIA: kill horizontal scroll on phones */
+@media (max-width:980px){html,body{overflow-x:hidden}}
+@media (max-width:600px){.nav .cta{display:none}}
+@media (max-width:820px){.team-body{grid-template-columns:1fr;gap:24px}}
 </style>
+<style>/* MOBILE-HELP-ONELINE: help/expert title one line + full-width CTA (site-wide) */
+@media (max-width:680px){
+  .help h2,.expert h2{white-space:nowrap;font-size:clamp(16px,5.8vw,28px);line-height:1.25}
+  .help .btn-ghost,.help .btn,.expert .btn,.expert .btn-ghost{width:100%}
+}</style>
+<link rel="stylesheet" href="./jby-system.css">
 <link rel="stylesheet" href="/jby-site/site.css?v=6">
 <script defer src="/jby-site/site.js?v=6"></script>
-<style data-jby-system>
-/* ======================================================================
-   JBY design rules
-   ----------------------------------------------------------------------
-   The rules the client asked for across the whole site, in one place.
-   Each page is a standalone site with its own inline <style>, so this
-   file is copied into the page's folder and linked *after* that style
-   block — last one in wins, and no !important is needed.
-
-   Roll it out with: node design-system/apply.mjs "<page folder>"
-   ====================================================================== */
-
-:root{
-  /* The brand blue already lives in every page as --navy; these are the
-     fallbacks for the few that do not define it. */
-  --jby-blue:var(--navy,#41647b);
-  --jby-blue-d:var(--navy-d,#365466);
-  /* On hover an outlined button drops its rule: the fill carries the
-     shape from there. */
-  --jby-rule-hover:transparent;
-
-  /* One button, everywhere. */
-  --jby-btn-h:48px;
-  --jby-btn-pad:0 28px;
-  --jby-btn-radius:0;
-
-  /* A white button standing on a photograph or video: a veil the image
-     shows through, with white type — not a white slab with dark type. */
-  --jby-veil:rgba(255,255,255,0.28);
-}
-
-/* ---- 1. One shape and size -------------------------------------------
-   Before this, the home page alone carried heights of 40, 44 and 48px
-   and four different paddings. */
-.hero .btn-hero,
-.btn-solid,
-.btn-outline,
-.bento-cta,
-.expert .btn,
-.event-card .cta,
-.loc-modal-cta,
-.loc-modal-cta-secondary,
-.loc-modal-cta.secondary,
-.s-link,
-.btn-ghost,
-.btn-line,
-/* Pages that shrink one of these on their own — the CTA band's ghost
-   button and the ports header's link. Same specificity as their rule,
-   and this file is read after it. */
-.help .btn-ghost,
-.expert .btn-ghost,
-.ports-head .s-link,
-/* The listing, team-member and V1 templates name their buttons
-   differently; these are their text buttons. */
-.btn-primary,
-.btn-basic,
-.gal-all,
-.btn-navy,
-.btn-out,
-.btn-help,
-.help .btn-help,
-.nf-actions a,
-/* The brand, model and knowledge-centre templates, which run at 48 and
-   50 with names of their own. */
-.ax-btn,
-.btn-md,
-.btn-white,
-.btn-ghost-light,
-.btn-ghost-dark,
-.searchbar .btn,
-/* Named small, or sitting in a dense column, but each of these is the
-   action of its section: "See details" on every event, "View all yachts"
-   on the office page, "Book a consultation" in the listing's band. */
-.ev-btn,
-.cat-cta,
-.cta-band button,
-.shr-copy,
-/* The knowledge centre's event card: the call to action is a span
-   inside the card, and the card carries the hover. */
-.ecard .ec-cta,
-.scene-link{
-  height:var(--jby-btn-h);
-  padding:var(--jby-btn-pad);
-  border-radius:var(--jby-btn-radius);
-  font-family:'Mesmerize',sans-serif;
-  font-weight:300;
-  font-size:16px;
-  line-height:20px;
-  letter-spacing:0;
-  text-transform:uppercase;
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  transition:background .25s,color .25s,border-color .25s;
-}
-
-/* The header is its own scale: the client asked for the search button and
-   "Contact an expert" smaller than the buttons in the page. They sit at
-   40, square for the icon, and match each other. .nav-cta and .nav-search
-   are the V1 header's names for the same pair.
-
-   Deliberately no `display` here, and the header button is kept out of
-   the shape rule above for the same reason: pages hide this button on a
-   phone, and a display coming from this file would undo that and push
-   the button off the screen. */
-.nav .cta,
-.nav-cta{
-  height:40px;
-  padding:0 24px;
-  border-radius:var(--jby-btn-radius);
-  font-family:'Mesmerize',sans-serif;
-  font-weight:300;
-  font-size:16px;
-  line-height:20px;
-  letter-spacing:0;
-  text-transform:uppercase;
-  transition:background .25s,color .25s,border-color .25s;
-}
-.nav .icon,
-.nav-search{width:40px;height:40px}
-
-/* The event card's button spans the foot of its card rather than sitting
-   inline, so it keeps its own width and margin. */
-.event-card .cta{display:flex;justify-content:center;margin:24px 20px 20px}
-
-/* The brand carousel's pair is already 48 / 0 28px, so it needs the
-   colours only. */
-
-/* ---- 2. Hover turns blue, never black --------------------------------
-   Outlined buttons fill with the brand blue and let their rule go. */
-.btn-outline:hover,
-.loc-modal-cta-secondary:hover,
-.loc-modal-cta.secondary:hover,
-.s-link:hover,
-.btn-line:hover,
-/* The compact controls keep their own size. .terms button is a
-   segmented choice of loan term and .chip is a tag, neither being a call
-   to action; .btn-sm sits beside the 36px bell in the listing's event
-   card, where the whole row is deliberately small. Only their colour is
-   the rule's business. */
-.ev-btn:hover,
-.cat-cta:hover,
-.btn-basic:hover,
-.btn-out:hover,
-.scene-link:hover,
-.idx a:hover,
-.btn-sm:hover,
-.shr-copy:hover,
-.chip:hover,
-.terms button:hover,
-.nf-actions a.ghost:hover,
-.ax-btn-ghost-dark:hover,
-.btn-ghost-dark:hover,
-/* Beats the page's own `.nav:not(.scrolled) .cta:hover`, which outranks a
-   plain `.nav .cta:hover` and would otherwise keep its grey wash. */
-.nav:not(.scrolled) .cta:hover{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-
-/* Buttons already filled blue deepen rather than change colour. The
-   label goes white with them: a few of these rest as white with black
-   type, and the fill underneath it turns dark. */
-.btn-solid:hover,
-.event-card .cta:hover,
-.loc-modal-cta:hover,
-.btn-primary:hover,
-.btn-navy:hover,
-.gal-all:hover,
-.nf-actions a.solid:hover{
-  background:var(--jby-blue-d);
-  color:#fff;
-}
-
-/* ---- 3. White buttons over a photograph or video ---------------------
-   A veil the picture shows through, with white type. The blur is what
-   keeps white type legible: 28% white over a bright frame is otherwise
-   white on near-white, and the type reads grey. */
-.hero .btn-hero,
-.builders .a.solid,
-.v-cta{
-  background:var(--jby-veil);
-  color:#fff;
-  border:0;
-  -webkit-backdrop-filter:blur(8px);
-  backdrop-filter:blur(8px);
-}
-
-/* On media the hover is the solid blue too — no translucency. */
-.nav .cta:hover,
-.bento-cta:hover,
-.expert .btn:hover,
-.hero .btn-hero:hover,
-.builders .a.solid:hover,
-.builders .a.ghost:hover,
-.btn-ghost:hover,
-.nav-cta:hover,
-.cta-band button:hover,
-.ax-btn-light:hover,
-.ax-btn-ghost-light:hover,
-.btn-white:hover,
-.btn-ghost-light:hover,
-.lb-btn:hover,
-.v-cta:hover{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-
-/* The card owns the hover, not the button inside it, so this is written
-   the way the page writes it — at 0,3,0, above the white it used. */
-.ecard:hover .ec-cta{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-
-/* The modal's close button hovered to white on a white card. The cross
-   is drawn with currentColor, so the colour carries it. */
-.loc-modal-close:hover{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-
-/* The knowledge centre's band stacks its two buttons: .cb-inner is
-   720px wide with 40px of padding, leaving 640 for a row that needs 663.
-   It wrapped before the buttons took the shared padding too. Rather than
-   widen the column — which would re-wrap the paragraph above — the row
-   alone reaches into the padding. It still wraps on a narrow screen. */
-@media (min-width:760px){
-  .cta-band .actions{margin-left:-40px;margin-right:-40px}
-}
-
-/* The brand-blue CTA band. It runs under three names — .expert, .help
-   and .cta-band — and it is painted #41647b, the very colour the hover
-   fills with. A button standing on it would disappear into its own
-   background, so inside the band the hover goes one step down.
-
-   :is() keeps this one rule instead of a band-by-class-by-class list,
-   and lands at 0,3,0 — above the plain hovers above, below nothing. */
-:is(.expert, .help, .cta-band)
-:is(.btn, .btn-ghost, .btn-outline, .btn-line, .btn-help, .btn-solid,
-    .btn-primary, .btn-white, .btn-ghost-light, .btn-ghost-dark,
-    .ax-btn, .cta, .s-link, button):hover{
-  background:var(--jby-blue-d);
-  color:#fff;
-}
-
-/* The round and square icon affordances — carousel arrows, the scroll
-   arrow — keep their own 44px geometry: they are not buttons in the
-   shape-and-size sense. The hover rule still reaches them, and the scroll
-   arrow is one of the two that went black. */
-/* The icon affordances: the header's search, the carousel arrows, the
-   scroll arrow, back-to-top. They keep their own 40–48px geometry — they
-   are not buttons in the shape-and-size sense — but the hover rule still
-   reaches them.
-
-   :is() rather than a plain list, so this sits at 0,3,0. A page can carry
-   its own `.ax-listings .cards-scroll-arr:hover` at that weight, and a
-   0,2,0 rule here would lose to it however late this file is read. */
-:is(.nav .icon, .hero-arr, .builders-arr, .cards-scroll-arr,
-    .back-top, .to-top, .ax-model-arr, .pe-nav, .strip-arr,
-    .lb-btn, .show-arrow, .tmon-btn, .sq, .sq.light, .e2-btn):hover{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-</style>
 </head>
 <body>
 <div class="progress"><div class="progress-bar"></div></div>
@@ -581,13 +326,15 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
   }
   function scrollTop(){var y=section.getBoundingClientRect().top+window.scrollY-96;window.scrollTo({top:y,behavior:'smooth'});}
   function renderFacet(block,axis,allLabel,items,counter){
-    block.querySelectorAll('button').forEach(function(b){b.remove();});
+    var wrap=block.querySelector('.facet-items');
+    if(!wrap){wrap=document.createElement('div');wrap.className='facet-items';block.appendChild(wrap);}
+    wrap.innerHTML='';
     [['all',allLabel]].concat(items).forEach(function(it){
       var b=document.createElement('button');
       b.innerHTML='<span class="lbl">'+it[1]+'</span><span class="n">'+counter(it[0])+'</span>';
       if(state[axis]===it[0])b.classList.add('on');
       b.addEventListener('click',function(){state[axis]=it[0];render();scrollTop();});
-      block.appendChild(b);
+      wrap.appendChild(b);
     });
   }
   function render(){

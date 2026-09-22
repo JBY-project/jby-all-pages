@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<base href="https://ywteamyw.github.io/jby-homepage.github.io/">
+<base href="https://jby-project.github.io/jby-home/">
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -131,7 +131,7 @@ a{color:inherit;text-decoration:none}
 /* ====================================================================== */
 /* HERO — full viewport height for video, gradient veil for nav readability */
 /* ====================================================================== */
-.hero{position:relative;width:100%;height:100vh;min-height:620px;
+.hero{position:relative;width:100%;height:100vh;height:100svh;min-height:620px;
   overflow:hidden;background:#0a1620;color:#fff}
 .hero-bg{position:absolute;top:-25%;left:0;width:100%;height:150%;
   background-size:cover;background-position:center;background-color:#0a1620;
@@ -170,7 +170,7 @@ a{color:inherit;text-decoration:none}
 .intro{padding:var(--section-pad) 40px 0;max-width:1080px;margin:0 auto;text-align:center}
 .intro h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   color:var(--navy);text-transform:uppercase;margin:0 0 24px}
-.intro p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#2a2a36;
+.intro p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:26px;color:#2a2a36;
   max-width:1080px;margin:0 auto 32px}
 .intro-cta{display:inline-flex;gap:20px;flex-wrap:wrap;justify-content:center}
 .btn-solid{height:48px;padding:0 24px;background:var(--navy);color:#fff;font-family:'Mesmerize',sans-serif;
@@ -183,7 +183,16 @@ a{color:inherit;text-decoration:none}
 .btn-outline:hover{background:rgba(0,0,0,0.05)}
 
 /* EVENTS — featured event video (NO play button — auto-plays), then grid */
-.events-zone{padding-top:var(--section-pad);background:var(--paper)}
+/* Short of a full --section-pad by the 32px the vessels strip above carries
+   below its cards: that padding is white and the eye counts it. 152 before,
+   120 now, like the rest.
+
+   The bottom makes up the other side of the same sum. The craft section below
+   holds only half a pad inside its own edges, and its strip leaves 40px of
+   white under the event cards, so this pays the remainder — 20px at 120 and
+   nothing at 80, where the half pad and that 40 already come to a full one. */
+.events-zone{padding-top:calc(var(--section-pad) - 32px);
+  padding-bottom:calc(var(--section-pad) / 2 - 40px);background:var(--paper)}
 .events-zone .s-title{padding:0 24px 40px}
 /* Stage reserves 100vh height; inner .featured-event uses transform:scale
    (GPU-only, no layout reflow) for smooth scroll-driven zoom. Base size is
@@ -198,23 +207,24 @@ a{color:inherit;text-decoration:none}
 @keyframes slow-zoom{0%{transform:scale(1.0)}100%{transform:scale(1.06) translate(-1%,1%)}}
 .featured-event video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1}
 .featured-event .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,32,0.08) 30%,rgba(10,22,32,0.55) 100%);z-index:2;pointer-events:none}
-.featured-event .label{position:absolute;left:48px;bottom:40px;color:#fff;font-family:'Mesmerize',sans-serif;
-  font-weight:300;font-size:18px;line-height:28px;letter-spacing:0;text-transform:uppercase;z-index:3;
-  text-shadow:0 2px 14px rgba(0,0,0,0.4)}
 
 .events-grid-wrap{padding:40px 0 0;max-width:1440px;margin:0 auto}
 .events-grid-wrap .s-title-row{padding:0 40px}
 /* Horizontal auto-scrolling strip with 6 cards */
 .events-strip-wrap{position:relative;margin-top:40px;overflow:hidden;padding:8px 0}
-.events-strip{display:flex;gap:24px;overflow-x:auto;scroll-behavior:smooth;
+.events-strip{display:flex;gap:24px;overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;
   padding:8px 40px 32px;scrollbar-width:none}
 .events-strip::-webkit-scrollbar{display:none}
 .event-card{flex:0 0 420px;background:#fff;border-radius:2px;overflow:hidden;cursor:pointer;
   transition:transform .55s cubic-bezier(0.22,1,0.36,1), box-shadow .55s ease;
   padding:8px;display:flex;flex-direction:column;box-shadow:0 4px 20px rgba(0,0,0,0.04)}
 .event-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,0.09)}
+/* The photograph runs to the card's edges. The card keeps its 8px padding for
+   everything below, so the image cancels it on the three sides it touches
+   rather than the padding being unpicked and re-added to the body and the
+   button. The card already clips, so the hover scale still stays inside it. */
 .event-card .img{position:relative;height:220px;background-size:cover;background-position:center;
-  transition:transform .85s cubic-bezier(0.22,1,0.36,1);overflow:hidden}
+  margin:-8px -8px 0;transition:transform .85s cubic-bezier(0.22,1,0.36,1);overflow:hidden}
 .event-card:hover .img{transform:scale(1.06)}
 .event-card .event-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   opacity:0;transition:opacity .5s ease;pointer-events:none}
@@ -223,7 +233,7 @@ a{color:inherit;text-decoration:none}
 .event-card .body h4{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:28px;
   letter-spacing:0;text-transform:uppercase;color:var(--ink);margin:0 0 16px;min-height:56px}
 .event-card .row{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;
-  border-top:0.5px solid var(--line);font-family:'Myriad Pro',sans-serif;font-size:16px;line-height:24px}
+  border-top:0.5px solid var(--line);font-family:'Myriad Pro',sans-serif;font-size:14px;line-height:22px}
 .event-card .row .l{color:#2a2a36;font-weight:300}
 .event-card .row .r{color:var(--ink);font-weight:400}
 .event-card .cta{display:block;margin:24px 20px 20px;height:40px;background:var(--navy);color:#fff;
@@ -234,17 +244,33 @@ a{color:inherit;text-decoration:none}
 /* WHAT WE DO — Porsche-style scroll-driven gradient.
    Background smoothly interpolates via --dark from #fcfcfd (paper white) to
    #41647B (navy). Text colors SNAP at threshold via .has-dark class. */
-.what-we-do{--dark:0;padding:var(--section-pad) 64px var(--section-pad);position:relative;
+/* Half a --section-pad above and below, the same on both sides. This section
+   paints its own background and turns dark as it is scrolled, so unlike the
+   rest of the page it has visible edges, and they want equal air inside them:
+   60px on the desktop, 40 at the middle breakpoint, 32 on a phone.
+
+   The other half of the gap under the pillars belongs to the Owners section
+   below, which takes it as its own top padding. The two together still come
+   to one full --section-pad between the pillars and that title — the
+   boundary between the colours now falls in the middle of it rather than
+   hard against the white section's first line. */
+.what-we-do{--dark:0;padding:calc(var(--section-pad) / 2) 64px calc(var(--section-pad) / 2);position:relative;
   background-color:rgb(
     calc(252 + (65 - 252) * var(--dark)),
     calc(252 + (100 - 252) * var(--dark)),
     calc(253 + (123 - 253) * var(--dark)))}
-.what-we-do .head{max-width:1080px;margin:0 auto 80px;text-align:center}
+/* Same measure and the same rhythm as the Owners head below: 880 for the
+   block, 680 for the copy, 20 under the title, 32 from the copy down to the
+   pillars — the 32 the phone layout has always used for that step, so the
+   figure is now one at every width. This head used to run its paragraph to
+   1080, which set a single 1079px line — around 150 characters, against the
+   680 the rest of the page sets body copy to. */
+.what-we-do .head{max-width:880px;margin:0 auto 32px;text-align:center}
 .what-we-do .head h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;
-  letter-spacing:0;text-transform:uppercase;margin:0 0 24px;color:var(--navy);
+  letter-spacing:0;text-transform:uppercase;margin:0 0 20px;color:var(--navy);
   transition:color .4s cubic-bezier(0.22,1,0.36,1)}
-.what-we-do .head p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;
-  margin:0 auto;max-width:1080px;color:#2a2a36;
+.what-we-do .head p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:26px;
+  margin:0 auto;max-width:680px;color:#2a2a36;text-wrap:balance;
   transition:color .4s cubic-bezier(0.22,1,0.36,1)}
 .what-we-do.has-dark .head h2{color:#ffffff}
 .what-we-do.has-dark .head p{color:rgba(255,255,255,0.92)}
@@ -263,7 +289,7 @@ a{color:inherit;text-decoration:none}
 .pillar h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:28px;letter-spacing:0;
   text-transform:uppercase;margin:0 0 18px;color:var(--ink);
   transition:color .4s cubic-bezier(0.22,1,0.36,1)}
-.pillar p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;
+.pillar p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:26px;
   margin:0;max-width:380px;color:#2a2a36;
   transition:color .4s cubic-bezier(0.22,1,0.36,1)}
 .what-we-do.has-dark .pillar h3{color:#ffffff}
@@ -288,18 +314,65 @@ a{color:inherit;text-decoration:none}
 .builders .brand-fade.active{opacity:0.5}
 .builders-inner{position:relative;z-index:5;padding:64px 64px 64px;min-height:760px;
   display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:32px}
-.builders-top{display:flex;flex-direction:column;align-items:center;gap:24px;width:100%}
-.builders .caption{color:rgba(255,255,255,0.92);font-family:'Myriad Pro',sans-serif;font-weight:300;
-  font-size:16px;line-height:24px;margin:0;font-style:italic;text-align:center}
-.builders .mark{display:flex;align-items:center;justify-content:center;min-height:140px}
-.builders .mark img{height:130px;width:auto;filter:drop-shadow(0 4px 24px rgba(0,0,0,0.55));max-width:600px;object-fit:contain}
-.builders .mark .word{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:96px;line-height:1;color:#fff;
+/* margin:auto 0 centres this between the section's top edge and the tab row.
+   Without it the column's space-between pins the block to the top and leaves
+   the whole gap underneath. */
+.builders-top{display:flex;flex-direction:column;align-items:center;gap:24px;width:100%;margin:auto 0}
+/* The caption keeps the top of the section while the logo and buttons centre
+   below it, so it comes out of the column's flow. Positioned against
+   .builders-inner's padding box, hence the 64s matching its padding. */
+.builders .caption{position:absolute;top:64px;left:64px;right:64px;z-index:5;
+  color:rgba(255,255,255,0.92);font-family:'Myriad Pro',sans-serif;font-weight:300;
+  font-size:14px;line-height:22px;margin:0;font-style:italic;text-align:center}
+/* The row is a fixed height, not a min-height: the seven logos now render at
+   seven different heights, and a min-height would make the buttons under them
+   jump every time the carousel turns. */
+.builders .mark{display:flex;align-items:center;justify-content:center;height:148px}
+.builders .mark img{height:99px;width:auto;filter:drop-shadow(0 4px 24px rgba(0,0,0,0.55));max-width:600px;object-fit:contain}
+
+/* ---- the seven logos, balanced by area -------------------------------------
+   One height for all of them cannot work here. The marks run from Sirena's
+   stacked lockup at 1.93:1 to Pershing's wordmark at 11.61:1, and every file
+   pads its artwork differently — Pershing's fills 30% of its canvas height,
+   Everglades' fills 100%. At a shared 99px the drawn artwork ranged from
+   6,600 to 33,100 square pixels: Everglades read five times the size of
+   Brabus.
+
+   So each one is set so its ARTWORK covers the same ~14,000 px^2, which is
+   how a row of mismatched logos is normally evened out. The heights below
+   look wildly different because they apply to each file's whole canvas,
+   padding included; what they produce on screen is even.
+
+   To re-derive after changing a file: art_height = sqrt(14000 / ratio), then
+   css_height = art_height / (artwork's share of its canvas height).
+
+   Matched on the file name because the carousel writes the <img> from JS and
+   puts no brand class on it — rename a logo file and its size comes back to
+   the 99px default. */
+.builders .mark img[src*="brand_everglades_logo"]{height:51px}   /* art 273x51 */
+.builders .mark img[src*="brand_wally_logo"]     {height:92px}   /* art 3954x1792 */
+.builders .mark img[src*="riva_real"]            {height:77px}   /* art 271x52 */
+/* Riva's file is the one that is not centred inside its own canvas: 9.9px of
+   empty above the mark against 15.8 below, at this size. The row centres the
+   image, so the mark itself was riding 2.9px high and jumping when the
+   carousel came round to it — every other file is within a pixel. The nudge
+   is a percentage of the image's own height, which is what translateY(%) is
+   measured against, so it stays right at all three sizes without a rule each. */
+.builders .mark img[src*="riva_real"]            {transform:translateY(3.8%)}
+.builders .mark img[src*="brand_sirena_logo"]    {height:43px}   /* art 2322x300 */
+.builders .mark img[src*="brand_axopar_logo"]    {height:38px}   /* art 1588x166 */
+.builders .mark img[src*="brand_pershing_raw"]   {height:114px}  /* art 403x35 */
+.builders .mark img[src*="brand_brabus_raw"]     {height:143px}  /* art 221x63 */
+.builders .mark .word{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:74px;line-height:1;color:#fff;
   letter-spacing:0;text-transform:uppercase;text-shadow:0 4px 22px rgba(0,0,0,0.55)}
 .builders .mark .word.italic{font-style:italic;font-weight:400}
-.builders .actions{display:flex;gap:12px}
+/* Two equal columns rather than a flex row: 1fr columns in an auto-width
+   grid both take the width of the wider one, so EXPLORE and INVENTORY match
+   whatever the brand name does to the first label. */
+.builders .actions{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .builders .a{height:48px;padding:0 28px;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;
   line-height:20px;letter-spacing:0;text-transform:uppercase;cursor:pointer;transition:.25s;
-  display:inline-flex;align-items:center}
+  display:inline-flex;align-items:center;justify-content:center}
 .builders .a.solid{background:#fff;color:#000}
 .builders .a.solid:hover{background:rgba(255,255,255,0.85)}
 .builders .a.ghost{background:rgba(0,0,0,0.5);color:#fff;border:0.5px solid rgba(255,255,255,0.6);backdrop-filter:blur(4px)}
@@ -325,7 +398,7 @@ a{color:inherit;text-decoration:none}
 /* Active flex-grow 1.5, others 1 → active ~33% / others ~22% — gentle */
 /* ====================================================================== */
 .vessels{padding-top:96px;max-width:1500px;margin:0 auto}
-.vessels-head-row{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:0 40px 40px;
+.vessels-head-row{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:0 40px 20px;
   max-width:1500px;margin:0 auto}
 .vessels-head-row h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   color:var(--navy);text-transform:uppercase;margin:0}
@@ -340,10 +413,15 @@ a{color:inherit;text-decoration:none}
   cursor:pointer;z-index:10;
   transition:background .3s ease, transform .35s cubic-bezier(0.22, 1, 0.36, 1)}
 .cards-scroll-arr:hover{background:rgba(0,0,0,0.7);transform:translateY(-50%)}
+.cards-scroll-arr.l{left:20px;right:auto}
+.video-scroll-wrap{position:relative}
 /* Grid template columns transition — buttery smooth, browser optimizes better
    than flex-grow (no layout thrashing per card). :has() lets each card control the row. */
+/* The gap to the cards is the events section's: 20px under the title row and
+   nothing on top of the strip. The strip used to add 24px of its own, which
+   was what made this section sit so much lower than the others. */
 .vessels-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
-  padding:24px 40px 32px;align-items:stretch}
+  padding:0 40px 32px;align-items:stretch}
 .vessels-arr{display:none}
 
 /* Cards fill their grid column — no flex needed */
@@ -356,7 +434,7 @@ a{color:inherit;text-decoration:none}
   transition:transform 900ms cubic-bezier(0.22, 1, 0.36, 1)}
 .vessel-card:hover .v-img{transform:scale(1.07)}
 .vessel-card .v-img-veil{position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(180deg,rgba(0,0,0,0.18) 0%,rgba(0,0,0,0) 34%)}
+  background:linear-gradient(180deg,rgba(54,84,102,0.42) 0%,rgba(54,84,102,0) 38%)}
 
 /* Brand logo top */
 .vessel-card .brand{position:absolute;top:10px;left:50%;transform:translateX(-50%);
@@ -367,23 +445,59 @@ a{color:inherit;text-decoration:none}
 
 /* Bottom info — NAVY gradient (original) + white text */
 .vessel-card .info{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:16px 20px 20px;
-  background:linear-gradient(179.96deg,rgba(65,100,123,0) 24.756%,rgba(65,100,123,0.9) 81.07%,rgba(65,100,123,0.9) 88.822%);
+  /* --navy-d #365466, a step under --navy, per the client's note that the
+     listing gradients should be a darker JBY blue than #41647b */
+  background:linear-gradient(179.96deg,rgba(54,84,102,0) 22%,rgba(54,84,102,0.82) 62%,rgba(54,84,102,0.94) 100%);
   backdrop-filter:blur(1px);display:flex;flex-direction:column;gap:12px}
-.vessel-card .event-label{font-family:'Myriad Pro',sans-serif;font-weight:700;font-size:16px;line-height:20px;
-  color:#fff;text-transform:uppercase;letter-spacing:0.04em;margin:0;text-shadow:0 1px 8px rgba(0,0,0,0.3)}
-/* SAND pill — original yellow-ish chip */
-.vessel-card .chip-loc{background:var(--sand);color:#fff;padding:3px 10px 2px;font-family:'Myriad Pro',sans-serif;
-  font-weight:400;font-size:16px;line-height:20px;border-radius:2px;align-self:flex-start;display:inline-block}
+/* A light veil the photograph shows through, in place of the sand pill */
+/* Back to the brighter gradient and the heavier blur, which read better.
+
+   Copying the buttons' values did not copy their look, and measuring says why:
+   the two sit on different backdrops. The chip's centre falls at 17.5% of this
+   panel, above the 22% stop where the navy gradient is still fully
+   transparent — so it veils the raw photograph, open bright water. The View
+   button sits at 74%, where that same gradient is already at 0.86 — so it
+   veils near-solid navy. 28% white over dark navy is a clear panel; the same
+   28% over bright water is barely there. Same rule, opposite result.
+
+   So the chip needs its own values to reach the same effect: 0.34 at the top
+   for definition against the water, easing to 0.20 so the photograph still
+   comes through, over a blur heavy enough to settle what texture there is. */
+.vessel-card .chip-loc{background:linear-gradient(180deg,rgba(255,255,255,0.34),rgba(255,255,255,0.20));
+  -webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);
+  color:#fff;padding:5px 12px 4px;font-family:'Mesmerize',sans-serif;
+  font-weight:300;font-size:10px;line-height:15px;letter-spacing:0.07em;text-transform:uppercase;
+  border-radius:2px;align-self:flex-start;display:inline-block}
+/* Held to two lines and kept clear of the View button in the corner. Some of
+   these names run to seven words, and a third line pushed the price out of the
+   gradient and onto the photograph.
+
+   min-height is the two-line height, so the box is the same whether the name
+   wraps or not. That is what lines the chip and the first line of the name up
+   across a row: the panel is anchored to the bottom of the card, so a short
+   name used to pull everything above it downwards and a card next to it sat
+   higher. CSS cannot ask whether a sibling wrapped, and reserving the second
+   line costs nothing when it is empty.
+
+   text-wrap:balance evens the two lines out. Left to itself the browser fills
+   line one and drops the remainder onto line two, which on these names gave a
+   186px line over a 39px one — the pyramid. Balanced, the worst pair on the
+   four cards is 150/89 and most are within 20px of each other. Browsers that
+   do not know the property ignore it and wrap as before. */
 .vessel-card .name{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
-  margin:0;text-transform:none}
-.vessel-card .price{font-family:'Myriad Pro',sans-serif;font-weight:600;font-size:24px;line-height:36px;color:#fff;margin:0}
+  margin:0;text-transform:none;max-width:82%;min-height:56px;text-wrap:balance;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+/* The panel's flex gap is 12px between every pair; -8 here narrows only the
+   space under the name, leaving the chip where it is. */
+.vessel-card .price{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
+  margin:-8px 0 0}
 
 /* CTA — rounded square (4px) chevron → wider "View" rounded square on hover */
 .v-cta{position:absolute;bottom:24px;right:24px;z-index:4;
-  height:44px;width:44px;border-radius:4px;
-  background:rgba(255,255,255,0.95);color:var(--ink);
-  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:15px;
-  letter-spacing:0.1em;text-transform:uppercase;
+  height:36px;width:36px;border-radius:0;
+  color:#fff;
+  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;
+  letter-spacing:0;text-transform:uppercase;
   display:flex;align-items:center;justify-content:center;
   padding:0;border:0;cursor:pointer;overflow:hidden;white-space:nowrap;
   transition:width 1.5s cubic-bezier(0.16, 1, 0.3, 1),
@@ -393,7 +507,7 @@ a{color:inherit;text-decoration:none}
 .v-cta-icon{display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;
   opacity:1;max-width:18px;
   transition:opacity .5s ease, max-width .9s cubic-bezier(0.16, 1, 0.3, 1)}
-.vessel-card:hover .v-cta{width:110px;padding:0 20px}
+.vessel-card:hover .v-cta{width:92px;padding:0 16px}
 .vessel-card:hover .v-cta-text{opacity:1;max-width:80px}
 .vessel-card:hover .v-cta-icon{opacity:0;max-width:0}
 
@@ -413,27 +527,30 @@ a{color:inherit;text-decoration:none}
 /* VIDEOS — Owners in their own words, scroll-driven width expansion.
    --wide: 0..1 set by JS each frame. 0 = constrained (1440px + 40px pad),
    1 = full viewport (100vw + 0 pad). Smoothstep eased for soft feel. */
+/* Half a --section-pad, the other half being the craft section's bottom. The
+   white starts before the title rather than at it, and the two halves still
+   add up to the one full pad every other title on the page sits on. */
 .videos{--wide:0;margin:0 auto;background:var(--paper);
   max-width:calc(1440px + (100vw - 1440px) * var(--wide));
-  padding:var(--section-pad) calc(40px * (1 - var(--wide))) 0}
-.videos .head{text-align:center;max-width:880px;margin:0 auto 56px}
+  padding:calc(var(--section-pad) / 2) calc(40px * (1 - var(--wide))) 0}
+.videos .head{text-align:center;max-width:880px;margin:0 auto 32px}
 .videos .head h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   color:var(--navy);text-transform:uppercase;margin:0 0 20px}
-.videos .head p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#2a2a36;text-wrap:balance;
+.videos .head p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:26px;color:#2a2a36;text-wrap:balance;
   margin:0 auto;max-width:680px}
 .video-hero{position:relative;width:100%;aspect-ratio:16/9;background:#1a2a3a;border-radius:2px;overflow:hidden;cursor:pointer}
 .video-hero .bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 1s}
 .video-hero:hover .bg{transform:scale(1.04)}
 .video-hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.6) 100%)}
 .video-hero .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:96px;height:96px;
-  border-radius:2px;background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);
+  border-radius:50%;background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);
   border:0.5px solid rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:center;color:#fff;
   font-size:30px;z-index:3;transition:.3s}
 .video-hero:hover .play{background:rgba(255,255,255,0.28);transform:translate(-50%,-50%)}
 .video-hero .meta{position:absolute;left:36px;bottom:32px;color:#fff;z-index:3}
 .video-hero .meta .who{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:28px;letter-spacing:0;
   text-transform:uppercase;margin:0 0 4px}
-.video-hero .meta .vessel{font-family:'Myriad Pro',sans-serif;font-weight:300;font-style:normal;font-size:16px;
+.video-hero .meta .vessel{font-family:'Myriad Pro',sans-serif;font-weight:300;font-style:normal;font-size:14px;
   line-height:20px;color:rgba(255,255,255,0.85)}
 .voices-sub{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:28px;
   letter-spacing:0;text-transform:uppercase;color:var(--ink);margin:64px 0 20px}
@@ -452,7 +569,7 @@ a{color:inherit;text-decoration:none}
 .v-thumb .v-body h4{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:26px;
   letter-spacing:0;text-transform:uppercase;color:#fff;margin:0 0 8px}
 .v-thumb .v-body p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-style:italic;
-  font-size:16px;line-height:24px;color:rgba(255,255,255,0.95);margin:0;
+  font-size:14px;line-height:22px;color:rgba(255,255,255,0.95);margin:0;
   max-height:0;opacity:0;overflow:hidden;
   transition:max-height .55s cubic-bezier(0.22,1,0.36,1), opacity .35s ease .1s}
 .v-thumb:hover .v-body p{max-height:160px;opacity:1}
@@ -482,7 +599,7 @@ a{color:inherit;text-decoration:none}
 .bento-cell:hover .bento-body{transform:translateY(-8px)}
 .bento-body h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
   letter-spacing:0;text-transform:uppercase;margin:0 0 12px}
-.bento-body p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:20px;
+.bento-body p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:14px;line-height:21px;
   color:rgba(255,255,255,0.85);margin:0 0 20px;max-width:480px}
 .bento-cta{display:inline-flex;align-items:center;gap:10px;height:40px;padding:0 24px;
   font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
@@ -500,14 +617,14 @@ a{color:inherit;text-decoration:none}
 .visit-list::-webkit-scrollbar{width:6px}
 .visit-list::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:3px}
 .visit-list::-webkit-scrollbar-track{background:transparent}
-.visit-list h4{font-family:'Myriad Pro',sans-serif;font-weight:600;font-size:16px;line-height:24px;color:var(--ink);margin:0 0 12px}
+.visit-list h4{font-family:'Myriad Pro',sans-serif;font-weight:600;font-size:14px;line-height:22px;color:var(--ink);margin:0 0 12px}
 .visit-list h4:not(:first-child){margin-top:32px}
 .visit-item{padding:24px 0;border-bottom:0.5px solid var(--line);display:flex;justify-content:space-between;
   align-items:center;cursor:pointer;transition:padding-left .3s}
 .visit-item:hover{padding-left:8px}
 .visit-item-l h5{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:28px;letter-spacing:0;
   text-transform:uppercase;color:var(--ink);margin:0 0 8px}
-.visit-item-l small{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;color:#2a2a36}
+.visit-item-l small{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:14px;line-height:22px;color:#2a2a36}
 .visit-item-r{color:rgba(0,0,0,0.4);transition:.25s;font-size:20px}
 .visit-item:hover .visit-item-r{color:var(--navy);transform:translateX(4px)}
 
@@ -547,20 +664,12 @@ a{color:inherit;text-decoration:none}
 .loc-modal-panel{position:relative;background:var(--paper);width:min(680px,100%);max-height:90vh;overflow:auto;
   border-radius:4px;box-shadow:0 30px 80px rgba(0,0,0,0.35);display:flex;flex-direction:column}
 .loc-modal-close{position:absolute;top:14px;right:14px;z-index:3;width:36px;height:36px;border-radius:2px;
-  background:transparent;border:0;cursor:pointer;text-shadow:0 1px 2px rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;
-  color:#fff;font-size:18px;transition:.25s}
-.loc-modal-close:hover{background:rgba(255,255,255,0.18)}
-/* The X sits over the office photo, and a white button on a photo of white
-   hulls and boatyard sheds simply disappeared. White icon, and this quarter
-   of shade under it to carry it on any photo. Anchored to the panel's own
-   corner, not the button's, so it reads as the corner going dark. */
-.loc-modal-close::before{content:'';position:absolute;top:-14px;right:-14px;width:172px;height:126px;
-  z-index:-1;pointer-events:none;border-radius:0 4px 0 0;
-  background:radial-gradient(118% 118% at 100% 0%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.34) 38%, rgba(0,0,0,0) 72%)}
-.loc-modal-close svg{filter:drop-shadow(0 1px 2px rgba(0,0,0,0.45))}
+  background:rgba(255,255,255,0.95);border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:var(--ink);font-size:18px;transition:.25s;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.loc-modal-close:hover{background:#fff}
 .loc-modal-photo{width:100%;aspect-ratio:2/1;background-size:cover;background-position:center;background-color:#1a2a3a}
 .loc-modal-body{padding:22px 30px 26px}
-.loc-modal-body h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:28px;letter-spacing:0;
+.loc-modal-body h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   text-transform:uppercase;color:var(--ink);margin:0 0 6px}
 .loc-modal-subtitle{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:22px;
   color:var(--ink);margin:0 0 18px;text-transform:none;opacity:0.85}
@@ -589,45 +698,152 @@ a{color:inherit;text-decoration:none}
   color:var(--mute);margin-top:4px;letter-spacing:0}
 
 /* GET EXPERT GUIDANCE */
-.expert{margin-top:var(--section-pad);background:var(--navy);color:#fff;padding:0 40px;text-align:center;height:315px;
+/* The band and the footer have traded colours: this one is the light one now
+   and the footer below it carries the blue. On light grey the type is the
+   navy and ink the rest of the page uses, and the button is solid blue.
+
+   The hover comes from jby-system.css, which paints every button in a
+   :is(.expert, .help, .cta-band) band with --jby-blue-d rather than the plain
+   --jby-blue. That rule was written because those bands were blue and a
+   button filling with the band's own colour would have vanished into it. The
+   band is grey now, but the button is that blue, so the rule still lands
+   where a solid blue button wants its hover: one step down. */
+.expert{margin-top:var(--section-pad);background:var(--section);color:var(--ink);padding:0 40px;text-align:center;height:315px;
   display:flex;flex-direction:column;align-items:center;justify-content:center}
-.expert h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;color:#fff;
+.expert h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;color:var(--navy);
   letter-spacing:0;text-transform:uppercase;margin:0 0 12px}
 .expert p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;
-  color:rgba(255,255,255,0.85);margin:0 0 28px;font-style:normal}
-.expert .btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 32px;background:transparent;
+  color:#2a2a36;margin:0 0 28px;font-style:normal}
+/* Solid blue on the grey, the same fill .event-card .cta and .bento-cta use:
+   --navy with white type and no rule. The hover that jby-system.css gives a
+   button in this band, --jby-blue-d, is the step down a solid blue button
+   wants anyway — it is what .event-card .cta hovers to by its own rule. */
+.expert .btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 32px;background:var(--navy);
   color:#fff;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
-  text-transform:uppercase;border:0.5px solid #fff;cursor:pointer;transition:.25s}
-.expert .btn:hover{background:rgba(255,255,255,0.14)}
+  text-transform:uppercase;border:0;cursor:pointer;transition:.25s}
 
-/* FOOTER */
-footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-size:16px;border-top:0.5px solid var(--line);position:relative}
-.foot-top{max-width:1440px;margin:0 auto 44px;display:flex;flex-wrap:wrap;align-items:center;gap:20px 32px}
-.foot-brand{display:flex;align-items:center;gap:28px;flex-wrap:wrap;flex:1 1 auto;min-width:0}
-.foot-grid{display:grid;grid-template-columns:312px 1fr 1fr;gap:40px;align-items:flex-start;max-width:1440px;margin:0 auto}
-.foot-col{padding-top:0}
-.foot-logo{width:80px;height:80px;border-radius:50%;overflow:hidden;margin:0;background:#fff;flex:0 0 auto;
+/* ---- Get expert guidance, second version -------------------------------
+   Same band, same three lines, but standing on a photograph instead of the
+   grey. It reuses .expert for the shape — height, centring, padding — and
+   only what the photograph changes is written here.
+
+   The drift is the page's own parallax, the one the bento cells run on:
+   [data-parallax-bg] on the band, a .bg layer inside it, and the engine
+   moves that layer by -centre x speed, so the photograph is centred exactly
+   when the band is centred in the window and drifts either side of it.
+
+0.24, set from the reference rather than copied from the bento's 0.20.
+   There the image travels about 52% of its band's height across the scroll
+   the page has left below it; this band is 315 tall and has 686px of travel
+   before the page ends, and 0.24 spends 165px of image over those 686 — the
+   same 52%. The layer is inset -55% top and bottom, against the 157px the
+   furthest extreme needs, so no edge can come into view.
+
+   The speed is negative, which is what turns the engine around. Left positive
+   it lags the page, the way a background does and the way the bento cells do;
+   the reference runs the other way, panning down through the photograph as
+   the band rises. The sign is the only difference, so the band still rides
+   the one scroll handler the rest of the page uses. */
+/* The margin-top:0 that sat here was so this band could butt against the grey
+   one while the two were being compared. Alone, it takes .expert's own
+   --section-pad again, the gap every other section on the page stands on. */
+.expert-photo{position:relative;overflow:hidden;background:var(--navy)}
+.expert-photo .bg{position:absolute;inset:-55% 0;z-index:0;will-change:transform}
+.expert-photo .bg-inner{position:absolute;inset:0;background-size:cover;background-position:center}
+/* One flat black over the whole band, the same weight top to bottom. */
+.expert-photo .veil{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:rgba(0,0,0,0.55)}
+.expert-photo .expert-body{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+.expert-photo h2{color:#fff}
+.expert-photo p{color:rgba(255,255,255,0.95)}
+/* Rule 4 of jby-system.css: a button standing on a photograph is a veil the
+   image shows through with white type, not a slab. The hover comes from the
+   band rule in that file and fills --jby-blue-d, which reads on a photograph
+   as well as it does on grey. */
+.expert-photo .btn{background:var(--jby-veil);color:#fff;border:0;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+
+/* FOOTER — on the brand blue, with the band above it now light.
+   The rule across the top goes with the colour change: it was there to part
+   two light surfaces, and the colour does that on its own now. */
+footer{background:var(--navy);padding:36px 40px 32px;color:rgba(255,255,255,0.85);font-size:16px;position:relative}
+.foot-inner{max-width:1440px;margin:0 auto}
+.foot-logo{width:72px;height:72px;border-radius:50%;overflow:hidden;margin:0;background:transparent;flex:0 0 auto;
   display:flex;align-items:center;justify-content:center}
-.foot-logo img{width:100%;height:100%;display:block;object-fit:contain;filter:invert(1)}
-.foot-nav{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:24px;letter-spacing:0;
-  text-transform:uppercase;color:var(--ink);display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;max-width:none}
-.foot-nav a{color:var(--ink);text-decoration:none;transition:.2s}
-.foot-nav a:hover{color:var(--navy)}
-.foot-nav .sep{color:var(--mute);opacity:0.4}
-.foot-col h6{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;letter-spacing:0;
-  color:var(--mute);margin:0 0 10px;text-transform:none}
-.foot-col p{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
-  color:var(--ink);margin:0 0 28px;text-transform:uppercase}
-.foot-col p:last-child{margin-bottom:0}
-.foot-social{display:flex;gap:16px;margin-top:0;align-items:center;flex:0 0 auto}
-.foot-social a{width:28px;height:28px;color:var(--ink);display:flex;align-items:center;justify-content:center;
+.foot-logo img{width:100%;height:100%;display:block;object-fit:contain}
+/* Two columns under the roundel: the lists on the left, contact on the right
+   with everything in it set flush to the edge. Locations and Contact are the
+   same heading, so the two columns start on one line. */
+.foot-cols{display:flex;justify-content:space-between;align-items:flex-start;gap:48px;margin-top:38px}
+.foot-contact{display:flex;flex-direction:column;align-items:flex-end;text-align:right}
+/* Two faces, as the mockup draws them: the headings in the display face, the
+   rows of links under them in the body one. It is the body face that lets the
+   eight cities sit on a single line — the same string set in Mesmerize is
+   half as wide again, and wraps. */
+.foot-h{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:17px;line-height:26px;letter-spacing:0;
+  text-transform:uppercase;color:#fff;margin:0 0 8px}
+.foot-lists .foot-row{margin-bottom:28px}
+.foot-lists .foot-row:last-child{margin-bottom:0}
+/* One line of links with slashes between them, wrapping as a line of text
+   would. The gap does the spacing on both sides of each slash, so the row
+   stays even however it breaks.
+
+   400, not the 300 the rest of the footer is set in: this page carries Myriad
+   at 300, 400 and 600 and nothing between, so a request for 500 would be
+   served by 400 anyway — 400 is what medium resolves to in this family. 600
+   is the next step up if these want more still. */
+.foot-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 9px;
+  font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:15px;line-height:22px;letter-spacing:0.01em;
+  text-transform:uppercase}
+.foot-row a{color:rgba(255,255,255,0.85);text-decoration:none;transition:color .2s}
+.foot-row a:hover{color:#fff}
+.foot-row .sep{color:rgba(255,255,255,0.4)}
+/* The address and the number are the display face again, a step under the
+   heading. The mockup sets them at about 10px; 12 is the floor this page
+   keeps for something meant to be read and tapped. */
+.foot-contact a{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:12px;line-height:24px;
+  letter-spacing:0.02em;text-transform:uppercase;color:#fff;text-decoration:none;transition:color .2s}
+.foot-contact a:hover{color:rgba(255,255,255,0.7)}
+.foot-social{display:flex;gap:12px;margin-top:20px;align-items:center}
+.foot-social a{width:24px;height:24px;color:#fff;display:flex;align-items:center;justify-content:center;
   transition:opacity .2s}
-.foot-social a svg{width:28px;height:28px;display:block}
+.foot-social a svg{width:24px;height:24px;display:block}
 .foot-social a:hover{opacity:0.6}
-.back-top{position:absolute;right:40px;top:152px;width:40px;height:40px;border:0;
-  background:rgba(0,0,0,0.7);border-radius:2px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;color:#fff;transition:background .2s}
-.back-top:hover{background:rgba(0,0,0,0.85)}
+/* On a phone the two rows become columns: four items down each, flowing into
+   a second column beside them. The slashes go with the change — they are a
+   device for a line of text, not for a list. Eight cities make two fours;
+   seven pages make a four and a three. */
+@media (max-width:640px){
+  .foot-row{display:grid;grid-auto-flow:column;grid-template-rows:repeat(4,auto);
+    grid-auto-columns:max-content;gap:10px 28px}
+  .foot-row .sep{display:none}
+  /* 8px between the address and the number. The direct child, so the social
+     marks below are left alone — they are anchors next to anchors too, and a
+     top margin would drop each one below the last. */
+  .foot-contact > a + a{margin-top:8px}
+}
+/* The legal line, in the body face and dimmer than everything above it — the
+   one row in the footer that is read only when it is looked for. */
+.foot-legal{display:flex;justify-content:space-between;align-items:baseline;gap:24px;margin-top:32px;
+  font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:14px;line-height:22px;
+  color:rgba(255,255,255,0.65)}
+.foot-legal p{margin:0}
+.foot-legal-links{display:flex;flex-wrap:wrap;gap:6px 12px}
+.foot-legal-links a{color:rgba(255,255,255,0.65);text-decoration:none;transition:color .2s}
+.foot-legal-links a:hover{color:#fff}
+.foot-legal-links .sep{color:rgba(255,255,255,0.35)}
+/* A white tile with a dark chevron, not the veil the rest of the blue carries:
+   it is the one control in the footer and the mockup gives it the contrast.
+
+   The hover goes to the darker blue. jby-system.css hovers every icon
+   affordance to --jby-blue, which is the footer's own colour — the tile
+   dissolved into the background at the moment it was pointed at. That rule
+   is an :is() list at 0,3,0 and this file is read before it, so the class is
+   named twice to get above it without !important. */
+.back-top{position:absolute;right:40px;top:48px;width:46px;height:46px;border:0;
+  background:var(--paper);border-radius:2px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;color:var(--ink);transition:background .2s,color .2s}
+footer .back-top.back-top:hover{background:var(--navy-d);color:#fff}
 .back-top svg{width:20px;height:20px;display:block;transform:rotate(-90deg)}
 
 /* ====================================================================== */
@@ -693,16 +909,32 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .nav{grid-template-columns:auto auto auto}
   .hero h1{font-size:20px;line-height:30px}.hero-text{left:24px;right:24px;bottom:64px}
   .events-zone .s-title,.aftercare .s-title,.portfolio .s-title{font-size:18px;line-height:26px}
-  .builders .mark .word{font-size:60px}
-  .builders .mark img{height:90px}
+  .builders .mark .word{font-size:46px}
+  .builders .mark{height:104px}
+  .builders .mark img{height:69px}
+  .builders .mark img[src*="brand_everglades_logo"]{height:36px}
+  .builders .mark img[src*="brand_wally_logo"]     {height:64px}
+  .builders .mark img[src*="riva_real"]            {height:54px}
+  .builders .mark img[src*="brand_sirena_logo"]    {height:30px}
+  .builders .mark img[src*="brand_axopar_logo"]    {height:27px}
+  .builders .mark img[src*="brand_pershing_raw"]   {height:80px}
+  .builders .mark img[src*="brand_brabus_raw"]     {height:100px}
   .builders-inner{padding:64px 24px 48px;min-height:600px;gap:24px}
+  .builders .caption{position:static}   /* back into the flow on narrow screens */
   .vessels-strip{padding:0 24px}.vessels-head-row{padding:0 24px 24px;flex-direction:column;align-items:flex-start;gap:16px}
+  /* That padding above drops the strip's 32px bottom, which the events
+     section's top padding deducts. Without it the deduction eats the gap
+     itself — 48px against the 80 of every other title here. */
+  .events-zone{padding-top:var(--section-pad)}
   .video-thumbs{gap:12px}
   .video-hero .play{width:64px;height:64px;font-size:20px}
   .bento{grid-template-columns:1fr}.bento-cell,.bento-cell.span2{grid-column:auto;height:420px}
   .visit-grid{grid-template-columns:1fr;gap:40px}#leaflet-map{height:380px}
-  .foot-grid{grid-template-columns:1fr}
-  .foot-col{padding-top:0}
+  /* The two columns stack, and contact comes back to the left edge with
+     them — flush right under a full-width column reads as a stray. */
+  .foot-cols{flex-direction:column;gap:36px}
+  .foot-contact{align-items:flex-start;text-align:left}
+  .foot-legal{flex-direction:column;align-items:flex-start;gap:12px}
   .what-we-do{padding-left:24px;padding-right:24px}.craft-visual{height:340px}
   .pillars{grid-template-columns:1fr;gap:40px}
   .events-grid{grid-template-columns:1fr}
@@ -727,335 +959,206 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .sec-filter-visit{max-width:none;padding:0;margin:0 0 28px}
 .region-hide{display:none !important}
 .magnetic{transform:none!important}
-.foot-locs{display:flex;flex-direction:column;gap:14px;margin:0}
-.foot-locs a{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:color .2s}
-.foot-locs a:hover{color:var(--navy)}
+/* The View button on the vessel cards, on every device.
+
+   It used to be hidden on phones: tapping it latched :hover — the button
+   stayed white and the photo stayed scaled up — and hiding it was the way
+   round that. The cause was never the button, though, it was the hover rules
+   running where there is no hover to leave. So they are gated behind a real
+   pointer instead, and the button itself can stay.
+
+   On a phone it leaves the corner and runs the full width under the price,
+   carrying the label rather than the chevron — there is no hover to widen it
+   there, so the collapsed chevron would be the only thing a tap ever showed.
+   40px and the same gutters as the text put it in line with the other
+   full-width buttons on the phone layout, .bento-cta and .s-link.
+
+   36px, not the 40 the full-width buttons elsewhere use. The page's button
+   scale is 40 for the page's own buttons and 36 for this one — it is the
+   height .v-cta already has as a chevron on a pointer device, and the card is
+   280px of a phone screen, so the smaller of the two is the one that fits.
+
+   The panel's bottom padding grows by the button's height plus its gap, since
+   the button is positioned against the card and not laid out in the panel's
+   flow — that padding is what keeps the price off it. And the name gets the
+   full width back: 82% was reserving the corner the button no longer sits in.
+
+   That taller panel is what pushed the city chip up into bright water. The
+   panel's own gradient is transparent until 22% of its height and the chip
+   now sits at 11%, so there was nothing behind it — white type on a lit sea.
+   The gradient cannot be painted outside the panel it belongs to, so the
+   extension goes on .v-img-veil, which already spans the whole card: a second
+   layer that starts darkening well above the panel's top edge and hands over
+   to the panel's own gradient below it. Behind the chip the two come to about
+   0.6 of navy, which is what the type needs.
+
+   .v-cta:hover lives in jby-system.css, which loads after this block, so the
+   override needs the card in front of it to win on specificity. */
+@media (hover:none),(pointer:coarse){
+  .vessel-card{height:430px}
+  .vessel-card .info{padding-bottom:72px}
+  /* Full width means the line fills it. text-wrap:balance evens the two lines
+     out, which is what the desktop card wants beside the corner button, but
+     here it was holding both lines to about 140px of the 240 available and
+     leaving a hand's width of empty panel on the right. */
+  .vessel-card .name{max-width:100%;text-wrap:wrap}
+  /* 20px taller card, and the extension pulled back off the boat.
+     The card growing moves the panel's top edge down the photograph — the
+     text and the button sit the same distance from the bottom, so the whole
+     block drops with it and the chip lands lower, on water rather than on
+     sky. That buys back most of what the panel's growth had taken, and the
+     rest is a short ramp that now starts at 34% instead of 26% and holds flat
+     at 0.5 rather than climbing to 0.74: enough behind the chip, and 38px
+     more of clear photograph above it. */
+  .vessel-card .v-img-veil{background:
+    linear-gradient(180deg,rgba(54,84,102,0.42) 0%,rgba(54,84,102,0) 38%),
+    linear-gradient(180deg,rgba(54,84,102,0) 34%,rgba(54,84,102,0.5) 48%,rgba(54,84,102,0.5) 100%)}
+  .vessel-card .v-cta{left:20px;right:20px;bottom:20px;width:auto;height:36px;padding:0;
+    justify-content:center;transition:none}
+  /* The chevrons sit on the card's midline, from the wrapper's own 50% which
+     the card fills. The city chip starts 16px below the panel's top edge, so
+     the left chevron covers its top 13px and its first 20px of width once the
+     strip has been scrolled far enough for that chevron to appear; the right
+     one is clear of it.
+
+     Horizontally each keeps the base rule's 20px from its own side of the
+     screen, so the two are mirrored — the right one had been pulled in to the
+     card's right edge, which left it 67px from the screen against the left
+     one's 20. The card is 280 of the screen's width and the pair straddles it
+     from outside rather than sitting on it. */
+  .vessel-card .v-cta .v-cta-text{display:inline;opacity:1;max-width:none}
+  .vessel-card .v-cta .v-cta-icon{display:none}
+  /* Nothing on the card answers :hover here. A tap leaves :hover latched on a
+     touch screen, so every rule that listens to it is a state the finger can
+     switch on and not switch off — which is the bug the button was hidden for
+     in the first place. These repeat the hover selectors verbatim so they win
+     on equal specificity from further down the sheet, rather than relying on
+     the unhovered rules, which .vessel-card:hover .v-cta would outrank. */
+  .vessel-card:hover .v-img{transform:none}
+  .vessel-card:hover .v-cta{width:auto;padding:0}
+  .vessel-card:hover .v-cta-text{opacity:1;max-width:none}
+  .vessel-card .v-cta:hover{background:var(--jby-veil);color:#fff}
+  .cards-scroll-arr:hover{background:rgba(0,0,0,0.5);transform:translateY(-50%)}
+}
+/* MOBILE-FIX-KSENIA: kill horizontal scroll on phones */
+@media (max-width:980px){html,body{overflow-x:hidden}}
+@media (max-width:600px){.nav .cta{display:none}}
+@media (max-width:600px){.mark img{max-width:100%;height:auto}.s-title-row{flex-wrap:wrap}}
 
 /* ====================================================================== */
-/* MOBILE POLISH (phones only, nothing above 600px is touched)            */
+/* MOBILE POLISH (phones ≤640px) — batch fixes                            */
 /* ====================================================================== */
-@media (max-width:600px){
-  /* the header keeps burger, logo and search; the wide CTA does not fit a phone
-     (every other page of the site already hides it at this width) */
-  .nav{grid-template-columns:1fr auto 1fr;padding:14px 20px}
-  .nav.scrolled{padding:10px 20px}
-  .nav .cta{display:none}
-  .nav .logo{width:48px;height:48px}
-  .nav.scrolled .logo{width:44px;height:44px}
+.ttl-mobile{display:none}
+@media (max-width:640px){
+  /* Hero: svh controls height; drop the 620px floor so the CTA stays visible */
+  .hero{min-height:0}
+  .hero .btn-hero{width:100%;justify-content:center}
+  /* Intro CTAs: full-width, stacked */
+  .intro-cta{flex-direction:column;width:100%;gap:12px}
+  .intro-cta .btn-solid,.intro-cta .btn-outline{width:100%;justify-content:center}
+  .expert .btn{width:100%;justify-content:center}
+  /* Section-index sits flush under the header (no gap) */
+  .section-index{top:70px}
+  /* Featured event: kill the 100vh empty gap + disable scroll-zoom on phones */
+  .featured-event-stage{min-height:0}
+  .featured-event{height:54vh;transform:none !important}
+  /* Brand tabs: single horizontal-scroll row */
+  .builders-tabs{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;gap:22px;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .builders-tabs::-webkit-scrollbar{display:none}
+  .builders-tabs .b-tab{white-space:nowrap}
+  /* Smaller section headings for mobile */
+  .s-title,.s-title-row h2,.vessels-head-row h2,.videos .head h2,.visit-head-row h2,
+  .what-we-do .head h2,.intro h2,.expert h2{font-size:18px;line-height:26px}
+  /* Events strip title: short label on mobile */
+  .ttl-desktop{display:none}.ttl-mobile{display:inline}
+  /* --- CONSISTENT VERTICAL SPACING (single rule for phones) --- */
+  :root{--section-pad:64px}
+  /* The events section shortens its top padding by what the vessels strip
+     carries below its cards. On a phone that strip is flush, so the deduction
+     would come out of the gap itself: 32px against the 64 of the sections
+     either side. It takes the full pad back. The craft section keeps its own
+     half-pad here, the same as everywhere — and the bottom pays a larger
+     remainder for it, the events strip holding only its wrapper's 8px here
+     against the 40 it carries on a desktop. */
+  .events-zone{padding-top:var(--section-pad);
+    padding-bottom:calc(var(--section-pad) / 2 - 8px)}
+  /* gap from a section head (title + subtitle) to its content = 32px everywhere */
+  .what-we-do .head{margin-bottom:32px}
+  .videos .head{margin-bottom:32px}
+  .pillars{gap:32px}
+  /* title-block bottom paddings tightened + unified */
+  .s-title,.events-zone .s-title,.portfolio .s-title,.aftercare .s-title{padding-bottom:28px}
+  .visit-head-row{padding-bottom:24px}
+  .vessels-head-row{padding-bottom:24px}
+  /* Bento CTAs: drop "Explore" so the label fits one line */
+  .expl{display:none}
+  .bento-cta{white-space:nowrap}
+  /* Locations head: short title + button on one row */
+  .visit-head-row{flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:nowrap}
+  /* Client stories: one horizontal-scroll row; caption BELOW each card, no play button */
+  .voices-sub{display:none}
+  .video-stage{display:flex;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;gap:12px;margin-top:24px;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .video-stage::-webkit-scrollbar{display:none}
+  .video-thumbs{display:contents}
+  .video-hero,.v-thumb{flex:0 0 86%;scroll-snap-align:start;aspect-ratio:auto;background:transparent;
+    overflow:visible;display:flex;flex-direction:column}
+  .video-hero .bg,.v-thumb .bg{position:relative;inset:auto;width:100%;aspect-ratio:16/9;border-radius:2px;flex:0 0 auto}
+  .video-hero .veil,.v-thumb .veil,.video-hero .play{display:none}
+  .video-hero .meta,.v-thumb .v-body{position:static;transform:none;inset:auto;padding:10px 0 0;text-align:left}
+  .video-hero .meta .who,.v-thumb .v-body h4{color:var(--ink)}
+  .video-hero .meta .vessel,.v-thumb .v-body p{color:var(--mute)}
+  .v-thumb .v-body .v-vessel{display:block;font-family:'Myriad Pro',sans-serif;font-weight:300;
+    font-size:14px;line-height:20px;color:var(--mute);margin-top:2px}
+  .v-thumb .v-body h4{font-size:17px;line-height:24px}
+  .cards-scroll-arr.vid{top:100px}
+  .bento-body{left:24px;right:24px;top:0;bottom:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:flex-end;text-align:center;padding-bottom:36px}
+  .bento-body h3{font-size:18px;line-height:26px;white-space:nowrap}
+  .bento-cta{width:100%;justify-content:center}
+  .event-card .body h4{font-size:16px;line-height:22px;min-height:0}
+  /* Location modal: smaller title so it fits (match jby-locations look) */
+  .loc-modal-body h3{font-size:18px;line-height:26px}
+  /* Section head-rows: title + button on one row (mobile) */
+  .vessels-head-row{flex-direction:row;align-items:center;justify-content:space-between;gap:14px}
+  .s-title-row{flex-wrap:nowrap;align-items:center;gap:14px}
+  .s-title-row h2{white-space:nowrap}
+  .loc-modal-body{padding:20px 24px 24px}
+  /* --- CONSISTENT 24px LEFT GUTTER for all section content --- */
+  .events-grid-wrap .s-title-row{padding:0}            /* events title -> 24 */
+  .events-strip-wrap{padding:8px 0}
+  .events-strip{padding:0}                             /* event cards -> 24 */
+  .event-card{flex:0 0 82%}                            /* narrower so the next card peeks */
+  .sec-filter{padding:0}                               /* events filter -> 24 */
+  .vessels-strip{padding:0 !important}
+  .vessels-strip-wrap{padding:0 24px}   /* vessel cards -> 24 via wrap gutter */
+  /* --- BRANDS: only logo + 2 buttons in one compact row --- */
+  .builders .caption{display:none}
+  .builders-inner{min-height:560px;justify-content:flex-start;gap:14px;padding:28px 24px 32px}
+  .builders-top{gap:12px;margin:0}   /* the phone layout starts from the top */
+  .builders .mark{height:96px}   /* tighter: logo higher, buttons closer */
+  .builders .mark img{height:64px;width:auto;max-width:100%;object-fit:contain}
+  .builders .mark img[src*="brand_everglades_logo"]{height:33px}
+  .builders .mark img[src*="brand_wally_logo"]     {height:60px}
+  .builders .mark img[src*="riva_real"]            {height:50px}
+  .builders .mark img[src*="brand_sirena_logo"]    {height:28px}
+  .builders .mark img[src*="brand_axopar_logo"]    {height:25px}
+  .builders .mark img[src*="brand_pershing_raw"]   {height:74px}
+  .builders .mark img[src*="brand_brabus_raw"]     {height:93px}  /* SVG logos render; wide logos never overflow */
+  .builders .mark .word{font-size:33px}
+  .builders-tabs{margin-top:auto}   /* keep tabs pinned to the bottom */
+  .builders .actions{gap:10px}
+  .builders .a{padding:0 16px;white-space:nowrap;font-size:14px;height:44px}
+  /* just EXPLORE on a phone. With the brand name the pair ran to 414px on
+     Everglades against 327px of room, and both buttons were clipped. */
+  .builders .a .bn{display:none}
 
-  /* the sticky section index sits right under a shorter header */
-  .section-index{top:76px;font-size:13px}
-  .si-item{font-size:13px}
-
-  /* brand marks were 457px wide on a 375px screen and blew the layout out */
-  .builders .mark img{height:auto;max-height:60px;max-width:100%}
-  .builders .mark .word{font-size:36px;line-height:1.1}
-  .builders .mark{min-height:96px}
-
-  /* filter rows scroll on one line instead of overflowing */
-  .sec-filter{flex-wrap:nowrap;overflow-x:auto;gap:20px;padding-left:24px;padding-right:24px;
-    scrollbar-width:none;-webkit-overflow-scrolling:touch}
-  .sec-filter::-webkit-scrollbar{display:none}
-  .sec-filter button{flex:0 0 auto;white-space:nowrap}
-  .sec-filter-visit{padding-left:0;padding-right:0}
-
-  /* cards in the horizontal rails size to the screen */
-  .event-card{flex:0 0 84vw}
-  .vessel-card{flex:0 0 78vw;height:auto;min-height:340px}
-
-  /* heading + link rows stack instead of forcing the page wider */
-  .s-title-row,.visit-head-row,.vessels-head-row,.voices-head-row{flex-direction:column;align-items:flex-start;gap:14px}
-  .s-title-row{padding-left:24px;padding-right:24px}
-
-  /* the uppercase email is one unbreakable token: one size step down keeps it inside */
-  .foot-col p{font-size:14px;line-height:18px}
-  .foot-col p a{font-size:inherit}
-
-  /* long spec labels inside the vessel cards wrap instead of running out */
-  .v-body h4,.v-body p{overflow-wrap:anywhere}
-
-  /* one heading size on phones: the page mixed 32px and 24px section titles */
-  .what-we-do h2,.videos .head h2,.visit h2,.s-title-row h2,.voices h2{font-size:18px;line-height:26px}
-  .s-title-row>*{max-width:100%}
-  .videos .head p,.what-we-do .lead{font-size:16px;line-height:26px}
-
-  /* the two buttons under a brand mark stack when they do not fit side by side */
-  .builders .actions{flex-wrap:wrap;justify-content:center;width:100%}
-  .builders .actions>*{flex:0 1 auto}
 }
 </style>
+<link rel="stylesheet" href="./jby-system.css">
 <link rel="stylesheet" href="/jby-site/site.css?v=6">
 <script defer src="/jby-site/site.js?v=6"></script>
-<style data-jby-system>
-/* ======================================================================
-   JBY design rules
-   ----------------------------------------------------------------------
-   The rules the client asked for across the whole site, in one place.
-   Each page is a standalone site with its own inline <style>, so this
-   file is copied into the page's folder and linked *after* that style
-   block — last one in wins, and no !important is needed.
-
-   Roll it out with: node design-system/apply.mjs "<page folder>"
-   ====================================================================== */
-
-:root{
-  /* The brand blue already lives in every page as --navy; these are the
-     fallbacks for the few that do not define it. */
-  --jby-blue:var(--navy,#41647b);
-  --jby-blue-d:var(--navy-d,#365466);
-  /* On hover an outlined button drops its rule: the fill carries the
-     shape from there. */
-  --jby-rule-hover:transparent;
-
-  /* One button, everywhere. */
-  --jby-btn-h:48px;
-  --jby-btn-pad:0 28px;
-  --jby-btn-radius:0;
-
-  /* A white button standing on a photograph or video: a veil the image
-     shows through, with white type — not a white slab with dark type. */
-  --jby-veil:rgba(255,255,255,0.28);
-}
-
-/* ---- 1. One shape and size -------------------------------------------
-   Before this, the home page alone carried heights of 40, 44 and 48px
-   and four different paddings. */
-.hero .btn-hero,
-.btn-solid,
-.btn-outline,
-.bento-cta,
-.expert .btn,
-.event-card .cta,
-.loc-modal-cta,
-.loc-modal-cta-secondary,
-.loc-modal-cta.secondary,
-.s-link,
-.btn-ghost,
-.btn-line,
-/* Pages that shrink one of these on their own — the CTA band's ghost
-   button and the ports header's link. Same specificity as their rule,
-   and this file is read after it. */
-.help .btn-ghost,
-.expert .btn-ghost,
-.ports-head .s-link,
-/* The listing, team-member and V1 templates name their buttons
-   differently; these are their text buttons. */
-.btn-primary,
-.btn-basic,
-.gal-all,
-.btn-navy,
-.btn-out,
-.btn-help,
-.help .btn-help,
-.nf-actions a,
-/* The brand, model and knowledge-centre templates, which run at 48 and
-   50 with names of their own. */
-.ax-btn,
-.btn-md,
-.btn-white,
-.btn-ghost-light,
-.btn-ghost-dark,
-.searchbar .btn,
-/* Named small, or sitting in a dense column, but each of these is the
-   action of its section: "See details" on every event, "View all yachts"
-   on the office page, "Book a consultation" in the listing's band. */
-.ev-btn,
-.cat-cta,
-.cta-band button,
-.shr-copy,
-/* The knowledge centre's event card: the call to action is a span
-   inside the card, and the card carries the hover. */
-.ecard .ec-cta,
-.scene-link{
-  height:var(--jby-btn-h);
-  padding:var(--jby-btn-pad);
-  border-radius:var(--jby-btn-radius);
-  font-family:'Mesmerize',sans-serif;
-  font-weight:300;
-  font-size:16px;
-  line-height:20px;
-  letter-spacing:0;
-  text-transform:uppercase;
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  transition:background .25s,color .25s,border-color .25s;
-}
-
-/* The header is its own scale: the client asked for the search button and
-   "Contact an expert" smaller than the buttons in the page. They sit at
-   40, square for the icon, and match each other. .nav-cta and .nav-search
-   are the V1 header's names for the same pair.
-
-   Deliberately no `display` here, and the header button is kept out of
-   the shape rule above for the same reason: pages hide this button on a
-   phone, and a display coming from this file would undo that and push
-   the button off the screen. */
-.nav .cta,
-.nav-cta{
-  height:40px;
-  padding:0 24px;
-  border-radius:var(--jby-btn-radius);
-  font-family:'Mesmerize',sans-serif;
-  font-weight:300;
-  font-size:16px;
-  line-height:20px;
-  letter-spacing:0;
-  text-transform:uppercase;
-  transition:background .25s,color .25s,border-color .25s;
-}
-.nav .icon,
-.nav-search{width:40px;height:40px}
-
-/* The event card's button spans the foot of its card rather than sitting
-   inline, so it keeps its own width and margin. */
-.event-card .cta{display:flex;justify-content:center;margin:24px 20px 20px}
-
-/* The brand carousel's pair is already 48 / 0 28px, so it needs the
-   colours only. */
-
-/* ---- 2. Hover turns blue, never black --------------------------------
-   Outlined buttons fill with the brand blue and let their rule go. */
-.btn-outline:hover,
-.loc-modal-cta-secondary:hover,
-.loc-modal-cta.secondary:hover,
-.s-link:hover,
-.btn-line:hover,
-/* The compact controls keep their own size. .terms button is a
-   segmented choice of loan term and .chip is a tag, neither being a call
-   to action; .btn-sm sits beside the 36px bell in the listing's event
-   card, where the whole row is deliberately small. Only their colour is
-   the rule's business. */
-.ev-btn:hover,
-.cat-cta:hover,
-.btn-basic:hover,
-.btn-out:hover,
-.scene-link:hover,
-.idx a:hover,
-.btn-sm:hover,
-.shr-copy:hover,
-.chip:hover,
-.terms button:hover,
-.nf-actions a.ghost:hover,
-.ax-btn-ghost-dark:hover,
-.btn-ghost-dark:hover,
-/* Beats the page's own `.nav:not(.scrolled) .cta:hover`, which outranks a
-   plain `.nav .cta:hover` and would otherwise keep its grey wash. */
-.nav:not(.scrolled) .cta:hover{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-
-/* Buttons already filled blue deepen rather than change colour. The
-   label goes white with them: a few of these rest as white with black
-   type, and the fill underneath it turns dark. */
-.btn-solid:hover,
-.event-card .cta:hover,
-.loc-modal-cta:hover,
-.btn-primary:hover,
-.btn-navy:hover,
-.gal-all:hover,
-.nf-actions a.solid:hover{
-  background:var(--jby-blue-d);
-  color:#fff;
-}
-
-/* ---- 3. White buttons over a photograph or video ---------------------
-   A veil the picture shows through, with white type. The blur is what
-   keeps white type legible: 28% white over a bright frame is otherwise
-   white on near-white, and the type reads grey. */
-.hero .btn-hero,
-.builders .a.solid,
-.v-cta{
-  background:var(--jby-veil);
-  color:#fff;
-  border:0;
-  -webkit-backdrop-filter:blur(8px);
-  backdrop-filter:blur(8px);
-}
-
-/* On media the hover is the solid blue too — no translucency. */
-.nav .cta:hover,
-.bento-cta:hover,
-.expert .btn:hover,
-.hero .btn-hero:hover,
-.builders .a.solid:hover,
-.builders .a.ghost:hover,
-.btn-ghost:hover,
-.nav-cta:hover,
-.cta-band button:hover,
-.ax-btn-light:hover,
-.ax-btn-ghost-light:hover,
-.btn-white:hover,
-.btn-ghost-light:hover,
-.lb-btn:hover,
-.v-cta:hover{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-
-/* The card owns the hover, not the button inside it, so this is written
-   the way the page writes it — at 0,3,0, above the white it used. */
-.ecard:hover .ec-cta{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-
-/* The modal's close button hovered to white on a white card. The cross
-   is drawn with currentColor, so the colour carries it. */
-.loc-modal-close:hover{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-
-/* The knowledge centre's band stacks its two buttons: .cb-inner is
-   720px wide with 40px of padding, leaving 640 for a row that needs 663.
-   It wrapped before the buttons took the shared padding too. Rather than
-   widen the column — which would re-wrap the paragraph above — the row
-   alone reaches into the padding. It still wraps on a narrow screen. */
-@media (min-width:760px){
-  .cta-band .actions{margin-left:-40px;margin-right:-40px}
-}
-
-/* The brand-blue CTA band. It runs under three names — .expert, .help
-   and .cta-band — and it is painted #41647b, the very colour the hover
-   fills with. A button standing on it would disappear into its own
-   background, so inside the band the hover goes one step down.
-
-   :is() keeps this one rule instead of a band-by-class-by-class list,
-   and lands at 0,3,0 — above the plain hovers above, below nothing. */
-:is(.expert, .help, .cta-band)
-:is(.btn, .btn-ghost, .btn-outline, .btn-line, .btn-help, .btn-solid,
-    .btn-primary, .btn-white, .btn-ghost-light, .btn-ghost-dark,
-    .ax-btn, .cta, .s-link, button):hover{
-  background:var(--jby-blue-d);
-  color:#fff;
-}
-
-/* The round and square icon affordances — carousel arrows, the scroll
-   arrow — keep their own 44px geometry: they are not buttons in the
-   shape-and-size sense. The hover rule still reaches them, and the scroll
-   arrow is one of the two that went black. */
-/* The icon affordances: the header's search, the carousel arrows, the
-   scroll arrow, back-to-top. They keep their own 40–48px geometry — they
-   are not buttons in the shape-and-size sense — but the hover rule still
-   reaches them.
-
-   :is() rather than a plain list, so this sits at 0,3,0. A page can carry
-   its own `.ax-listings .cards-scroll-arr:hover` at that weight, and a
-   0,2,0 rule here would lose to it however late this file is read. */
-:is(.nav .icon, .hero-arr, .builders-arr, .cards-scroll-arr,
-    .back-top, .to-top, .ax-model-arr, .pe-nav, .strip-arr,
-    .lb-btn, .show-arrow, .tmon-btn, .sq, .sq.light, .e2-btn):hover{
-  background:var(--jby-blue);
-  border-color:var(--jby-rule-hover);
-  color:#fff;
-}
-</style>
 </head>
 <body>
 <div class="progress"><div class="progress-bar"></div></div>
@@ -1081,13 +1184,13 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 <section class="hero" id="hero">
   <video class="hero-bg" id="hero-bg-a" autoplay muted loop playsinline preload="auto"
          src="./JBY-V3.3-assets/hero_axopar.mp4"
-         poster="./JBY-V3.3-assets/clean_hero.png"></video>
+         poster="./JBY-V3.3-assets/clean_hero.jpg"></video>
   <video class="hero-bg alt" id="hero-bg-b" muted loop playsinline preload="auto"></video>
   <div class="hero-veil"></div>
   <button class="hero-arr l" aria-label="Previous slide" onclick="heroSlide(-1)"><i class="ti ti-chevron-left"></i></button>
   <button class="hero-arr r" aria-label="Next slide" onclick="heroSlide(1)"><i class="ti ti-chevron-right"></i></button>
   <div class="hero-text" id="hero-text">
-    <h1 id="hero-h1">The new Axopar 29 CCX<br/>arrived on the West Coast</h1>
+    <h1 id="hero-h1">The new Axopar 29 CCX</h1>
     <button class="btn-hero magnetic" id="hero-cta">Discover now</button>
   </div>
   <div class="hero-dots" id="hero-dots">
@@ -1120,7 +1223,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <div class="caption" id="brand-caption">Where the history of yachting lives</div>
         <div class="mark" id="brand-mark"><img src="./JBY-V3.3-assets/riva_real.png" alt="Riva"/></div>
         <div class="actions">
-          <button class="a solid" id="brand-cta">Explore Riva</button>
+          <button class="a solid" id="brand-cta"><span class="lbl">Explore<span class="bn"> Riva</span></span></button>
           <button class="a ghost">Inventory</button>
         </div>
       </div>
@@ -1133,12 +1236,11 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
       <a class="s-link" href="#">See all</a>
     </div>
     <div class="vessels-strip-wrap">
-      <div class="vessels-strip"><article class="vessel-card reveal">
+      <div class="vessels-strip" id="vessels-strip"><article class="vessel-card reveal">
         <div class="v-img" style="background-image:url('./JBY-V3.3-assets/03_vessel1_axopar.jpg')"></div>
         <div class="v-img-veil"></div>
-        <div class="brand"><img src="./JBY-V3.3-assets/brand_axopar_raw.png" alt=""/></div>
+        <div class="brand"><img src="./JBY-V3.3-assets/brand_axopar_logo_white.png" alt=""/></div>
         <div class="info">
-          <p class="event-label">Open House, Thu, Sep 17</p>
           <div class="chip-loc">Seattle, WA</div>
           <p class="name">2023 Axopar 37 XC Cross Cabin Wet Bar</p>
           <p class="price">$349,000</p>
@@ -1152,7 +1254,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <div class="v-img-veil"></div>
         <div class="brand"><img src="./JBY-V3.3-assets/brand_pershing_raw.png" alt=""/></div>
         <div class="info">
-          <p class="event-label">Open House, Thu, Sep 17</p>
           <div class="chip-loc">Seattle, WA</div>
           <p class="name">2023 Pershing 5X Cross Cabin Wet Bar</p>
           <p class="price">$349,000</p>
@@ -1166,7 +1267,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <div class="v-img-veil"></div>
         <div class="brand"><img src="./JBY-V3.3-assets/brand_brabus_raw.png" alt=""/></div>
         <div class="info">
-          <p class="event-label">Open House, Thu, Sep 17</p>
           <div class="chip-loc">Seattle, WA</div>
           <p class="name">2023 Brabus Shadow 900 Sun-Top</p>
           <p class="price">$349,000</p>
@@ -1180,7 +1280,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <div class="v-img-veil"></div>
         <div class="brand"><img src="./JBY-V3.3-assets/brand_pershing_raw.png" alt=""/></div>
         <div class="info">
-          <p class="event-label">Open House, Thu, Sep 17</p>
           <div class="chip-loc">Seattle, WA</div>
           <p class="name">2023 Pershing GT55 Sport Yacht</p>
           <p class="price">$349,000</p>
@@ -1190,6 +1289,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
           <span class="v-cta-icon"><i class="ti ti-chevron-right"></i></span>
         </button>
       </article></div>
+      <button class="cards-scroll-arr l" aria-label="Previous vessels" onclick="vesselsScroll(-1)"><i class="ti ti-chevron-left"></i></button>
       <button class="cards-scroll-arr" aria-label="More vessels" onclick="vesselsScroll(1)"><i class="ti ti-chevron-right"></i></button>
     </div>
   </div>
@@ -1202,13 +1302,17 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
       <div class="bg" style="background-image:url('./JBY-V3.3-assets/clean_feature_event.jpg')"></div>
       <video autoplay muted loop playsinline preload="auto" poster="./JBY-V3.3-assets/clean_feature_event.jpg"><source src="./JBY-V3.3-assets/feature_video_user.mp4" type="video/mp4"><source src="./JBY-V3.3-assets/feature_video.mp4" type="video/mp4"></video>
       <div class="veil"></div>
-      <div class="label">La Jolla Concours d&rsquo;Elegance</div>
+      <!-- The event's name used to sit here, bottom left. It named one event
+           over footage that is to become a collage of several, so it would
+           have been wrong for most of what plays. Bringing a caption back
+           means driving it from whichever clip is on screen, not hardcoding
+           one. -->
     </div>
   </div>
   <div class="events-grid-wrap">
     <div class="s-title-row reveal">
-      <h2>Upcoming events &amp; private experiences</h2>
-      <a class="s-link" href="#">View all events</a>
+      <h2><span class="ttl-desktop">Upcoming events &amp; private experiences</span><span class="ttl-mobile">Events</span></h2>
+      <a class="s-link" href="#"><span class="ttl-desktop">View all events</span><span class="ttl-mobile">View events</span></a>
     </div>
     <div class="sec-filter reveal" role="tablist" aria-label="Filter events by region">
       <button class="on" data-region="all">All</button>
@@ -1216,6 +1320,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
       <button data-region="east">East Coast</button>
     </div>
     <div class="events-strip-wrap reveal" style="position:relative">
+      <button class="cards-scroll-arr l" aria-label="Previous events" onclick="eventsScroll(-1)"><i class="ti ti-chevron-left"></i></button>
       <button class="cards-scroll-arr" aria-label="Next events" onclick="eventsScroll(1)"><i class="ti ti-chevron-right"></i></button>
       <div class="events-strip" id="events-strip">
         <article class="event-card has-video" data-region="west">
@@ -1324,7 +1429,10 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     <h2 class="split-words" data-split>Owners, in their own words</h2>
     <p>A few conversations with owners, on their first boat and their fifth.</p>
   </div>
-  <div class="video-stage reveal d1">
+  <div class="video-scroll-wrap">
+    <button class="cards-scroll-arr l vid" aria-label="Previous story" onclick="videosScroll(-1)"><i class="ti ti-chevron-left"></i></button>
+    <button class="cards-scroll-arr vid" aria-label="Next story" onclick="videosScroll(1)"><i class="ti ti-chevron-right"></i></button>
+  <div class="video-stage reveal d1" id="video-stage">
     <div class="video-hero">
       <div class="bg" style="background-image:url('./JBY-V3.3-assets/clean_bento_sm.jpg')"></div>
       <div class="veil"></div>
@@ -1340,7 +1448,8 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <div class="bg" style="background-image:url('./JBY-V3.3-assets/clean_bento_sell.jpg')"></div>
         <div class="veil"></div>
         <div class="v-body">
-          <h4>Eleanor Harker &middot; Riva 56</h4>
+          <h4>Eleanor Harker</h4>
+          <span class="v-vessel">Riva 56</span>
           <p>&ldquo;Buying a Riva should feel special. With Jeff Brown Yachts, it did.&rdquo;</p>
         </div>
       </article>
@@ -1348,7 +1457,8 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <div class="bg" style="background-image:url('./JBY-V3.3-assets/clean_bento_financing.jpg')"></div>
         <div class="veil"></div>
         <div class="v-body">
-          <h4>David Aoki &middot; Axopar 37</h4>
+          <h4>David Aoki</h4>
+          <span class="v-vessel">Axopar 37</span>
           <p>&ldquo;Third boat with Jeff Brown Yachts. Every time smoother than the last.&rdquo;</p>
         </div>
       </article>
@@ -1356,11 +1466,13 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <div class="bg" style="background-image:url('./JBY-V3.3-assets/clean_bento_ym.jpg')"></div>
         <div class="veil"></div>
         <div class="v-body">
-          <h4>Hill Family &middot; Four Winns H4</h4>
+          <h4>Hill Family</h4>
+          <span class="v-vessel">Four Winns H4</span>
           <p>&ldquo;We came looking for a boat. We left with a team that treats our first summer like it&rsquo;s their fifth.&rdquo;</p>
         </div>
       </article>
     </div>
+  </div>
   </div>
 </section>
 
@@ -1369,35 +1481,35 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   <div class="bento">
     <div class="bento-cell span2 reveal" data-parallax-bg="0.20">
       <div class="bento-img">
-        <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/service_yacht_management.jpg')"></div>
+        <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/bento_yacht_management_van.jpg')"></div>
       </div>
       <div class="bento-veil"></div>
       <div class="bento-body">
         <h3>Yacht management</h3>
         <p>End-to-end support for operations, crew, service, and ownership logistics, handled with expert oversight.</p>
-        <button class="bento-cta">Explore yacht management <i class="ti ti-chevron-right"></i></button>
+        <button class="bento-cta"><span class="expl">Explore </span>yacht management <i class="ti ti-chevron-right"></i></button>
       </div>
     </div>
     <div class="bento-cell reveal d2" data-parallax-bg="0.20">
       <div class="bento-img">
-        <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/service_maintenance.jpg')"></div>
+        <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/bento_service_winch.jpg')"></div>
       </div>
       <div class="bento-veil"></div>
       <div class="bento-body">
         <h3>Service &amp; maintenance</h3>
         <p>Yacht service, maintenance coordination, and technical support to keep your vessel ready for the water.</p>
-        <button class="bento-cta">Explore service &amp; maintenance <i class="ti ti-chevron-right"></i></button>
+        <button class="bento-cta"><span class="expl">Explore </span>service &amp; maintenance <i class="ti ti-chevron-right"></i></button>
       </div>
     </div>
     <div class="bento-cell reveal d1" data-parallax-bg="0.20">
       <div class="bento-img">
-        <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/clean_bento_sell.jpg')"></div>
+        <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/clean_bento_financing.jpg')"></div>
       </div>
       <div class="bento-veil"></div>
       <div class="bento-body">
         <h3>Sell your yacht</h3>
         <p>Pricing, marketing, and expert brokerage to connect your yacht with the right qualified buyers.</p>
-        <button class="bento-cta">Explore selling services <i class="ti ti-chevron-right"></i></button>
+        <button class="bento-cta"><span class="expl">Explore </span>selling services <i class="ti ti-chevron-right"></i></button>
       </div>
     </div>
     <div class="bento-cell span2 reveal" data-parallax-bg="0.20">
@@ -1408,12 +1520,12 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
       <div class="bento-body">
         <h3>Co-ownership</h3>
         <p>Access to premium boating, with less complexity and ownership responsibility.</p>
-        <button class="bento-cta">Explore Mari-Time <i class="ti ti-chevron-right"></i></button>
+        <button class="bento-cta"><span class="expl">Explore </span>Mari-Time <i class="ti ti-chevron-right"></i></button>
       </div>
     </div>
     <div class="bento-cell reveal d1" data-parallax-bg="0.20">
       <div class="bento-img">
-        <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/clean_bento_financing.jpg')"></div>
+        <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/clean_bento_sell.jpg')"></div>
       </div>
       <div class="bento-veil"></div>
       <div class="bento-body">
@@ -1424,7 +1536,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     </div>
     <div class="bento-cell reveal d2" data-parallax-bg="0.20">
       <div class="bento-img">
-        <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/bento_insurance_riva.png')"></div>
+        <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/bento_office_phone.jpg')"></div>
       </div>
       <div class="bento-veil"></div>
       <div class="bento-body">
@@ -1438,7 +1550,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 
 <section class="visit" id="visit">
   <div class="visit-head-row reveal">
-    <h2 class="split-words" data-split>Locations, Marinas &amp; Boatyards</h2>
+    <h2><span class="ttl-desktop">Locations, Marinas &amp; Boatyards</span><span class="ttl-mobile">Locations</span></h2>
     <a class="s-link" href="#">View all</a>
   </div>
   <div class="sec-filter sec-filter-visit reveal" role="tablist" aria-label="Filter locations by region">
@@ -1513,56 +1625,98 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   </div>
 </div>
 
-<section class="expert" id="contact">
-  <h2 class="reveal split-words" data-split>Get expert guidance</h2>
-  <p class="reveal d1">Every conversation starts with you. We take it from there.</p>
-  <button class="btn reveal d2 magnetic">Book a consultation</button>
+<!-- The grey version of this band stood here and is kept, not thrown away: its
+     styling is the plain .expert block in the stylesheet above, which the
+     photograph version still stands on and only overrides. To bring it back,
+     put this markup in front of the section below and move id="contact" onto
+     it — that id is what the header's Contact an expert, the section index
+     and the office modal all point at, which is why it moved down.
+
+     <section class="expert" id="contact">
+       <h2 class="reveal split-words" data-split>Get expert guidance</h2>
+       <p class="reveal d1">Every conversation starts with you. We take it from there.</p>
+       <button class="btn reveal d2 magnetic">Book a consultation</button>
+     </section>
+-->
+<section class="expert expert-photo" id="contact" data-parallax-bg="-0.24">
+  <div class="bg" aria-hidden="true">
+    <div class="bg-inner" style="background-image:url('./JBY-V3.3-assets/expert_bow_sunset.jpg')"></div>
+  </div>
+  <div class="veil" aria-hidden="true"></div>
+  <div class="expert-body">
+    <h2 class="reveal split-words" data-split>Get expert guidance</h2>
+    <p class="reveal d1">Every conversation starts with you. We take it from there.</p>
+    <button class="btn reveal d2 magnetic">Book a consultation</button>
+  </div>
 </section>
 
 <footer>
-  <div class="foot-grid">
-    <div>
-      <div class="foot-logo" aria-label="JBY"><img src="./JBY-V3.3-assets/jby_logo.svg" alt=""/></div>
-      <nav class="foot-nav">
-        <a href="#top">Home</a>
-        <span class="sep">/</span>
-        <a href="#listings">Portfolio</a>
-        <span class="sep">/</span>
-        <a href="#models">Brands</a>
-        <span class="sep">/</span>
-        <a href="#">Services</a>
-        <span class="sep">/</span>
-        <a href="#">Experiences</a>
-        <span class="sep">/</span>
-        <a href="#about">About JBY</a>
-      </nav>
-    </div>
-    <div class="foot-col">
-      <!-- "Contact us" IS the phone line — placeholder toll-free until a real number is provided -->
-      <h6>Contact us</h6>
-      <p>+1 (888) 693-8099</p>
-      <!-- General company inbox (routes to Audrey) — placeholder address, not final -->
-      <h6>Email</h6>
-      <p>info@jeffbrownyachts.com</p>
-      <h6>Social Media</h6>
-      <div class="foot-social">
-        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.63985 3.13281H16.3198C18.9708 3.13281 21.1198 5.33895 21.1198 8.06035V15.9444C21.1198 18.6658 18.9708 20.8719 16.3198 20.8719H8.63985C5.98888 20.8719 3.83984 18.6658 3.83984 15.9444V8.06035C3.83984 5.33895 5.98888 3.13281 8.63985 3.13281ZM17.0442 8.30519C17.5743 8.30519 18.0041 7.86396 18.0041 7.31967C18.0041 6.7754 17.5743 6.33417 17.0442 6.33417C16.5139 6.33417 16.0841 6.7754 16.0841 7.31967C16.0841 7.86396 16.5139 8.30519 17.0442 8.30519ZM12.4809 7.56761C10.095 7.56761 8.16083 9.55312 8.16083 12.0024C8.16083 14.4517 10.095 16.4372 12.4809 16.4372C14.8667 16.4372 16.8009 14.4517 16.8009 12.0024C16.8034 10.8254 16.3491 9.69588 15.5384 8.86363C14.7276 8.03138 13.6274 7.56498 12.4809 7.56761ZM9.84073 12.0008C9.84073 13.4977 11.0227 14.711 12.4808 14.711C13.9387 14.711 15.1207 13.4977 15.1207 12.0008C15.1207 10.5041 13.9387 9.29069 12.4808 9.29069C11.0227 9.29069 9.84073 10.5041 9.84073 12.0008Z"/></svg></a>
-        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M21 4.88889V18.1111C21 19.1543 20.1543 20 19.1111 20H15.5694C15.3086 20 15.0973 19.7886 15.0973 19.5277V13.8611H17.3073C17.5317 13.8612 17.7251 13.7032 17.77 13.4833L18.11 11.7833C18.1241 11.7147 18.1068 11.6433 18.0631 11.5885C18.0192 11.5339 17.9534 11.5014 17.8833 11.5H15.0973V8.43056C15.0973 8.30016 15.203 8.19444 15.3333 8.19444H17.6944C17.9553 8.19444 18.1667 7.98303 18.1667 7.72223V6.30556C18.1667 6.04476 17.9553 5.83333 17.6944 5.83333H15.3333C13.7685 5.83333 12.5 7.10186 12.5 8.66667V11.5H11.3383C11.0775 11.5 10.8661 11.7114 10.8661 11.9723V13.3889C10.8661 13.6497 11.0775 13.8611 11.3383 13.8611H12.5V19.5277C12.5 19.7886 12.2886 20 12.0277 20H5.88889C4.84568 20 4 19.1543 4 18.1111V4.88889C4 3.84568 4.84568 3 5.88889 3H19.1111C20.1543 3 21 3.84568 21 4.88889Z"/></svg></a>
-        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.7425 4.31649L19.1361 4.45716C20.7859 4.64038 22.0248 6.02396 21.9996 7.65505V15.345C22.0248 16.9761 20.7859 18.3596 19.1361 18.5429L17.7997 18.6836C13.6301 19.1055 9.42722 19.1055 5.25749 18.6836L3.86391 18.5429C2.21405 18.3596 0.975134 16.9761 1.00038 15.345V7.65505C0.975134 6.02396 2.21405 4.64038 3.86391 4.45716L5.20022 4.31649C9.36995 3.8945 13.5728 3.8945 17.7425 4.31649ZM10.6505 14.5197L14.3635 12.0815H14.4208C14.6209 11.9534 14.7416 11.7346 14.7416 11.5C14.7416 11.2654 14.6209 11.0466 14.4208 10.9186L10.7078 8.48029C10.4885 8.3347 10.2055 8.31979 9.97165 8.44152C9.73785 8.56325 9.59145 8.80175 9.59097 9.06172V13.9383C9.60329 14.1802 9.74154 14.399 9.95686 14.5172C10.1722 14.6353 10.4343 14.6364 10.6505 14.5197Z"/></svg></a>
+  <div class="foot-inner">
+    <div class="foot-logo" aria-label="JBY"><img src="./JBY-V3.3-assets/jby_logo.svg" alt=""/></div>
+
+    <div class="foot-cols">
+      <div class="foot-lists">
+        <h5 class="foot-h">Locations</h5>
+        <!-- Every JBY office, each city linking to its Location Detail page. Site-wide. -->
+        <nav class="foot-row" aria-label="Locations">
+          <a href="#">San Diego</a>
+          <span class="sep">/</span>
+          <a href="#">Newport Harbor</a>
+          <span class="sep">/</span>
+          <a href="#">Marina del Rey</a>
+          <span class="sep">/</span>
+          <a href="#">Sausalito</a>
+          <span class="sep">/</span>
+          <a href="#">Seattle</a>
+          <span class="sep">/</span>
+          <a href="#">Kona</a>
+          <span class="sep">/</span>
+          <a href="#">Charleston</a>
+          <span class="sep">/</span>
+          <a href="#">Wrightsville Beach</a>
+        </nav>
+        <h5 class="foot-h">Pages</h5>
+        <nav class="foot-row" aria-label="Pages">
+          <a href="#listings">Portfolio</a>
+          <span class="sep">/</span>
+          <a href="#models">Brands</a>
+          <span class="sep">/</span>
+          <a href="#">Sell your yacht</a>
+          <span class="sep">/</span>
+          <a href="#visit">Locations</a>
+          <span class="sep">/</span>
+          <a href="#services">Services</a>
+          <span class="sep">/</span>
+          <a href="#events">Events</a>
+          <span class="sep">/</span>
+          <a href="#about">About JBY</a>
+        </nav>
+      </div>
+
+      <div class="foot-contact">
+        <h5 class="foot-h">Contact</h5>
+        <a href="mailto:info@jeffbrownyachts.com">info@jeffbrownyachts.com</a>
+        <!-- The toll-free line, not one of the offices' own numbers -->
+        <a href="tel:+18886938099">(888) 693 - 8099</a>
+        <div class="foot-social">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.63985 3.13281H16.3198C18.9708 3.13281 21.1198 5.33895 21.1198 8.06035V15.9444C21.1198 18.6658 18.9708 20.8719 16.3198 20.8719H8.63985C5.98888 20.8719 3.83984 18.6658 3.83984 15.9444V8.06035C3.83984 5.33895 5.98888 3.13281 8.63985 3.13281ZM17.0442 8.30519C17.5743 8.30519 18.0041 7.86396 18.0041 7.31967C18.0041 6.7754 17.5743 6.33417 17.0442 6.33417C16.5139 6.33417 16.0841 6.7754 16.0841 7.31967C16.0841 7.86396 16.5139 8.30519 17.0442 8.30519ZM12.4809 7.56761C10.095 7.56761 8.16083 9.55312 8.16083 12.0024C8.16083 14.4517 10.095 16.4372 12.4809 16.4372C14.8667 16.4372 16.8009 14.4517 16.8009 12.0024C16.8034 10.8254 16.3491 9.69588 15.5384 8.86363C14.7276 8.03138 13.6274 7.56498 12.4809 7.56761ZM9.84073 12.0008C9.84073 13.4977 11.0227 14.711 12.4808 14.711C13.9387 14.711 15.1207 13.4977 15.1207 12.0008C15.1207 10.5041 13.9387 9.29069 12.4808 9.29069C11.0227 9.29069 9.84073 10.5041 9.84073 12.0008Z"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M21 4.88889V18.1111C21 19.1543 20.1543 20 19.1111 20H15.5694C15.3086 20 15.0973 19.7886 15.0973 19.5277V13.8611H17.3073C17.5317 13.8612 17.7251 13.7032 17.77 13.4833L18.11 11.7833C18.1241 11.7147 18.1068 11.6433 18.0631 11.5885C18.0192 11.5339 17.9534 11.5014 17.8833 11.5H15.0973V8.43056C15.0973 8.30016 15.203 8.19444 15.3333 8.19444H17.6944C17.9553 8.19444 18.1667 7.98303 18.1667 7.72223V6.30556C18.1667 6.04476 17.9553 5.83333 17.6944 5.83333H15.3333C13.7685 5.83333 12.5 7.10186 12.5 8.66667V11.5H11.3383C11.0775 11.5 10.8661 11.7114 10.8661 11.9723V13.3889C10.8661 13.6497 11.0775 13.8611 11.3383 13.8611H12.5V19.5277C12.5 19.7886 12.2886 20 12.0277 20H5.88889C4.84568 20 4 19.1543 4 18.1111V4.88889C4 3.84568 4.84568 3 5.88889 3H19.1111C20.1543 3 21 3.84568 21 4.88889Z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.7425 4.31649L19.1361 4.45716C20.7859 4.64038 22.0248 6.02396 21.9996 7.65505V15.345C22.0248 16.9761 20.7859 18.3596 19.1361 18.5429L17.7997 18.6836C13.6301 19.1055 9.42722 19.1055 5.25749 18.6836L3.86391 18.5429C2.21405 18.3596 0.975134 16.9761 1.00038 15.345V7.65505C0.975134 6.02396 2.21405 4.64038 3.86391 4.45716L5.20022 4.31649C9.36995 3.8945 13.5728 3.8945 17.7425 4.31649ZM10.6505 14.5197L14.3635 12.0815H14.4208C14.6209 11.9534 14.7416 11.7346 14.7416 11.5C14.7416 11.2654 14.6209 11.0466 14.4208 10.9186L10.7078 8.48029C10.4885 8.3347 10.2055 8.31979 9.97165 8.44152C9.73785 8.56325 9.59145 8.80175 9.59097 9.06172V13.9383C9.60329 14.1802 9.74154 14.399 9.95686 14.5172C10.1722 14.6353 10.4343 14.6364 10.6505 14.5197Z"/></svg></a>
+          <!-- The mockup's fourth mark is a chain link with no service named on
+               it. Drawn as a link until we are told whose it is. -->
+          <a href="#" aria-label="Website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M9.5 13.5a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1.1 1.1"/><path d="M14.5 10.5a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1.1-1.1"/></svg></a>
+        </div>
       </div>
     </div>
-    <div class="foot-col">
-      <!-- Full JBY office list — each city links to its Location Detail page (full address lives there). Site-wide. -->
-      <h6>Locations</h6>
-      <nav class="foot-locs">
-        <a href="#">San Diego</a>
-        <a href="#">Newport Harbor</a>
-        <a href="#">Marina del Rey</a>
-        <a href="#">Sausalito</a>
-        <a href="#">Seattle</a>
-        <a href="#">Kona</a>
-        <a href="#">Wrightsville Beach</a>
-        <a href="#">Charleston</a>
+
+    <div class="foot-legal">
+      <p>&copy; Jeff Brown Yachts, Inc. All Rights Reserved</p>
+      <nav class="foot-legal-links" aria-label="Legal">
+        <a href="#">Privacy Policy</a>
+        <span class="sep">|</span>
+        <a href="#">Terms and Conditions</a>
+        <span class="sep">|</span>
+        <a href="#">Statement of Information</a>
       </nav>
     </div>
   </div>
@@ -1872,9 +2026,9 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 
   // HERO SLIDER — autoplay videos with crossfade between slides
   const heroSlides = [
-    {video:"hero_axopar.mp4", poster:"clean_hero.png",              h1:"The new Axopar 29 CCX<br/>arrived on the West Coast", cta:"Discover now"},
-    {video:"hero_riva.mp4",   poster:"clean_builders_riva.png",     h1:"Riva.<br/>Where the history of yachting lives", cta:"Explore Riva"},
-    {video:"hero_brabus.mp4", poster:"hero_brabus_shadow_900.webp", h1:"Brabus Shadow 900<br/>Engineered for the sea",        cta:"See the spec"},
+    {video:"hero_axopar.mp4", poster:"clean_hero.jpg",              h1:"The new Axopar 29 CCX",              cta:"Discover now"},
+    {video:"hero_riva.mp4",   poster:"clean_builders_riva.png",     h1:"Where the history of yachting lives", cta:"Explore Riva"},
+    {video:"hero_brabus.mp4", poster:"hero_brabus_shadow_900.webp", h1:"Brabus Shadow 900",                  cta:"See the spec"},
   ];
   let hi = 0;
   let toggle = false;
@@ -1924,11 +2078,11 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   // cta field per brand (BRABUS uppercase per brand guidelines)
   const brands = [
     {name:"Riva",          cta:"Explore Riva",       caption:"Where the history of yachting lives",  img:"brand_riva.webp",      logo:"riva_real.png", video:"brand_riva_video.mp4"},
-    {name:"Axopar",        cta:"Explore Axopar",     caption:"Built for adventure on every coast",   img:"brand_axopar.jpeg",    logo:"brand_axopar_raw.png",    video:"brand_axopar_video.mp4"},
+    {name:"Axopar",        cta:"Explore Axopar",     caption:"Built for adventure on every coast",   img:"brand_axopar.jpeg",    logo:"brand_axopar_logo_white.png",    video:"brand_axopar_video.mp4"},
     {name:"Brabus",        cta:"Explore BRABUS",     caption:"Performance, engineered on the water", img:"brand_brabus.webp",    logo:"brand_brabus_raw.png",    video:"brand_brabus_video.mp4"},
     {name:"Pershing",      cta:"Explore Pershing",   caption:"Italian speed, unmistakable presence", img:"brand_pershing.jpg",   logo:"brand_pershing_raw.png", video:"brand_pershing_video.mp4"},
-    {name:"Wally",         cta:"Explore Wally",      caption:"Form follows the horizon",             img:"brand_wally.jpg",      logo:"brand_wally_logo.svg"},
-    {name:"Sirena Yachts", cta:"Explore Sirena",     caption:"Refined long-range cruising",          img:"brand_sirena.jpeg",    logo:"brand_sirena_logo.svg"},
+    {name:"Wally",         cta:"Explore Wally",      caption:"Form follows the horizon",             img:"brand_wally.jpg",      logo:"brand_wally_logo_authorized.png"},
+    {name:"Sirena Yachts", cta:"Explore Sirena",     caption:"Refined long-range cruising",          img:"brand_sirena.jpeg",    logo:"brand_sirena_logo_horiz.png"},
     {name:"Everglades",    cta:"Explore Everglades", caption:"Offshore capability, built to last",   img:"brand_everglades.jpg", logo:"brand_everglades_logo.png"},
   ];
   let bi = 0;
@@ -1988,8 +2142,35 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     }
     if (cap) cap.textContent = b.caption;
     const brandCta = document.getElementById('brand-cta');
-    if (brandCta && b.cta) brandCta.textContent = b.cta;
+    if (brandCta && b.cta){
+      // "Explore Everglades" will not fit beside INVENTORY on a phone, so the
+      // brand half goes in a span the narrow layout hides — leading space and
+      // all, or hiding it would leave a trailing gap.
+      //
+      // Both spans sit inside one .lbl wrapper on purpose. The button is a
+      // flex container, and a flex container trims the leading whitespace of
+      // each of its items: with .bn as a direct child the space in front of
+      // the brand name was dropped and the label read EXPLOREEVERGLADES. One
+      // wrapper means one flex item, and the space inside it survives.
+      //
+      // Built from text nodes rather than innerHTML so a brand name can never
+      // be markup.
+      const sp = b.cta.indexOf(' ');
+      const lbl = document.createElement('span');
+      lbl.className = 'lbl';
+      lbl.appendChild(document.createTextNode(sp < 0 ? b.cta : b.cta.slice(0, sp)));
+      if (sp > -1){
+        const bn = document.createElement('span');
+        bn.className = 'bn';
+        bn.textContent = b.cta.slice(sp);
+        lbl.appendChild(bn);
+      }
+      brandCta.textContent = '';
+      brandCta.appendChild(lbl);
+    }
     document.querySelectorAll('.b-tab').forEach((t,k) => t.classList.toggle('active', k === bi));
+    var _at = document.querySelector('.b-tab.active'), _tabs = document.querySelector('.builders-tabs');
+    if (_at && _tabs){ _tabs.scrollTo({left: _at.offsetLeft - (_tabs.clientWidth - _at.offsetWidth)/2, behavior:'smooth'}); }
   }
   // Auto-rotate every 4s. Any user interaction (tab click, arrow) restarts the timer.
   var _brandTimer = null;
@@ -1999,6 +2180,44 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   }
   window.brandStep = (d) => { setBrand(bi + d); _restartBrandTimer(); };
   document.querySelectorAll('.b-tab').forEach(t => t.addEventListener('click', () => { setBrand(parseInt(t.getAttribute('data-b'), 10)); _restartBrandTimer(); }));
+  // A finger moves the brand carousel too, not only the chevrons. The stage is
+  // a cross-fade rather than a scroller, so there is nothing for the browser to
+  // pan and the gesture has to be read by hand.
+  //
+  // Two things it must not break. The tabs row scrolls horizontally on its own,
+  // so a gesture that starts inside it is left alone. And the page scrolls
+  // vertically through this section, so the drag only counts once it is clearly
+  // more horizontal than vertical — the axis is decided once, at 10px, and held
+  // for the rest of the gesture, which is what keeps a diagonal flick during a
+  // scroll from changing the brand.
+  (function(){
+    var stage = document.querySelector('.builders');
+    if (!stage) return;
+    var x0 = 0, y0 = 0, tracking = false, decided = false, horizontal = false;
+    stage.addEventListener('touchstart', function(e){
+      if (e.touches.length !== 1 || (e.target.closest && e.target.closest('.builders-tabs'))){ tracking = false; return; }
+      x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+      tracking = true; decided = false; horizontal = false;
+    }, {passive:true});
+    stage.addEventListener('touchmove', function(e){
+      if (!tracking) return;
+      var dx = e.touches[0].clientX - x0, dy = e.touches[0].clientY - y0;
+      if (!decided && (Math.abs(dx) > 10 || Math.abs(dy) > 10)){
+        decided = true;
+        horizontal = Math.abs(dx) > Math.abs(dy);
+      }
+      // Hold the page still while a horizontal drag is in progress
+      if (decided && horizontal && e.cancelable) e.preventDefault();
+    }, {passive:false});
+    stage.addEventListener('touchend', function(e){
+      if (tracking && horizontal){
+        var dx = e.changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 45) brandStep(dx < 0 ? 1 : -1);
+      }
+      tracking = false;
+    }, {passive:true});
+    stage.addEventListener('touchcancel', function(){ tracking = false; }, {passive:true});
+  })();
   // Initial: show Riva (index 0) so its video starts playing immediately
   requestAnimationFrame(() => { setBrand(0); _restartBrandTimer(); });
 
@@ -2030,8 +2249,8 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 
   // VESSELS CAROUSEL right arrow scroll
   window.vesselsScroll = function(dir){
-    const strip = document.querySelector('.vessels-strip');
-    if (strip) strip.scrollBy({left: dir * 400, behavior: 'smooth'});
+    const strip = document.getElementById('vessels-strip');
+    if (strip) strip.scrollBy({left: (dir||1) * (strip.clientWidth * 0.85 + 20), behavior: 'smooth'});
   };
 
   // Events strip — no autoscroll, but right chevron button scrolls by one card
@@ -2039,6 +2258,29 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     const strip = document.getElementById('events-strip');
     if (strip) strip.scrollBy({left: dir * 444, behavior: 'smooth'});
   };
+  window.videosScroll = function(dir){
+    const s = document.getElementById('video-stage');
+    if (s) s.scrollBy({left: dir * (s.clientWidth * 0.9 + 12), behavior: 'smooth'});
+  };
+  // Show/hide scroll chevrons by position: left hidden at start, right hidden at end
+  function wireArrows(scrollId, wrap){
+    var el = document.getElementById(scrollId);
+    if (!el || !wrap) return;
+    var left = wrap.querySelector('.cards-scroll-arr.l');
+    var right = wrap.querySelector('.cards-scroll-arr:not(.l)');
+    function upd(){
+      var atStart = el.scrollLeft <= 4;
+      var atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4;
+      if (left) left.style.display = atStart ? 'none' : 'flex';
+      if (right) right.style.display = atEnd ? 'none' : 'flex';
+    }
+    el.addEventListener('scroll', upd, {passive:true});
+    window.addEventListener('resize', upd);
+    setTimeout(upd, 60);
+  }
+  wireArrows('events-strip', document.querySelector('.events-strip-wrap'));
+  wireArrows('video-stage', document.querySelector('.video-scroll-wrap'));
+  wireArrows('vessels-strip', document.querySelector('.vessels-strip-wrap'));
   // Event cards with video — play on hover, pause on leave
   document.querySelectorAll('.event-card.has-video').forEach(function(card){
     var v = card.querySelector('.event-video');
@@ -2050,11 +2292,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
       v.pause();
     });
   });
-  // Vessels row — grid layout doesn't scroll; arrow scrolls to next section (portfolio)
-  window.vesselsScroll = function(){
-    const target = document.querySelector('.vessels');
-    if (target) target.scrollIntoView({behavior: 'smooth', block: 'start'});
-  };
 
   // MAP — Mapbox (production) with Leaflet + CARTO fallback (staging/localhost).
   // Ported from the office page so the map renders on any domain. Defaults to
