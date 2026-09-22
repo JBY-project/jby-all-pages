@@ -766,6 +766,15 @@ footer{background:var(--navy);padding:36px 40px 32px;color:rgba(255,255,255,0.85
   transition:opacity .2s}
 .foot-social a svg{width:24px;height:24px;display:block}
 .foot-social a:hover{opacity:0.6}
+/* On a phone the two rows become columns: four items down each, flowing into
+   a second column beside them. The slashes go with the change — they are a
+   device for a line of text, not for a list. Eight cities make two fours;
+   seven pages make a four and a three. */
+@media (max-width:640px){
+  .foot-row{display:grid;grid-auto-flow:column;grid-template-rows:repeat(4,auto);
+    grid-auto-columns:max-content;gap:10px 28px}
+  .foot-row .sep{display:none}
+}
 /* The legal line, in the body face and dimmer than everything above it — the
    one row in the footer that is read only when it is looked for. */
 .foot-legal{display:flex;justify-content:space-between;align-items:baseline;gap:24px;margin-top:32px;
