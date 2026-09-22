@@ -745,11 +745,18 @@ a{color:inherit;text-decoration:none}
 .expert-photo{position:relative;overflow:hidden;background:var(--navy);margin-top:0}
 .expert-photo .bg{position:absolute;inset:-55% 0;z-index:0;will-change:transform}
 .expert-photo .bg-inner{position:absolute;inset:0;background-size:cover;background-position:center}
-/* A scrim, not a tint. At 0.42 the subtitle was being read over the hull and
-   the sky behind it; this is what the type needs to hold at 20px and 16 over
-   open water, and the photograph still reads through it. */
+/* A scrim weighted to the middle rather than a flat one. This photograph is
+   bright where the type sits — white superstructure, white cushions, a sun
+   flare — and a scrim even enough to hold the type over that would have
+   flattened the whole picture. So it runs 0.44 at the edges and 0.7 through
+   the band the three lines occupy, which is where it is needed and nowhere
+   else: the sea and the sky at top and bottom keep their light. */
 .expert-photo .veil{position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(180deg,rgba(10,22,32,0.56) 0%,rgba(10,22,32,0.64) 100%)}
+  background:linear-gradient(180deg,
+    rgba(10,22,32,0.44) 0%,
+    rgba(10,22,32,0.70) 32%,
+    rgba(10,22,32,0.70) 74%,
+    rgba(10,22,32,0.46) 100%)}
 .expert-photo .expert-body{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
 .expert-photo h2{color:#fff}
 .expert-photo p{color:rgba(255,255,255,0.95)}
@@ -1631,7 +1638,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
      two can be read against each other. -->
 <section class="expert expert-photo" id="contact-photo" data-parallax-bg="-0.24">
   <div class="bg" aria-hidden="true">
-    <div class="bg-inner" style="background-image:url('./JBY-V3.3-assets/brand_riva.webp')"></div>
+    <div class="bg-inner" style="background-image:url('./JBY-V3.3-assets/expert_bow_sunset.jpg')"></div>
   </div>
   <div class="veil" aria-hidden="true"></div>
   <div class="expert-body">
