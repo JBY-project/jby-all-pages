@@ -307,6 +307,153 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
 .foot-locs a{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:color .2s}
 .foot-locs a:hover{color:var(--navy)}
 </style>
+<style>
+/* === JBY SITE BLOCKS: band + footer === */
+/* ==========================================================================
+   The How can we help? band and the footer, as the home page carries them.
+
+   Every class here is prefixed — .jby-band / .jb-* for the band, .jby-footer /
+   .jf-* for the footer — because this block is dropped into thirty-odd pages
+   that each grew their own .help, .expert, .foot-grid and .foot-col. A prefix
+   is the one way to be sure none of that reaches in. The two element
+   selectors that could still reach in, `footer{...}` and `section{...}`, are
+   outranked by naming the element and the class together.
+
+   The tokens are the page's own, with the home page's values as fallbacks, so
+   this works on a page that carries jby-system.css and on one that does not.
+   ========================================================================== */
+
+/* ---- the band ------------------------------------------------------------
+   The shape is the plain band's: 315 tall, centred, 40 of side padding. The
+   photograph and the flat black over it are what the home page added.
+
+   The drift: the image layer is taller than the band and is moved against it
+   on scroll, so the photograph is centred exactly when the band is centred in
+   the window and pans either side of that. The layer is inset -55% top and
+   bottom, more than the furthest extreme reaches, so no edge comes into view.
+   The handler is in the script beside this. */
+section.jby-band{position:relative;overflow:hidden;margin-top:88px;
+  background:var(--navy,#41647b);color:#fff;padding:0 40px;text-align:center;min-height:315px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center}
+.jby-band .jb-bg{position:absolute;inset:-55% 0;z-index:0;will-change:transform}
+.jby-band .jb-bg-inner{position:absolute;inset:0;background-size:cover;background-position:center}
+/* One flat black over the whole band, the same weight top to bottom. */
+.jby-band .jb-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:rgba(0,0,0,0.55)}
+.jby-band .jb-body{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
+  max-width:820px}
+.jby-band h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;
+  letter-spacing:0;text-transform:uppercase;color:#fff;margin:0 0 12px}
+.jby-band p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;
+  color:rgba(255,255,255,0.95);margin:0 0 28px;max-width:640px;font-style:normal}
+/* Rule 4 of jby-system.css: a button standing on a photograph is a veil the
+   image shows through with white type, not a slab. */
+.jby-band .jb-btn{display:inline-flex;align-items:center;justify-content:center;text-align:center;gap:10px;
+  height:48px;padding:0 32px;background:var(--jby-veil,rgba(255,255,255,0.28));color:#fff;
+  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
+  text-transform:uppercase;border:0;cursor:pointer;transition:background .25s;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.jby-band .jb-btn:hover{background:var(--jby-blue-d,var(--navy-d,#365466))}
+
+/* The rise. Nothing is hidden until the script has said it is running, so a
+   page whose JS never gets there still shows the band rather than three
+   invisible lines. */
+html.jb-rise-ready .jby-band [data-rise]{opacity:0;transform:translate3d(0,24px,0);
+  transition:opacity .7s cubic-bezier(0.22,1,0.36,1),transform .7s cubic-bezier(0.22,1,0.36,1)}
+html.jb-rise-ready .jby-band [data-rise].jb-in{opacity:1;transform:none}
+html.jb-rise-ready .jby-band [data-rise="1"]{transition-delay:.08s}
+html.jb-rise-ready .jby-band [data-rise="2"]{transition-delay:.16s}
+
+@media (max-width:680px){
+  section.jby-band{padding:64px 24px;min-height:0}
+  /* One line, the way the rest of the site sets this title on a phone. */
+  .jby-band h2{white-space:nowrap;font-size:clamp(16px,5.8vw,28px);line-height:1.25}
+  .jby-band .jb-btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  html.jb-rise-ready .jby-band [data-rise]{opacity:1;transform:none;transition:none}
+}
+
+/* ---- the footer ----------------------------------------------------------
+   On the brand blue: the roundel, two columns of links with Locations and
+   Pages down the left and contact flush right, the legal line, and the white
+   back-to-top. */
+footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
+  color:rgba(255,255,255,0.85);font-size:16px;position:relative;border-top:0}
+.jby-footer .jf-inner{max-width:1440px;margin:0 auto}
+.jby-footer .jf-logo{width:72px;height:72px;border-radius:50%;overflow:hidden;margin:0;
+  background:transparent;flex:0 0 auto;display:flex;align-items:center;justify-content:center}
+.jby-footer .jf-logo img{width:100%;height:100%;display:block;object-fit:contain;filter:none}
+/* Locations and Contact are the same heading, so the two columns start on one
+   line. */
+.jby-footer .jf-cols{display:flex;justify-content:space-between;align-items:flex-start;gap:48px;margin-top:38px}
+.jby-footer .jf-contact{display:flex;flex-direction:column;align-items:flex-end;text-align:right}
+/* Two faces, as the mockup draws them: the headings in the display face, the
+   rows of links under them in the body one. It is the body face that lets the
+   eight cities sit on a single line — the same string set in Mesmerize is
+   half as wide again, and wraps. */
+.jby-footer .jf-h{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:17px;line-height:26px;
+  letter-spacing:0;text-transform:uppercase;color:#fff;margin:0 0 8px}
+.jby-footer .jf-lists .jf-row{margin-bottom:28px}
+.jby-footer .jf-lists .jf-row:last-child{margin-bottom:0}
+/* One line of links with slashes between them, wrapping as a line of text
+   would. The gap does the spacing on both sides of each slash, so the row
+   stays even however it breaks. */
+.jby-footer .jf-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 9px;
+  font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:15px;line-height:22px;letter-spacing:0.01em;
+  text-transform:uppercase}
+.jby-footer .jf-row a{color:rgba(255,255,255,0.85);text-decoration:none;transition:color .2s}
+.jby-footer .jf-row a:hover{color:#fff}
+.jby-footer .jf-sep{color:rgba(255,255,255,0.4)}
+/* The address and the number are the display face again, a step under the
+   heading. 12px is the floor this site keeps for something meant to be read
+   and tapped. */
+.jby-footer .jf-contact a{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:12px;line-height:24px;
+  letter-spacing:0.02em;text-transform:uppercase;color:#fff;text-decoration:none;transition:color .2s}
+.jby-footer .jf-contact a:hover{color:rgba(255,255,255,0.7)}
+.jby-footer .jf-social{display:flex;gap:12px;margin-top:20px;align-items:center}
+.jby-footer .jf-social a{width:24px;height:24px;color:#fff;display:flex;align-items:center;justify-content:center;
+  transition:opacity .2s}
+.jby-footer .jf-social a svg{width:24px;height:24px;display:block}
+.jby-footer .jf-social a:hover{opacity:0.6}
+/* The legal line, in the body face and dimmer than everything above it — the
+   one row in the footer that is read only when it is looked for. */
+.jby-footer .jf-legal{display:flex;justify-content:space-between;align-items:baseline;gap:24px;margin-top:32px;
+  font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:14px;line-height:22px;
+  color:rgba(255,255,255,0.65)}
+.jby-footer .jf-legal p{margin:0}
+.jby-footer .jf-legal-links{display:flex;flex-wrap:wrap;gap:6px 12px}
+.jby-footer .jf-legal-links a{color:rgba(255,255,255,0.65);text-decoration:none;transition:color .2s}
+.jby-footer .jf-legal-links a:hover{color:#fff}
+.jby-footer .jf-legal-links .jf-sep{color:rgba(255,255,255,0.35)}
+/* A white tile with a dark chevron, not the veil the rest of the blue carries:
+   it is the one control in the footer and the mockup gives it the contrast.
+   The class is named twice to get above the :is() icon rule in
+   jby-system.css, which would otherwise hover this to the footer's own blue
+   and dissolve it into the background. */
+.jby-footer .jf-top{position:absolute;right:40px;top:48px;width:46px;height:46px;border:0;
+  background:var(--paper,#fcfcfd);border-radius:2px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;color:var(--ink,#2f2f39);
+  transition:background .2s,color .2s}
+.jby-footer .jf-top.jf-top:hover{background:var(--navy-d,#365466);color:#fff}
+.jby-footer .jf-top svg{width:20px;height:20px;display:block;transform:rotate(-90deg)}
+
+/* On a phone the two rows become columns: four items down each, flowing into
+   a second column beside them. The slashes go with the change — they are a
+   device for a line of text, not for a list. */
+@media (max-width:640px){
+  footer.jby-footer{padding:32px 24px 28px}
+  .jby-footer .jf-cols{flex-direction:column;gap:32px}
+  .jby-footer .jf-contact{align-items:flex-start;text-align:left}
+  .jby-footer .jf-row{display:grid;grid-auto-flow:column;grid-template-rows:repeat(4,auto);
+    grid-auto-columns:max-content;gap:10px 28px}
+  .jby-footer .jf-row .jf-sep{display:none}
+  /* 8px between the address and the number. The direct child, so the social
+     marks below are left alone. */
+  .jby-footer .jf-contact > a + a{margin-top:8px}
+  .jby-footer .jf-legal{flex-direction:column;gap:10px}
+  .jby-footer .jf-top{right:24px;top:28px;width:40px;height:40px}
+}
+</style>
 </head>
 <body>
 <div class="progress"><div class="progress-bar"></div></div>
@@ -515,54 +662,77 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
   </div>
 </section>
 
-<footer>
-  <div class="foot-grid">
-    <div>
-      <div class="foot-logo" aria-label="JBY"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI3LjguMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA3MDAgNzAwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA3MDAgNzAwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9Cgkuc3Qxe2Rpc3BsYXk6bm9uZTtmaWxsOiNGRkZGRkY7fQoJLnN0MntkaXNwbGF5Om5vbmU7fQoJLnN0M3tkaXNwbGF5OmlubGluZTtmaWxsOiNGRkZGRkY7fQo8L3N0eWxlPgo8Zz4KCTxnPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0zNTAuMSwxNC45Yy0xODQuOSwwLTMzNS4yLDE1MC40LTMzNS4yLDMzNS4yczE1MC40LDMzNS4yLDMzNS4yLDMzNS4yYzE4NC45LDAsMzM1LjItMTUwLjQsMzM1LjItMzM1LjIKCQkJUzUzNSwxNC45LDM1MC4xLDE0Ljl6IE0zNTAuMSw2NTkuOUMxNzkuMyw2NTkuOSw0MC40LDUyMSw0MC40LDM1MC4yczEzOS0zMDkuNywzMDkuNy0zMDkuN2MxNzAuOCwwLDMwOS43LDEzOC45LDMwOS43LDMwOS43CgkJCVM1MjAuOSw2NTkuOSwzNTAuMSw2NTkuOXoiLz4KCTwvZz4KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0zNTAuMSwxNDQuM2MtMTEzLjUsMC0yMDUuOSw5Mi40LTIwNS45LDIwNS45czkyLjQsMjA1LjksMjA1LjksMjA1LjlTNTU2LDQ2My43LDU1NiwzNTAuMgoJCVM0NjMuNiwxNDQuMywzNTAuMSwxNDQuM3ogTTM1MC4xLDU0My4zYy0xMDYuNSwwLTE5My4xLTg2LjYtMTkzLjEtMTkzLjFzODYuNi0xOTMuMSwxOTMuMS0xOTMuMXMxOTMuMSw4Ni42LDE5My4xLDE5My4xCgkJUzQ1Ni42LDU0My4zLDM1MC4xLDU0My4zeiIvPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTM1MC4xLDE3MC45Yy05OSwwLTE3OS4zLDgwLjMtMTc5LjMsMTc5LjNjMCwxLjYsMC4xLDMuMSwwLjEsNC43YzYuNS0xMC4xLDE1LjQtMTguMiwyNC4zLTIyLjQKCQljLTUuNS0yMCwxMS45LTI3LjQsMzAuNy0yNC42YzE4LjEsMi42LDMyLjYsMTIuOCw0Ni44LDIxLjVjMTguNiwxMS4zLDQzLjQsMzAuNCw2NS44LDE2Yy0zLjksNi0xNiw4LTI2LDYuNgoJCWMtMTEuOS0xLjctMjEuMi04LjEtMzAuNy0xMy40Yy05LjctNS40LTE4LjgtMTAuOC0yNy4zLTE1LjdjMTMuOSwxMC4yLDI5LjgsMTguNyw0NS4zLDI3LjZjLTYuNSwwLjEtMTEuNSwxLjktMTUuNCw1CgkJYy0xMy03LjYtMjUuMy0xNS44LTM3LjUtMjRjMTAsOC4zLDIzLjEsMTcuNSwzNi4xLDI0LjdjLTMuNCwzLjgtNi40LDguMi02LjcsMTUuM2MtNS40LTQuNC0xMC45LTkuOC0xNi45LTE0LjgKCQljLTUuOS00LjktMTIuMS05LjctMTguMy0xNC4xYzEwLjcsOS43LDI1LjEsMTkuOSwzNC42LDMxLjdjLTAuMiwxMy4xLDIuMSwyNC4yLDMuOCwzNS45Yy0xMS4xLTIyLjMtMjgtNDMuNi00Ni42LTYxLjYKCQljMTAuNiwxMi44LDI0LjYsMjYuNiwzNSw0My4xYzEwLjEsMTUuOSwxOS4yLDM1LjQsMTcuNSw1Ny41Yy0wLjgsMTAuMy00LjEsMTguMi0xMC4yLDIzLjhjMy42LTcuMSw3LjUtMTMuNiw3LjktMjQKCQljMC45LTIzLjUtMTAuNy00Mi42LTIyLjctNjBjLTUuNy04LjMtMTEuOC0xNi0xOC45LTI0LjFjLTcuMy04LjQtMTYuOS0xOS42LTMwLjUtMjAuOWMtMTMtMS4zLTE5LDQuMi0yNC4xLDE2LjQKCQljLTYuMiwxNS05LjYsNDMsNC42LDczLjljMjkuMyw1NS4zLDg2LjcsOTMuMywxNTMuMiw5NS4zYzUyLjEtMS40LDAuMS0xMDIsNDMuNy0xMzkuMmM2LjEtNS4yLDEyLjktMTAuNyw4LjMtMTkuNgoJCWMtNi4yLTEyLTIxLTMyLjItMjIuNi0zNS4ybDIuOC04LjFsLTguNiwxNi41Yy02LjEsMTAuNi0xMC43LDIzLjYtMTUuNiwzNC45Yy0zLjQsMTcuMywwLDQ3LjctMi43LDY4LjJjLTAuOCw2LTAuNSwxNS41LTQuNCwyMC40CgkJYy01LjksNy41LTE1LDYuNy0yMy4zLDguNmMtNC4yLDEtNy41LDIuMi03LjUsMi4yYy0xLjYtMy41LDAuOS00LjEsNC4zLTVjMTEuOS0zLDExLjItNi4yLDYuNS02LjZjLTMuOS0wLjMtMTAuNSwxLjktMTQsMy41CgkJYy00LjIsMi03LjUsMy4xLTkuNCwzYy0yLjUsMC0zLjEtMS44LTIuOS0xLjljNS45LTEsMTYtNy4yLDIyLjEtMTAuMWMtMC4xLDAuMywxMy40LDIuNywxOS4zLDAuOGMyLjgtMywzLjItMTEuNSwxLjYtMjcuNwoJCWMtMS43LTE2LjItMi4xLTM0LjgtMC40LTU2LjRsMCwwbDAsMGMzLjItNy44LDEyLjYtMzAuMSwxOS4zLTQ2LjljNy4xLTE3LjksMTQtMjkuOCwyNy4yLTIyLjNjMS44LDEsNS40LTExLjYsNy40LTIwLjgKCQljMS42LTEuNC0zOS4xLDIwLjEtNzguNSwxOS40Yy0xMS4yLTAuMi0yMy40LTIuNy0zNC43LTcuM2MyLjktMC4xLDUuOS0wLjEsOC45LDBjMTAtMC42LDIwLjktMS4yLDMxLjktMi4zCgkJYzEwLjgtMS45LDIxLjYtNC4zLDMxLjgtNy40YzE1LTUuOSwyOC43LTEyLjksNDAuNS0yNC4yYzAuMSwwLDAuMS0wLjEsMC4xLTAuMWMwLjYtMC42LDEuMS0xLjEsMS43LTEuNmwwLDBjMCwwLDAsMCwwLjEtMC4xbDAsMAoJCWMwLDAsMCwwLDAuMS0wLjFjMC40LTAuNCwwLjgtMC44LDEuMS0xLjJsMCwwbDAsMGMwLjItMC4yLDAuMy0wLjQsMC41LTAuNWMtMTIuMSw5LjEtMjQuNSwxNi0zOC41LDIwLjQKCQljLTI4LjMsOC45LTcyLjMsMTIuMi05Ny45LTMuM2MtMTMuMS03LjktMjQuMi0yNC4yLTE5LjktNDQuM2MzLjEtMTQuOSwxOS42LTMwLjIsMzUuMy0yNi4zYy0xMSwyLjItMjEuMSwxMi45LTIxLjUsMjYuMwoJCWMtMC42LDE2LjcsMTcuNywzMy42LDQxLjYsMjYuNmMtOC43LDMuNS0xOC4yLDQuNS0yNy40LDEuN2MtOS45LTMuNC0xNy40LTExLjUtMTkuNi0yMi40Yy0wLjktNS45LTAuMi0xMS45LDIuNi0xNy4yCgkJYy0yLjcsMi45LTMuNyw4LjEtNCwxMS45Yy0wLjUsMTEsNC45LDIwLDEyLjgsMjYuOGMyOS4yLDI0LjksMTIxLTUxLjksMTUxLjEtMjIuMWM0LjksNC45LDUuMSwxNCw4LjQsMTcuMwoJCWMzLjgsMy43LDkuNiwwLjcsNi4xLDcuMWMtMC45LDEuNy0wLjcsMi42LTAuMywzLjJjMC44LDEuMiwyLjIsMC44LDIsMi41Yy0wLjQsMy0yLjgsMS45LTIuOSwzYzAsMC40LDEuNy0wLjgsMi40LDEuMwoJCWMwLjUsMS42LTAuNCwyLjMtMS4xLDMuM2MtMC42LDAuOC0wLjQsMi42LDAsMy4zYzEuNiwzLDAsNC40LTEuOCw1LjNjLTMuMiwxLjYtOC4xLDAuMS0xMS41LDEuOGMtNi4zLDMuMy0xMS4yLDIyLjItMTAuMiwyOS4xCgkJYzEuNiwxMC44LDgsMTUuNSwxNi40LDIyLjVjMS43LDEuNCwzLjUsNC42LTIuOCwxMi42YzguMSwyNi4zLTAuNCw0MS41LDAuNSw3NWMwLjEsMS4zLDAuMiwzLjQsMC40LDUuNAoJCWM1LjIsMzcuOCwxMS41LDcxLjEsOS40LDc3LjljNTkuNC0yOS4yLDEwMC40LTkwLjMsMTAwLjQtMTYxQzUyOS41LDI1MS4xLDQ0OS4yLDE3MC45LDM1MC4xLDE3MC45eiBNMzAyLjMsMjkxLjQKCQljMzAuNSwxLjksNjAuMy0zLjcsODUuOS0xOS42Yy0yNC4yLDE4LjMtNTYuOCwyNi4yLTg3LjQsMjUuNGMtMTUuOS0wLjQtMzAuNi0zLjQtNDMuNi0xMy43QzI3Mi40LDI4Ny4zLDI4Ny4zLDI5MC41LDMwMi4zLDI5MS40egoJCSBNMzM0LjcsMjQ4LjhjLTQuNS01LjgtMTEuNS0xMi45LTIxLjktMTkuNmMtMjQuNC0xNS43LTM5LjktNy0zOS45LTdjNi4xLTIuNiwxNi44LTEuNCwyMi45LDAuNGMxNC42LDQuMywyOCwxNS41LDM3LDI3bC0xNS4yLDYuMQoJCWMwLDAtMTguNS0xNi4yLTMzLjMtMjMuNmMtMTQuOS03LjQtMjQuMy02LTI0LjMtNnMwLjQtMSwxLjEtMi41YzIuOS01LjQsOS05LjcsMTQuMy0xMi4xYzMwLjQtMTMuOCw2Ny4zLDE2LDc2LjYsMzBMMzM0LjcsMjQ4Ljh6CgkJIE00OTkuMSwzMTYuM2MtMTIuMiwyOS4yLTUxLjIsNDMuMS03NS41LDIyLjljLTguNC03LTE0LjctMTEuNi0xNi4yLTIyLjNjLTAuNC0yLjQsMC02LjMsMC45LTEwLjVjMi40LDMuMiwxMywxNywzNC45LDI0LjEKCQljMjUuNyw4LjMsMzUuOS02LjcsMzUuOS02LjdjLTQuMyw1LjEtMTMuNyw3LjUtMTkuNCw3LjhjLTE2LjgsMC43LTM1LjUtMTAuNi00Ny4xLTIyLjljLTEuNy0xLjgtMi45LTMuNC0zLjctNC43CgkJYzEtMy42LDIuMy03LjMsMy44LTEwLjJjMjIuNiwxNy42LDQ1LjIsMzMuNCw2NC44LDIzLjdjOS4zLTQuNiwxNS45LTEyLjgsMTcuMy0yMy43YzAuNC0zLjksMC4yLTkuMS0xLjktMTIuNQoJCWMxLjksNS43LDEuNSwxMS44LTAuNCwxNy40Yy00LDEwLjMtMTIuOSwxNi43LTIzLjIsMTguMWMtOS41LDAuOS0xOC42LTEuOS0yNi42LTcuMWMyMi4yLDExLjcsNDMuMS0xLjMsNDUuNS0xNy44CgkJYzMuMi0yMi4zLTIxLjYtNDIuNC0zOC41LTI1LjRjLTIuOCwyLjktNC40LDYuNS01LjIsMTAuNWMtMS0wLjYtMC44LTMuMy0wLjctNC4zYzEuMy05LjUsOS40LTE1LjIsMTguMS0xNi44CgkJYzIuMi0wLjIsNC40LTAuMyw2LjgtMC4xYzE1LjUsMi4yLDI2LDEzLjgsMzEuMSwyOC41YzAuOSwzLjQsMS42LDYuOCwyLDEwLjRjMC4yLDMuNiwwLjEsNy4zLTAuMiwxMC45CgkJQzUwMSwzMDkuMSw1MDAuNSwzMTIuOSw0OTkuMSwzMTYuM3oiLz4KCTxnPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xMjMuNSw1MjMuNGwzMC45LTI2LjZjMi40LTIuMSw0LjgtMy40LDcuMy00LjFzNC45LTAuOCw3LjQtMC4zYzIuNCwwLjUsNC44LDEuNSw3LjIsMy4xCgkJCWMyLjMsMS42LDQuNiwzLjYsNi44LDYuMWMxLjcsMiwzLjMsNC4yLDQuOCw2LjZjMS41LDIuNSwyLjcsNS4xLDMuNSw3LjlsLTYuMSw0LjFjLTEuMi0zLTIuNC01LjQtMy42LTcuMgoJCQljLTEuMS0xLjgtMi4yLTMuNC0zLjMtNC42Yy0xLjQtMS42LTIuOS0zLTQuNC00Yy0xLjYtMS4xLTMuMS0xLjgtNC43LTIuMWMtMS42LTAuMy0zLjItMC4zLTQuOSwwLjJzLTMuMywxLjQtNC45LDIuOEwxMzAsNTMwLjcKCQkJTDEyMy41LDUyMy40eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik04NC43LDQ1Ni43bDcuMS0zLjZsMTkuMywzNy41bDE0LjktNy43bC0xOS4xLTM3LjFsNi43LTMuNWwxOS4xLDM3LjFsMTYuMi04LjRsLTE5LjQtMzcuN2w3LjEtMy42bDIzLjgsNDYuMwoJCQlsLTUyLDI2LjhMODQuNyw0NTYuN3oiLz4KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNjYuMSwzODIuOWw3LjgtMS42bDguMiwzOS4ybDE4LjItMy44bC04LjEtMzguOGw3LjMtMS41bDguMSwzOC44bDIzLjktNWwyLDkuNGwtNTcuMiwxMkw2Ni4xLDM4Mi45eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik02Ny4yLDMwOWw3LjksMC40bC0yLDQwbDE4LjYsMC45bDItMzkuNmw3LjUsMC40bC0yLDM5LjZsMjQuNCwxLjJsLTAuNSw5LjZsLTU4LjQtM0w2Ny4yLDMwOXoiLz4KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNOTcuMiwyMTkuM2MxLjYtMy4zLDMuNC02LjEsNS40LTguMWMyLTIuMSw0LTMuNiw2LjEtNC41czQuMS0xLjMsNi4yLTEuM2MyLjEsMC4xLDQsMC42LDUuOSwxLjUKCQkJYzIuNywxLjMsNC42LDMuMSw1LjYsNS4zczEuNCw0LjYsMS4zLDcuMmMxLjItMS4xLDIuNS0yLDMuOC0yLjhjMS40LTAuOCwyLjgtMS4zLDQuNC0xLjdjMS41LTAuNCwzLjEtMC41LDQuNy0wLjMKCQkJYzEuNiwwLjEsMy4xLDAuNiw0LjcsMS40YzIsMSwzLjcsMi4zLDUuMSw0LjFjMS40LDEuOCwyLjQsMy44LDMsNi4yczAuNyw1LDAuMyw3LjhjLTAuNCwyLjktMS4zLDUuOC0yLjgsOWwtMTYuMSwzM2wtNTIuNi0yNS42CgkJCUw5Ny4yLDIxOS4zeiBNMTA4LjYsMjUyLjVsMTEuMy0yMy4yYzEuNi0zLjIsMi4xLTYsMS41LTguM2MtMC41LTIuNC0xLjgtNC00LTUuMWMtMS4xLTAuNS0yLjItMC44LTMuNC0wLjgKCQkJYy0xLjIsMC0yLjQsMC4zLTMuNSwwLjljLTEuMiwwLjYtMi4zLDEuNS0zLjQsMi43cy0yLjIsMi44LTMuMSw0LjdsLTEwLjYsMjEuN0wxMDguNiwyNTIuNXogTTEzMS43LDI2My43bDExLjMtMjMuMgoJCQljMC45LTEuOSwxLjUtMy43LDEuOC01LjVjMC4yLTEuNywwLjItMy4zLTAuMS00LjdzLTAuOS0yLjctMS43LTMuOHMtMS45LTEuOS0zLjEtMi41Yy0xLjItMC42LTIuNS0wLjktMy45LTAuOXMtMi43LDAuMy00LDAuOQoJCQljLTEuMywwLjYtMi41LDEuNS0zLjcsMi43cy0yLjEsMi43LTMsNC40TDExMy43LDI1NUwxMzEuNywyNjMuN3oiLz4KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTQ0LDE1My44YzIuNC0yLjYsNC45LTQuNiw3LjMtNS45YzIuNS0xLjMsNC44LTIuMSw3LjEtMi4zczQuNCwwLjEsNi40LDAuOGMyLDAuOCwzLjksMS45LDUuNSwzLjQKCQkJYzEuMywxLjIsMi4zLDIuNSwzLjIsNHMxLjUsMy4xLDEuOCw0LjhzMC4zLDMuNSwwLDUuNHMtMSwzLjktMiw1LjlsMzMuNCwyLjFsLTcuNCw4bC0zMi0yLjNsLTEzLjcsMTQuOWwxOC40LDE3bC02LjUsNy4xCgkJCWwtNDMtMzkuN0wxNDQsMTUzLjh6IE0xNDguOCwxODguNWwxNC0xNS4yYzEuNS0xLjYsMi42LTMuMiwzLjQtNC44YzAuNy0xLjUsMS4xLTMsMS4xLTQuM2MwLTEuNC0wLjItMi42LTAuNy0zLjcKCQkJYy0wLjUtMS4xLTEuMi0yLjEtMi4yLTNjLTAuOS0wLjktMi0xLjUtMy4yLTEuOXMtMi40LTAuNi0zLjgtMC40Yy0xLjMsMC4xLTIuOCwwLjYtNC4yLDEuNWMtMS41LDAuOC0zLDIuMS00LjUsMy43bC0xNCwxNS4yCgkJCUwxNDguOCwxODguNXoiLz4KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMjExLjYsMTAwLjZjNS4yLTIuOSwxMC4yLTQuNywxNS4xLTUuNWM0LjgtMC44LDkuMy0wLjcsMTMuNCwwLjJjNC4xLDAuOSw3LjcsMi42LDEwLjksNC45CgkJCWMzLjIsMi40LDUuNyw1LjIsNy42LDguNmMxLjksMy4zLDIuOSw3LDMuMywxMC45YzAuMywzLjktMC4yLDcuOS0xLjYsMTEuOWMtMS40LDQtMy43LDcuOC02LjksMTEuNWMtMy4yLDMuNy03LjQsNy0xMi42LDkuOQoJCQljLTUuMywyLjktMTAuNCw0LjgtMTUuMiw1LjVzLTkuMywwLjYtMTMuNC0wLjNjLTQuMS0wLjktNy43LTIuNi0xMC45LTVjLTMuMS0yLjQtNS42LTUuMi03LjUtOC41cy0zLTctMy4zLTEwLjkKCQkJYy0wLjMtNCwwLjItNy45LDEuNi0xMS45YzEuNC0zLjksMy43LTcuOCw2LjktMTEuNUMyMDIuMiwxMDYuOCwyMDYuNCwxMDMuNSwyMTEuNiwxMDAuNnogTTIxNS41LDEwNy41Yy0zLjcsMi4xLTYuNyw0LjQtOS4yLDcuMQoJCQljLTIuNCwyLjYtNC4yLDUuNC01LjMsOC4zcy0xLjYsNS44LTEuNCw4LjhjMC4yLDMsMSw1LjgsMi41LDguNXMzLjQsNC45LDUuOCw2LjZjMi40LDEuNyw1LjEsMi45LDguMiwzLjVjMywwLjYsNi4zLDAuNiw5LjgtMC4xCgkJCWMzLjUtMC42LDcuMS0yLDEwLjgtNHM2LjctNC40LDkuMS03YzIuNC0yLjYsNC4xLTUuNCw1LjItOC4zYzEuMS0yLjksMS42LTUuOCwxLjQtOC44Yy0wLjItMy0xLTUuOC0yLjUtOC41cy0zLjUtNC45LTUuOS02LjcKCQkJYy0yLjQtMS43LTUuMi0yLjktOC4yLTMuNXMtNi4zLTAuNi05LjgsMC4xQzIyMi43LDEwNC4xLDIxOS4yLDEwNS41LDIxNS41LDEwNy41eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0yNzUuNSw3Mi4xbDIyLjcsMzlsMTkuMy00NC42bDEuMy0wLjFsMjcuMSwzOS4ybDE0LjYtNDMuMmw5LjUtMS4xbC0yMC4yLDYxLjlsLTEuNCwwLjJsLTI4LjktNDJMMjk5LjIsMTI5CgkJCWwtMS4zLDAuMWwtMzIuMy01NkwyNzUuNSw3Mi4xeiIvPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0zOTguNiw2Ny4xbDQwLjMsNTUuNGwxMS40LTM5LjlsOSwyLjZsLTE2LjIsNTdsLTEuMi0wLjRsLTQwLjQtNTUuNWwtMTEuNCw0MGwtOS0yLjZsMTYuMi01N0wzOTguNiw2Ny4xeiIvPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01MTkuNCwxMTkuOWwyLjgsMzUuMmwzNS40LTEuNWw4LjIsNy4ybC00NCwybC0xOC40LDIwLjlsLTcuMi02LjRsMTguNC0yMC44bC0zLjYtNDQuMUw1MTkuNCwxMTkuOXoiLz4KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNTkxLjgsMTk4LjNsLTMwLjksNjEuOWwtNS43LTlsOC0xNS43bC0xOC4zLTI4LjlsLTE3LjYsMC41bC01LjUtOC43TDU5MSwxOTdMNTkxLjgsMTk4LjN6IE01NTIsMjA2LjQKCQkJbDE0LjQsMjIuN2wxMi4xLTIzLjVMNTUyLDIwNi40eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik02MTksMzA4LjljMS4xLTMuOCwxLjgtNy43LDIuMS0xMS44YzAuMy00LjEtMC4yLTguNS0xLjQtMTMuMmMtMS0zLjgtMi40LTcuMi00LjItMTAuMwoJCQljLTEuOC0zLTMuOS01LjUtNi4zLTcuNWMtMi40LTItNS4xLTMuMy04LjEtNHMtNi4yLTAuNi05LjYsMC4zYy0zLjUsMC45LTYuMywyLjQtOC42LDQuNXMtNCw0LjYtNS4yLDcuNgoJCQljLTEuMiwyLjktMS44LDYuMS0xLjksOS43Yy0wLjEsMy41LDAuMyw3LjEsMS4zLDEwLjhjMC42LDIuNCwxLjUsNC43LDIuNSw2LjljMSwyLjIsMi4yLDQuMSwzLjQsNS45YzEuMywxLjgsMi43LDMuMyw0LjIsNC42CgkJCWMxLjUsMS4zLDMuMiwyLjIsNC45LDIuOWwtMy4xLDguNGMtMi40LTEtNC42LTIuMy02LjctNGMtMi4xLTEuNy0zLjktMy43LTUuNi02LjFjLTEuNy0yLjMtMy4xLTQuOC00LjMtNy42CgkJCWMtMS4yLTIuOC0yLjItNS42LTMtOC42Yy0xLjQtNS4zLTEuOS0xMC4zLTEuNy0xNS4yYzAuMi00LjksMS4yLTkuMywyLjktMTMuMmMxLjctMy45LDQuMS03LjMsNy4zLTEwLjFjMy4xLTIuOCw2LjktNC44LDExLjQtNS45CgkJCWM0LjQtMS4yLDguNy0xLjMsMTIuNy0wLjNjNCwwLjksNy43LDIuNywxMSw1LjRjMy4zLDIuNiw2LjIsNiw4LjcsMTAuMnM0LjUsOC45LDUuOCwxNC4yYzEuNSw1LjgsMi4yLDExLjMsMiwxNi41CgkJCXMtMSw5LjktMi40LDE0LjFMNjE5LDMwOC45eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik02MzUuNCwzNDhsLTI0LjUtMS41bC0yLjQsMzkuMmwyNC41LDEuNWwtMC42LDkuNmwtNTguNC0zLjVsMC42LTkuNmwyNiwxLjZMNjAzLDM0NmwtMjUuOS0xLjZsMC42LTkuNgoJCQlsNTguNCwzLjVMNjM1LjQsMzQ4eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik02MDgsNDc0LjRsLTcuNS0yLjdsOC4yLTIyLjdsLTQ3LjUtMTcuMmwzLjMtOS4xbDQ3LjUsMTcuMmw4LjItMjIuNmw3LjUsMi43TDYwOCw0NzQuNHoiLz4KCQk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNTU4LDUyOC40YzMuNi0yLjMsNy01LjEsMTAuNC04LjFjMy40LTMuMSw2LjMtNi40LDguOS05LjljMy4xLTQuMyw0LjgtOC4xLDUuNC0xMS40CgkJCWMwLjUtMy4zLTAuNC01LjktMi45LTcuN2MtMS44LTEuMy0zLjYtMS41LTUuNi0wLjhjLTEuOSwwLjgtNC4zLDIuMy03LDQuN2MtMS4yLDEtMi41LDIuMi0zLjksMy42cy0yLjksMi44LTQuNSw0LjMKCQkJYy0xLjUsMS41LTMuMSwyLjktNC43LDQuM2MtMS42LDEuNC0zLjEsMi43LTQuNiwzLjljLTEuOCwxLjQtMy42LDIuNi01LjIsMy42Yy0xLjYsMS0zLjIsMS42LTQuOCwxLjljLTEuNiwwLjMtMy4xLDAuMy00LjUsMAoJCQljLTEuNS0wLjMtMy0xLTQuNS0yLjFjLTQuNC0zLjEtNi40LTcuNS02LjEtMTNjMC40LTUuNSwzLjItMTIsOC40LTE5LjNjMS4yLTEuNiwyLjYtMy40LDQuMi01LjRjMS42LTIsMy40LTQsNS4zLTYKCQkJYzEuOS0yLDMuOS0zLjksNi4xLTUuN2MyLjEtMS44LDQuMy0zLjMsNi41LTQuNmw0LjgsNS45Yy0yLDEuMi00LDIuNy02LjEsNC40Yy0yLDEuNy0zLjksMy41LTUuNyw1LjNzLTMuNSwzLjctNS4xLDUuNQoJCQljLTEuNiwxLjktMi45LDMuNi00LjEsNS4yYy0zLjQsNC44LTUuMyw4LjktNS43LDEyLjJjLTAuNCwzLjMsMC43LDUuOSwzLjIsNy42YzEuNywxLjIsMy42LDEuNiw1LjQsMS4xYzEuOS0wLjUsNC4yLTIsNi45LTQuNAoJCQljMS0wLjksMi4xLTEuOSwzLjQtMy4yYzEuMy0xLjMsMi43LTIuNiw0LjItNC4xYzEuNS0xLjQsMy0yLjksNC41LTQuM2MxLjUtMS41LDMuMS0yLjgsNC41LTRjMS44LTEuNSwzLjYtMi44LDUuNC0zLjkKCQkJYzEuOC0xLjEsMy41LTEuOCw1LjItMi4zYzEuNy0wLjQsMy40LTAuNSw1LTAuMmMxLjcsMC4zLDMuMywxLDQuOSwyLjFjMi4yLDEuNSwzLjcsMy41LDQuNSw1LjdjMC45LDIuMywxLjEsNC44LDAuOCw3LjUKCQkJcy0xLjIsNS43LTIuNiw4LjhjLTEuNCwzLjItMy4zLDYuNC01LjcsOS43Yy0yLjksNC02LDcuNi05LjQsMTAuOHMtNyw1LjktMTAuNyw4LjFMNTU4LDUyOC40eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0yNDQuMyw1NzMuOGMtMS0xLjYtMi4xLTMuMi0zLjUtNC42Yy0xLjMtMS41LTMuMS0yLjgtNS4xLTMuOWMtMS43LTAuOS0zLjQtMS42LTUtMS45CgkJCWMtMS43LTAuNC0zLjMtMC41LTQuNy0wLjNjLTEuNSwwLjItMi45LDAuNy00LjEsMS41Yy0xLjMsMC44LTIuMywyLTMuMSwzLjVzLTEuMiwzLTEuMyw0LjZjMCwxLjUsMC4zLDMsMC45LDQuNAoJCQljMC42LDEuNCwxLjYsMi43LDIuOCwzLjlzMi42LDIuMyw0LjMsMy4xYzEuMSwwLjYsMi4yLDEuMSwzLjMsMS40YzEuMSwwLjQsMi4yLDAuNiwzLjIsMC43YzEuMSwwLjEsMi4xLDAuMSwzLDAKCQkJYzEtMC4xLDEuOS0wLjQsMi43LTAuOGwxLjksMy45Yy0xLjEsMC41LTIuNCwwLjktMy43LDFjLTEuMywwLjItMi42LDAuMS00LDBjLTEuNC0wLjItMi43LTAuNS00LjEtMWMtMS40LTAuNS0yLjctMS4xLTQtMS44CgkJCWMtMi4zLTEuMy00LjMtMi43LTYtNC40Yy0xLjYtMS43LTIuOS0zLjUtMy43LTUuNHMtMS4yLTMuOS0xLjItNS45YzAuMS0yLDAuNi00LDEuNy02YzEuMS0yLDIuNC0zLjUsNC4xLTQuNgoJCQljMS43LTEuMSwzLjUtMS44LDUuNi0yLjFjMi0wLjMsNC4yLTAuMiw2LjUsMC4zczQuNiwxLjQsNywyLjdjMi42LDEuNCw0LjcsMyw2LjUsNC44czMuMiwzLjYsNC4yLDUuNkwyNDQuMyw1NzMuOHoiLz4KCQk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMjY2LjgsNTc1LjFsNi4yLDMzLjFsLTQuOS0xLjhsLTEuNS04LjRsLTE1LjYtNS44bC02LjYsNS40bC00LjctMS43bDI2LjQtMjAuOUwyNjYuOCw1NzUuMXogTTI1My44LDU4OS45CgkJCWwxMi4zLDQuNmwtMi4yLTEyLjdMMjUzLjgsNTg5Ljl6Ii8+CgkJPHBhdGggY2xhc3M9InN0MSIgZD0iTTI4OC45LDU4Mi41bC01LjcsMjMuOWwxNy44LDQuMmwtMC45LDMuOGwtMjIuMy01LjNsNi42LTI3LjdMMjg4LjksNTgyLjV6Ii8+CgkJPHBhdGggY2xhc3M9InN0MSIgZD0iTTMxNCw1ODcuNmwtNC41LDI4LjFsLTQuNi0wLjdsNC41LTI4LjFMMzE0LDU4Ny42eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0zNDMuMyw1OTAuNmwtMC4zLDMuOWwtMTkuNC0xLjZsLTAuNyw5bDE5LjIsMS42bC0wLjMsMy42bC0xOS4yLTEuNmwtMSwxMS45bC00LjctMC40bDIuMy0yOC4zTDM0My4zLDU5MC42egoJCQkiLz4KCQk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMzYyLjgsNTg5LjZjMi45LTAuMiw1LjUsMC4xLDcuOCwwLjhzNC4yLDEuNyw1LjgsM2MxLjYsMS4zLDIuOCwyLjgsMy43LDQuNWMwLjksMS43LDEuNCwzLjUsMS41LDUuNAoJCQlzLTAuMiwzLjctMC45LDUuNWMtMC43LDEuOC0xLjgsMy40LTMuMiw0LjhjLTEuNSwxLjQtMy4zLDIuNi01LjUsMy42Yy0yLjIsMC45LTQuNywxLjUtNy42LDEuNmMtMi45LDAuMi01LjYtMC4xLTcuOC0wLjgKCQkJYy0yLjMtMC43LTQuMi0xLjctNS44LTNjLTEuNi0xLjMtMi44LTIuOC0zLjctNC41Yy0wLjktMS43LTEuMy0zLjUtMS40LTUuM2MtMC4xLTEuOSwwLjItMy43LDAuOS01LjVjMC43LTEuOCwxLjgtMy40LDMuMi00LjgKCQkJYzEuNS0xLjQsMy4zLTIuNiw1LjUtMy41QzM1Ny40LDU5MC4zLDM1OS45LDU4OS44LDM2Mi44LDU4OS42eiBNMzYzLDU5My41Yy0yLjEsMC4xLTMuOSwwLjUtNS41LDEuMXMtMywxLjUtNC4xLDIuNQoJCQlzLTEuOSwyLjItMi41LDMuNmMtMC42LDEuMy0wLjgsMi44LTAuNyw0LjJjMC4xLDEuNSwwLjUsMi45LDEuMSw0LjFjMC43LDEuMywxLjYsMi40LDIuOCwzLjNjMS4yLDAuOSwyLjYsMS42LDQuMywyLjEKCQkJYzEuNywwLjUsMy41LDAuNyw1LjYsMC41YzItMC4xLDMuOC0wLjUsNS41LTEuMWMxLjYtMC42LDMtMS41LDQuMS0yLjVzMS45LTIuMiwyLjUtMy41czAuOC0yLjgsMC43LTQuM2MtMC4xLTEuNS0wLjUtMi45LTEuMi00LjIKCQkJcy0xLjYtMi40LTIuOS0zLjNjLTEuMi0wLjktMi42LTEuNi00LjMtMkMzNjYuOSw1OTMuNSwzNjUuMSw1OTMuNCwzNjMsNTkzLjV6Ii8+CgkJPHBhdGggY2xhc3M9InN0MSIgZD0iTTM5OS4yLDU4NS4zYzEuNy0wLjMsMy4yLTAuNCw0LjYtMC4yYzEuMywwLjIsMi41LDAuNiwzLjQsMS4xYzAuOSwwLjYsMS43LDEuMywyLjMsMi4yCgkJCWMwLjYsMC45LDEsMS44LDEuMiwyLjljMC4yLDAuOCwwLjIsMS43LDAuMSwyLjVzLTAuMywxLjYtMC43LDIuNGMtMC40LDAuOC0wLjksMS41LTEuNiwyLjFjLTAuNywwLjctMS41LDEuMi0yLjUsMS43bDEyLjUsMTAuNAoJCQlsLTUuMiwxbC0xMS45LTEwLjFsLTkuNywxLjlsMi40LDEybC00LjYsMC45bC01LjUtMjcuOUwzOTkuMiw1ODUuM3ogTTM5MS4xLDYwMC4zbDkuOC0xLjljMS4xLTAuMiwyLTAuNSwyLjctMC45czEuMy0wLjksMS43LTEuNAoJCQljMC40LTAuNSwwLjctMS4xLDAuOC0xLjdjMC4xLTAuNiwwLjEtMS4yLDAtMS44cy0wLjMtMS4yLTAuNy0xLjdjLTAuMy0wLjUtMC44LTAuOS0xLjQtMS4ycy0xLjMtMC41LTIuMS0wLjYKCQkJYy0wLjgtMC4xLTEuOCwwLTIuOCwwLjJsLTkuOCwxLjlMMzkxLjEsNjAwLjN6Ii8+CgkJPHBhdGggY2xhc3M9InN0MSIgZD0iTTQxNC44LDU4MS42bDMxLjUsMTAuOGwtNi42LTE5LjFsNC4zLTEuNWw5LjUsMjcuMmwtMC42LDAuMmwtMzEuNi0xMC44bDYuNiwxOS4xbC00LjMsMS41bC05LjUtMjcuMgoJCQlMNDE0LjgsNTgxLjZ6Ii8+CgkJPHBhdGggY2xhc3M9InN0MSIgZD0iTTQ1Mi42LDU2Ny40bDExLjksMjUuOGwtNC4zLDJsLTExLjktMjUuOEw0NTIuNiw1NjcuNHoiLz4KCQk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNNDcwLDU1Ny44bDI5LjQsMTYuM2wtNC41LDIuNmwtNy40LTQuMmwtMTQuNCw4LjNsLTAuMSw4LjVsLTQuMywyLjVsMC43LTMzLjZMNDcwLDU1Ny44eiBNNDczLjIsNTc3LjQKCQkJbDExLjMtNi41bC0xMS4yLTYuM0w0NzMuMiw1NzcuNHoiLz4KCTwvZz4KCTxnIGNsYXNzPSJzdDIiPgoJCTxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0yMDMuMyw1NDIuN2wwLjUsMjguNmwyNi43LTEwLjdsMC41LDAuM2wtMTYuOCwyNS41bC0zLjYtMi40bDkuOS0xNWwtMjAuNSw4LjRsLTAuNS0wLjNsLTAuMS0yMS43bC05LjcsMTQuOAoJCQlsLTMuNi0yLjRsMTYuOC0yNS41TDIwMy4zLDU0Mi43eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0yNDEuOSw1NjYuNWwtMTMuNywyNi45bC00LjEtMi4xbDEzLjctMjYuOUwyNDEuOSw1NjYuNXoiLz4KCQk8cGF0aCBjbGFzcz0ic3QzIiBkPSJNMjU5LjYsNTc0LjVjMi44LDEuMSw1LDIuNSw2LjcsNGMxLjcsMS42LDIuOCwzLjMsMy41LDUuMXMxLDMuNiwwLjksNS41cy0wLjUsMy43LTEuMiw1LjRzLTEuNiwzLjMtMi44LDQuNwoJCQljLTEuMiwxLjUtMi43LDIuNi00LjQsMy41Yy0xLjcsMC45LTMuOCwxLjMtNiwxLjRjLTIuMywwLjEtNC45LTAuNS03LjctMS42bC0xMC45LTQuM2wxMS4xLTI4LjFMMjU5LjYsNTc0LjV6IE0yNDMuNCw1OTYuMQoJCQlsNi44LDIuN2MyLDAuOCwzLjgsMS4yLDUuNCwxLjJzMy0wLjMsNC4zLTAuOGMxLjItMC42LDIuMy0xLjQsMy4yLTIuNWMwLjktMS4xLDEuNi0yLjMsMi4yLTMuOGMwLjYtMS40LDAuOS0yLjgsMS00LjIKCQkJcy0wLjEtMi43LTAuNy00Yy0wLjUtMS4zLTEuNC0yLjQtMi42LTMuNXMtMi44LTItNC44LTIuOGwtNi44LTIuN0wyNDMuNCw1OTYuMXoiLz4KCQk8cGF0aCBjbGFzcz0ic3QzIiBkPSJNMjg2LjEsNjAyLjJsLTAuOCwyLjdsLTEyLjEtMy40bDAuOC0yLjdMMjg2LjEsNjAyLjJ6Ii8+CgkJPHBhdGggY2xhc3M9InN0MyIgZD0iTTMwOC45LDU4OC4xbDEwLjQsMzIuOWwtNC45LTAuOWwtMi41LTguNGwtMTQuNi0yLjZsLTUuMiw3bC00LjctMC44bDIxLTI3LjRMMzA4LjksNTg4LjF6IE0yOTkuMyw2MDYuNAoJCQlsMTEuNSwyTDMwNyw1OTZMMjk5LjMsNjA2LjR6Ii8+CgkJPHBhdGggY2xhc3M9InN0MyIgZD0iTTM1MC41LDU5Mi40bC0wLjIsNC4xbC0xMC42LTAuNmwtMS40LDI2bC00LjYtMC4ybDEuNC0yNmwtMTAuNi0wLjZsMC4yLTQuMUwzNTAuNSw1OTIuNHoiLz4KCQk8cGF0aCBjbGFzcz0ic3QzIiBkPSJNMzYwLjMsNTkybDEuNSwyNmwxNi41LTAuOWwwLjIsNC4xbC0yMSwxLjJsLTEuNy0zMC4xTDM2MC4zLDU5MnoiLz4KCQk8cGF0aCBjbGFzcz0ic3QzIiBkPSJNMzk1LjIsNTg3LjdsMjEuMiwyNy4ybC00LjksMC45bC01LjMtN2wtMTQuNiwyLjdsLTIuNSw4LjRsLTQuNywwLjlsMTAuMi0zMi45TDM5NS4yLDU4Ny43eiBNMzkyLjYsNjA4LjEKCQkJbDExLjUtMi4xbC03LjgtMTAuM0wzOTIuNiw2MDguMXoiLz4KCQk8cGF0aCBjbGFzcz0ic3QzIiBkPSJNNDE1LjcsNTgzLjRsMjkuNSwxMi44bC02LjgtMjAuMWw0LjItMS40bDkuOCwyOWwtMC42LDAuMkw0MjIuNCw1OTFsNi44LDIwLjFsLTQuMiwxLjRsLTkuOC0yOUw0MTUuNyw1ODMuNHoKCQkJIi8+CgkJPHBhdGggY2xhc3M9InN0MyIgZD0iTTQ3MC41LDU2MS4ybDEuOCwzLjdsLTkuNSw0LjdsMTEuNiwyMy40bC00LjEsMmwtMTEuNi0yMy40bC05LjUsNC43bC0xLjgtMy43TDQ3MC41LDU2MS4yeiIvPgoJCTxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik00NzksNTU1LjhsMTUuNiwyNS44bC0zLjksMi40bC0xNS42LTI1LjhMNDc5LDU1NS44eiIvPgoJCTxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik01MTAuOSw1NDIuMmMtMS44LDAtMy41LDAuMy01LjMsMC44cy0zLjUsMS40LTUuMiwyLjZjLTEuNCwxLTIuNSwyLjItMy40LDMuNXMtMS41LDIuNi0xLjgsNC4xCgkJCWMtMC4zLDEuNC0wLjMsMi45LDAsNC40czEsMywyLjEsNC40YzEuMSwxLjUsMi4zLDIuNiwzLjcsMy40YzEuNCwwLjgsMi44LDEuMiw0LjIsMS4zYzEuNSwwLjEsMi45LTAuMSw0LjQtMC41CgkJCWMxLjUtMC41LDIuOS0xLjIsNC4zLTIuM2MwLjgtMC42LDEuNi0xLjMsMi4zLTIuMXMxLjMtMS42LDEuNy0yLjRjMC41LTAuOSwwLjgtMS43LDEtMi43YzAuMi0wLjksMC4zLTEuOCwwLjItMi43aDQuMwoJCQljMC4xLDEuMywwLDIuNS0wLjMsMy43cy0wLjgsMi40LTEuNCwzLjVjLTAuNiwxLjEtMS40LDIuMi0yLjMsMy4yYy0wLjksMS0xLjksMS45LTMsMi43Yy0xLjksMS40LTQsMi41LTYuMSwzLjFzLTQuMiwwLjktNi4yLDAuNwoJCQlzLTQtMC44LTUuOC0xLjhzLTMuNS0yLjUtNC45LTQuNHMtMi4zLTMuOS0yLjgtNS45Yy0wLjQtMi0wLjQtNCwwLTZzMS4zLTMuOCwyLjUtNS43YzEuMi0xLjgsMi44LTMuNCw0LjgtNC45CgkJCWMyLjItMS42LDQuNC0yLjgsNi42LTMuNXM0LjQtMSw2LjUtMUw1MTAuOSw1NDIuMnoiLz4KCTwvZz4KPC9nPgo8L3N2Zz4K" alt=""/></div>
-      <nav class="foot-nav">
-        <a href="#top">Home</a>
-        <span class="sep">/</span>
-        <a href="#listings">Portfolio</a>
-        <span class="sep">/</span>
-        <a href="#models">Brands</a>
-        <span class="sep">/</span>
-        <a href="#">Services</a>
-        <span class="sep">/</span>
-        <a href="#">Experiences</a>
-        <span class="sep">/</span>
-        <a href="#about">About JBY</a>
-      </nav>
-    </div>
-    <div class="foot-col">
-      <!-- "Contact us" IS the phone line — placeholder toll-free until a real number is provided -->
-      <h6>Contact us</h6>
-      <p>+1 (888) 693-8099</p>
-      <!-- General company inbox (routes to Audrey) — placeholder address, not final -->
-      <h6>Email</h6>
-      <p>info@jeffbrownyachts.com</p>
-      <h6>Social Media</h6>
-      <div class="foot-social">
-        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.63985 3.13281H16.3198C18.9708 3.13281 21.1198 5.33895 21.1198 8.06035V15.9444C21.1198 18.6658 18.9708 20.8719 16.3198 20.8719H8.63985C5.98888 20.8719 3.83984 18.6658 3.83984 15.9444V8.06035C3.83984 5.33895 5.98888 3.13281 8.63985 3.13281ZM17.0442 8.30519C17.5743 8.30519 18.0041 7.86396 18.0041 7.31967C18.0041 6.7754 17.5743 6.33417 17.0442 6.33417C16.5139 6.33417 16.0841 6.7754 16.0841 7.31967C16.0841 7.86396 16.5139 8.30519 17.0442 8.30519ZM12.4809 7.56761C10.095 7.56761 8.16083 9.55312 8.16083 12.0024C8.16083 14.4517 10.095 16.4372 12.4809 16.4372C14.8667 16.4372 16.8009 14.4517 16.8009 12.0024C16.8034 10.8254 16.3491 9.69588 15.5384 8.86363C14.7276 8.03138 13.6274 7.56498 12.4809 7.56761ZM9.84073 12.0008C9.84073 13.4977 11.0227 14.711 12.4808 14.711C13.9387 14.711 15.1207 13.4977 15.1207 12.0008C15.1207 10.5041 13.9387 9.29069 12.4808 9.29069C11.0227 9.29069 9.84073 10.5041 9.84073 12.0008Z"/></svg></a>
-        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M21 4.88889V18.1111C21 19.1543 20.1543 20 19.1111 20H15.5694C15.3086 20 15.0973 19.7886 15.0973 19.5277V13.8611H17.3073C17.5317 13.8612 17.7251 13.7032 17.77 13.4833L18.11 11.7833C18.1241 11.7147 18.1068 11.6433 18.0631 11.5885C18.0192 11.5339 17.9534 11.5014 17.8833 11.5H15.0973V8.43056C15.0973 8.30016 15.203 8.19444 15.3333 8.19444H17.6944C17.9553 8.19444 18.1667 7.98303 18.1667 7.72223V6.30556C18.1667 6.04476 17.9553 5.83333 17.6944 5.83333H15.3333C13.7685 5.83333 12.5 7.10186 12.5 8.66667V11.5H11.3383C11.0775 11.5 10.8661 11.7114 10.8661 11.9723V13.3889C10.8661 13.6497 11.0775 13.8611 11.3383 13.8611H12.5V19.5277C12.5 19.7886 12.2886 20 12.0277 20H5.88889C4.84568 20 4 19.1543 4 18.1111V4.88889C4 3.84568 4.84568 3 5.88889 3H19.1111C20.1543 3 21 3.84568 21 4.88889Z"/></svg></a>
-        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.7425 4.31649L19.1361 4.45716C20.7859 4.64038 22.0248 6.02396 21.9996 7.65505V15.345C22.0248 16.9761 20.7859 18.3596 19.1361 18.5429L17.7997 18.6836C13.6301 19.1055 9.42722 19.1055 5.25749 18.6836L3.86391 18.5429C2.21405 18.3596 0.975134 16.9761 1.00038 15.345V7.65505C0.975134 6.02396 2.21405 4.64038 3.86391 4.45716L5.20022 4.31649C9.36995 3.8945 13.5728 3.8945 17.7425 4.31649ZM10.6505 14.5197L14.3635 12.0815H14.4208C14.6209 11.9534 14.7416 11.7346 14.7416 11.5C14.7416 11.2654 14.6209 11.0466 14.4208 10.9186L10.7078 8.48029C10.4885 8.3347 10.2055 8.31979 9.97165 8.44152C9.73785 8.56325 9.59145 8.80175 9.59097 9.06172V13.9383C9.60329 14.1802 9.74154 14.399 9.95686 14.5172C10.1722 14.6353 10.4343 14.6364 10.6505 14.5197Z"/></svg></a>
+<footer class="jby-footer">
+  <div class="jf-inner">
+    <div class="jf-logo" aria-label="JBY"><img src="./assets/jby_logo.svg" alt=""/></div>
+
+    <div class="jf-cols">
+      <div class="jf-lists">
+        <h5 class="jf-h">Locations</h5>
+        <!-- Every JBY office, each city linking to its Location Detail page. Site-wide. -->
+        <nav class="jf-row" aria-label="Locations">
+          <a href="#">San Diego</a>
+          <span class="jf-sep">/</span>
+          <a href="#">Newport Harbor</a>
+          <span class="jf-sep">/</span>
+          <a href="#">Marina del Rey</a>
+          <span class="jf-sep">/</span>
+          <a href="#">Sausalito</a>
+          <span class="jf-sep">/</span>
+          <a href="#">Seattle</a>
+          <span class="jf-sep">/</span>
+          <a href="#">Kona</a>
+          <span class="jf-sep">/</span>
+          <a href="#">Charleston</a>
+          <span class="jf-sep">/</span>
+          <a href="#">Wrightsville Beach</a>
+        </nav>
+        <h5 class="jf-h">Pages</h5>
+        <nav class="jf-row" aria-label="Pages">
+          <a href="#">Portfolio</a>
+          <span class="jf-sep">/</span>
+          <a href="#">Brands</a>
+          <span class="jf-sep">/</span>
+          <a href="#">Sell your yacht</a>
+          <span class="jf-sep">/</span>
+          <a href="#">Locations</a>
+          <span class="jf-sep">/</span>
+          <a href="#">Services</a>
+          <span class="jf-sep">/</span>
+          <a href="#">Events</a>
+          <span class="jf-sep">/</span>
+          <a href="#">About JBY</a>
+        </nav>
+      </div>
+
+      <div class="jf-contact">
+        <h5 class="jf-h">Contact</h5>
+        <a href="mailto:info@jeffbrownyachts.com">info@jeffbrownyachts.com</a>
+        <!-- The toll-free line, not one of the offices' own numbers -->
+        <a href="tel:+18886938099">(888) 693 - 8099</a>
+        <div class="jf-social">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.63985 3.13281H16.3198C18.9708 3.13281 21.1198 5.33895 21.1198 8.06035V15.9444C21.1198 18.6658 18.9708 20.8719 16.3198 20.8719H8.63985C5.98888 20.8719 3.83984 18.6658 3.83984 15.9444V8.06035C3.83984 5.33895 5.98888 3.13281 8.63985 3.13281ZM17.0442 8.30519C17.5743 8.30519 18.0041 7.86396 18.0041 7.31967C18.0041 6.7754 17.5743 6.33417 17.0442 6.33417C16.5139 6.33417 16.0841 6.7754 16.0841 7.31967C16.0841 7.86396 16.5139 8.30519 17.0442 8.30519ZM12.4809 7.56761C10.095 7.56761 8.16083 9.55312 8.16083 12.0024C8.16083 14.4517 10.095 16.4372 12.4809 16.4372C14.8667 16.4372 16.8009 14.4517 16.8009 12.0024C16.8034 10.8254 16.3491 9.69588 15.5384 8.86363C14.7276 8.03138 13.6274 7.56498 12.4809 7.56761ZM9.84073 12.0008C9.84073 13.4977 11.0227 14.711 12.4808 14.711C13.9387 14.711 15.1207 13.4977 15.1207 12.0008C15.1207 10.5041 13.9387 9.29069 12.4808 9.29069C11.0227 9.29069 9.84073 10.5041 9.84073 12.0008Z"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M21 4.88889V18.1111C21 19.1543 20.1543 20 19.1111 20H15.5694C15.3086 20 15.0973 19.7886 15.0973 19.5277V13.8611H17.3073C17.5317 13.8612 17.7251 13.7032 17.77 13.4833L18.11 11.7833C18.1241 11.7147 18.1068 11.6433 18.0631 11.5885C18.0192 11.5339 17.9534 11.5014 17.8833 11.5H15.0973V8.43056C15.0973 8.30016 15.203 8.19444 15.3333 8.19444H17.6944C17.9553 8.19444 18.1667 7.98303 18.1667 7.72223V6.30556C18.1667 6.04476 17.9553 5.83333 17.6944 5.83333H15.3333C13.7685 5.83333 12.5 7.10186 12.5 8.66667V11.5H11.3383C11.0775 11.5 10.8661 11.7114 10.8661 11.9723V13.3889C10.8661 13.6497 11.0775 13.8611 11.3383 13.8611H12.5V19.5277C12.5 19.7886 12.2886 20 12.0277 20H5.88889C4.84568 20 4 19.1543 4 18.1111V4.88889C4 3.84568 4.84568 3 5.88889 3H19.1111C20.1543 3 21 3.84568 21 4.88889Z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.7425 4.31649L19.1361 4.45716C20.7859 4.64038 22.0248 6.02396 21.9996 7.65505V15.345C22.0248 16.9761 20.7859 18.3596 19.1361 18.5429L17.7997 18.6836C13.6301 19.1055 9.42722 19.1055 5.25749 18.6836L3.86391 18.5429C2.21405 18.3596 0.975134 16.9761 1.00038 15.345V7.65505C0.975134 6.02396 2.21405 4.64038 3.86391 4.45716L5.20022 4.31649C9.36995 3.8945 13.5728 3.8945 17.7425 4.31649ZM10.6505 14.5197L14.3635 12.0815H14.4208C14.6209 11.9534 14.7416 11.7346 14.7416 11.5C14.7416 11.2654 14.6209 11.0466 14.4208 10.9186L10.7078 8.48029C10.4885 8.3347 10.2055 8.31979 9.97165 8.44152C9.73785 8.56325 9.59145 8.80175 9.59097 9.06172V13.9383C9.60329 14.1802 9.74154 14.399 9.95686 14.5172C10.1722 14.6353 10.4343 14.6364 10.6505 14.5197Z"/></svg></a>
+          <!-- The mockup's fourth mark is a chain link with no service named on
+               it. Drawn as a link until we are told whose it is. -->
+          <a href="#" aria-label="Website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M9.5 13.5a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1.1 1.1"/><path d="M14.5 10.5a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1.1-1.1"/></svg></a>
+        </div>
       </div>
     </div>
-    <div class="foot-col">
-      <!-- Full JBY office list — each city links to its Location Detail page (full address lives there). Site-wide. -->
-      <h6>Locations</h6>
-      <nav class="foot-locs">
-        <a href="#">San Diego</a>
-        <a href="#">Newport Harbor</a>
-        <a href="#">Marina del Rey</a>
-        <a href="#">Sausalito</a>
-        <a href="#">Seattle</a>
-        <a href="#">Kona</a>
-        <a href="#">Wrightsville Beach</a>
-        <a href="#">Charleston</a>
+
+    <div class="jf-legal">
+      <p>&copy; Jeff Brown Yachts, Inc. All Rights Reserved</p>
+      <nav class="jf-legal-links" aria-label="Legal">
+        <a href="#">Privacy Policy</a>
+        <span class="jf-sep">|</span>
+        <a href="#">Terms and Conditions</a>
+        <span class="jf-sep">|</span>
+        <a href="#">Statement of Information</a>
       </nav>
     </div>
   </div>
-  <button class="back-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M13.9842 10.6509L7.7342 16.9009C7.67613 16.9589 7.60719 17.005 7.53132 17.0364C7.45545 17.0679 7.37414 17.084 7.29201 17.084C7.20989 17.084 7.12857 17.0679 7.0527 17.0364C6.97683 17.005 6.9079 16.9589 6.84983 16.9009C6.79176 16.8428 6.74569 16.7739 6.71427 16.698C6.68284 16.6221 6.66667 16.5408 6.66667 16.4587C6.66667 16.3766 6.68284 16.2952 6.71427 16.2194C6.74569 16.1435 6.79176 16.0746 6.84983 16.0165L12.6584 10.2087L6.84983 4.40087C6.73255 4.28359 6.66667 4.12453 6.66667 3.95868C6.66667 3.79283 6.73255 3.63377 6.84983 3.51649C6.9671 3.39922 7.12616 3.33333 7.29201 3.33333C7.45787 3.33333 7.61693 3.39922 7.7342 3.51649L13.9842 9.76649C14.0423 9.82454 14.0884 9.89347 14.1199 9.96934C14.1513 10.0452 14.1675 10.1265 14.1675 10.2087C14.1675 10.2908 14.1513 10.3721 14.1199 10.448C14.0884 10.5239 14.0423 10.5928 13.9842 10.6509Z"/></svg></button>
+  <button class="jf-top" type="button" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M13.9842 10.6509L7.7342 16.9009C7.67613 16.9589 7.60719 17.005 7.53132 17.0364C7.45545 17.0679 7.37414 17.084 7.29201 17.084C7.20989 17.084 7.12857 17.0679 7.0527 17.0364C6.97683 17.005 6.9079 16.9589 6.84983 16.9009C6.79176 16.8428 6.74569 16.7739 6.71427 16.698C6.68284 16.6221 6.66667 16.5408 6.66667 16.4587C6.66667 16.3766 6.68284 16.2952 6.71427 16.2194C6.74569 16.1435 6.79176 16.0746 6.84983 16.0165L12.6584 10.2087L6.84983 4.40087C6.73255 4.28359 6.66667 4.12453 6.66667 3.95868C6.66667 3.79283 6.73255 3.63377 6.84983 3.51649C6.9671 3.39922 7.12616 3.33333 7.29201 3.33333C7.45787 3.33333 7.61693 3.39922 7.7342 3.51649L13.9842 9.76649C14.0423 9.82454 14.0884 9.89347 14.1199 9.96934C14.1513 10.0452 14.1675 10.1265 14.1675 10.2087C14.1675 10.2908 14.1513 10.3721 14.1199 10.448C14.0884 10.5239 14.0423 10.5928 13.9842 10.6509Z"/></svg></button>
 </footer>
 
 <script>

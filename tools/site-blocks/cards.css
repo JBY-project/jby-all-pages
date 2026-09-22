@@ -1,0 +1,73 @@
+/* ==========================================================================
+   The listing card, as the home page carries it — these rules are that page's
+   own, copied across without a word changed, so running the applier over the
+   home page itself does nothing. One rule per selector: the applier swaps each
+   of these over a page's copy and leaves the rest of its card block alone.
+   ========================================================================== */
+
+.vessel-card .v-img-veil{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(54,84,102,0.42) 0%,rgba(54,84,102,0) 38%)}
+
+/* Bottom info — NAVY gradient (original) + white text */
+.vessel-card .info{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:16px 20px 20px;
+  /* --navy-d #365466, a step under --navy, per the client's note that the
+     listing gradients should be a darker JBY blue than #41647b */
+  background:linear-gradient(179.96deg,rgba(54,84,102,0) 22%,rgba(54,84,102,0.82) 62%,rgba(54,84,102,0.94) 100%);
+  backdrop-filter:blur(1px);display:flex;flex-direction:column;gap:12px}
+
+/* Back to the brighter gradient and the heavier blur, which read better.
+
+   Copying the buttons' values did not copy their look, and measuring says why:
+   the two sit on different backdrops. The chip's centre falls at 17.5% of this
+   panel, above the 22% stop where the navy gradient is still fully
+   transparent — so it veils the raw photograph, open bright water. The View
+   button sits at 74%, where that same gradient is already at 0.86 — so it
+   veils near-solid navy. 28% white over dark navy is a clear panel; the same
+   28% over bright water is barely there. Same rule, opposite result.
+
+   So the chip needs its own values to reach the same effect: 0.34 at the top
+   for definition against the water, easing to 0.20 so the photograph still
+   comes through, over a blur heavy enough to settle what texture there is. */
+.vessel-card .chip-loc{background:linear-gradient(180deg,rgba(255,255,255,0.34),rgba(255,255,255,0.20));
+  -webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);
+  color:#fff;padding:5px 12px 4px;font-family:'Mesmerize',sans-serif;
+  font-weight:300;font-size:10px;line-height:15px;letter-spacing:0.07em;text-transform:uppercase;
+  border-radius:2px;align-self:flex-start;display:inline-block}
+
+/* Held to two lines and kept clear of the View button in the corner. Some of
+   these names run to seven words, and a third line pushed the price out of the
+   gradient and onto the photograph.
+
+   min-height is the two-line height, so the box is the same whether the name
+   wraps or not. That is what lines the chip and the first line of the name up
+   across a row: the panel is anchored to the bottom of the card, so a short
+   name used to pull everything above it downwards and a card next to it sat
+   higher. CSS cannot ask whether a sibling wrapped, and reserving the second
+   line costs nothing when it is empty.
+
+   text-wrap:balance evens the two lines out. Left to itself the browser fills
+   line one and drops the remainder onto line two, which on these names gave a
+   186px line over a 39px one — the pyramid. Balanced, the worst pair on the
+   four cards is 150/89 and most are within 20px of each other. Browsers that
+   do not know the property ignore it and wrap as before. */
+.vessel-card .name{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
+  margin:0;text-transform:none;max-width:82%;min-height:56px;text-wrap:balance;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+
+/* The panel's flex gap is 12px between every pair; -8 here narrows only the
+   space under the name, leaving the chip where it is. */
+.vessel-card .price{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
+  margin:-8px 0 0}
+
+/* CTA — rounded square (4px) chevron → wider "View" rounded square on hover */
+.v-cta{position:absolute;bottom:24px;right:24px;z-index:4;
+  height:36px;width:36px;border-radius:0;
+  color:#fff;
+  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;
+  letter-spacing:0;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;
+  padding:0;border:0;cursor:pointer;overflow:hidden;white-space:nowrap;
+  transition:width 1.5s cubic-bezier(0.16, 1, 0.3, 1),
+             padding 1.5s cubic-bezier(0.16, 1, 0.3, 1)}
+
+.vessel-card:hover .v-cta{width:92px;padding:0 16px}

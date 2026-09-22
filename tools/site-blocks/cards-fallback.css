@@ -1,0 +1,9 @@
+/* Rule 3 of jby-system.css, for the pages that do not link that sheet: the
+   veil a button standing on a photograph gets, and the solid blue it fills on
+   hover. The card's chevron is such a button, and without this it has no fill
+   at all. Written at 0,2,0 rather than on .v-cta itself, so that this is an
+   addition to the rule above and not a replacement of it — and so the system
+   sheet, where a page does carry it, still has the last word. */
+.vessel-card .v-cta{background:var(--jby-veil,rgba(255,255,255,0.28));
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.vessel-card .v-cta:hover{background:var(--jby-blue,var(--navy,#41647b));color:#fff}

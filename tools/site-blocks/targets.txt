@@ -1,0 +1,72 @@
+# Every page these three blocks go on, one path per line from the repo root.
+#
+# What is not here: the component labs and the throwaways. JBY-Footer-Variants
+# and Filter-Explorations exist to compare versions of the thing this script
+# standardises, Marketing/Testimonials Variants and the calendar-mobile files
+# are the same, and chat-widget-preview and Site Hub's view.html are not pages.
+# The Events page keeps its V2/V3/V4 explorations out of this too; its
+# index.html is the one that ships.
+#
+# The Site Hub is not here either, and cannot be: build.py assembles it by
+# fetching the deployed pages off GitHub Pages. It picks all of this up on its
+# next run, once these pages are published.
+
+pages/JBY-About-Us/about.html
+pages/JBY-Home-Page/JBY-Home.html
+pages/Jeff Brown Yachts - 404 Page/404.html
+pages/Jeff Brown Yachts - 404 Page/index.html
+pages/Jeff Brown Yachts - About Us Page/JBY-About-Us.html
+pages/Jeff Brown Yachts - About Us Page/index.html
+pages/Jeff Brown Yachts - All Services Page/JBY-All-Services.html
+pages/Jeff Brown Yachts - All Services Page/index.html
+pages/Jeff Brown Yachts - Brand Page (Axopar)/JBY-Brand-Axopar.html
+pages/Jeff Brown Yachts - Brand Page (Axopar)/index.html
+pages/Jeff Brown Yachts - Contact Page/JBY-Contact.html
+pages/Jeff Brown Yachts - Contact Page/contact.html
+pages/Jeff Brown Yachts - Events Page/JBY-Events.html
+pages/Jeff Brown Yachts - Events Page/index.html
+pages/Jeff Brown Yachts - Events Page/office.html
+pages/Jeff Brown Yachts - FAQ Page/index.html
+pages/Jeff Brown Yachts - Home Page (Crisp Chat V2)/JBY-Home.html
+pages/Jeff Brown Yachts - Home Page (Crisp Chat)/JBY-Home.html
+pages/Jeff Brown Yachts - Home Page (Intro Animation)/index.html
+pages/Jeff Brown Yachts - Home Page (Intro V2 Logo Only)/index.html
+pages/Jeff Brown Yachts - Home Page (Intro V3 Arc)/index.html
+pages/Jeff Brown Yachts - Home Page V1/index.html
+pages/Jeff Brown Yachts - Home Page/JBY-Home.html
+pages/Jeff Brown Yachts - Home Search/index.html
+pages/Jeff Brown Yachts - Home Search/search.html
+pages/Jeff Brown Yachts - Home Search/jby.css
+pages/Jeff Brown Yachts - Listing Page/index.html
+pages/Jeff Brown Yachts - Locations Page/index.html
+pages/Jeff Brown Yachts - Mega Menu/JBY-Menu-V1-Light.html
+pages/Jeff Brown Yachts - Mega Menu/JBY-Menu-V2-Dark.html
+pages/Jeff Brown Yachts - Mega Menu/JBY-Menu-V3-Dark-NoPhoto.html
+pages/Jeff Brown Yachts - Office Page/JBY-Office.html
+pages/Jeff Brown Yachts - Office Page/index.html
+pages/Jeff Brown Yachts - Privacy Policy Page/index.html
+pages/Jeff Brown Yachts - Sell Your Yacht Page V2/index.html
+pages/Jeff Brown Yachts - Sell Your Yacht Page V3/index.html
+pages/Jeff Brown Yachts - Sell Your Yacht Page/index.html
+pages/Jeff Brown Yachts - Service & Maintenance Page V2/index.html
+pages/Jeff Brown Yachts - Service & Maintenance Page/index.html
+pages/Jeff Brown Yachts - Statement of Information Page/index.html
+pages/Jeff Brown Yachts - Team Member Page/index.html
+pages/Jeff Brown Yachts - Team Page/JBY-Team-B-Sidebar.html
+pages/Jeff Brown Yachts - Team Page/index.html
+pages/Jeff Brown Yachts - Terms Page/index.html
+pages/Jeff Brown Yachts - Testimonials V2/index.html
+pages/Jeff Brown Yachts - Yacht Management Page/index.html
+pages/Riva-112-Dolcevita-Super/index.html
+pages/jby-event-page-live/index.html
+pages/jby-event-page-live/locations.html
+pages/jby-search/index.html
+pages/jby-search/search.html
+# The two search pages keep their card rules in a stylesheet rather than in
+# the page, so the sheet is a target in its own right. The band and footer
+# passes find nothing in a .css file and leave it alone.
+pages/jby-search/jby.css
+pages/jby-yacht-management/index.html
+pages/riva-112-model-page/index.html
+pages/riva-112-model-page/version-one.html
+pages/riva-112-model-page/version-two.html

@@ -6,6 +6,12 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "4173"],
       "port": 4173
+    },
+    {
+      "name": "jby-pages (npx)",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["-y", "http-server", ".", "-p", "8848", "-c-1", "--silent"],
+      "port": 8848
     }
   ]
 }
