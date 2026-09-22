@@ -696,45 +696,57 @@ a{color:inherit;text-decoration:none}
   color:var(--mute);margin-top:4px;letter-spacing:0}
 
 /* GET EXPERT GUIDANCE */
-.expert{margin-top:var(--section-pad);background:var(--navy);color:#fff;padding:0 40px;text-align:center;height:315px;
+/* The band and the footer have traded colours: this one is the light one now
+   and the footer below it carries the blue. On light grey the type is the
+   navy and ink the rest of the page uses, and the button is the outlined
+   shape .s-link has — a hairline at 18% black over nothing.
+
+   The hover still comes from jby-system.css, which paints every button in a
+   :is(.expert, .help, .cta-band) band with --jby-blue-d rather than the plain
+   --jby-blue. That rule exists because those bands were blue and a button
+   filling with the band's own colour would have vanished into it. Here the
+   reason is gone and the step down is invisible against grey, so it stays
+   until the site-wide pass, when that rule can go back to the plain blue. */
+.expert{margin-top:var(--section-pad);background:var(--section);color:var(--ink);padding:0 40px;text-align:center;height:315px;
   display:flex;flex-direction:column;align-items:center;justify-content:center}
-.expert h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;color:#fff;
+.expert h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;color:var(--navy);
   letter-spacing:0;text-transform:uppercase;margin:0 0 12px}
 .expert p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;
-  color:rgba(255,255,255,0.85);margin:0 0 28px;font-style:normal}
+  color:#2a2a36;margin:0 0 28px;font-style:normal}
 .expert .btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 32px;background:transparent;
-  color:#fff;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
-  text-transform:uppercase;border:0.5px solid #fff;cursor:pointer;transition:.25s}
-.expert .btn:hover{background:rgba(255,255,255,0.14)}
+  color:var(--ink);font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
+  text-transform:uppercase;border:0.5px solid rgba(0,0,0,0.18);cursor:pointer;transition:.25s}
 
-/* FOOTER */
-footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-size:16px;border-top:0.5px solid var(--line);position:relative}
+/* FOOTER — on the brand blue, with the band above it now light.
+   The rule across the top goes with the colour change: it was there to part
+   two light surfaces, and the colour does that on its own now. */
+footer{background:var(--navy);padding:40px 40px 80px;color:rgba(255,255,255,0.75);font-size:16px;position:relative}
 .foot-top{max-width:1440px;margin:0 auto 44px;display:flex;flex-wrap:wrap;align-items:center;gap:20px 32px}
 .foot-brand{display:flex;align-items:center;gap:28px;flex-wrap:wrap;flex:1 1 auto;min-width:0}
 .foot-grid{display:grid;grid-template-columns:312px 1fr 1fr;gap:40px;align-items:flex-start;max-width:1440px;margin:0 auto}
 .foot-col{padding-top:0}
-.foot-logo{width:80px;height:80px;border-radius:50%;overflow:hidden;margin:0;background:#fff;flex:0 0 auto;
+.foot-logo{width:80px;height:80px;border-radius:50%;overflow:hidden;margin:0;background:transparent;flex:0 0 auto;
   display:flex;align-items:center;justify-content:center}
-.foot-logo img{width:100%;height:100%;display:block;object-fit:contain;filter:invert(1)}
+.foot-logo img{width:100%;height:100%;display:block;object-fit:contain}
 .foot-nav{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:24px;letter-spacing:0;
-  text-transform:uppercase;color:var(--ink);display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;max-width:none}
-.foot-nav a{color:var(--ink);text-decoration:none;transition:.2s}
-.foot-nav a:hover{color:var(--navy)}
-.foot-nav .sep{color:var(--mute);opacity:0.4}
+  text-transform:uppercase;color:#fff;display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;max-width:none}
+.foot-nav a{color:#fff;text-decoration:none;transition:.2s}
+.foot-nav a:hover{color:rgba(255,255,255,0.7)}
+.foot-nav .sep{color:rgba(255,255,255,0.45);opacity:1}
 .foot-col h6{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;letter-spacing:0;
-  color:var(--mute);margin:0 0 10px;text-transform:none}
+  color:rgba(255,255,255,0.7);margin:0 0 10px;text-transform:none}
 .foot-col p{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
-  color:var(--ink);margin:0 0 28px;text-transform:uppercase}
+  color:#fff;margin:0 0 28px;text-transform:uppercase}
 .foot-col p:last-child{margin-bottom:0}
 .foot-social{display:flex;gap:16px;margin-top:0;align-items:center;flex:0 0 auto}
-.foot-social a{width:28px;height:28px;color:var(--ink);display:flex;align-items:center;justify-content:center;
+.foot-social a{width:28px;height:28px;color:#fff;display:flex;align-items:center;justify-content:center;
   transition:opacity .2s}
 .foot-social a svg{width:28px;height:28px;display:block}
 .foot-social a:hover{opacity:0.6}
 .back-top{position:absolute;right:40px;top:40px;width:40px;height:40px;border:0;
-  background:rgba(0,0,0,0.7);border-radius:2px;cursor:pointer;
+  background:rgba(255,255,255,0.18);border-radius:2px;cursor:pointer;
   display:flex;align-items:center;justify-content:center;color:#fff;transition:background .2s}
-.back-top:hover{background:rgba(0,0,0,0.85)}
+.back-top:hover{background:rgba(255,255,255,0.3)}
 .back-top svg{width:20px;height:20px;display:block;transform:rotate(-90deg)}
 
 /* ====================================================================== */
@@ -849,8 +861,8 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .region-hide{display:none !important}
 .magnetic{transform:none!important}
 .foot-locs{display:flex;flex-direction:column;gap:14px;margin:0}
-.foot-locs a{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:color .2s}
-.foot-locs a:hover{color:var(--navy)}
+.foot-locs a{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;text-transform:uppercase;color:#fff;text-decoration:none;transition:color .2s}
+.foot-locs a:hover{color:rgba(255,255,255,0.7)}
 /* The View button on the vessel cards, on every device.
 
    It used to be hidden on phones: tapping it latched :hover — the button
