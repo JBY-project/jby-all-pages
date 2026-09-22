@@ -714,8 +714,8 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 /* ============================= MEGA MENU ============================= */
 .mega{position:fixed;inset:0;z-index:1200;visibility:hidden;pointer-events:none}
 .mega.open{visibility:visible;pointer-events:auto}
-.mega-veil{position:absolute;inset:0;background:rgba(0,0,0,0.2);opacity:0;
-  transition:opacity .55s ease;cursor:pointer;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.mega-veil{position:absolute;inset:0;background:rgba(0,0,0,0.10);opacity:0;
+  transition:opacity .55s ease;cursor:pointer}
 .mega.open .mega-veil{opacity:1}
 
 /* theme tokens (only difference between the two versions is data-theme) */
@@ -731,8 +731,9 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .mega.open .mega-panel{transform:translateX(0)}
 
 /* dark version: cinematic image inside the content area only + stroke button */
-.mega[data-theme="dark"] .mega-panel{background:transparent}
-.mega[data-theme="dark"] .mega-detail{background:rgba(0,0,0,0.9)}
+.mega[data-theme="dark"] .mega-panel{background:rgba(65,100,123,0.68);
+  -webkit-backdrop-filter:blur(26px);backdrop-filter:blur(26px)}
+.mega[data-theme="dark"] .mega-detail{background:transparent}
 .mega[data-theme="dark"] .mega-feature,.mega[data-theme="dark"] .mega-scrim{display:none}
 .mega-feature{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;opacity:0;transition:opacity .7s ease}
 .mega-feature.on{opacity:1}
@@ -741,7 +742,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .mega[data-theme="dark"] .mega-pane{z-index:2}
 .mega[data-theme="dark"] .mega-top,
 .mega[data-theme="dark"] .mega-rail,
-.mega[data-theme="dark"] .mega-foot{background:rgba(0,0,0,0.95)}
+.mega[data-theme="dark"] .mega-foot{background:transparent}
 .mega[data-theme="dark"] .mega-foot .mf-cta{background:transparent;color:var(--m-fg);border:0.5px solid rgba(255,255,255,0.75)}
 .mega[data-theme="dark"] .mega-foot .mf-cta:hover{background:rgba(255,255,255,0.14);opacity:1}
 .mega[data-theme="dark"] .mega-foot a.mf-link{color:rgba(255,255,255,0.82)}
@@ -759,7 +760,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .mega-rail{background:var(--m-bg);padding:14px 0;overflow-y:auto}
 .mega-cat{display:flex;align-items:center;justify-content:space-between;gap:16px;width:calc(100% - 32px);
   margin:2px 16px;padding:13px 22px;background:transparent;border:0;border-radius:2px;cursor:pointer;text-align:left;
-  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:1.2;letter-spacing:0.02em;
+  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;line-height:1.2;letter-spacing:0.02em;
   text-transform:uppercase;color:var(--m-fg);transition:color .2s,background .2s}
 .mega-cat .chev{font-size:20px;line-height:1;color:var(--m-mute);transition:color .2s}
 .mega-cat:hover{background:var(--m-hi)}
@@ -767,19 +768,127 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .mega-cat.active .chev{color:var(--m-accent)}
 
 .mega-detail{position:relative;overflow:hidden;background:var(--m-detail)}
-.mega-back{display:none}
+.mega-back,.mega-models-back{display:none}
 
-.mega-pane{position:absolute;inset:0;padding:44px 52px;overflow:hidden;
+/* 27 rather than 44 at the top: it puts the column headings on the same
+   line as the first item in the rail. The rail's first row starts at
+   14px of its own padding plus the button's 2px margin and 13px padding,
+   and the heading's line box sits 2px inside its own box. */
+.mega-pane{position:absolute;inset:0;padding:27px 52px 44px;overflow:hidden;
   display:none;flex-wrap:wrap;gap:34px 60px;align-content:flex-start}
 .mega-pane.on{display:flex;animation:megaFade .55s ease both}
 @keyframes megaFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .mega-col{min-width:0}
-.mega-col h4{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;letter-spacing:0.14em;
+.mega-col a + h4{margin-top:30px}
+.mega-col h4,.mega-models h4{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;letter-spacing:0.14em;
   text-transform:uppercase;color:var(--m-mute);margin:0 0 20px}
-.mega-col a{display:block;width:fit-content;font-family:'Myriad Pro',sans-serif;font-weight:400;
+.mega-col a{display:block;width:fit-content;font-family:'Myriad Pro',sans-serif;font-weight:300;
   font-size:18px;line-height:1;color:var(--m-fg);text-decoration:none;padding:11px 0;
   transition:color .2s,transform .2s}
 .mega-col a:hover{color:var(--m-accent);transform:translateX(6px)}
+.mega-tag{margin-left:10px;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:10px;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--m-mute);vertical-align:1px}
+
+/* The brands pane used to be one narrow column against a wide empty half.
+   Hovering a builder now fills that half with its models. The hairline is the
+   panel's own divider weight, so the two columns read as one pane split rather
+   than two things pushed together. */
+/* No bottom padding on this pane, so the models column reaches the footer's
+   rule and a part-scrolled row is cut by the rule rather than stopping 44px
+   short of it in mid-air. The builders list beside it is far shorter than the
+   pane, so it never notices. */
+/* `nowrap`, so the row shrinks instead of breaking: a wrapping flex line is
+   decided before any shrinking happens, and the models column would drop under
+   the builders rather than let the builders give up their width. */
+.mega-pane[data-pane="brands"]{column-gap:40px;padding-bottom:0;flex-wrap:nowrap}
+/* Shrinkable, and the models column is not: the builders column is as wide as
+   "Builders We Represent" wants to be, which at a 1060px panel leaves the
+   models exactly the room they need and at a 977px one left them 71px and
+   every name broken over three lines. So when the row is tight the heading
+   gives way and wraps, rather than the names. */
+.mega-col-brands{flex:0 1 auto;min-width:0}
+.mega-col-brands a.on{color:var(--m-accent);transform:translateX(6px)}
+.mega-models{position:relative;flex:1 0 320px;min-width:0;max-height:100%;
+  display:flex;flex-direction:column;padding-left:32px}
+/* A border on this column would start and stop with its own content, and the
+   column is only as tall as the models in it. The divider is a rule between
+   two halves of the pane, so it is overrun deliberately at both ends and left
+   to the pane's own `overflow:hidden` to cut it — which clips at the pane's
+   padding box, putting each end exactly on the horizontal rule it meets: the
+   header's above, the footer's below. Same 0.5px at 18% as the rule beside
+   the rail. */
+.mega-models::before{content:'';position:absolute;left:0;top:-999px;bottom:-999px;width:0.5px;
+  background:rgba(255,255,255,0.18);pointer-events:none}
+.mega-models-grid{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);gap:16px;
+  align-content:start;overflow-y:auto;padding-right:12px;
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.28) transparent}
+.mega-models-grid::-webkit-scrollbar{width:4px}
+.mega-models-grid::-webkit-scrollbar-track{background:transparent}
+.mega-models-grid::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.28);border-radius:2px}
+/* Masked rather than covered by a gradient of its own: the pane is 90% black
+   over the hero photograph, so a black overlay would not be the colour it is
+   fading into. A mask fades the rows themselves, whatever is behind them.
+   Only on the edge there is more to scroll towards — a permanent fade would
+   be dimming the last model of a four-model builder for no reason. */
+.mega-models-grid.fade-bottom{-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 56px),transparent);
+  mask-image:linear-gradient(to bottom,#000 calc(100% - 56px),transparent)}
+.mega-models-grid.fade-top{-webkit-mask-image:linear-gradient(to bottom,transparent,#000 56px);
+  mask-image:linear-gradient(to bottom,transparent,#000 56px)}
+.mega-models-grid.fade-top.fade-bottom{
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 56px,#000 calc(100% - 56px),transparent);
+  mask-image:linear-gradient(to bottom,transparent,#000 56px,#000 calc(100% - 56px),transparent)}
+/* A row, not a tile: the frame on the left and the name beside it, centred
+   against the frame's height whether it takes one line or two. */
+.mega-model{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit}
+/* The model frame, 16:9 and cropped rather than letterboxed, over the tile
+   that shows while the file is still loading. Fixed width so every row in the
+   column starts its name on the same edge. */
+.mega-model-shot{position:relative;flex:0 0 112px;aspect-ratio:16/9;border-radius:2px;
+  overflow:hidden;background:rgba(255,255,255,0.2)}
+.mega-model-shot img{display:block;width:100%;height:100%;object-fit:cover;transition:opacity .25s}
+.mega-model:hover .mega-model-shot img{opacity:0.82}
+.mega-model > span + span{flex:1;min-width:0;font-family:'Myriad Pro',sans-serif;font-weight:300;
+  font-size:16px;line-height:1.35;color:var(--m-fg);transition:color .2s}
+.mega-model:hover > span + span{color:var(--m-accent)}
+.mega-models-grid.swap{animation:megaFade .35s ease both}
+
+@media (max-width:976px){
+  /* On a phone the models are a level rather than a column: there is no hover
+     to open them with and no room to stand them beside the builders, so
+     tapping a builder slides its lineup over the list, and the level carries
+     its own way back. Slides in the same 420ms curve as the pane over the
+     rail, so the menu goes one step deeper the way it already goes one step
+     deeper.
+
+     `inset:0` against the pane's padding box, which is why the pane stops
+     scrolling while this is open — a scrolled pane would carry the overlay up
+     with it. */
+  .mega-body.models-open .mega-pane[data-pane="brands"]{overflow:hidden}
+  .mega-models{position:absolute;inset:0;z-index:5;flex:none;max-height:none;
+    padding:16px 24px 24px;background:transparent;border-left:0;
+    transform:translateX(100%);transition:transform .42s cubic-bezier(0.22,1,0.36,1)}
+  .mega-body.models-open .mega-models{transform:translateX(0)}
+  /* The pane's own "Menu" button lives on the detail, above this overlay's
+     stacking context, so it has to stand down while the level is open — this
+     level's way back is its own button, in the same place. */
+  .mega-body.models-open .mega-back{display:none}
+  /* And the list this level replaces stops being painted rather than being
+     covered by 95% black: a level is a level, not a veil over the one under
+     it. `visibility` and not `display`, so the pane it is measured in does not
+     reflow on the way in or out. */
+  .mega-body.models-open .mega-col-brands{visibility:hidden}
+  .mega-col-brands a.on{color:var(--m-fg);transform:none}
+  .mega-models::before{display:none}
+  .mega-models-back{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
+    /* 31px, which is what the level below leaves between its own "Menu"
+       button and "Builders We Represent" — both buttons sit at the same
+       height, so both titles land on the same line too. */
+    margin:0 0 31px;padding:0;background:transparent;border:0;cursor:pointer;color:var(--m-mute);
+    font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;letter-spacing:0.06em;
+    text-transform:uppercase}
+  .mega-models-back:hover{color:var(--m-fg)}
+  .mega-models-grid{gap:16px;padding-right:0}
+}
 
 .mega-foot{flex:none;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
   padding:18px 40px;border-top:0.5px solid var(--m-line);background:var(--m-bg)}
@@ -792,17 +901,21 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   color:var(--m-fg);background:transparent;border:0.5px solid var(--m-fg);border-radius:2px;cursor:pointer;transition:background .25s}
 .mega-foot .mf-cta:hover{background:rgba(0,0,0,0.06)}
 
-@media (max-width:880px){
+@media (max-width:976px){
   .mega-panel{width:100%}
-  .mega[data-theme="dark"] .mega-panel::after{display:none}
+  .mega[data-theme="dark"] .mega-body::after{display:none}
   .mega-body{display:block;position:relative;overflow:hidden}
   .mega-rail{width:100%;height:100%;border-right:0;overflow-y:auto;padding:14px 0}
-  .mega-cat{width:calc(100% - 24px);margin:2px 12px;padding:16px 20px;font-size:19px}
+  .mega-cat{width:calc(100% - 24px);margin:2px 12px;padding:16px 20px;font-size:13px}
   .mega-detail{position:absolute;inset:0;z-index:6;transform:translateX(100%);
     transition:transform .42s cubic-bezier(0.22,1,0.36,1)}
   .mega-body.drill .mega-detail{transform:translateX(0)}
-  .mega[data-theme="dark"] .mega-detail{background:rgba(0,0,0,0.95)}
-  .mega-pane{padding:64px 24px 30px;gap:28px 40px;overflow-y:auto}
+  .mega-body.drill .mega-rail{visibility:hidden}
+  .mega[data-theme="dark"] .mega-detail{background:transparent}
+  /* The scroll area starts below the back button rather than behind it: the
+     pane's 64px of top padding cleared the button only while the list was
+     short enough not to scroll. */
+  .mega-pane{top:56px;padding:8px 24px 30px;gap:28px 40px;overflow-y:auto}
   .mega-back{display:inline-flex;position:absolute;top:16px;left:16px;z-index:4;align-items:center;gap:8px;
     background:transparent;border:0;cursor:pointer;color:var(--m-mute);
     font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;letter-spacing:0.06em;text-transform:uppercase}
@@ -818,7 +931,11 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .mega-foot-split .mf-social a:hover{opacity:1;color:#fff}
 .mega-foot-split .mf-social svg{width:28px;height:28px;display:block}
 .mega-foot-split .mf-l{padding:0 40px 0 52px}
-.mega[data-theme="dark"] .mega-panel::after{content:"";position:absolute;top:96.5px;bottom:0;left:320px;width:0.5px;background:rgba(255,255,255,0.18);z-index:3;pointer-events:none}
+/* Between the two rules, not through them: on `.mega-body` rather than the
+   panel, so it ends at the footer's rule instead of running down behind the
+   footer to the foot of the panel. */
+.mega-body{position:relative}
+.mega[data-theme="dark"] .mega-body::after{content:"";position:absolute;top:0;bottom:0;left:320px;width:0.5px;background:rgba(255,255,255,0.18);z-index:3;pointer-events:none}
 
 /* ====== MOBILE POLISH (phones only) ====== */
 @media (max-width:600px){
@@ -862,9 +979,12 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
       <nav class="mega-rail" aria-label="Menu categories">
         <button class="mega-cat" data-cat="portfolio">Portfolio<svg class="ti-svg chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
         <button class="mega-cat" data-cat="brands">Brands<svg class="ti-svg chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        <button class="mega-cat" data-cat="sell">Sell Your Yacht<svg class="ti-svg chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        <button class="mega-cat" data-cat="locations">Locations<svg class="ti-svg chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
         <button class="mega-cat" data-cat="services">Services<svg class="ti-svg chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
-        <button class="mega-cat" data-cat="experiences">Experiences<svg class="ti-svg chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        <button class="mega-cat" data-cat="events">Events<svg class="ti-svg chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
         <button class="mega-cat" data-cat="about">About JBY<svg class="ti-svg chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        <button class="mega-cat" data-cat="insights">JBY Insights<svg class="ti-svg chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
       </nav>
 
       <div class="mega-detail" id="mega-detail">
@@ -875,77 +995,112 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <div class="mega-pane" data-pane="portfolio">
           <div class="mega-col">
             <h4>By Category</h4>
-            <a href="#">All Vessels for Sale</a>
-            <a href="#">New Vessels</a>
-            <a href="#">Pre-Owned Vessels</a>
+            <a href="#">All Boats for Sale</a>
+            <a href="#">New</a>
+            <a href="#">Pre-Owned</a>
             <a href="#">Recently Added</a>
-            <a href="#">Price Reduced</a>
           </div>
           <div class="mega-col">
             <h4>By Location</h4>
-            <a href="#">San Diego, CA</a>
-            <a href="#">Newport Beach, CA</a>
-            <a href="#">Sausalito, CA</a>
-            <a href="#">Wrightsville Beach, NC</a>
-            <a href="#">Charleston, SC</a>
-            <a href="#">Kailua-Kona, HI</a>
-            <a href="#">Seattle, WA</a>
+            <a href="#" data-location="san-diego">San Diego, CA</a>
+            <a href="#" data-location="newport-beach">Newport Beach, CA</a>
+            <a href="#" data-location="marina-del-rey">Marina del Rey, CA</a>
+            <a href="#" data-location="sausalito">Sausalito, CA</a>
+            <a href="#" data-location="seattle">Seattle, WA</a>
+            <a href="#" data-location="kailua-kona">Kailua-Kona, HI</a>
+            <a href="#" data-location="wrightsville-beach">Wrightsville Beach, NC</a>
+            <a href="#" data-location="charleston">Charleston, SC</a>
           </div>
         </div>
 
         <div class="mega-pane" data-pane="brands">
+          <div class="mega-col mega-col-brands">
+            <h4>Official West Coast Dealer</h4>
+            <a href="#" data-brand="axopar">Axopar</a>
+            <a href="#" data-brand="brabus">Brabus</a>
+            <a href="#" data-brand="sirena">Sirena Yachts</a>
+            <a href="#" data-brand="riva">Riva</a>
+            <a href="#" data-brand="fourwinns">Four Winns</a>
+            <a href="#" data-brand="jeanneau">Jeanneau</a>
+            <a href="#" data-brand="wally">Wally</a>
+            <a href="#" data-brand="pershing">Pershing</a>
+            <h4>Official Mid-Atlantic Dealer</h4>
+            <a href="#" data-brand="axopar-ma">Axopar</a>
+            <a href="#" data-brand="brabus-ma">Brabus</a>
+            <a href="#" data-brand="everglades">Everglades</a>
+          </div>
+          <div class="mega-models" id="mega-models">
+            <button class="mega-models-back" type="button" data-models-back><svg class="ti-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg> Brands</button>
+            <h4 id="mega-models-h">Models</h4>
+            <div class="mega-models-grid" id="mega-models-grid"></div>
+          </div>
+        </div>
+
+        <div class="mega-pane" data-pane="sell">
           <div class="mega-col">
-            <h4>Builders We Represent</h4>
-            <a href="#">Axopar</a>
-            <a href="#">Brabus</a>
-            <a href="#">Pershing</a>
-            <a href="#">Riva</a>
-            <a href="#">Four Winns</a>
-            <a href="#">Jeanneau</a>
-            <a href="#">Sirena Yachts</a>
-            <a href="#">Wally</a>
+            <h4>Selling</h4>
+            <a href="#">Sell Your Yacht</a>
+            <a href="#">Our Selling Process</a>
+            <a href="#">Marketing &amp; Exposure</a>
+          </div>
+          <div class="mega-col">
+            <h4>Get Started</h4>
+            <a href="#">Statement of Information</a>
+            <a href="#">Brokerage FAQ</a>
+            <a href="#">Client Testimonials</a>
+            <a href="#">Contact a Broker</a>
+          </div>
+        </div>
+
+        <div class="mega-pane" data-pane="locations">
+          <div class="mega-col">
+            <h4>Our Offices</h4>
+            <a href="#">Charleston</a>
+            <a href="#">Hawaii</a>
+            <a href="#">Marina del Rey</a>
+            <a href="#">Newport Beach</a>
+            <a href="#">San Diego<span class="mega-tag">Flagship</span></a>
+            <a href="#">Sausalito</a>
+            <a href="#">Seattle</a>
+            <a href="#">Wrightsville Beach</a>
           </div>
         </div>
 
         <div class="mega-pane" data-pane="services">
           <div class="mega-col">
-            <h4>Ownership</h4>
+            <h4>Services</h4>
+            <a href="#">Shared Ownership: Mari-time</a>
             <a href="#">Yacht Management</a>
             <a href="#">Service &amp; Maintenance</a>
-          </div>
-          <div class="mega-col">
-            <h4>Operations</h4>
-            <a href="#">Co-Ownership</a>
             <a href="#">Financing</a>
             <a href="#">Insurance</a>
           </div>
-          <div class="mega-col">
-            <h4>Seller Paths</h4>
-            <a href="#">Sell Your Yacht</a>
-          </div>
         </div>
 
-        <div class="mega-pane" data-pane="experiences">
+
+        <div class="mega-pane" data-pane="events">
           <div class="mega-col">
             <h4>Event Discovery</h4>
             <a href="#">Upcoming Events</a>
-          </div>
-          <div class="mega-col">
-            <h4>Insights</h4>
-            <a href="#">Knowledge Center</a>
+            <a href="#" data-dest="insights-post">Past Events</a>
           </div>
         </div>
 
         <div class="mega-pane" data-pane="about">
           <div class="mega-col">
             <h4>Company</h4>
-            <a href="#">About JBY</a>
+            <a href="#">Our Story</a>
+            <a href="#">Our Team</a>
             <a href="#">Locations</a>
             <a href="#">Contact Us</a>
+            <a href="#">FAQ</a>
           </div>
+        </div>
+
+        <div class="mega-pane" data-pane="insights">
           <div class="mega-col">
-            <h4>People</h4>
-            <a href="#">Our Team</a>
+            <h4>Insights</h4>
+            <a href="#">Knowledge Center</a>
           </div>
         </div>
       </div>
@@ -2114,19 +2269,31 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   var feature = document.getElementById('mega-feature');
   var cats    = Array.prototype.slice.call(mega.querySelectorAll('.mega-cat'));
   var panes   = Array.prototype.slice.call(mega.querySelectorAll('.mega-pane'));
-  var mq      = window.matchMedia('(max-width:880px)');
+  var mq      = window.matchMedia('(max-width:976px)');
 
   var FEAT = {
     portfolio:   './JBY-V3.3-assets/clean_hero.png',
     brands:      './JBY-V3.3-assets/brand_riva.webp',
+    sell:        './JBY-V3.3-assets/clean_hero.png',
+    locations:   './JBY-V3.3-assets/craft_visual_hero.jpg',
     services:    './JBY-V3.3-assets/clean_bento_ym.jpg',
-    experiences: './JBY-V3.3-assets/clean_feature_event.jpg',
-    about:       './JBY-V3.3-assets/craft_visual_hero.jpg'
+    events:      './JBY-V3.3-assets/clean_feature_event.jpg',
+    about:       './JBY-V3.3-assets/craft_visual_hero.jpg',
+    insights:    './JBY-V3.3-assets/clean_feature_event.jpg'
   };
 
   function activate(cat){
     cats.forEach(function(c){ c.classList.toggle('active', c.dataset.cat === cat); });
     panes.forEach(function(p){ p.classList.toggle('on', p.dataset.pane === cat); });
+    // The models column is measured here rather than where it is filled: the
+    // resting state is rendered at load, while this pane is still
+    // `display:none` and every height it would read is zero.
+    closeModels();
+
+    // Read straight after the class change rather than on the next frame:
+    // reading a height forces the layout this needs, and a frame callback is
+    // throttled while the tab is in the background.
+    if (cat === 'brands') updateFade();
     if (feature && FEAT[cat]){
       feature.style.backgroundImage = 'url(' + FEAT[cat] + ')';
       feature.classList.add('on');
@@ -2155,7 +2322,10 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     if (e.target.closest('[data-mega-close]')) { closeMenu(); }
   });
   var backBtn = mega.querySelector('[data-mega-back]');
-  if (backBtn) backBtn.addEventListener('click', function(){ body.classList.remove('drill'); });
+  if (backBtn) backBtn.addEventListener('click', function(){
+    body.classList.remove('drill');
+    closeModels();
+  });
 
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape' && mega.classList.contains('open')) closeMenu();
@@ -2170,6 +2340,140 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
       if (!mq.matches) activate(c.dataset.cat);       // desktop hover preview
     });
   });
+
+  /* ---- Models beside the builders ----------------------------------------
+     PLACEHOLDER DATA. The names are written by hand and the frames are empty
+     tiles: nothing in this repository holds a photograph of a particular
+     model, and the marine shots that are here are a crowd at a boat show, a
+     service van, or a hull with another builder's name down the side. So the
+     frame stays a frame until whatever owns the model catalogue supplies both
+     the lineup and a photograph per model. */
+  // Axopar carries fourteen, deliberately: it is the builder with the widest
+  // range here, and it is what shows the column scrolling rather than growing.
+  var MODEL_NAMES = {
+    axopar:    ['Axopar 22 Spyder', 'Axopar 22 T-Top', 'Axopar 25 Cross Cabin',
+                'Axopar 25 Cross Top', 'Axopar 29 Sun Top', 'Axopar 29 Cross Cabin',
+                'Axopar 29 Cross Top', 'Axopar 29 XC Cross Cabin', 'Axopar 37 Sun Top',
+                'Axopar 37 Cross Cabin', 'Axopar 37 XC Cross Cabin', 'Axopar 45 Cross Top',
+                'Axopar 45 Sun Top', 'Axopar 47 Cross Top'],
+    brabus:    ['Shadow 500 Cabin', 'Shadow 700 Cabin', 'Shadow 900 XC', 'Shadow 1200 Black Ops'],
+    pershing:  ['Pershing 5X', 'Pershing 7X', 'Pershing 8X', 'Pershing GTX116'],
+    riva:      ["Rivale 56'", "Diable 68'", "Perseo Super 76'", "Folgore 88'"],
+    fourwinns: ['Four Winns H2', 'Four Winns H4', 'Four Winns HD5', 'Four Winns TH36'],
+    jeanneau:  ['Cap Camarat 7.5 WA', 'Merry Fisher 895', 'DB/43', 'Leader 10.5'],
+    sirena:    ['Sirena 48', 'Sirena 58', 'Sirena 68', 'Sirena 88'],
+    wally:     ['Wallytender 43X', 'Wallywhy 100', 'Wallypower 58', 'Wallywind 110'],
+    everglades: []
+  };
+
+  /* Stock frames, used across every builder. Which one lands on which model is
+     arbitrary — none of them is the boat named beside it — but it is arbitrary
+     the same way every time: shuffling on each hover would flicker. Each
+     builder starts one frame further along the list than the one above it, so
+     no two adjacent builders open on the same photograph. */
+  var SHOTS = [
+    '2021-lazzara-uhv-87-for-sale-cannes-fr-uncategorized-001-tg1ry6.avif',
+    '2022-sanlorenzo-sl120-asymmetric-for-sale-fort-lauderdale-florida-uncategorized-001-tg3r55.avif',
+    '2022-vanquish-yachts-vq52-for-sale-miami-florida-uncategorized-001-tfkuxm.avif',
+    '2025-steeler-yachts-bronson-65-for-sale-cogolin-fr-exterior-001-th9muv.avif',
+    '2025-sunreef-yachts-ultima-55-for-sale-dubai-ae-uncategorized-001-tfktq0.avif',
+    '2026-axopar-29-xc-cross-cabin-for-sale-san-diego-california-uncategorized-001-tip135.avif',
+    '2027-lekker-38-for-sale-worldwide-xx-uncategorized-001-tj08et.avif'
+  ];
+  var SHOTS_DIR = './JBY-V3.3-assets/placeholder%20images/';
+
+  function shotFor(brandIndex, i){
+    return SHOTS_DIR + SHOTS[(brandIndex + i) % SHOTS.length];
+  }
+
+  var brandLinks = Array.prototype.slice.call(mega.querySelectorAll('[data-brand]'));
+  var modelsHead = document.getElementById('mega-models-h');
+  var modelsGrid = document.getElementById('mega-models-grid');
+  var shownLink = null;
+
+  function showModels(link){
+    if (!modelsGrid || !link || link === shownLink) return;
+    shownLink = link;
+
+    // A dealership-suffixed key shares the lineup of the builder it names.
+    var brand = link.dataset.brand.replace(/-ma$/, '');
+    var index = brandLinks.indexOf(link);
+
+    brandLinks.forEach(function(a){ a.classList.toggle('on', a === link); });
+    if (modelsHead && link) modelsHead.textContent = link.textContent.trim() + ' Models';
+
+    modelsGrid.innerHTML = (MODEL_NAMES[brand] || []).map(function(name, i){
+      return '<a class="mega-model" href="#">' +
+               '<span class="mega-model-shot">' +
+                 '<img src="' + shotFor(index, i) + '" alt="" loading="lazy">' +
+               '</span>' +
+               '<span>' + name + '</span>' +
+             '</a>';
+    }).join('');
+
+    // Restart the fade rather than let it sit finished from the last swap.
+    modelsGrid.classList.remove('swap');
+    void modelsGrid.offsetWidth;
+    modelsGrid.classList.add('swap');
+
+    modelsGrid.scrollTop = 0;
+    updateFade();
+  }
+
+  function updateFade(){
+    if (!modelsGrid) return;
+
+    // A pixel of slack: fractional scroll positions would otherwise leave the
+    // bottom fade on at the very end of the list.
+    var atTop = modelsGrid.scrollTop <= 1;
+    var atEnd = modelsGrid.scrollTop + modelsGrid.clientHeight >= modelsGrid.scrollHeight - 1;
+
+    modelsGrid.classList.toggle('fade-top', !atTop);
+    modelsGrid.classList.toggle('fade-bottom', !atEnd);
+  }
+
+  if (modelsGrid){
+    modelsGrid.addEventListener('scroll', updateFade, { passive: true });
+    window.addEventListener('resize', updateFade);
+  }
+
+  var brandsPane = mega.querySelector('.mega-pane[data-pane="brands"]');
+
+  function openModels(){
+    // Back to the top of the pane before it is frozen, or the overlay would
+    // open against a list that had been scrolled down.
+    if (brandsPane) brandsPane.scrollTop = 0;
+
+    body.classList.add('models-open');
+    updateFade();
+  }
+
+  function closeModels(){
+    body.classList.remove('models-open');
+  }
+
+  brandLinks.forEach(function(a){
+    a.addEventListener('mouseenter', function(){ if (!mq.matches) showModels(a); });
+    // Keyboard reaches the list the same way the pointer does.
+    a.addEventListener('focus', function(){ if (!mq.matches) showModels(a); });
+    a.addEventListener('click', function(e){
+      // Only on a phone. On a desktop the builder's own href should still be
+      // free to navigate; the lineup is already open beside it.
+      if (!mq.matches) return;
+
+      e.preventDefault();
+      showModels(a);
+      openModels();
+    });
+  });
+
+  var modelsBack = mega.querySelector('[data-models-back]');
+
+  if (modelsBack) modelsBack.addEventListener('click', closeModels);
+
+  // The first builder stands in as the resting state, so opening Brands shows
+  // what the column is for instead of an empty half.
+  if (brandLinks.length) showModels(brandLinks[0]);
 })();
 </script>
 
