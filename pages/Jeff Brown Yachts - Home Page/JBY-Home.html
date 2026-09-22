@@ -415,15 +415,21 @@ a{color:inherit;text-decoration:none}
   background:linear-gradient(179.96deg,rgba(54,84,102,0) 22%,rgba(54,84,102,0.82) 62%,rgba(54,84,102,0.94) 100%);
   backdrop-filter:blur(1px);display:flex;flex-direction:column;gap:12px}
 /* A light veil the photograph shows through, in place of the sand pill */
-/* The same veil as the buttons: rule 4 of jby-system.css paints .v-cta and
-   .builders .a.solid with a flat rgba(255,255,255,0.28) over an 8px blur, and
-   this chip now matches it exactly. It used to carry a 0.34-to-0.20 gradient,
-   whose bottom half at 0.20 read thinner than the buttons however far the
-   blur was pushed — 28px and even 60px changed nothing visible, because what
-   sits behind the chip is open water and there is little there to blur. The
-   fill was the difference, not the blur. */
-.vessel-card .chip-loc{background:rgba(255,255,255,0.28);
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+/* Back to the brighter gradient and the heavier blur, which read better.
+
+   Copying the buttons' values did not copy their look, and measuring says why:
+   the two sit on different backdrops. The chip's centre falls at 17.5% of this
+   panel, above the 22% stop where the navy gradient is still fully
+   transparent — so it veils the raw photograph, open bright water. The View
+   button sits at 74%, where that same gradient is already at 0.86 — so it
+   veils near-solid navy. 28% white over dark navy is a clear panel; the same
+   28% over bright water is barely there. Same rule, opposite result.
+
+   So the chip needs its own values to reach the same effect: 0.34 at the top
+   for definition against the water, easing to 0.20 so the photograph still
+   comes through, over a blur heavy enough to settle what texture there is. */
+.vessel-card .chip-loc{background:linear-gradient(180deg,rgba(255,255,255,0.34),rgba(255,255,255,0.20));
+  -webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);
   color:#fff;padding:5px 12px 4px;font-family:'Mesmerize',sans-serif;
   font-weight:300;font-size:10px;line-height:15px;letter-spacing:0.07em;text-transform:uppercase;
   border-radius:2px;align-self:flex-start;display:inline-block}
@@ -805,15 +811,27 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .foot-locs{display:flex;flex-direction:column;gap:14px;margin:0}
 .foot-locs a{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:color .2s}
 .foot-locs a:hover{color:var(--navy)}
-/* Card chevron was removed here because tapping it stuck the hover state on
-   phones: the button stayed white and the photo stayed scaled up. The client
-   has asked for the View button back in Our Vessels, so it returns only where
-   there is a real pointer — which is exactly where that bug cannot happen.
-   Touch devices keep the old behaviour, the whole card being the click
-   target. */
-.v-cta{display:none!important}
-@media (hover:hover) and (pointer:fine){
-  .v-cta{display:flex!important}
+/* The View button on the vessel cards, on every device.
+
+   It used to be hidden on phones: tapping it latched :hover — the button
+   stayed white and the photo stayed scaled up — and hiding it was the way
+   round that. The cause was never the button, though, it was the hover rules
+   running where there is no hover to leave. So they are gated behind a real
+   pointer instead, and the button itself can stay.
+
+   On a phone it carries the full "View" label. There is no hover to widen it
+   there, so the collapsed chevron would be the only thing a tap ever showed,
+   and the label is what was asked for. The name's max-width:82% already keeps
+   the corner clear for it.
+
+   .v-cta:hover lives in jby-system.css, which loads after this block, so the
+   override needs the card in front of it to win on specificity. */
+@media (hover:none),(pointer:coarse){
+  .vessel-card:hover .v-img{transform:none}
+  .vessel-card .v-cta{width:auto;padding:0 16px;transition:none}
+  .vessel-card .v-cta .v-cta-text{display:inline;opacity:1;max-width:none}
+  .vessel-card .v-cta .v-cta-icon{display:none}
+  .vessel-card .v-cta:hover{background:var(--jby-veil);color:#fff}
 }
 /* MOBILE-FIX-KSENIA: kill horizontal scroll on phones */
 @media (max-width:980px){html,body{overflow-x:hidden}}
