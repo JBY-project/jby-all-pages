@@ -742,7 +742,10 @@ a{color:inherit;text-decoration:none}
    the reference runs the other way, panning down through the photograph as
    the band rises. The sign is the only difference, so the band still rides
    the one scroll handler the rest of the page uses. */
-.expert-photo{position:relative;overflow:hidden;background:var(--navy);margin-top:0}
+/* The margin-top:0 that sat here was so this band could butt against the grey
+   one while the two were being compared. Alone, it takes .expert's own
+   --section-pad again, the gap every other section on the page stands on. */
+.expert-photo{position:relative;overflow:hidden;background:var(--navy)}
 .expert-photo .bg{position:absolute;inset:-55% 0;z-index:0;will-change:transform}
 .expert-photo .bg-inner{position:absolute;inset:0;background-size:cover;background-position:center}
 /* One flat black over the whole band, the same weight top to bottom. */
@@ -1618,16 +1621,20 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   </div>
 </div>
 
-<section class="expert" id="contact">
-  <h2 class="reveal split-words" data-split>Get expert guidance</h2>
-  <p class="reveal d1">Every conversation starts with you. We take it from there.</p>
-  <button class="btn reveal d2 magnetic">Book a consultation</button>
-</section>
+<!-- The grey version of this band stood here and is kept, not thrown away: its
+     styling is the plain .expert block in the stylesheet above, which the
+     photograph version still stands on and only overrides. To bring it back,
+     put this markup in front of the section below and move id="contact" onto
+     it — that id is what the header's Contact an expert, the section index
+     and the office modal all point at, which is why it moved down.
 
-<!-- Second version of the band above: the same three lines on a photograph,
-     with the page's parallax drifting it. Sits directly under the first so the
-     two can be read against each other. -->
-<section class="expert expert-photo" id="contact-photo" data-parallax-bg="-0.24">
+     <section class="expert" id="contact">
+       <h2 class="reveal split-words" data-split>Get expert guidance</h2>
+       <p class="reveal d1">Every conversation starts with you. We take it from there.</p>
+       <button class="btn reveal d2 magnetic">Book a consultation</button>
+     </section>
+-->
+<section class="expert expert-photo" id="contact" data-parallax-bg="-0.24">
   <div class="bg" aria-hidden="true">
     <div class="bg-inner" style="background-image:url('./JBY-V3.3-assets/expert_bow_sunset.jpg')"></div>
   </div>
