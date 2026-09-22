@@ -289,16 +289,38 @@ a{color:inherit;text-decoration:none}
 .builders-top{display:flex;flex-direction:column;align-items:center;gap:24px;width:100%}
 .builders .caption{color:rgba(255,255,255,0.92);font-family:'Myriad Pro',sans-serif;font-weight:300;
   font-size:14px;line-height:22px;margin:0;font-style:italic;text-align:center}
-.builders .mark{display:flex;align-items:center;justify-content:center;min-height:108px}
+/* The row is a fixed height, not a min-height: the seven logos now render at
+   seven different heights, and a min-height would make the buttons under them
+   jump every time the carousel turns. */
+.builders .mark{display:flex;align-items:center;justify-content:center;height:148px}
 .builders .mark img{height:99px;width:auto;filter:drop-shadow(0 4px 24px rgba(0,0,0,0.55));max-width:600px;object-fit:contain}
-/* Riva, Wally, Sirena and Everglades are wide, low wordmarks: at the shared height
-   they read a good deal bigger than Riva's or Axopar's mark, so they take
-   20% off it. Matched on the file name because the carousel writes the
-   <img> from JS and puts no brand class on it. */
-.builders .mark img[src*="brand_wally_logo"],
-.builders .mark img[src*="brand_sirena_logo"],
-.builders .mark img[src*="brand_everglades_logo"],
-.builders .mark img[src*="riva_real"]{height:79px}
+
+/* ---- the seven logos, balanced by area -------------------------------------
+   One height for all of them cannot work here. The marks run from Sirena's
+   stacked lockup at 1.93:1 to Pershing's wordmark at 11.61:1, and every file
+   pads its artwork differently — Pershing's fills 30% of its canvas height,
+   Everglades' fills 100%. At a shared 99px the drawn artwork ranged from
+   6,600 to 33,100 square pixels: Everglades read five times the size of
+   Brabus.
+
+   So each one is set so its ARTWORK covers the same ~14,000 px^2, which is
+   how a row of mismatched logos is normally evened out. The heights below
+   look wildly different because they apply to each file's whole canvas,
+   padding included; what they produce on screen is even.
+
+   To re-derive after changing a file: art_height = sqrt(14000 / ratio), then
+   css_height = art_height / (artwork's share of its canvas height).
+
+   Matched on the file name because the carousel writes the <img> from JS and
+   puts no brand class on it — rename a logo file and its size comes back to
+   the 99px default. */
+.builders .mark img[src*="brand_everglades_logo"]{height:51px}   /* art 273x51 */
+.builders .mark img[src*="brand_wally_logo"]     {height:69px}   /* art 206x68 */
+.builders .mark img[src*="riva_real"]            {height:77px}   /* art 271x52 */
+.builders .mark img[src*="brand_sirena_logo"]    {height:85px}   /* art 164x85 */
+.builders .mark img[src*="brand_axopar_logo"]    {height:108px}  /* art 365x38 */
+.builders .mark img[src*="brand_pershing_raw"]   {height:114px}  /* art 403x35 */
+.builders .mark img[src*="brand_brabus_raw"]     {height:143px}  /* art 221x63 */
 .builders .mark .word{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:74px;line-height:1;color:#fff;
   letter-spacing:0;text-transform:uppercase;text-shadow:0 4px 22px rgba(0,0,0,0.55)}
 .builders .mark .word.italic{font-style:italic;font-weight:400}
@@ -697,11 +719,15 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .hero h1{font-size:20px;line-height:30px}.hero-text{left:24px;right:24px;bottom:64px}
   .events-zone .s-title,.aftercare .s-title,.portfolio .s-title{font-size:18px;line-height:26px}
   .builders .mark .word{font-size:46px}
+  .builders .mark{height:104px}
   .builders .mark img{height:69px}
-  .builders .mark img[src*="brand_wally_logo"],
-  .builders .mark img[src*="brand_sirena_logo"],
-  .builders .mark img[src*="brand_everglades_logo"],
-  .builders .mark img[src*="riva_real"]{height:55px}
+  .builders .mark img[src*="brand_everglades_logo"]{height:36px}
+  .builders .mark img[src*="brand_wally_logo"]     {height:48px}
+  .builders .mark img[src*="riva_real"]            {height:54px}
+  .builders .mark img[src*="brand_sirena_logo"]    {height:59px}
+  .builders .mark img[src*="brand_axopar_logo"]    {height:76px}
+  .builders .mark img[src*="brand_pershing_raw"]   {height:80px}
+  .builders .mark img[src*="brand_brabus_raw"]     {height:100px}
   .builders-inner{padding:64px 24px 48px;min-height:600px;gap:24px}
   .vessels-strip{padding:0 24px}.vessels-head-row{padding:0 24px 24px;flex-direction:column;align-items:flex-start;gap:16px}
   .video-thumbs{gap:12px}
@@ -828,12 +854,15 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .builders .caption{display:none}
   .builders-inner{min-height:560px;justify-content:flex-start;gap:14px;padding:28px 24px 32px}
   .builders-top{gap:12px}
-  .builders .mark{min-height:auto}   /* tighter: logo higher, buttons closer */
+  .builders .mark{height:96px}   /* tighter: logo higher, buttons closer */
   .builders .mark img{height:64px;width:auto;max-width:100%;object-fit:contain}
-  .builders .mark img[src*="brand_wally_logo"],
-  .builders .mark img[src*="brand_sirena_logo"],
-  .builders .mark img[src*="brand_everglades_logo"],
-  .builders .mark img[src*="riva_real"]{height:51px}  /* SVG logos render; wide logos never overflow */
+  .builders .mark img[src*="brand_everglades_logo"]{height:33px}
+  .builders .mark img[src*="brand_wally_logo"]     {height:45px}
+  .builders .mark img[src*="riva_real"]            {height:50px}
+  .builders .mark img[src*="brand_sirena_logo"]    {height:55px}
+  .builders .mark img[src*="brand_axopar_logo"]    {height:70px}
+  .builders .mark img[src*="brand_pershing_raw"]   {height:74px}
+  .builders .mark img[src*="brand_brabus_raw"]     {height:93px}  /* SVG logos render; wide logos never overflow */
   .builders .mark .word{font-size:33px}
   .builders-tabs{margin-top:auto}   /* keep tabs pinned to the bottom */
   .builders .actions{flex-wrap:nowrap;justify-content:center;gap:10px}
