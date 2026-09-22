@@ -182,9 +182,15 @@ a{color:inherit;text-decoration:none}
 
 /* EVENTS — featured event video (NO play button — auto-plays), then grid */
 /* Short of a full --section-pad by the 32px the vessels strip above carries
-   below its cards, for the same reason the craft section is: that padding is
-   white and the eye counts it. 152 before, 120 now, like the rest. */
-.events-zone{padding-top:calc(var(--section-pad) - 32px);background:var(--paper)}
+   below its cards: that padding is white and the eye counts it. 152 before,
+   120 now, like the rest.
+
+   The bottom makes up the other side of the same sum. The craft section below
+   holds only half a pad inside its own edges, and its strip leaves 40px of
+   white under the event cards, so this pays the remainder — 20px at 120 and
+   nothing at 80, where the half pad and that 40 already come to a full one. */
+.events-zone{padding-top:calc(var(--section-pad) - 32px);
+  padding-bottom:calc(var(--section-pad) / 2 - 40px);background:var(--paper)}
 .events-zone .s-title{padding:0 24px 40px}
 /* Stage reserves 100vh height; inner .featured-event uses transform:scale
    (GPU-only, no layout reflow) for smooth scroll-driven zoom. Base size is
@@ -236,12 +242,17 @@ a{color:inherit;text-decoration:none}
 /* WHAT WE DO — Porsche-style scroll-driven gradient.
    Background smoothly interpolates via --dark from #fcfcfd (paper white) to
    #41647B (navy). Text colors SNAP at threshold via .has-dark class. */
-/* The top padding is short of a full --section-pad by the 40px the events
-   strip above carries below its cards, for the hover lift and its shadow.
-   That padding is white too, and the eye adds it: with a full section-pad
-   here the gap from the last event card down to this title measured 160
-   against the 120 every other title sits on. */
-.what-we-do{--dark:0;padding:calc(var(--section-pad) - 40px) 64px var(--section-pad);position:relative;
+/* Half a --section-pad above and below, the same on both sides. This section
+   paints its own background and turns dark as it is scrolled, so unlike the
+   rest of the page it has visible edges, and they want equal air inside them:
+   60px on the desktop, 40 at the middle breakpoint, 32 on a phone.
+
+   The other half of the gap under the pillars belongs to the Owners section
+   below, which takes it as its own top padding. The two together still come
+   to one full --section-pad between the pillars and that title — the
+   boundary between the colours now falls in the middle of it rather than
+   hard against the white section's first line. */
+.what-we-do{--dark:0;padding:calc(var(--section-pad) / 2) 64px calc(var(--section-pad) / 2);position:relative;
   background-color:rgb(
     calc(252 + (65 - 252) * var(--dark)),
     calc(252 + (100 - 252) * var(--dark)),
@@ -505,13 +516,12 @@ a{color:inherit;text-decoration:none}
 /* VIDEOS — Owners in their own words, scroll-driven width expansion.
    --wide: 0..1 set by JS each frame. 0 = constrained (1440px + 40px pad),
    1 = full viewport (100vw + 0 pad). Smoothstep eased for soft feel. */
-/* No top padding: the section above ends on a full --section-pad of its own,
-   and this one was adding a second. The gap from the last pillar down to the
-   Owners title measured 240 — twice what every other title on the page sits
-   on. The one above it does the spacing for both. */
+/* Half a --section-pad, the other half being the craft section's bottom. The
+   white starts before the title rather than at it, and the two halves still
+   add up to the one full pad every other title on the page sits on. */
 .videos{--wide:0;margin:0 auto;background:var(--paper);
   max-width:calc(1440px + (100vw - 1440px) * var(--wide));
-  padding:0 calc(40px * (1 - var(--wide))) 0}
+  padding:calc(var(--section-pad) / 2) calc(40px * (1 - var(--wide))) 0}
 .videos .head{text-align:center;max-width:880px;margin:0 auto 56px}
 .videos .head h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   color:var(--navy);text-transform:uppercase;margin:0 0 20px}
@@ -947,14 +957,15 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .ttl-desktop{display:none}.ttl-mobile{display:inline}
   /* --- CONSISTENT VERTICAL SPACING (single rule for phones) --- */
   :root{--section-pad:64px}
-  /* The two sections above shorten their top padding by what the strip before
-     them carries below its cards. On a phone the strips have no such padding
-     — .vessels-strip and .events-strip are both flush here — so the deduction
+  /* The events section shortens its top padding by what the vessels strip
+     carries below its cards. On a phone that strip is flush, so the deduction
      would come out of the gap itself: 32px against the 64 of the sections
-     either side. They take the full pad back, less the 8px the events strip's
-     wrapper still holds. */
-  .events-zone{padding-top:var(--section-pad)}
-  .what-we-do{padding-top:calc(var(--section-pad) - 8px)}
+     either side. It takes the full pad back. The craft section keeps its own
+     half-pad here, the same as everywhere — and the bottom pays a larger
+     remainder for it, the events strip holding only its wrapper's 8px here
+     against the 40 it carries on a desktop. */
+  .events-zone{padding-top:var(--section-pad);
+    padding-bottom:calc(var(--section-pad) / 2 - 8px)}
   /* gap from a section head (title + subtitle) to its content = 32px everywhere */
   .what-we-do .head{margin-bottom:32px}
   .videos .head{margin-bottom:32px}
