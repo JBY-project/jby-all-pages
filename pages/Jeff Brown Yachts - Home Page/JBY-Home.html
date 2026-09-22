@@ -350,6 +350,13 @@ a{color:inherit;text-decoration:none}
 .builders .mark img[src*="brand_everglades_logo"]{height:51px}   /* art 273x51 */
 .builders .mark img[src*="brand_wally_logo"]     {height:92px}   /* art 3954x1792 */
 .builders .mark img[src*="riva_real"]            {height:77px}   /* art 271x52 */
+/* Riva's file is the one that is not centred inside its own canvas: 9.9px of
+   empty above the mark against 15.8 below, at this size. The row centres the
+   image, so the mark itself was riding 2.9px high and jumping when the
+   carousel came round to it — every other file is within a pixel. The nudge
+   is a percentage of the image's own height, which is what translateY(%) is
+   measured against, so it stays right at all three sizes without a rule each. */
+.builders .mark img[src*="riva_real"]            {transform:translateY(3.8%)}
 .builders .mark img[src*="brand_sirena_logo"]    {height:43px}   /* art 2322x300 */
 .builders .mark img[src*="brand_axopar_logo"]    {height:38px}   /* art 1588x166 */
 .builders .mark img[src*="brand_pershing_raw"]   {height:114px}  /* art 403x35 */
