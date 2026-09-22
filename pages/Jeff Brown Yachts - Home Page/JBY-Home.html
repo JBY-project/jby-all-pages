@@ -415,10 +415,17 @@ a{color:inherit;text-decoration:none}
   background:linear-gradient(179.96deg,rgba(54,84,102,0) 22%,rgba(54,84,102,0.82) 62%,rgba(54,84,102,0.94) 100%);
   backdrop-filter:blur(1px);display:flex;flex-direction:column;gap:12px}
 /* A light veil the photograph shows through, in place of the sand pill */
-.vessel-card .chip-loc{background:linear-gradient(180deg,rgba(255,255,255,0.34),rgba(255,255,255,0.20));
-  -webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);
+/* The same veil as the buttons: rule 4 of jby-system.css paints .v-cta and
+   .builders .a.solid with a flat rgba(255,255,255,0.28) over an 8px blur, and
+   this chip now matches it exactly. It used to carry a 0.34-to-0.20 gradient,
+   whose bottom half at 0.20 read thinner than the buttons however far the
+   blur was pushed — 28px and even 60px changed nothing visible, because what
+   sits behind the chip is open water and there is little there to blur. The
+   fill was the difference, not the blur. */
+.vessel-card .chip-loc{background:rgba(255,255,255,0.28);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   color:#fff;padding:5px 12px 4px;font-family:'Mesmerize',sans-serif;
-  font-weight:300;font-size:11px;line-height:16px;letter-spacing:0.06em;text-transform:uppercase;
+  font-weight:300;font-size:10px;line-height:15px;letter-spacing:0.07em;text-transform:uppercase;
   border-radius:2px;align-self:flex-start;display:inline-block}
 /* Held to two lines and kept clear of the View button in the corner. Some of
    these names run to seven words, and a third line pushed the price out of the
