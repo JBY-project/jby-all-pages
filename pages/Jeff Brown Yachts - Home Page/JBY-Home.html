@@ -774,6 +774,10 @@ footer{background:var(--navy);padding:36px 40px 32px;color:rgba(255,255,255,0.85
   .foot-row{display:grid;grid-auto-flow:column;grid-template-rows:repeat(4,auto);
     grid-auto-columns:max-content;gap:10px 28px}
   .foot-row .sep{display:none}
+  /* 8px between the address and the number. The direct child, so the social
+     marks below are left alone — they are anchors next to anchors too, and a
+     top margin would drop each one below the last. */
+  .foot-contact > a + a{margin-top:8px}
 }
 /* The legal line, in the body face and dimmer than everything above it — the
    one row in the footer that is read only when it is looked for. */
