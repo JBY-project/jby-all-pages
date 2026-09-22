@@ -847,7 +847,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
    .v-cta:hover lives in jby-system.css, which loads after this block, so the
    override needs the card in front of it to win on specificity. */
 @media (hover:none),(pointer:coarse){
-  .vessel-card:hover .v-img{transform:none}
   .vessel-card{height:410px}
   .vessel-card .info{padding-bottom:72px}
   /* Full width means the line fills it. text-wrap:balance evens the two lines
@@ -871,11 +870,31 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   /* The taller panel carried the chip up from 65% of the card to 53%, which is
      where the strip's chevrons sit — they were landing on the city name. The
      chevrons move up into the photograph instead: at 32% they clear the brand
-     logo above, which ends at 21%, and the chip below, which starts at 48%. */
+     logo above, which ends at 21%, and the chip below, which starts at 48%.
+
+     Horizontally they are measured from the card, not from the screen. Both
+     are positioned against the strip's wrapper, which runs the full width, so
+     the right one was sitting at x 311-355 while the card ends at 304 — right
+     off the card and over the next one, 51px out of step with its partner.
+     The card is a fixed 280 starting at the wrapper's 24px gutter, so the pair
+     is symmetrical about the card's centre when the right one starts at
+     24 + 280 - 44 + 4: the card's right edge, less the arrow, plus the same
+     4px by which the left arrow overhangs its own edge. */
   .vessels-strip-wrap .cards-scroll-arr{top:32%}
+  .vessels-strip-wrap .cards-scroll-arr:not(.l){left:264px;right:auto}
   .vessel-card .v-cta .v-cta-text{display:inline;opacity:1;max-width:none}
   .vessel-card .v-cta .v-cta-icon{display:none}
+  /* Nothing on the card answers :hover here. A tap leaves :hover latched on a
+     touch screen, so every rule that listens to it is a state the finger can
+     switch on and not switch off — which is the bug the button was hidden for
+     in the first place. These repeat the hover selectors verbatim so they win
+     on equal specificity from further down the sheet, rather than relying on
+     the unhovered rules, which .vessel-card:hover .v-cta would outrank. */
+  .vessel-card:hover .v-img{transform:none}
+  .vessel-card:hover .v-cta{width:auto;padding:0}
+  .vessel-card:hover .v-cta-text{opacity:1;max-width:none}
   .vessel-card .v-cta:hover{background:var(--jby-veil);color:#fff}
+  .cards-scroll-arr:hover{background:rgba(0,0,0,0.5);transform:translateY(-50%)}
 }
 /* MOBILE-FIX-KSENIA: kill horizontal scroll on phones */
 @media (max-width:980px){html,body{overflow-x:hidden}}
