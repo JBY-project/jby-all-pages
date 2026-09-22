@@ -416,9 +416,9 @@ a{color:inherit;text-decoration:none}
   backdrop-filter:blur(1px);display:flex;flex-direction:column;gap:12px}
 /* A light veil the photograph shows through, in place of the sand pill */
 .vessel-card .chip-loc{background:linear-gradient(180deg,rgba(255,255,255,0.34),rgba(255,255,255,0.20));
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
   color:#fff;padding:5px 12px 4px;font-family:'Mesmerize',sans-serif;
-  font-weight:300;font-size:12px;line-height:18px;letter-spacing:0.05em;text-transform:uppercase;
+  font-weight:300;font-size:11px;line-height:16px;letter-spacing:0.06em;text-transform:uppercase;
   border-radius:2px;align-self:flex-start;display:inline-block}
 /* Held to two lines and kept clear of the View button in the corner. Some of
    these names run to seven words, and a third line pushed the price out of the
@@ -433,7 +433,10 @@ a{color:inherit;text-decoration:none}
 .vessel-card .name{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
   margin:0;text-transform:none;max-width:82%;min-height:56px;
   display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
-.vessel-card .price{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;margin:0}
+/* The panel's flex gap is 12px between every pair; -8 here narrows only the
+   space under the name, leaving the chip where it is. */
+.vessel-card .price{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
+  margin:-8px 0 0}
 
 /* CTA — rounded square (4px) chevron → wider "View" rounded square on hover */
 .v-cta{position:absolute;bottom:24px;right:24px;z-index:4;
@@ -987,7 +990,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
       <div class="vessels-strip" id="vessels-strip"><article class="vessel-card reveal">
         <div class="v-img" style="background-image:url('./JBY-V3.3-assets/03_vessel1_axopar.jpg')"></div>
         <div class="v-img-veil"></div>
-        <div class="brand"><img src="./JBY-V3.3-assets/brand_axopar_raw.png" alt=""/></div>
+        <div class="brand"><img src="./JBY-V3.3-assets/brand_axopar_logo.svg" alt=""/></div>
         <div class="info">
           <div class="chip-loc">Seattle, WA</div>
           <p class="name">2023 Axopar 37 XC Cross Cabin Wet Bar</p>
