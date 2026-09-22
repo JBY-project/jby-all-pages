@@ -867,10 +867,14 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     linear-gradient(180deg,rgba(54,84,102,0) 34%,rgba(54,84,102,0.5) 48%,rgba(54,84,102,0.5) 100%)}
   .vessel-card .v-cta{left:20px;right:20px;bottom:20px;width:auto;height:36px;padding:0;
     justify-content:center;transition:none}
-  /* The taller panel carried the chip up from 65% of the card to 53%, which is
-     where the strip's chevrons sit — they were landing on the city name. The
-     chevrons move up into the photograph instead: at 32% they clear the brand
-     logo above, which ends at 21%, and the chip below, which starts at 48%.
+  /* Centred on the card, both ways.
+
+     Vertically that is the wrapper's own 50%, which the card fills, so the
+     chevrons sit on the card's midline — 183 to 227 of its 410. The city chip
+     starts at 214, so the left chevron covers the top 13px of it once the
+     strip has been scrolled far enough for that chevron to appear. The right
+     one is clear of it: the chip ends at x 141 of the card and that chevron
+     starts at 240.
 
      Horizontally they are measured from the card, not from the screen. Both
      are positioned against the strip's wrapper, which runs the full width, so
@@ -880,7 +884,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
      is symmetrical about the card's centre when the right one starts at
      24 + 280 - 44 + 4: the card's right edge, less the arrow, plus the same
      4px by which the left arrow overhangs its own edge. */
-  .vessels-strip-wrap .cards-scroll-arr{top:32%}
   .vessels-strip-wrap .cards-scroll-arr:not(.l){left:264px;right:auto}
   .vessel-card .v-cta .v-cta-text{display:inline;opacity:1;max-width:none}
   .vessel-card .v-cta .v-cta-icon{display:none}
