@@ -847,7 +847,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
    .v-cta:hover lives in jby-system.css, which loads after this block, so the
    override needs the card in front of it to win on specificity. */
 @media (hover:none),(pointer:coarse){
-  .vessel-card{height:410px}
+  .vessel-card{height:430px}
   .vessel-card .info{padding-bottom:72px}
   /* Full width means the line fills it. text-wrap:balance evens the two lines
      out, which is what the desktop card wants beside the corner button, but
@@ -867,24 +867,17 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     linear-gradient(180deg,rgba(54,84,102,0) 34%,rgba(54,84,102,0.5) 48%,rgba(54,84,102,0.5) 100%)}
   .vessel-card .v-cta{left:20px;right:20px;bottom:20px;width:auto;height:36px;padding:0;
     justify-content:center;transition:none}
-  /* Centred on the card, both ways.
+  /* The chevrons sit on the card's midline, from the wrapper's own 50% which
+     the card fills. The city chip starts 16px below the panel's top edge, so
+     the left chevron covers its top 13px and its first 20px of width once the
+     strip has been scrolled far enough for that chevron to appear; the right
+     one is clear of it.
 
-     Vertically that is the wrapper's own 50%, which the card fills, so the
-     chevrons sit on the card's midline — 183 to 227 of its 410. The city chip
-     starts at 214, so the left chevron covers the top 13px of it once the
-     strip has been scrolled far enough for that chevron to appear. The right
-     one is clear of it: the chip ends at x 141 of the card and that chevron
-     starts at 240.
-
-     Horizontally they are measured from the card, not from the screen. Both
-     are positioned against the strip's wrapper, which runs the full width, so
-     the right one was sitting at x 311-355 while the card ends at 304 — right
-     off the card and over the next one, 51px out of step with its partner.
-     The card is a fixed 280 starting at the wrapper's 24px gutter, so the pair
-     is symmetrical about the card's centre when the right one starts at
-     24 + 280 - 44 + 4: the card's right edge, less the arrow, plus the same
-     4px by which the left arrow overhangs its own edge. */
-  .vessels-strip-wrap .cards-scroll-arr:not(.l){left:264px;right:auto}
+     Horizontally each keeps the base rule's 20px from its own side of the
+     screen, so the two are mirrored — the right one had been pulled in to the
+     card's right edge, which left it 67px from the screen against the left
+     one's 20. The card is 280 of the screen's width and the pair straddles it
+     from outside rather than sitting on it. */
   .vessel-card .v-cta .v-cta-text{display:inline;opacity:1;max-width:none}
   .vessel-card .v-cta .v-cta-icon{display:none}
   /* Nothing on the card answers :hover here. A tap leaves :hover latched on a
