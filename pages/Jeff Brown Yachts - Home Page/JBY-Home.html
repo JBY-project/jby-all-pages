@@ -331,10 +331,13 @@ a{color:inherit;text-decoration:none}
 .builders .mark .word{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:74px;line-height:1;color:#fff;
   letter-spacing:0;text-transform:uppercase;text-shadow:0 4px 22px rgba(0,0,0,0.55)}
 .builders .mark .word.italic{font-style:italic;font-weight:400}
-.builders .actions{display:flex;gap:12px}
+/* Two equal columns rather than a flex row: 1fr columns in an auto-width
+   grid both take the width of the wider one, so EXPLORE and INVENTORY match
+   whatever the brand name does to the first label. */
+.builders .actions{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .builders .a{height:48px;padding:0 28px;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;
   line-height:20px;letter-spacing:0;text-transform:uppercase;cursor:pointer;transition:.25s;
-  display:inline-flex;align-items:center}
+  display:inline-flex;align-items:center;justify-content:center}
 .builders .a.solid{background:#fff;color:#000}
 .builders .a.solid:hover{background:rgba(255,255,255,0.85)}
 .builders .a.ghost{background:rgba(0,0,0,0.5);color:#fff;border:0.5px solid rgba(255,255,255,0.6);backdrop-filter:blur(4px)}
@@ -873,8 +876,11 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .builders .mark img[src*="brand_brabus_raw"]     {height:93px}  /* SVG logos render; wide logos never overflow */
   .builders .mark .word{font-size:33px}
   .builders-tabs{margin-top:auto}   /* keep tabs pinned to the bottom */
-  .builders .actions{flex-wrap:nowrap;justify-content:center;gap:10px}
+  .builders .actions{gap:10px}
   .builders .a{padding:0 16px;white-space:nowrap;font-size:14px;height:44px}
+  /* just EXPLORE on a phone. With the brand name the pair ran to 414px on
+     Everglades against 327px of room, and both buttons were clipped. */
+  .builders .a .bn{display:none}
 
 }
 </style>
@@ -943,7 +949,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <div class="caption" id="brand-caption">Where the history of yachting lives</div>
         <div class="mark" id="brand-mark"><img src="./JBY-V3.3-assets/riva_real.png" alt="Riva"/></div>
         <div class="actions">
-          <button class="a solid" id="brand-cta">Explore Riva</button>
+          <button class="a solid" id="brand-cta"><span class="lbl">Explore<span class="bn"> Riva</span></span></button>
           <button class="a ghost">Inventory</button>
         </div>
       </div>
@@ -1820,7 +1826,32 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     }
     if (cap) cap.textContent = b.caption;
     const brandCta = document.getElementById('brand-cta');
-    if (brandCta && b.cta) brandCta.textContent = b.cta;
+    if (brandCta && b.cta){
+      // "Explore Everglades" will not fit beside INVENTORY on a phone, so the
+      // brand half goes in a span the narrow layout hides — leading space and
+      // all, or hiding it would leave a trailing gap.
+      //
+      // Both spans sit inside one .lbl wrapper on purpose. The button is a
+      // flex container, and a flex container trims the leading whitespace of
+      // each of its items: with .bn as a direct child the space in front of
+      // the brand name was dropped and the label read EXPLOREEVERGLADES. One
+      // wrapper means one flex item, and the space inside it survives.
+      //
+      // Built from text nodes rather than innerHTML so a brand name can never
+      // be markup.
+      const sp = b.cta.indexOf(' ');
+      const lbl = document.createElement('span');
+      lbl.className = 'lbl';
+      lbl.appendChild(document.createTextNode(sp < 0 ? b.cta : b.cta.slice(0, sp)));
+      if (sp > -1){
+        const bn = document.createElement('span');
+        bn.className = 'bn';
+        bn.textContent = b.cta.slice(sp);
+        lbl.appendChild(bn);
+      }
+      brandCta.textContent = '';
+      brandCta.appendChild(lbl);
+    }
     document.querySelectorAll('.b-tab').forEach((t,k) => t.classList.toggle('active', k === bi));
     var _at = document.querySelector('.b-tab.active'), _tabs = document.querySelector('.builders-tabs');
     if (_at && _tabs){ _tabs.scrollTo({left: _at.offsetLeft - (_tabs.clientWidth - _at.offsetWidth)/2, behavior:'smooth'}); }
