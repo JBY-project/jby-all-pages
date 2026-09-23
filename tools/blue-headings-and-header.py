@@ -421,6 +421,181 @@ def blue_headings(text):
     return text, changed
 
 
+# ---------------------------------------------------- header height ----
+#
+# The header stands at its full height until the page moves, then tightens.
+# The client wants the tightened height from the start, so the resting state
+# is given the page's own scrolled geometry.
+#
+# Read out of each page rather than written as a number: the pages do not
+# agree. The home page goes 24px padding and a 72px mark to 16px and 60px;
+# the listing page goes 20px and 64px to 14px and 52px. Mirroring what a page
+# already says keeps each one's proportions.
+#
+# Only the vertical is mirrored. `padding:16px 40px` becomes padding-top and
+# padding-bottom, because the horizontal is the same in both states anyway and
+# the phone rules set their own.
+#
+# And it is wrapped in a min-width matching the page's own nav breakpoint.
+# `.nav.nav` is (0,2,0) and would otherwise outrank the `.nav{padding:16px
+# 24px}` a page keeps inside `@media (max-width:980px)`, and the phone header
+# would grow instead of shrink.
+HEIGHT_MARK = "/* === JBY: the header stands at its scrolled height ==="
+
+GEOM = ("padding", "padding-top", "padding-bottom", "width", "height",
+        "min-height", "max-height", "gap", "font-size")
+# Rules are walked rather than matched. The regex that did this backtracked
+# for minutes on the events page, which is 3.7MB in one document; and it had
+# to be anchored to a line start, which missed every page that writes a whole
+# @media block on one line. A scan from brace to brace is linear and does not
+# care how the file is laid out.
+def iter_rules(css):
+    """(selector, body) for every `sel{...}` in css.
+
+    Comments go first. A selector is whatever sits between the last brace and
+    the next one, so a comment above a rule becomes part of it — which is how
+    the contact page ended up emitting `marks flip to white */ .nav.nav{...}`
+    and the browser threw the whole rule away."""
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    i = 0
+    while True:
+        o = css.find("{", i)
+        if o < 0:
+            return
+        c = css.find("}", o + 1)
+        if c < 0:
+            return
+        yield css[i:o].strip(), css[o + 1:c]
+        i = c + 1
+
+
+LINKED_CSS = re.compile(r'<link[^>]+rel=["\']stylesheet["\'][^>]*href=["\']([^"\':]+)["\']')
+
+
+def css_source(path, text):
+    """The page's own rules plus the stylesheets it links beside itself.
+
+    The Knowledge Center keeps its header in assets/styles.css, so reading
+    the document alone found no .nav.scrolled rule and its header was the
+    one page left jumping."""
+    out = [text]
+    base = os.path.dirname(path)
+    for href in LINKED_CSS.findall(text):
+        f = os.path.normpath(os.path.join(base, href.split("?")[0]))
+        if f.startswith(base) and os.path.isfile(f):
+            try:
+                out.append(read(f))
+            except Exception:
+                pass
+    return "\n".join(out)
+
+
+def media_blocks(css):
+    """[(condition, body)] for every @media in css, and css with them removed."""
+    blocks, out, i = [], [], 0
+    for m in re.finditer(r"@media([^{]*)\{", css):
+        if m.start() < i:
+            continue
+        out.append(css[i:m.start()])
+        j, depth = m.end(), 1
+        while j < len(css) and depth:
+            depth += 1 if css[j] == "{" else -1 if css[j] == "}" else 0
+            j += 1
+        blocks.append((m.group(1).strip(), css[m.end():j - 1]))
+        i = j
+    out.append(css[i:])
+    return blocks, "".join(out)
+
+
+def mirror_rules(css):
+    """`.nav.nav{...}` lines carrying the geometry of this sheet's scrolled header."""
+    out = []
+    for sel, body in iter_rules(css):
+        if ".nav.scrolled" not in sel or ".nav.nav" in sel:
+            continue
+        parts = [s.strip() for s in sel.split(",") if ".nav.scrolled" in s]
+        if not parts:
+            continue
+        decls = []
+        for d in body.split(";"):
+            k, _, v = d.partition(":")
+            k, v = k.strip(), v.strip()
+            if k not in GEOM or not v:
+                continue
+            if k == "padding":
+                q = v.split()
+                decls.append("padding-top:" + q[0])
+                decls.append("padding-bottom:" + (q[2] if len(q) > 2 else q[0]))
+            else:
+                decls.append(k + ":" + v)
+        if decls:
+            out.append(", ".join(x.replace(".nav.scrolled", ".nav.nav") for x in parts)
+                       + "{" + ";".join(decls) + "}")
+    return out
+
+
+def compact_header(text, css=None):
+    """Give the resting header the geometry the page gives its scrolled one.
+
+    `text` is the document the block is written into; `css` is where the rules
+    are read from, which is the document plus whatever it links.
+
+    Done twice: once from the rules outside any @media, wrapped above the
+    page's own nav breakpoint, and once from the rules inside that breakpoint,
+    wrapped below it. Harvesting them together was the first mistake here —
+    the phone's 12px padding came out and was applied to the desktop header.
+    """
+    css = css if css is not None else text
+    blocks, top = media_blocks(css)
+
+    desktop = mirror_rules(top)
+    # Every @media that restyles the scrolled header gets its own mirror under
+    # the same condition. Picking only the widest breakpoint left six pages
+    # still jumping on a phone, because they tighten at a narrower one too.
+    narrow = []
+    for cond, body in blocks:
+        rules = mirror_rules(body)
+        if rules:
+            narrow.append((cond, rules))
+
+    if not desktop and not narrow:
+        return text, False
+
+    block = "<style>\n" + HEIGHT_MARK + """ ===
+   The page's own .nav.scrolled geometry, given to the header at rest, so it
+   stands at the tightened height from the first frame instead of shrinking
+   once the page moves. Read from this page's rules rather than written as a
+   number, because the pages do not agree on either figure.
+
+   Only the vertical. The horizontal padding is the same in both states, and
+   writing it here would fix a desktop value onto the phone.
+
+   The rules outside any @media come first and hold at every width; each of
+   the page's own breakpoints then re-states whatever it tightens further.
+   That order matters: .nav.nav is (0,2,0) and outranks the `.nav{padding}`
+   a page keeps inside its @media, so without the second half the small
+   header would grow instead of shrink. A page whose @media tightens the
+   padding but not the mark — the team page — keeps the mark size from the
+   first half, which is what it does when scrolled on a phone. */
+"""
+    if desktop:
+        block += "\n".join(desktop) + "\n"
+    for cond, rules in narrow:
+        block += "@media %s{\n  " % cond.strip() + "\n  ".join(rules) + "\n}\n"
+    block += "</style>\n"
+
+    if HEIGHT_MARK in text:
+        i = text.rindex("<style>", 0, text.index(HEIGHT_MARK))
+        j = text.index("</style>", i) + len("</style>") + 1
+        if text[i:j] == block:
+            return text, False
+        return text[:i] + block + text[j:], True
+    if "</head>" not in text:
+        return text, False
+    at = text.index("</head>")
+    return text[:at] + block + text[at:], True
+
+
 def blue_header(text):
     """Add the block, or replace one this script put in earlier."""
     if MARK in text:
@@ -485,9 +660,11 @@ def main():
                 continue
             t = read(f)
             out, did = blue_header(t)
-            if did:
+            out, did2 = compact_header(out, css_source(f, out))
+            if did or did2:
                 added += 1
-                print("  %-44s added" % repo[:44])
+                print("  %-44s %s" % (repo[:44],
+                                      ("colour " if did else "") + ("height" if did2 else "")))
                 if not a.dry_run:
                     write(f, out)
                     touched += 1

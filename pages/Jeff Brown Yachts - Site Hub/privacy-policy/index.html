@@ -296,6 +296,29 @@ footer:has(.foot-legal){padding-bottom:40px}
 .nav.nav .cta{color:#fff;border-color:rgba(255,255,255,0.75);background:transparent}
 .nav.nav .cta:hover{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.75)}
 </style>
+<style>
+/* === JBY: the header stands at its scrolled height === ===
+   The page's own .nav.scrolled geometry, given to the header at rest, so it
+   stands at the tightened height from the first frame instead of shrinking
+   once the page moves. Read from this page's rules rather than written as a
+   number, because the pages do not agree on either figure.
+
+   Only the vertical. The horizontal padding is the same in both states, and
+   writing it here would fix a desktop value onto the phone.
+
+   The rules outside any @media come first and hold at every width; each of
+   the page's own breakpoints then re-states whatever it tightens further.
+   That order matters: .nav.nav is (0,2,0) and outranks the `.nav{padding}`
+   a page keeps inside its @media, so without the second half the small
+   header would grow instead of shrink. A page whose @media tightens the
+   padding but not the mark — the team page — keeps the mark size from the
+   first half, which is what it does when scrolled on a phone. */
+.nav.nav{padding-top:16px;padding-bottom:16px}
+.nav.nav .logo{width:60px;height:60px}
+@media (max-width:980px){
+  .nav.nav{padding-top:12px;padding-bottom:12px}
+}
+</style>
 </head>
 <body id="top">
 <a class="skip" href="#policy">Skip to policy</a>
