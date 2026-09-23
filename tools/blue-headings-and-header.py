@@ -184,8 +184,26 @@ def main():
 
     if a.headings:
         print("== headings")
+        # Every .html in a live page's folder, not just the entry file. Several
+        # folders keep a second copy under the page's own name — JBY-Office.html
+        # beside index.html, 404.html beside index.html — and they are meant to
+        # stay byte for byte the same. Running this on the entry alone is what
+        # split them the first time.
+        seen = set()
+        targets = []
         for repo, folder, entry in live_pages():
-            f = os.path.join(ROOT, "pages", folder, entry)
+            d = os.path.join(ROOT, "pages", folder)
+            if not os.path.isdir(d):
+                continue
+            for name in sorted(os.listdir(d)):
+                if not name.endswith(".html"):
+                    continue
+                f = os.path.join(d, name)
+                if f in seen:
+                    continue
+                seen.add(f)
+                targets.append((repo if name == entry else repo + "/" + name, f))
+        for repo, f in targets:
             if not os.path.exists(f):
                 continue
             t = read(f)
