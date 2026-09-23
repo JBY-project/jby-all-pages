@@ -774,7 +774,13 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .ax-hero-content{max-width:800px;display:flex;flex-direction:column;gap:32px}
 .ax-hero-mark{display:block;height:52px;padding:8px 0}
 .ax-hero-mark img{height:100%;width:auto;display:block}
-.ax-hero-tag{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:20px;line-height:28px;color:#fff;margin:0;max-width:640px}
+/* The line under the wordmark is the body face, light and italic — the
+   voice the site uses when a section speaks rather than labels. No italic
+   cut is embedded, here or anywhere in this repo, so the browser slants
+   the 300 weight; that is the same oblique the home page's owner quotes
+   already stand in, so the two match. */
+.ax-hero-tag{font-family:'Myriad Pro',sans-serif;font-weight:300;font-style:italic;
+  font-size:20px;line-height:28px;color:#fff;margin:0;max-width:640px}
 .ax-hero-btns{display:flex;flex-wrap:wrap;gap:20px}
 
 /* ABOUT */
