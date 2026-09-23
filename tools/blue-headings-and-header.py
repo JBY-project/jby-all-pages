@@ -58,7 +58,11 @@ EXTRA = {".voices-sub", ".section-title", ".ci-title", ".about-title",
          # cards beside it were called card titles here and left out on
          # that reasoning; the client reads them as section titles, and
          # they are the client's pages.
-         ".story-copy .eyebrow", ".stat-card .k"}
+         ".story-copy .eyebrow", ".stat-card .k",
+         # The service pages lay each service out as a full row with its
+         # own heading, lead and list. The h3 on those is a section title
+         # doing card-title duty, which is why the rule above missed it.
+         ".card-body h3"}
 
 # Dark colours that become the blue. Everything else in a heading rule — white,
 # a variable that is not one of these — is left as it is.
