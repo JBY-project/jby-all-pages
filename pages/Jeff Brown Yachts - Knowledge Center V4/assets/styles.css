@@ -44,8 +44,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .btn-white:hover{background:rgba(255,255,255,.16);color:var(--white);border-color:var(--white)}
 .btn-dark{background:var(--ink);color:var(--white)}
 .btn-dark:hover{background:var(--navy)}
-.btn-ghost{background:transparent;color:var(--c0);border:1px solid var(--c0)}
-.btn-ghost:hover{background:var(--c0);color:var(--white)}
+.btn-ghost{background:transparent;color:var(--navy);border:1px solid var(--navy)}
+.btn-ghost:hover{background:var(--navy);color:var(--white)}
 .btn-ghost-navy{background:transparent;color:var(--navy);border:1px solid var(--navy)}
 .btn-ghost-navy:hover{background:var(--navy);color:var(--white)}
 .btn-ghost-light{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.9);backdrop-filter:blur(8px)}
@@ -201,12 +201,12 @@ section{position:relative}
 .sec.grey{background:var(--section)}
 .sec-head{max-width:760px;margin:0 auto 46px;text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center}
 .sec-head.left{text-align:left;align-items:flex-start;margin-left:0}
-.sec-head h2{color:var(--ink);font-size:20px;line-height:30px}
+.sec-head h2{color:var(--navy);font-size:20px;line-height:30px}
 .sec-head p{color:var(--c2);font-size:17px;line-height:27px;max-width:620px}
 .sec-foot{display:flex;justify-content:center;margin-top:44px}
 .row-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:36px}
 .row-head .rh-text{display:flex;flex-direction:column;gap:12px;max-width:680px}
-.row-head h2{color:var(--ink);font-size:20px;line-height:30px}
+.row-head h2{color:var(--navy);font-size:20px;line-height:30px}
 .row-head p{color:var(--c2);font-size:16px;line-height:25px}
 .row-head .link-arrow{flex:0 0 auto;padding-bottom:6px}
 @media(max-width:640px){.sec{padding:64px 0}.row-head{flex-direction:column;align-items:flex-start}.sec-head h2,.row-head h2{font-size:18px;line-height:26px}}
@@ -242,7 +242,7 @@ section{position:relative}
   color:#fff;display:flex;align-items:center;justify-content:center;transition:.35s}
 .card:hover .play{background:rgba(15,24,30,.62);transform:translate(-50%,-50%) scale(1.06)}
 .play svg{width:20px;height:20px;margin-left:2px;color:#fff}
-.card h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:19px;line-height:26px;text-transform:uppercase;color:var(--ink)}
+.card h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:19px;line-height:26px;text-transform:uppercase;color:var(--navy)}
 .card .meta{font-size:16px;color:var(--navy);font-family:'Mesmerize',sans-serif;letter-spacing:.06em;text-transform:uppercase}
 .card p{color:var(--c2);font-size:16px;line-height:24px}
 .card .date{font-size:16px;color:var(--c4);letter-spacing:.01em}
@@ -311,7 +311,7 @@ section{position:relative}
 .ocard .link-arrow{margin-top:2px}
 /* editorial intro strip for a panel */
 .panel-intro{max-width:720px;margin:0 0 42px;display:flex;flex-direction:column;gap:14px}
-.panel-intro h2{color:var(--ink);font-size:20px;line-height:30px;font-family:'Mesmerize',sans-serif;font-weight:300;text-transform:uppercase}
+.panel-intro h2{color:var(--navy);font-size:20px;line-height:30px;font-family:'Mesmerize',sans-serif;font-weight:300;text-transform:uppercase}
 .panel-intro p{color:var(--c2);font-size:17px;line-height:27px}
 
 /* =====================================================================
@@ -365,7 +365,7 @@ section{position:relative}
 .prose{max-width:720px;margin:0 auto;padding:44px 0 8px}
 .prose>*+*{margin-top:22px}
 .prose p{font-size:17px;line-height:29px;color:#33333a}
-.prose h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;text-transform:uppercase;color:var(--ink);margin-top:44px}
+.prose h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;text-transform:uppercase;color:var(--navy);margin-top:44px}
 .prose h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:28px;text-transform:uppercase;color:var(--ink);margin-top:34px}
 .prose ul{padding-left:2px;list-style:none;display:flex;flex-direction:column;gap:12px}
 .prose ul li{position:relative;padding-left:28px;font-size:17px;line-height:27px;color:#33333a}
@@ -467,12 +467,12 @@ section{position:relative}
 .sr-block{padding:0}
 .sr-block + .sr-block{border-top:0.5px solid var(--line);padding-top:44px;margin-top:44px}
 .sr-secline{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin:0 0 26px}
-.sr-secline h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:28px;letter-spacing:0;text-transform:uppercase;color:var(--ink);margin:0}
+.sr-secline h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:28px;letter-spacing:0;text-transform:uppercase;color:var(--navy);margin:0}
 .sr-secline h2 .sr-n{color:var(--c4);margin-left:9px}
 .sr-secline .link-arrow{flex:0 0 auto}
 .sr-empty{padding:16px 0 90px}
-.sr-empty h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;text-transform:uppercase;color:var(--ink);margin:0 0 10px}
-.sr-empty h2 span{color:var(--ink)}
+.sr-empty h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;text-transform:uppercase;color:var(--navy);margin:0 0 10px}
+.sr-empty h2 span{color:var(--navy)}
 .sr-empty h2 span{color:var(--navy)}
 .sr-empty p{font-size:16px;line-height:24px;color:var(--c4);margin:0 0 24px;max-width:520px}
 
@@ -591,7 +591,7 @@ footer.site{position:relative;background:var(--page);padding:48px 40px 40px;colo
 .acard .thumb::after{display:none}          /* no dark wash over the photo */
 .acard .badge{display:none}                 /* category tag off, as on search */
 .acard h3{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:20px;line-height:28px;
-  letter-spacing:0;text-transform:none;color:var(--ink);padding:20px 22px 0;
+  letter-spacing:0;text-transform:none;color:var(--navy);padding:20px 22px 0;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:76px}
 .acard .date{margin:8px 22px 22px;padding-top:8px;border-top:0.5px solid var(--line);
   font-size:16px;line-height:24px;letter-spacing:0;color:#2a2a36}
