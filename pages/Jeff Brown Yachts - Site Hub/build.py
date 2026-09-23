@@ -42,7 +42,7 @@ PAGES = [
     ("404/",                         "jby-404/"),
 ]
 
-VERSION = "6"   # bump when site.js / site.css change, so pages pick them up immediately
+VERSION = "7"   # bump when site.js / site.css change, so pages pick them up immediately
 CHROME = ('<link rel="stylesheet" href="/jby-site/site.css?v=%s">\n'
           '<script defer src="/jby-site/site.js?v=%s"></script>\n' % (VERSION, VERSION))
 

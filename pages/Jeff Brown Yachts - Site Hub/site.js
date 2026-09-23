@@ -28,7 +28,7 @@
       { href: 'faq/',                   label: 'FAQ' }
     ]},
     { title: 'News & media', links: [
-      { href: 'news/',          label: 'News hub' },
+      { href: 'news/',          label: 'JBY Journal' },
       { href: 'news/article/',  label: 'Article' },
       { href: 'news/video/',    label: 'Video' },
       { href: 'news/event/',    label: 'Event' },
@@ -56,6 +56,7 @@
     'privacy policy': 'privacy-policy/', 'terms & conditions': 'terms/',
     'terms and conditions': 'terms/', 'statement of information': 'statement-of-information/',
     'faq': 'faq/', 'frequently asked questions': 'faq/',
+    'jby journal': 'news/', 'news and insights': 'news/', 'knowledge center': 'news/',
     'san diego': 'locations/san-diego/', 'newport harbor': 'locations/', 'marina del rey': 'locations/',
     'sausalito': 'locations/', 'seattle': 'locations/', 'kona': 'locations/',
     'wrightsville beach': 'locations/', 'charleston': 'locations/', 'san diego marina & boatyard': 'locations/san-diego/'
