@@ -390,6 +390,100 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
   .jby-footer .jf-legal{flex-direction:column;gap:10px}
   .jby-footer .jf-top{right:24px;top:28px;width:40px;height:40px}
 }
+
+/* ===== SHOWCASE — Photos / Videos / 3D Tour ==============================
+   Carried over from Sell Your Yacht V2, where this was built as the Exposure
+   section: the tabs, the full-bleed stage, arrows, counter and thumbnail
+   strip. Two things changed on the way.
+
+   The wrapper is .showcase, not .show. This page already uses `.show` as a
+   state class on the section navigation (.secnav.show), and the script here
+   opens with document.querySelector('.show') — which would have found the
+   navigation bar the moment it was visible.
+
+   The tabs lead with Photos rather than 3D Tour, which is the order the
+   client asked for. Drop a tab by deleting its button and its entry in GAL. */
+.showcase{margin-top:72px}
+.show-tabs{display:flex;width:fit-content;max-width:100%;margin:0 auto 26px;gap:36px;border-bottom:1px solid var(--border)}
+.show-tab{padding:0 0 15px;background:none;border:0;position:relative;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--c4);cursor:pointer;transition:color .25s}
+.show-tab::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--navy);transform:scaleX(0);transition:transform .3s var(--ease-out)}
+.show-tab:hover{color:var(--navy)}
+.show-tab.on{color:var(--navy)}
+.show-tab.on::after{transform:scaleX(1)}
+.show-stage{position:relative;width:100vw;margin-left:calc(50% - 50vw);height:min(74vh,720px);min-height:460px;overflow:hidden;background:#0a1218}
+.show-stage>img,.show-stage>video{width:100%;height:100%;object-fit:cover;display:block}
+.show-stage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:50%;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,11,16,0) 0%,rgba(6,11,16,.55) 100%)}
+.show-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:52px;height:52px;background:rgba(12,18,23,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:.5px solid rgba(255,255,255,.32);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .25s}
+.show-arrow:hover{background:rgba(12,18,23,.95)}
+.show-arrow svg{width:22px;height:22px;display:block}
+.show-arrow.prev{left:32px}.show-arrow.next{right:32px}
+.show-cta{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center;padding:0 24px;pointer-events:none}
+.show-cta::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at center,rgba(6,11,16,.68) 0%,rgba(6,11,16,.5) 50%,rgba(6,11,16,.3) 100%)}
+.show-cta-h{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:clamp(24px,2.7vw,34px);line-height:1.25;text-transform:uppercase;color:#fff;max-width:20ch;text-shadow:0 2px 26px rgba(0,0,0,.45)}
+.show-cta .btn{pointer-events:auto}
+.show-word{position:absolute;left:0;right:0;bottom:132px;z-index:3;text-align:center;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:28px;letter-spacing:.06em;text-transform:uppercase;color:#fff;text-shadow:0 2px 22px rgba(0,0,0,.45)}
+.show-count{position:absolute;top:20px;right:26px;z-index:5;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;letter-spacing:.12em;color:rgba(255,255,255,.6);text-shadow:0 2px 14px rgba(0,0,0,.55)}
+.show-count b{color:#fff;font-weight:300}
+.show-thumbs{position:absolute;left:0;right:0;bottom:24px;z-index:5;display:flex;gap:12px;justify-content:center;padding:0 24px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.show-thumbs::-webkit-scrollbar{display:none}
+.show-thumb{flex:0 0 128px;height:78px;border-radius:2px;overflow:hidden;cursor:pointer;position:relative;opacity:.6;transition:opacity .25s,box-shadow .25s;background:#0a1218;border:1px solid rgba(255,255,255,.25);padding:0}
+.show-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.show-thumb.on{opacity:1;box-shadow:0 0 0 2px #fff}
+.show-thumb:hover{opacity:1}
+@media(max-width:640px){.show-tabs{gap:22px}.show-tab{font-size:14px}
+  .show-arrow{width:44px;height:44px}.show-arrow.prev{left:14px}.show-arrow.next{right:14px}
+  .show-word{bottom:112px;font-size:17px}.show-thumb{flex-basis:104px;height:64px}
+  .show-cta{padding:0 20px}.show-cta-h{font-size:16px;line-height:1.3;max-width:100%}}
+
+/* ===== LIGHTBOX ======================================================== */
+.lightbox{position:fixed;inset:0;z-index:2000;background:rgba(10,15,19,.95);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s}
+.lightbox.open{opacity:1;pointer-events:auto}
+.lb-stage{position:relative;display:flex;align-items:center;justify-content:center;max-width:90vw;max-height:80vh}
+.lb-media{position:relative;width:min(90vw,calc(80vh * 16 / 9));aspect-ratio:16/9;max-width:90vw;background:#0a1218;border:1px solid rgba(255,255,255,.18)}
+.lb-media img,.lb-media video{width:100%;height:100%;object-fit:cover;display:block}
+.lb-tour{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3}
+.lb-cap{display:none}
+.lb-count{position:absolute;right:0;bottom:-42px;z-index:6;color:rgba(255,255,255,.7);font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;letter-spacing:.08em}
+.lb-btn{position:absolute;z-index:5;width:52px;height:52px;border-radius:2px;display:flex;align-items:center;justify-content:center;background:#fff;color:var(--navy);border:0;cursor:pointer;transition:background .25s}
+.lb-btn:hover{background:rgba(255,255,255,.72)}
+.lb-btn svg{width:24px;height:24px}
+.lb-prev{position:fixed;left:20px;top:50%;transform:translateY(-50%)}
+.lb-next{position:fixed;right:20px;top:50%;transform:translateY(-50%)}
+.lb-close{position:fixed;top:20px;right:20px;width:46px;height:46px}
+@media(max-width:760px){.lb-prev{left:8px}.lb-next{right:8px}.lb-btn{width:44px;height:44px}}
+
+/* ===== EVENTS — the rail from the listing page =========================
+   Same component: .rail-wrap holds the two arrows and a .rail that scrolls
+   horizontally, and the card is .ip — photograph, title, three rows, one
+   button. Written against this page's tokens rather than the listing page's
+   (--ink for --text, --c2 for --secondary), and the button is this page's
+   own .btn .btn-sm .btn-ghost, because .btn-sm here is a size modifier and
+   not a button of its own. */
+.events{padding:0 0 110px}
+.events-head{margin-bottom:8px}
+.rail-wrap{position:relative;margin-top:20px}
+.rail{display:flex;gap:24px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding:6px 4px 10px}
+.rail::-webkit-scrollbar{display:none}
+.rail-nav{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;background:var(--navy);color:#fff;
+  border:0;border-radius:2px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:3;transition:background .25s,opacity .25s}
+.rail-nav:hover{background:var(--navy-d)}
+.rail-nav[disabled]{opacity:0;pointer-events:none}
+.rail-nav.prev{left:-18px}
+.rail-nav.next{right:-18px}
+.rail-nav svg{width:15px;height:15px}
+.ip{flex:0 0 426px;background:#fff;box-shadow:0 2px 14px -6px rgba(20,32,44,.18);border-radius:4px;overflow:hidden;transition:box-shadow .3s ease}
+.ip:hover{box-shadow:0 10px 30px -12px rgba(20,32,44,.3)}
+.ip-ph{height:200px;overflow:hidden;background:#e9eef2}
+.ip-ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease-out)}
+.ip:hover .ip-ph img{transform:scale(1.06)}
+.ip-in{padding:20px}
+.ip-in h4{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:24px;text-transform:uppercase;color:var(--navy);margin:0 0 14px;min-height:48px}
+.ev-row{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:4px 0}
+.ev-row span{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;color:var(--c2)}
+.ev-row b{font-family:'Myriad Pro',sans-serif;font-weight:600;font-size:16px;line-height:24px;color:var(--ink);text-align:right}
+.ip .btn{width:100%;margin-top:16px}
+@media(max-width:760px){.ip{flex-basis:300px}.ip-ph{height:170px}.rail-nav.prev{left:2px}.rail-nav.next{right:2px}}
 </style>
 </head>
 <body>
@@ -411,6 +505,7 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
     <a href="#support" data-spy>Full Service</a>
     <a href="#process" data-spy>The Process</a>
     <a href="#exposure" data-spy>Exposure</a>
+    <a href="#events" data-spy>Events</a>
     <a href="#contact" data-spy>Get a Valuation</a>
   </div>
 </nav>
@@ -536,6 +631,88 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
         </ul>
       </div>
     </div>
+
+    <!-- Photos / Videos / 3D Tour — the showcase carried over from V2 -->
+    <div class="showcase reveal">
+      <div class="show-tabs" role="tablist">
+        <button class="show-tab on" data-cat="photo" type="button">Photos</button>
+        <button class="show-tab" data-cat="video" type="button">Videos</button>
+        <button class="show-tab" data-cat="tour" type="button">3D Tour</button>
+      </div>
+      <div class="show-stage" id="showStage"></div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS — the card rail from the listing page -->
+<section class="events" id="events">
+  <div class="wrap">
+    <div class="events-head reveal">
+      <h2 class="h-sm">Where your yacht is seen</h2>
+      <p class="t-md" style="margin-top:12px;color:var(--c2);max-width:62ch">Boat shows, concours weekends and private owner evenings — the rooms where buyers are already looking.</p>
+    </div>
+    <div class="rail-wrap reveal">
+      <button class="rail-nav prev" type="button" aria-label="Previous"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 4l-6 6 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="rail" data-rail>
+
+        <article class="ip">
+          <div class="ip-ph"><img src="assets/events/ev_cannes.jpg" alt="Cannes Yachting Festival in the Vieux Port" loading="lazy"/></div>
+          <div class="ip-in">
+            <h4>Cannes Yachting Festival</h4>
+            <div class="ev-row"><span>Location:</span><b>Cannes, France</b></div>
+            <div class="ev-row"><span>Date:</span><b>Tue, Sep 8 &ndash; Sun, Sep 13</b></div>
+            <div class="ev-row"><span>Event Time:</span><b>10:00am &ndash; 7:00pm</b></div>
+            <button class="btn btn-sm btn-ghost" type="button">Request to attend</button>
+          </div>
+        </article>
+
+        <article class="ip">
+          <div class="ip-ph"><img src="assets/events/ev_sausalito.jpg" alt="Sausalito Boat Show beneath the Golden Gate" loading="lazy"/></div>
+          <div class="ip-in">
+            <h4>Sausalito Boat Show</h4>
+            <div class="ev-row"><span>Location:</span><b>Sausalito, California</b></div>
+            <div class="ev-row"><span>Date:</span><b>Fri, Sep 25 &ndash; Sun, Sep 27</b></div>
+            <div class="ev-row"><span>Event Time:</span><b>9:00am &ndash; 6:00pm</b></div>
+            <button class="btn btn-sm btn-ghost" type="button">Request to attend</button>
+          </div>
+        </article>
+
+        <article class="ip">
+          <div class="ip-ph"><img src="assets/events/ev_tahoe.jpg" alt="Vintage wooden boats at the Lake Tahoe Concours" loading="lazy"/></div>
+          <div class="ip-in">
+            <h4>Lake Tahoe Concours d&rsquo;Elegance</h4>
+            <div class="ev-row"><span>Location:</span><b>Lake Tahoe, California</b></div>
+            <div class="ev-row"><span>Date:</span><b>Fri, Aug 7 &ndash; Sat, Aug 8</b></div>
+            <div class="ev-row"><span>Event Time:</span><b>8:00am &ndash; 4:00pm</b></div>
+            <button class="btn btn-sm btn-ghost" type="button">Request to attend</button>
+          </div>
+        </article>
+
+        <article class="ip">
+          <div class="ip-ph"><img src="assets/events/ev_riva.jpg" alt="An evening aboard Riva on Lake Tahoe" loading="lazy"/></div>
+          <div class="ip-in">
+            <h4>Riva Soir&eacute;e</h4>
+            <div class="ev-row"><span>Location:</span><b>Lake Tahoe, California</b></div>
+            <div class="ev-row"><span>Date:</span><b>Sun, Aug 9</b></div>
+            <div class="ev-row"><span>Event Time:</span><b>6:00pm &ndash; 10:00pm</b></div>
+            <button class="btn btn-sm btn-ghost" type="button">Request to attend</button>
+          </div>
+        </article>
+
+        <article class="ip">
+          <div class="ip-ph"><img src="assets/events/ev_brabus.jpg" alt="BRABUS VIP owners party on the Monterey Peninsula" loading="lazy"/></div>
+          <div class="ip-in">
+            <h4>BRABUS VIP Owners Party</h4>
+            <div class="ev-row"><span>Location:</span><b>Monterey Peninsula, CA</b></div>
+            <div class="ev-row"><span>Date:</span><b>Sun, Aug 16 &ndash; Mon, Aug 17</b></div>
+            <div class="ev-row"><span>Event Time:</span><b>5:00pm &ndash; 11:00pm</b></div>
+            <button class="btn btn-sm btn-ghost" type="button">Request to attend</button>
+          </div>
+        </article>
+
+      </div>
+      <button class="rail-nav next" type="button" aria-label="Next"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 4l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
   </div>
 </section>
 
@@ -643,6 +820,17 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
   <button class="jf-top" id="to-top" type="button" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M13.9842 10.6509L7.7342 16.9009C7.67613 16.9589 7.60719 17.005 7.53132 17.0364C7.45545 17.0679 7.37414 17.084 7.29201 17.084C7.20989 17.084 7.12857 17.0679 7.0527 17.0364C6.97683 17.005 6.9079 16.9589 6.84983 16.9009C6.79176 16.8428 6.74569 16.7739 6.71427 16.698C6.68284 16.6221 6.66667 16.5408 6.66667 16.4587C6.66667 16.3766 6.68284 16.2952 6.71427 16.2194C6.74569 16.1435 6.79176 16.0746 6.84983 16.0165L12.6584 10.2087L6.84983 4.40087C6.73255 4.28359 6.66667 4.12453 6.66667 3.95868C6.66667 3.79283 6.73255 3.63377 6.84983 3.51649C6.9671 3.39922 7.12616 3.33333 7.29201 3.33333C7.45787 3.33333 7.61693 3.39922 7.7342 3.51649L13.9842 9.76649C14.0423 9.82454 14.0884 9.89347 14.1199 9.96934C14.1513 10.0452 14.1675 10.1265 14.1675 10.2087C14.1675 10.2908 14.1513 10.3721 14.1199 10.448C14.0884 10.5239 14.0423 10.5928 13.9842 10.6509Z"/></svg></button>
 </footer>
 
+<!-- Lightbox — enlarges a photograph, plays a video with sound -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Media viewer">
+  <button class="lb-btn lb-close" type="button" aria-label="Close viewer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div class="lb-stage">
+    <button class="lb-btn lb-prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m15 18-6-6 6-6"/></svg></button>
+    <div class="lb-media"></div>
+    <button class="lb-btn lb-next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></button>
+    <div class="lb-cap"></div><div class="lb-count"></div>
+  </div>
+</div>
+
 <script>
 /* Header scroll state */
 const hdr=document.getElementById('site-nav');
@@ -748,6 +936,114 @@ document.querySelectorAll('.expo-list').forEach(list=>{
 
 /* Back to top */
 ;(document.getElementById('to-top')||{addEventListener:function(){}}).addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+
+/* ===== SHOWCASE — Photos / Videos / 3D Tour ==============================
+   Carried over from Sell Your Yacht V2. The container is .showcase and not
+   .show: this page already gives the section navigation a .show state class,
+   and querySelector('.show') would have found the navigation bar instead.
+
+   The videos are the two this page already carries for its hero and its
+   cinematic band, so nothing new is downloaded for that tab. */
+(function(){
+  var show=document.querySelector('.showcase');if(!show)return;
+  var GAL={
+    photo:{word:'Photography',items:[
+      {type:'img',src:'assets/gallery/promo.jpg',cap:'Underway at golden hour'},
+      {type:'img',src:'assets/gallery/riva-profile.jpg',cap:'Profile at anchor'},
+      {type:'img',src:'assets/gallery/riva-aerial.jpg',cap:'Aerial off the coast'},
+      {type:'img',src:'assets/gallery/riva-run.jpg',cap:'Running shot'},
+      {type:'img',src:'assets/gallery/tahoe-riva.jpg',cap:'Classic Riva at Lake Tahoe'},
+      {type:'img',src:'assets/gallery/riva-bow.jpg',cap:'Sculpted Italian bow'}
+    ]},
+    video:{word:'Video',items:[
+      {type:'video',src:'assets/cine.mp4',poster:'assets/cine-poster.jpg',cap:'Cinematic walkthrough'},
+      {type:'video',src:'assets/hero.mp4',poster:'assets/hero-poster.jpg',cap:'On the water'}
+    ]},
+    tour:{items:[
+      {type:'img',src:'assets/gallery/interior.jpg',title:'Step aboard the Riva 112&rsquo; Dolcevita Super.',cap:"Riva 112' Dolcevita Super"},
+      {type:'img',src:'assets/gallery/tour-2.jpg',title:'Step aboard the Riva 88&rsquo; Folgore.',cap:"Riva 88' Folgore"}
+    ]}
+  };
+  var stage=document.getElementById('showStage');
+  var tabs=[].slice.call(show.querySelectorAll('.show-tab'));
+  var arrows='<button class="show-arrow prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m15 18-6-6 6-6"/></svg></button><button class="show-arrow next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></button>';
+  var tourBtn='<button type="button" class="btn btn-md btn-ghost-light">Take the tour <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></button>';
+  var cat='photo',idx=0;
+  function media(it){return it.type==='video'?'<video autoplay muted loop playsinline poster="'+(it.poster||'')+'"><source src="'+it.src+'" type="video/mp4"></video>':'<img src="'+it.src+'" alt="'+(it.cap||'')+'">';}
+  /* Plays the stage's own video. The page already has a kick() of its own,
+     but it holds a list of the videos that existed when it ran, and the one
+     on the stage is built after that. */
+  function kickStage(){var v=stage.querySelector('video');if(v&&v.paused)v.play().catch(function(){});}
+
+  var lb=document.getElementById('lightbox');
+  var lbMedia=lb.querySelector('.lb-media'),lbCap=lb.querySelector('.lb-cap'),lbCount=lb.querySelector('.lb-count');
+  var lbItems=[],lbIdx=0,lbRet=null;
+  function lbHTML(it){return it.type==='video'
+    ?'<video src="'+it.src+'" poster="'+(it.poster||'')+'" controls autoplay playsinline></video>'
+    :'<img src="'+it.src+'" alt="'+(it.cap||'')+'">';}
+  function lbRender(){var it=lbItems[lbIdx];lbMedia.innerHTML=lbHTML(it);var v=lbMedia.querySelector('video');if(v){v.play().catch(function(){});}lbCap.textContent=it.cap||'';var n=lbIdx+1,t=lbItems.length;lbCount.textContent=(n<10?'0'+n:n)+' / '+(t<10?'0'+t:t);}
+  function lbOpen(items,i,ret){lbItems=items;lbIdx=i;lbRet=ret||null;lbRender();lb.classList.add('open');document.body.style.overflow='hidden';}
+  function lbClose(){lb.classList.remove('open');document.body.style.overflow='';var v=lbMedia.querySelector('video');if(v)v.pause();lbMedia.innerHTML='';if(lbRet){try{lbRet.focus();}catch(e){}}}
+  function lbGo(n){lbIdx=(n%lbItems.length+lbItems.length)%lbItems.length;lbRender();}
+  lb.querySelector('.lb-next').addEventListener('click',function(){lbGo(lbIdx+1);});
+  lb.querySelector('.lb-prev').addEventListener('click',function(){lbGo(lbIdx-1);});
+  lb.querySelector('.lb-close').addEventListener('click',lbClose);
+  lb.addEventListener('click',function(e){if(e.target===lb||e.target.classList.contains('lb-stage'))lbClose();});
+  document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='Escape')lbClose();else if(e.key==='ArrowRight')lbGo(lbIdx+1);else if(e.key==='ArrowLeft')lbGo(lbIdx-1);});
+  var lbsx=null;
+  lb.addEventListener('pointerdown',function(e){lbsx=e.clientX;});
+  lb.addEventListener('pointerup',function(e){if(lbsx===null)return;var dx=e.clientX-lbsx;lbsx=null;if(Math.abs(dx)>45){dx<0?lbGo(lbIdx+1):lbGo(lbIdx-1);}});
+
+  function pad(n){return (n<10?'0':'')+n;}
+  function render(){
+    var g=GAL[cat],it=g.items[idx];
+    var thumbsHTML=g.items.map(function(x,n){return '<button class="show-thumb'+(n===idx?' on':'')+'" type="button" data-i="'+n+'" aria-label="View '+(n+1)+'"><img src="'+(x.type==='video'?(x.poster||''):x.src)+'" alt=""></button>';}).join("");
+    var overlay=(cat==='tour')
+      ?'<div class="show-cta"><h3 class="show-cta-h">'+(it.title||'')+'</h3>'+tourBtn+'</div>'
+      :'<div class="show-word">'+g.word+'</div>';
+    var count='<span class="show-count"><b>'+pad(idx+1)+'</b> / '+pad(g.items.length)+'</span>';
+    stage.innerHTML=media(it)+arrows+count+overlay+'<div class="show-thumbs">'+thumbsHTML+'</div>';
+    [].slice.call(stage.querySelectorAll('.show-thumb')).forEach(function(b){b.addEventListener('click',function(){
+      if(window.matchMedia('(max-width:760px)').matches){lbOpen(g.items,+b.dataset.i,b);}
+      else{idx=+b.dataset.i;render();}
+    });});
+    stage.querySelector('.show-arrow.prev').addEventListener('click',function(){idx=(idx-1+g.items.length)%g.items.length;render();});
+    stage.querySelector('.show-arrow.next').addEventListener('click',function(){idx=(idx+1)%g.items.length;render();});
+    var mediaEl=stage.querySelector('img,video');
+    if(mediaEl){mediaEl.style.cursor=(cat==='video'?'pointer':'zoom-in');mediaEl.addEventListener('click',function(){lbOpen(g.items,idx,mediaEl);});}
+    if(cat==='tour'){var tb=stage.querySelector('.show-cta .btn');if(tb)tb.addEventListener('click',function(){lbOpen(g.items,idx,tb);});}
+    kickStage();
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){tabs.forEach(function(b){b.classList.toggle('on',b===t);});cat=t.dataset.cat;idx=0;render();});});
+  render();
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)kickStage();});
+})();
+
+/* ===== EVENTS rail — the same behaviour the listing page gives its rails.
+   One step is one card plus the gap, read from the first child rather than
+   hard-coded, so it keeps working if the card width changes. */
+[].slice.call(document.querySelectorAll('.rail-wrap')).forEach(function(wrap){
+  var rail=wrap.querySelector('[data-rail]');
+  if(!rail)return;
+  var prev=wrap.querySelector('.rail-nav.prev'),next=wrap.querySelector('.rail-nav.next');
+  function step(){
+    var first=rail.firstElementChild;
+    var cs=getComputedStyle(rail);
+    var gap=parseFloat(cs.columnGap||cs.gap)||0;
+    return first?first.getBoundingClientRect().width+gap:rail.clientWidth*0.8;
+  }
+  function sync(){
+    var max=rail.scrollWidth-rail.clientWidth-2;
+    if(prev)prev.disabled=rail.scrollLeft<=2;
+    if(next)next.disabled=rail.scrollLeft>=max;
+  }
+  if(prev)prev.addEventListener('click',function(){rail.scrollLeft-=step();});
+  if(next)next.addEventListener('click',function(){rail.scrollLeft+=step();});
+  rail.addEventListener('scroll',sync,{passive:true});
+  window.addEventListener('resize',sync);
+  sync();
+});
 </script>
+
 </body>
 </html>
