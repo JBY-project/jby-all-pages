@@ -585,6 +585,20 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
   .jby-footer .jf-top{right:24px;top:28px;width:40px;height:40px}
 }
 </style>
+<style>
+/* This page only: the band butts straight onto the reviews above it.
+
+   section.jby-band carries margin-top:88px so that on most pages it stands off
+   whatever ends above it — usually white paper, where the gap is the section
+   break. Here the reviews sit on --section grey and run to a 120px bottom
+   padding of their own, so the 88 read as a white stripe wedged between two
+   coloured bands rather than as space.
+
+   Written after the shared block rather than inside it: same 0,1,1 specificity,
+   so order is what decides, and the block above stays the file that
+   tools/site-blocks/band-footer.css produces. */
+section.jby-band{margin-top:0}
+</style>
 </head>
 <body>
 <div class="progress"><div class="progress-bar"></div></div>
