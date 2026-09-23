@@ -7,26 +7,38 @@
 #
 # Blank lines and lines starting with # are ignored.
 
-# This branch is the design-system pass over every page. Two of these are the
-# pages in front of the client and carry the weight:
+# This branch is the design-system pass over every page, so what goes up is a
+# page for each thing the pass touched:
 #
-#   the search prototype — the glass, the full-screen phone mode, the header
-#   the home page        — the vessel and event cards, the bento, the footer
+#   the Axopar brand page — the About section, its cards and its two panels
+#   the office page       — the listing card and the How can we help? band
+#   locations             — the band and the footer these two came from
+#   the listing page      — the Other Listings rail, the third card family
+#   terms                 — a page that is nothing but a header and a footer
+#   the team page         — the band on a page of photographs
+#   all services          — the band and footer on a long page
 #
-# The chat page, pages/Jeff Brown Yachts - Home Page (Crisp Chat), stood in the
-# second slot until the home page itself went in front of the client. It is one
-# line away from coming back, but only one of the two fits: they are ~95 and
-# ~150MB and the site is already at 829MB of the 900 the guard below allows.
-pages/jby-search
-pages/Jeff Brown Yachts - Home Page
-
-# The rest are here to show the pass itself — the listing card, the How can we
-# help? band and the blue footer as they now stand on a page that is not the
-# home page, and the Axopar About section. They are small enough to sit
-# alongside the two above without touching the budget: 5, 8, 2, 5 and 1MB
-# against the 245 those two take between them.
+# 72MB between them.
 pages/Jeff Brown Yachts - Brand Page (Axopar)
 pages/Jeff Brown Yachts - Office Page
 pages/Jeff Brown Yachts - Locations Page
 pages/Jeff Brown Yachts - Listing Page
 pages/Jeff Brown Yachts - Terms Page
+pages/Jeff Brown Yachts - Team Page
+pages/Jeff Brown Yachts - All Services Page
+
+# What is NOT here, and why: the home page (~95MB) and the search prototype
+# (~150MB), which is what this manifest held until now.
+#
+# gh-pages is at ~786MB before this branch adds anything — five preview folders
+# from other branches, four of them for work already merged into this one. The
+# guard below stops the build at 900, so 245MB of home page and search does not
+# fit and has not fitted for two days: every run on this branch since
+# 2026-09-21 has failed on that guard, and previews/publish-all has never
+# existed. Nothing was lost by dropping them, because nothing was ever there.
+#
+# Both come back the moment the merged branches' preview folders are cleared
+# off gh-pages — previews/feat-contact-us-layout, previews/feat-intro-logo-v3
+# and previews/feat-mega-menu-brand-models are all merged into publish/all and
+# are the obvious ones to go. That is a decision about links other people may
+# be holding, so it is not one to take quietly in a manifest.
