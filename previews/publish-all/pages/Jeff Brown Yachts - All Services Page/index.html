@@ -210,9 +210,15 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
 
 /* ============================== SERVICES BENTO (from Home Page) ============================== */
 .s-title{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;color:var(--navy);text-transform:uppercase;text-align:center;margin:0}
-.aftercare{padding-top:var(--section-pad);background:var(--paper)}
+/* No top padding: the heading sits straight under the hero. The 120 that was
+   here put 160px of empty paper between the photograph and the title once the
+   title's own 40 is counted. */
+.aftercare{padding-top:0;background:var(--paper)}
 /* display:block so the centered title isn't shrink-wrapped by .split-words' inline-block */
-.aftercare .s-title{display:block;color:#000;padding:0 24px 40px}
+/* .s-title is already --navy; this rule was overriding it to black at 0,2,0.
+   The 40px of top padding replaces what the section's padding used to give
+   the title, so it is not pressed against the hero. */
+.aftercare .s-title{display:block;color:var(--navy);padding:40px 24px 40px}
 .bento{display:grid;grid-template-columns:1fr 1fr;gap:0;width:100%;margin:0}
 .bento-cell{position:relative;overflow:hidden;background:#0a1620;color:#fff;height:530px;cursor:pointer}
 .bento-cell.span2{grid-column:span 2;height:700px}
