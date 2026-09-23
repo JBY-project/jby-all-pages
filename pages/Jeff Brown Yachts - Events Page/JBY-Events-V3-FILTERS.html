@@ -323,7 +323,11 @@ footer{background:var(--paper);padding:40px 40px;color:var(--mute);font-size:14p
 .ev-facets{position:sticky;top:100px}
 .facet-block{margin-top:0}
 .facet-block + .facet-block{margin-top:30px}
-.facet-block h3{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;letter-spacing:0.06em;text-transform:uppercase;color:#a2a2a9;margin:0 0 14px}
+.facet-block h3{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;letter-spacing:0.06em;text-transform:uppercase;color:var(--mute);margin:0 0 14px}
+/* LOCATION and BRAND were #a2a2a9 and sat two steps lighter than the list
+   under them. They take the same --mute as the list now; what still marks
+   them as labels rather than choices is the uppercase and the letter
+   spacing, which is how this site marks a label everywhere else. */
 .facet-block button{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;font-family:'Myriad Pro',sans-serif;font-size:16px;line-height:1.3;padding:9px 2px;color:var(--mute);font-weight:300;cursor:pointer;transition:color .15s}
 /* --mute is #575760, the grey the rest of the site uses for secondary
    text. It replaces #7a7a82, which was light enough that the list of
