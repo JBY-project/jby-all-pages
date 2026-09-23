@@ -57,7 +57,7 @@ a{color:inherit;text-decoration:none}
 main{padding-top:128px}
 .wrap{max-width:1440px;margin:0 auto;padding:0 var(--page-pad)}
 .faq-head{padding-top:48px}
-.faq-head h1{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:26px;line-height:38px;letter-spacing:0;text-transform:uppercase;color:#111;margin:0}
+.faq-head h1{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:26px;line-height:38px;letter-spacing:0;text-transform:uppercase;color:var(--navy);margin:0}
 
 /* SEARCH */
 .faq-search{margin-top:24px;position:relative;max-width:520px}
@@ -99,7 +99,10 @@ main{padding-top:128px}
 .faq-q{width:100%;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;text-align:left;
   padding:22px 0;font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:20px;line-height:28px;color:#111;transition:color .2s}
 .faq-q:hover{color:var(--navy)}
-.faq-q .sign{flex:0 0 auto;width:20px;height:20px;position:relative;margin-top:4px}
+/* The plus draws its two bars in currentColor, so the colour has to sit on
+   the .sign itself: the question beside it stays as it is, and only the
+   mark goes blue. */
+.faq-q .sign{flex:0 0 auto;width:20px;height:20px;position:relative;margin-top:4px;color:var(--navy)}
 .faq-q .sign::before,.faq-q .sign::after{content:"";position:absolute;background:currentColor;transition:opacity .2s ease, transform .3s ease}
 .faq-q .sign::before{left:0;top:9.5px;width:20px;height:1px}
 .faq-q .sign::after{left:9.5px;top:0;width:1px;height:20px}

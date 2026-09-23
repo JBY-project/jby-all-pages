@@ -89,7 +89,14 @@ EXTRA = {".voices-sub", ".section-title", ".ci-title", ".about-title",
          # document, which is why these two section titles — Description and
          # RSVP — were out of reach until this walked stylesheets as well.
          "#jb_body.page-event .event-detail__section-title",
-         "#jb_body.page-event .event-rsvp-form-block .contact-form__title"}
+         "#jb_body.page-event .event-rsvp-form-block .contact-form__title",
+         # The FAQ page's own title. A page <h1> is on the "not a section
+         # title" list above and stays there; this one is named by the block
+         # it sits in, so only this page's title moves. The plus beside each
+         # question goes blue with it, but not from here: .faq-q .sign draws
+         # itself in currentColor and has no colour of its own for this pass
+         # to rewrite, so that rule is in the page.
+         ".faq-head h1"}
 
 # The title on a card. Everything above is a section title; these are the
 # names on the things inside a section, and until now they were deliberately
