@@ -1,0 +1,66 @@
+# Where each page actually lives on the web.
+#
+# Not the branch previews under jby-all-pages/previews/ — those are for showing
+# a branch to someone before it lands. The live page is its own repository
+# under the JBY-project organisation, serving from main at the root, and the
+# link people hold is https://jby-project.github.io/<repo>/. Forty of them.
+#
+#   <repo> | <folder under pages/> | <optional file to publish as index.html>
+#
+# The third column is for the folders whose entry file is not index.html: the
+# repo gets that file copied over index.html as well as under its own name.
+#
+# This mapping was not taken from README.md, which is a snapshot of the older
+# ywteamyw copies and is wrong in at least one place — it sends jby-search to
+# Home Search, where the live repo is byte for byte pages/jby-search. Every row
+# below was checked by comparing the blob git has for the local file against
+# the one the GitHub API reports for the published index.html, at the commit
+# before this branch started changing pages. Thirty-nine matched exactly; the
+# fortieth is jby-home-intro-v3, which is explained in publish-live-pages.py.
+
+jby-404                      | Jeff Brown Yachts - 404 Page
+jby-about                    | Jeff Brown Yachts - About Us Page
+jby-all-services             | Jeff Brown Yachts - All Services Page
+jby-axopar                   | Jeff Brown Yachts - Brand Page (Axopar)
+jby-contact                  | Jeff Brown Yachts - Contact Page                   | JBY-Contact.html
+jby-event-page               | jby-event-page-live
+jby-events                   | Jeff Brown Yachts - Events Page
+jby-faq                      | Jeff Brown Yachts - FAQ Page
+jby-home                     | Jeff Brown Yachts - Home Page                      | JBY-Home.html
+jby-home-chat                | Jeff Brown Yachts - Home Page (Crisp Chat)         | JBY-Home.html
+jby-home-chat-v2             | Jeff Brown Yachts - Home Page (Crisp Chat V2)      | JBY-Home.html
+jby-home-intro               | Jeff Brown Yachts - Home Page (Intro Animation)
+jby-home-intro-v2            | Jeff Brown Yachts - Home Page (Intro V2 Logo Only)
+jby-home-intro-v3            | Jeff Brown Yachts - Home Page (Intro V3 Arc)
+jby-home-v1                  | Jeff Brown Yachts - Home Page V1
+jby-knowledge-center         | Jeff Brown Yachts - Knowledge Center V2
+jby-knowledge-center-v3      | Jeff Brown Yachts - Knowledge Center V3
+jby-knowledge-center-v4      | Jeff Brown Yachts - Knowledge Center V4
+jby-news-media               | Jeff Brown Yachts - Knowledge Center
+jby-listing                  | Jeff Brown Yachts - Listing Page
+jby-locations                | Jeff Brown Yachts - Locations Page
+jby-marketing-variants       | Jeff Brown Yachts - Marketing Section Variants
+jby-mega-menu                | Jeff Brown Yachts - Mega Menu                      | JBY-Menu-V3-Dark-NoPhoto.html
+jby-office                   | Jeff Brown Yachts - Office Page
+jby-privacy-policy           | Jeff Brown Yachts - Privacy Policy Page
+jby-search                   | jby-search
+jby-sell-your-yacht          | Jeff Brown Yachts - Sell Your Yacht Page
+jby-sell-your-yacht-v2       | Jeff Brown Yachts - Sell Your Yacht Page V2
+jby-sell-your-yacht-v3       | Jeff Brown Yachts - Sell Your Yacht Page V3
+jby-service-maintenance      | Jeff Brown Yachts - Service & Maintenance Page
+jby-service-maintenance-2    | Jeff Brown Yachts - Service & Maintenance Page V2
+jby-site                     | Jeff Brown Yachts - Site Hub
+jby-statement-of-information | Jeff Brown Yachts - Statement of Information Page
+jby-team                     | Jeff Brown Yachts - Team Page
+jby-team-member              | Jeff Brown Yachts - Team Member Page
+jby-terms-and-conditions     | Jeff Brown Yachts - Terms Page
+jby-testimonials-v2          | Jeff Brown Yachts - Testimonials V2
+jby-testimonial-variants     | Jeff Brown Yachts - Testimonials Variants
+jby-yacht-management         | Jeff Brown Yachts - Yacht Management Page
+model-page                   | riva-112-model-page
+
+# Folders with no live repo, and not an oversight: local working copies and
+# duplicates. README.md lists them under "Folders with no published page".
+#   JBY-About-Us, JBY-Home-Page, JBY-Home-V3.31 4, JBY-Home-V3.31-SHIPPED,
+#   Jeff Brown Yachts - Home Search, Riva-112-Dolcevita-Super(+ 2),
+#   jby-hero-riva-como, jby-yacht-management
