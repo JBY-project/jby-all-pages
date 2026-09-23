@@ -1134,6 +1134,15 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
 }
 </style>
 <style>
+/* This page only: the band butts straight onto what is above it.
+
+   section.jby-band's margin-top:88px is there for the pages where it is the
+   only thing between the band and the content above — the text pages, whose
+   <main> ends on nothing at all. Here it is surplus: above is the yacht listings, which already end on 96px of their own,
+   so the 88 made a white stripe of nearly two hundred pixels. */
+section.jby-band{margin-top:0}
+</style>
+<style>
 /* === JBY: the header is blue from the first frame === ===
    The hero on this page is light and carries no photograph and no video, so a
    transparent header would be dark type on paper and would then flip to white
