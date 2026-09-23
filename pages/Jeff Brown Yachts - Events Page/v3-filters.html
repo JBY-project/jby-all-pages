@@ -252,11 +252,13 @@ footer{background:var(--paper);padding:40px 40px;color:var(--mute);font-size:14p
 .lv-row.reverse .lv-copy{order:1}
 .lv-copy .lv-title{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:28px;letter-spacing:0;text-transform:uppercase;color:var(--navy);margin:0 0 10px}
 /* Who the event is for, as a square outlined marker over the title. The
-   border is the full navy rather than the 0.4 the button below it uses,
-   so the two do not read as the same thing — only one of them is
-   clickable. 2px is the corner every other button here uses. */
+   border is navy at 0.3, quieter than the 0.4 on the See Details button
+   below it: the marker is a label and the button is the thing you click,
+   so the edge that matters should be the stronger of the two. The type
+   stays the full navy and carries the contrast. 2px is the corner every
+   other button here uses. */
 .lv-copy .lv-tag{display:inline-flex;align-items:center;height:26px;padding:0 11px;margin:0 0 14px;
-  background:transparent;color:var(--navy);border:1px solid var(--navy);border-radius:2px;
+  background:transparent;color:var(--navy);border:1px solid rgba(65,100,123,0.3);border-radius:2px;
   font-family:'Mesmerize',sans-serif;font-weight:300;
   font-size:11px;line-height:1;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
 .lv-copy .lv-meta{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:var(--mute);margin:0 0 16px}
