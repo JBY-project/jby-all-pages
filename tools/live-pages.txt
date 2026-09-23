@@ -24,7 +24,11 @@ jby-all-services             | Jeff Brown Yachts - All Services Page
 jby-axopar                   | Jeff Brown Yachts - Brand Page (Axopar)
 jby-contact                  | Jeff Brown Yachts - Contact Page                   | JBY-Contact.html
 jby-event-page               | jby-event-page-live
-jby-events                   | Jeff Brown Yachts - Events Page
+# The events page the client chose is the one with the list and the calendar
+# view and the location/brand filters, not the plain list that used to sit at
+# the root. Named here so the repo serves it as index.html; the old root page
+# stays in the folder and on its own URL.
+jby-events                   | Jeff Brown Yachts - Events Page                    | v3-filters.html
 jby-faq                      | Jeff Brown Yachts - FAQ Page
 jby-home                     | Jeff Brown Yachts - Home Page                      | JBY-Home.html
 jby-home-chat                | Jeff Brown Yachts - Home Page (Crisp Chat)         | JBY-Home.html

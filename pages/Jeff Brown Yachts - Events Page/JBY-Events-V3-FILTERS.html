@@ -361,6 +361,16 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
 .back-top:hover{background:rgba(0,0,0,0.85)}
 .back-top svg{width:20px;height:20px;display:block;transform:rotate(-90deg)}
 @media (max-width:820px){footer{padding:40px 24px 64px}.foot-grid{grid-template-columns:1fr}.foot-col{padding-top:0}.back-top{display:none}}
+
+/* standard site footer: uppercase locations list, no street address */
+.foot-locs{display:flex;flex-direction:column;gap:14px;margin:0}
+.foot-locs a{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;text-transform:uppercase;color:var(--ink,#2f2f39);text-decoration:none;transition:color .2s}
+.foot-locs a:hover{color:#41647b}
+/* back-to-top sits at the top right of the footer, level with the logo */
+footer{position:relative}
+.to-top{position:absolute;top:52px;right:40px;margin-top:0;justify-self:auto;align-self:auto}
+/* the footer keeps a 40px gutter on phones here, so the chevron lines up with the logo */
+@media (max-width:960px){.to-top{top:44px;right:40px}}
 </style>
 <link rel="stylesheet" href="./jby-system.css">
 </head>
