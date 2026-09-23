@@ -218,6 +218,18 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
 .bento-cell.span2{grid-column:span 2;height:700px}
 /* bento-img is the parallax track (JS moves it); bento-img-inner holds the photo and takes the hover scale */
 .bento-img{position:absolute;inset:-28% 0;will-change:transform;overflow:hidden}
+/* A shorter track for a photograph of people standing.
+
+   -28% makes the layer 1.56 times the cell, so the cell only ever shows 64% of
+   the photograph's height and slides over the rest. That is what gives the
+   bento its drift, and it is fine for a boat or a deck, where any 64% band is
+   still a picture. It is not fine for five people at full length: the band cuts
+   them at the knees at one end of the travel and at the shoulders at the other.
+
+   -8% shows 86% of the height instead, which holds the crew whole at both
+   extremes — measured, not guessed — and keeps about 107px of drift, enough to
+   read as movement beside the cells around it. */
+.bento-cell.standing .bento-img{inset:-8% 0}
 .bento-img-inner{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 1s var(--ease);will-change:transform}
 .bento-cell:hover .bento-img-inner{transform:scale(1.14)}
 .bento-cell.reveal{transform:translate3d(0,70px,0) scale(0.96);transition:opacity 1.3s var(--ease),transform 1.3s var(--ease)}
@@ -569,10 +581,12 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
 <section class="aftercare" id="services">
   <h2 class="s-title reveal split-words" data-split>Support for every stage of ownership</h2>
   <div class="bento">
-    <div class="bento-cell reveal span2" data-parallax-bg="0.20">
+    <div class="bento-cell reveal span2 standing" data-parallax-bg="0.20">
       <div class="bento-img">
         <!-- The same van in the same yard, with the whole crew in frame rather
-             than three of them. Both are 3:2, so the cell crops it identically. -->
+             than three of them. Both are 3:2, so the cell crops it identically.
+             The cell carries "standing" because of what is in the frame: see the
+             note on .bento-cell.standing above. -->
         <div class="bento-img-inner" style="background-image:url('./assets/bento_yacht_management_van.jpg')"></div>
       </div>
       <div class="bento-veil"></div>
