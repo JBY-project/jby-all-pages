@@ -72,7 +72,14 @@ EXTRA = {".voices-sub", ".section-title", ".ci-title", ".about-title",
          # and the numbered steps. .step .num and .step .tag are the same
          # shape as yacht management's .no and h4 — a big figure over the
          # word it belongs to — and go blue for the same reason.
-         ".feat h3", ".step .num", ".step .tag"}
+         ".feat h3", ".step .num", ".step .tag",
+         # The listing page's own title. A page <h1> is on the "not a
+         # section title" list above and stays there; this one is named
+         # rather than the tag, so only this page's title moves.
+         "h1.listing-title", ".t-h1",
+         # The model page's specification accordions. The chevron beside
+         # them, .acc-ico, goes with the title it belongs to.
+         ".acc-head .acc-t", ".acc-ico"}
 
 # Dark colours that become the blue. Everything else in a heading rule — white,
 # a variable that is not one of these — is left as it is.
