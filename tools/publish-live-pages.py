@@ -105,15 +105,33 @@ def publish(repo, folder, entry, dry_run=False):
             shutil.copy2(os.path.join(clone, entry), os.path.join(clone, "index.html"))
 
         if repo in SIBLING_ASSETS:
-            sib_folder, assets = SIBLING_ASSETS[repo]
-            shutil.copytree(os.path.join(PAGES, sib_folder, assets),
+            _, assets = SIBLING_ASSETS[repo]
+            shutil.copytree(os.path.join(PAGES, SIBLING_ASSETS[repo][0], assets),
                             os.path.join(clone, assets), dirs_exist_ok=True)
-            prefix = "../" + urllib.parse.quote(sib_folder) + "/"
+            # Matched rather than constructed. Building the prefix from the
+            # folder name and urllib.parse.quote does not work: quote turns the
+            # brackets in "(Intro Animation)" into %28 and %29, where the
+            # markup has them literal, so the replace found nothing and said
+            # nothing — and the page went live pointing at a folder that only
+            # exists in this repository.
             index = os.path.join(clone, "index.html")
             with open(index, encoding="utf-8") as f:
                 text = f.read()
+            # The character class stops at a quote or a space and at nothing
+            # else. An earlier version also excluded ")", which is the one
+            # character the path is guaranteed to contain — "(Intro
+            # Animation)" — so it matched nothing either.
+            fixed, n = re.subn(r"\.\./[^\"'\s]*?/" + re.escape(assets) + "/",
+                               "./" + assets + "/", text)
+            if not n:
+                raise RuntimeError(
+                    "%s: found no ../<sibling>/%s/ to rewrite. Either the page "
+                    "stopped borrowing its assets, in which case drop it from "
+                    "SIBLING_ASSETS, or the path changed shape and this pattern "
+                    "needs to change with it. Not pushing a page whose images "
+                    "would 404." % (repo, assets))
             with open(index, "w", encoding="utf-8") as f:
-                f.write(text.replace(prefix, "./"))
+                f.write(fixed)
 
         run(["git", "add", "-A"], cwd=clone)
         if not run(["git", "diff", "--cached", "--quiet"], cwd=clone, check=False).returncode:
