@@ -142,8 +142,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .kc-hero.home .searchbar{margin-top:26px}
 .kc-hero h1{font-family:'Mesmerize',sans-serif;font-weight:300;text-transform:uppercase;font-size:clamp(28px,4vw,40px);line-height:1.28;letter-spacing:0;overflow-wrap:break-word}
 .kc-hero p{max-width:900px;font-size:18px;line-height:28px;color:rgba(255,255,255,.92)}
-/* Home hero: vertical gradient — dark at the top into brand navy at the bottom */
-.kc-hero.home{background:linear-gradient(180deg,#182833 0%,#2c4658 52%,#41647b 100%)}
+/* Home hero: flat brand navy, no gradient */
+.kc-hero.home{background:var(--navy)}
 .kc-hero.home .kc-hero-bg{display:none}
 @media(max-width:640px){.kc-hero h1{font-size:clamp(26px,7.2vw,32px)}.kc-hero-inner{padding:118px 22px 52px}}
 
@@ -602,10 +602,14 @@ footer.site{position:relative;background:var(--page);padding:48px 40px 40px;colo
    ============================================================ */
 .chips{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 36px}
 .chips .chip{font-family:'Myriad Pro',sans-serif;font-weight:400;font-size:15px;line-height:1;color:var(--c2);background:transparent;border:1px solid var(--border);border-radius:100px;padding:10px 18px;cursor:pointer;transition:color .2s,border-color .2s,background .2s}
-.chips .chip:hover{border-color:var(--navy);color:var(--navy)}
+/* Hover fills blue with white type. The shared jby-system.css already puts a blue
+   fill under .chip:hover; this rule used to set only the text colour, which lost to
+   nothing and left navy type on a navy fill. */
+.chips .chip:hover{background:var(--navy);border-color:var(--navy);color:#fff}
+.chips .chip.on:hover{background:var(--navy-d);border-color:var(--navy-d);color:#fff}
 .chips .chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
 
-/* Search page hero: same navy gradient as the home hero (no photo) */
+/* Sub-page hero (article, video, event, search): navy gradient, no photo */
 .kc-hero.sub{background:linear-gradient(180deg,#182833 0%,#2c4658 52%,#41647b 100%)}
 .kc-hero.sub .kc-hero-bg{display:none}
 

@@ -1,5 +1,5 @@
 /* =====================================================================
-   Jeff Brown Yachts — News and Insights — shared behavior + chrome
+   Jeff Brown Yachts — JBY Journal — shared behavior + chrome
    Header, KC sub-nav, slide-in menu and footer are injected here so
    every page shares one source of truth. Set on <body>:
      data-kc="home|news|videos|events"  (active nav item)
@@ -23,9 +23,9 @@
     return ''+
     '<nav class="nav'+solid+'" id="site-nav" aria-label="Primary">'+
       '<div class="left"><button class="burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button></div>'+
-      '<a class="logo" href="index.html" aria-label="Jeff Brown Yachts — News and Insights"><img src="'+LOGO+'" alt="Jeff Brown Yachts"/></a>'+
+      '<a class="logo" href="index.html" aria-label="Jeff Brown Yachts — JBY Journal"><img src="'+LOGO+'" alt="Jeff Brown Yachts"/></a>'+
       '<div class="right">'+
-        '<a class="icon" href="search.html" aria-label="Search News and Insights">'+I.search+'</a>'+
+        '<a class="icon" href="search.html" aria-label="Search JBY Journal">'+I.search+'</a>'+
         '<a class="cta" href="https://www.jeffbrownyachts.com" target="_blank" rel="noopener">Contact an expert</a>'+
       '</div>'+
     '</nav>';
@@ -49,7 +49,7 @@
       ["Boats for Sale","https://www.jeffbrownyachts.com"],
       ["Brands","https://www.jeffbrownyachts.com"],
       ["Services","https://www.jeffbrownyachts.com"],
-      ["News and Insights","index.html"],
+      ["JBY Journal","index.html"],
       ["Events","https://www.jeffbrownyachts.com"],
       ["About JBY","https://www.jeffbrownyachts.com"],
       ["Contact","https://www.jeffbrownyachts.com"]
@@ -89,55 +89,119 @@
     '</div></section>';
   }
 
-  /* ---------- Still-have-questions CTA (shared) ---------- */
+  /* ---------- Closing band (shared) ----------
+     The site's band, verbatim from tools/site-blocks/band.html with this hub's
+     own title, line and button. The other 54 pages have it laid over their
+     markup by tools/apply-site-blocks.py, which cannot reach a band that is
+     built here at runtime — so the block is carried by hand and kept identical.
+     The button is a link rather than the block's inert <button>: it goes where
+     the two buttons this band used to have went. */
   function ctaHTML(){
-    return ''+
-    '<section class="cta-band"><div class="cb-inner">'+
-      '<h2 class="reveal">Still have questions?</h2>'+
-      '<p class="reveal d1">Our specialists are here to help, from choosing the right yacht to caring for it.</p>'+
-      '<div class="actions reveal d1">'+
-        '<a class="btn btn-md btn-white" href="https://www.jeffbrownyachts.com" target="_blank" rel="noopener">Contact an expert</a>'+
-        '<a class="btn btn-md btn-ghost-light" href="https://www.jeffbrownyachts.com" target="_blank" rel="noopener">Browse boats for sale</a>'+
-      '</div>'+
-    '</div></section>';
+    return `
+    <!-- ============================ HOW CAN WE HELP ============================
+         The band the home page carries: the bow at sunset, a flat black over it,
+         and the button as a veil the photograph shows through. The drift and the
+         rise are in the script at the end of the page. -->
+    <section class="jby-band" id="contact">
+      <div class="jb-bg" aria-hidden="true">
+        <div class="jb-bg-inner" style="background-image:url('./assets/expert_bow_sunset.jpg')"></div>
+      </div>
+      <div class="jb-veil" aria-hidden="true"></div>
+      <div class="jb-body">
+        <h2 data-rise="0">Still have questions?</h2>
+        <p data-rise="1">Our specialists are here to help, from choosing the right yacht to caring for it.</p>
+        <a class="jb-btn" href="https://www.jeffbrownyachts.com" target="_blank" rel="noopener" data-rise="2">Contact an expert</a>
+      </div>
+    </section>
+`;
   }
 
-  /* ---------- Footer ---------- */
+  /* ---------- Footer (shared) ----------
+     The blue footer, verbatim from tools/site-blocks/footer.html. Its back-to-top
+     button keeps id="to-top", which the delegated handler below reaches for. */
   function footerHTML(){
-    return ''+
-    '<footer class="site">'+
-      '<div class="foot-grid">'+
-        '<div class="reveal">'+
-          '<div class="foot-logo"><img src="'+LOGO+'" alt="Jeff Brown Yachts"/></div>'+
-          '<nav class="foot-nav">'+
-            '<a href="https://www.jeffbrownyachts.com">Home</a><span class="sep">/</span>'+
-            '<a href="https://www.jeffbrownyachts.com">Portfolio</a><span class="sep">/</span>'+
-            '<a href="https://www.jeffbrownyachts.com">Brands</a><span class="sep">/</span>'+
-            '<a href="https://www.jeffbrownyachts.com">Services</a><span class="sep">/</span>'+
-            '<a href="https://www.jeffbrownyachts.com">Experiences</a><span class="sep">/</span>'+
-            '<a href="https://www.jeffbrownyachts.com">About JBY</a>'+
-          '</nav>'+
-        '</div>'+
-        '<div class="foot-col reveal d1">'+
-          '<h6>Contact us</h6><p>+1 (888) 693-8099</p>'+
-          '<h6>Email</h6><p>info@jeffbrownyachts.com</p>'+
-          '<h6>Social media</h6>'+
-          '<div class="foot-social">'+
-            '<a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>'+
-            '<a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H8v3h3v7h3v-7h3l1-3h-4V9c0-.6.4-1 1-1z"/></svg></a>'+
-            '<a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 8.2c-.2-1.4-.8-2.1-2.2-2.3C17.9 5.5 12 5.5 12 5.5s-5.9 0-7.8.4C2.8 6.1 2.2 6.8 2 8.2 1.7 10 1.7 12 1.7 12s0 2 .3 3.8c.2 1.4.8 2.1 2.2 2.3 1.9.4 7.8.4 7.8.4s5.9 0 7.8-.4c1.4-.2 2-.9 2.2-2.3.3-1.8.3-3.8.3-3.8s0-2-.3-3.8zM10 15V9l5 3-5 3z"/></svg></a>'+
-          '</div>'+
-        '</div>'+
-        '<div class="foot-col reveal d2">'+
-          '<h6>Locations</h6>'+
-          '<nav class="foot-locs">'+
-            '<a href="#">San Diego</a><a href="#">Newport Harbor</a><a href="#">Marina del Rey</a><a href="#">Sausalito</a>'+
-            '<a href="#">Seattle</a><a href="#">Kona</a><a href="#">Wrightsville Beach</a><a href="#">Charleston</a>'+
-          '</nav>'+
-        '</div>'+
-        '<button class="to-top" id="to-top" aria-label="Back to top">'+I.up+'</button>'+
-      '</div>'+
-    '</footer>';
+    return `
+    <footer class="jby-footer">
+      <div class="jf-inner">
+        <div class="jf-logo" aria-label="JBY"><img src="${LOGO}" alt=""/></div>
+
+        <div class="jf-cols">
+          <div class="jf-lists">
+            <h5 class="jf-h">Locations</h5>
+            <!-- Every JBY office, each city linking to its Location Detail page. Site-wide. -->
+            <nav class="jf-row" aria-label="Locations">
+              <a href="#">San Diego</a>
+              <span class="jf-sep">/</span>
+              <a href="#">Newport Harbor</a>
+              <span class="jf-sep">/</span>
+              <a href="#">Marina del Rey</a>
+              <span class="jf-sep">/</span>
+              <a href="#">Sausalito</a>
+              <span class="jf-sep">/</span>
+              <a href="#">Seattle</a>
+              <span class="jf-sep">/</span>
+              <a href="#">Kona</a>
+              <span class="jf-sep">/</span>
+              <a href="#">Charleston</a>
+              <span class="jf-sep">/</span>
+              <a href="#">Wrightsville Beach</a>
+            </nav>
+            <h5 class="jf-h">Pages</h5>
+            <nav class="jf-row" aria-label="Pages">
+              <a href="#">Portfolio</a>
+              <span class="jf-sep">/</span>
+              <a href="#">Brands</a>
+              <span class="jf-sep">/</span>
+              <a href="#">Sell your yacht</a>
+              <span class="jf-sep">/</span>
+              <a href="#">Locations</a>
+              <span class="jf-sep">/</span>
+              <a href="#">Services</a>
+              <span class="jf-sep">/</span>
+              <a href="#">Events</a>
+              <span class="jf-sep">/</span>
+              <a href="#">About JBY</a>
+            </nav>
+          </div>
+
+          <div class="jf-contact">
+            <h5 class="jf-h">Contact</h5>
+            <a href="mailto:info@jeffbrownyachts.com">info@jeffbrownyachts.com</a>
+            <!-- The toll-free line, not one of the offices' own numbers -->
+            <a href="tel:+18886938099">(888) 693 - 8099</a>
+            <div class="jf-social">
+              <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.63985 3.13281H16.3198C18.9708 3.13281 21.1198 5.33895 21.1198 8.06035V15.9444C21.1198 18.6658 18.9708 20.8719 16.3198 20.8719H8.63985C5.98888 20.8719 3.83984 18.6658 3.83984 15.9444V8.06035C3.83984 5.33895 5.98888 3.13281 8.63985 3.13281ZM17.0442 8.30519C17.5743 8.30519 18.0041 7.86396 18.0041 7.31967C18.0041 6.7754 17.5743 6.33417 17.0442 6.33417C16.5139 6.33417 16.0841 6.7754 16.0841 7.31967C16.0841 7.86396 16.5139 8.30519 17.0442 8.30519ZM12.4809 7.56761C10.095 7.56761 8.16083 9.55312 8.16083 12.0024C8.16083 14.4517 10.095 16.4372 12.4809 16.4372C14.8667 16.4372 16.8009 14.4517 16.8009 12.0024C16.8034 10.8254 16.3491 9.69588 15.5384 8.86363C14.7276 8.03138 13.6274 7.56498 12.4809 7.56761ZM9.84073 12.0008C9.84073 13.4977 11.0227 14.711 12.4808 14.711C13.9387 14.711 15.1207 13.4977 15.1207 12.0008C15.1207 10.5041 13.9387 9.29069 12.4808 9.29069C11.0227 9.29069 9.84073 10.5041 9.84073 12.0008Z"/></svg></a>
+              <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M21 4.88889V18.1111C21 19.1543 20.1543 20 19.1111 20H15.5694C15.3086 20 15.0973 19.7886 15.0973 19.5277V13.8611H17.3073C17.5317 13.8612 17.7251 13.7032 17.77 13.4833L18.11 11.7833C18.1241 11.7147 18.1068 11.6433 18.0631 11.5885C18.0192 11.5339 17.9534 11.5014 17.8833 11.5H15.0973V8.43056C15.0973 8.30016 15.203 8.19444 15.3333 8.19444H17.6944C17.9553 8.19444 18.1667 7.98303 18.1667 7.72223V6.30556C18.1667 6.04476 17.9553 5.83333 17.6944 5.83333H15.3333C13.7685 5.83333 12.5 7.10186 12.5 8.66667V11.5H11.3383C11.0775 11.5 10.8661 11.7114 10.8661 11.9723V13.3889C10.8661 13.6497 11.0775 13.8611 11.3383 13.8611H12.5V19.5277C12.5 19.7886 12.2886 20 12.0277 20H5.88889C4.84568 20 4 19.1543 4 18.1111V4.88889C4 3.84568 4.84568 3 5.88889 3H19.1111C20.1543 3 21 3.84568 21 4.88889Z"/></svg></a>
+              <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.7425 4.31649L19.1361 4.45716C20.7859 4.64038 22.0248 6.02396 21.9996 7.65505V15.345C22.0248 16.9761 20.7859 18.3596 19.1361 18.5429L17.7997 18.6836C13.6301 19.1055 9.42722 19.1055 5.25749 18.6836L3.86391 18.5429C2.21405 18.3596 0.975134 16.9761 1.00038 15.345V7.65505C0.975134 6.02396 2.21405 4.64038 3.86391 4.45716L5.20022 4.31649C9.36995 3.8945 13.5728 3.8945 17.7425 4.31649ZM10.6505 14.5197L14.3635 12.0815H14.4208C14.6209 11.9534 14.7416 11.7346 14.7416 11.5C14.7416 11.2654 14.6209 11.0466 14.4208 10.9186L10.7078 8.48029C10.4885 8.3347 10.2055 8.31979 9.97165 8.44152C9.73785 8.56325 9.59145 8.80175 9.59097 9.06172V13.9383C9.60329 14.1802 9.74154 14.399 9.95686 14.5172C10.1722 14.6353 10.4343 14.6364 10.6505 14.5197Z"/></svg></a>
+              <!-- The mockup's fourth mark is a chain link with no service named on
+                   it. Drawn as a link until we are told whose it is. -->
+              <a href="#" aria-label="Website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M9.5 13.5a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1.1 1.1"/><path d="M14.5 10.5a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1.1-1.1"/></svg></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="jf-legal">
+          <p>&copy; Jeff Brown Yachts, Inc. All Rights Reserved</p>
+          <nav class="jf-legal-links" aria-label="Legal">
+            <a href="#">Privacy Policy</a>
+            <span class="jf-sep">|</span>
+            <a href="#">Terms and Conditions</a>
+            <span class="jf-sep">|</span>
+            <a href="#">Statement of Information</a>
+          </nav>
+        </div>
+      </div>
+      <!-- id="to-top" as well as the class: a dozen pages carry a script that
+           reaches for document.getElementById('to-top'), and that id lived on the
+      button in the footer this block replaced. Without it those scripts threw and
+      everything after the throw never ran — on the model page that was the reveal
+      observer, the cascade and the map, which is why half the page stayed
+      invisible. Those call sites are guarded now as well, so neither half alone
+      can do it again. The inline handler stays for the pages that have no such
+      script; where both are present they do the same thing. -->
+      <button class="jf-top" id="to-top" type="button" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M13.9842 10.6509L7.7342 16.9009C7.67613 16.9589 7.60719 17.005 7.53132 17.0364C7.45545 17.0679 7.37414 17.084 7.29201 17.084C7.20989 17.084 7.12857 17.0679 7.0527 17.0364C6.97683 17.005 6.9079 16.9589 6.84983 16.9009C6.79176 16.8428 6.74569 16.7739 6.71427 16.698C6.68284 16.6221 6.66667 16.5408 6.66667 16.4587C6.66667 16.3766 6.68284 16.2952 6.71427 16.2194C6.74569 16.1435 6.79176 16.0746 6.84983 16.0165L12.6584 10.2087L6.84983 4.40087C6.73255 4.28359 6.66667 4.12453 6.66667 3.95868C6.66667 3.79283 6.73255 3.63377 6.84983 3.51649C6.9671 3.39922 7.12616 3.33333 7.29201 3.33333C7.45787 3.33333 7.61693 3.39922 7.7342 3.51649L13.9842 9.76649C14.0423 9.82454 14.0884 9.89347 14.1199 9.96934C14.1513 10.0452 14.1675 10.1265 14.1675 10.2087C14.1675 10.2908 14.1513 10.3721 14.1199 10.448C14.0884 10.5239 14.0423 10.5928 13.9842 10.6509Z"/></svg></button>
+    </footer>
+`;
   }
 
   /* ---------- Inject chrome ---------- */
@@ -151,6 +215,51 @@
   if(ctaEl){ ctaEl.outerHTML = ctaHTML(); }
   var footEl = document.querySelector("[data-site-footer]");
   if(footEl){ footEl.innerHTML = footerHTML(); }
+
+  /* The photograph band's drift and the rise of the three lines in it.
+     Self-contained on purpose: this section appears on pages that carry no
+     parallax and no reveal engine of their own, and one small handler
+     travelling with it beats thirty-odd pages each growing a copy.
+
+     The drift: the image is centred when the band is centred in the window, and
+     0.24 of the distance from there — panning down through the picture as the
+     band rises, rather than lagging behind the page the way a background does.
+
+     The rise only ever hides anything once the class below is on <html>, so a
+     page whose script never runs shows the band rather than three blank lines. */
+  (function(){
+    var band = document.querySelector('.jby-band');
+    if (!band) return;
+    var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var rise = band.querySelectorAll('[data-rise]');
+    if (rise.length && 'IntersectionObserver' in window) {
+      document.documentElement.classList.add('jb-rise-ready');
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (!e.isIntersecting) return;
+          e.target.classList.add('jb-in');
+          io.unobserve(e.target);
+        });
+      }, { rootMargin: '0px 0px -12% 0px' });
+      for (var i = 0; i < rise.length; i++) io.observe(rise[i]);
+    }
+
+    var bg = band.querySelector('.jb-bg');
+    if (!bg || still) return;
+    var ticking = false;
+    function place(){
+      ticking = false;
+      var r = band.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      var centre = r.top + r.height / 2 - innerHeight / 2;
+      bg.style.transform = 'translate3d(0,' + (centre * 0.24).toFixed(1) + 'px,0)';
+    }
+    function onScroll(){ if (!ticking){ ticking = true; requestAnimationFrame(place); } }
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll, { passive: true });
+    place();
+  })();
 
   /* ---------- Header scroll state (home only; inner pages are solid) ---------- */
   var hdr = document.getElementById("site-nav");
@@ -481,7 +590,7 @@
     var cachedDoc = null;
 
     function showPrompt(){
-      wrap.innerHTML = '<div class="sr-empty"><h2>Search News and Insights</h2>'+
+      wrap.innerHTML = '<div class="sr-empty"><h2>Search the JBY Journal</h2>'+
         '<p>Search for a brand, model, event, or story to find matching videos, past events, and insights.</p></div>';
     }
     function renderResults(doc, q){
@@ -504,7 +613,7 @@
         '<p class="sr-count">'+total+' result'+(total===1?"":"s")+'</p></div>';
       wrap.innerHTML = total ? head + blocks
         : '<div class="sr-empty"><h2>No results for <span>&ldquo;'+esc(q)+'&rdquo;</span></h2>'+
-          '<p>Try a different search, or browse everything in News and Insights.</p>'+
+          '<p>Try a different search, or browse everything in the JBY Journal.</p>'+
           '<a class="btn btn-md btn-solid" href="index.html#all"><span>Browse all</span></a></div>';
       bindHover(wrap);
     }
@@ -519,7 +628,7 @@
         renderResults(cachedDoc, q);
       }).catch(function(){
         wrap.innerHTML = '<div class="sr-empty"><p>Unable to load results right now.</p>'+
-          '<a class="btn btn-md btn-solid" href="index.html#all"><span>Browse News and Insights</span></a></div>';
+          '<a class="btn btn-md btn-solid" href="index.html#all"><span>Browse the JBY Journal</span></a></div>';
       });
     }
 
@@ -537,7 +646,7 @@
       sbtn.addEventListener("click", function(){ window.location.href = "index.html"; });
     }
 
-    /* clearing the field (native X) returns to the News and Insights home */
+    /* clearing the field (native X) returns to the JBY Journal home */
     if(inp){
       inp.addEventListener("search", function(){
         if(!inp.value.trim()){ window.location.href = "index.html"; }
