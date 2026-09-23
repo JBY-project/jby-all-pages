@@ -36,7 +36,29 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MARK = "/* === JBY: the header is blue from the first frame ==="
 
 # What counts as a section heading. Matched against the selector text.
+#
+# The first pass matched on the tag and on the classes that read as headings,
+# and that missed the ones a page happens to name otherwise. "More client
+# stories" on the home page is an <h3 class="voices-sub"> — a section heading by
+# every measure except the two this was looking at. These are the ones found by
+# going the other way: rules set in the display face, uppercase, 17-34px and a
+# dark colour, then read one by one to see what they actually head.
+#
+# What that sweep turned up and what was deliberately NOT added: the titles of
+# cards and list items (.event-card h4, .loc-card h3, .visit-item-l h5,
+# .cert-word, .step .tag, .v9-name, .spec-block-title, .loc-modal-body h3), the
+# name of an event (.ev-title), and the <h1> that titles a whole page
+# (.nf h1, .faq-head h1, .pp-head h1, .team-head h1, .loc-head h1, .ci-head h1,
+# .phead h1, .ob-title, .profile-info h1). A card title is not a section title,
+# and a page title is a bigger decision than this one.
 HEADING = re.compile(r"\b(h2|h-sm|h-xs|sec-title|cat-title|ax-h2|t-h2)\b")
+EXTRA = {".voices-sub", ".section-title", ".ci-title", ".about-title",
+         # Our Story on the about page is an .eyebrow and nothing else —
+         # the section has no h2, so the eyebrow is the heading. The stat
+         # cards beside it were called card titles here and left out on
+         # that reasoning; the client reads them as section titles, and
+         # they are the client's pages.
+         ".story-copy .eyebrow", ".stat-card .k"}
 
 # Dark colours that become the blue. Everything else in a heading rule — white,
 # a variable that is not one of these — is left as it is.
@@ -122,7 +144,7 @@ def blue_headings(text):
 
     def rule(m):
         sel, body = m.group(1), m.group(2)
-        if not HEADING.search(sel):
+        if not HEADING.search(sel) and sel.strip() not in EXTRA:
             return m.group(0)
         c = re.search(r"color:\s*([^;}]+)", body)
         if not c or c.group(1).strip() not in DARK:

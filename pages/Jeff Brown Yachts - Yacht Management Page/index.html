@@ -424,6 +424,19 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
   .jby-footer .jf-top{right:24px;top:28px;width:40px;height:40px}
 }
 </style>
+<style>
+/* This page only: the band butts straight onto what is above it.
+
+   section.jby-band carries margin-top:88px so that on most pages it stands off
+   whatever ends above it. That is right where the thing above is white paper,
+   and wrong here: above is the reviews above it, which sit on --section grey, so the 88 came
+   out as a white stripe wedged between two coloured bands rather than as space.
+
+   After the shared block, not inside it — same 0,1,1 specificity, so order
+   decides, and the block above stays what tools/site-blocks/band-footer.css
+   produces. */
+section.jby-band{margin-top:0}
+</style>
 </head>
 <body id="top">
 
