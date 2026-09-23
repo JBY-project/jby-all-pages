@@ -7,8 +7,8 @@
 #
 # Blank lines and lines starting with # are ignored.
 
-# This branch is the design-system pass over every page. Two pages go up from
-# it, the two that are in front of the client:
+# This branch is the design-system pass over every page. Two of these are the
+# pages in front of the client and carry the weight:
 #
 #   the search prototype — the glass, the full-screen phone mode, the header
 #   the home page        — the vessel and event cards, the bento, the footer
@@ -19,3 +19,14 @@
 # ~150MB and the site is already at 829MB of the 900 the guard below allows.
 pages/jby-search
 pages/Jeff Brown Yachts - Home Page
+
+# The rest are here to show the pass itself — the listing card, the How can we
+# help? band and the blue footer as they now stand on a page that is not the
+# home page, and the Axopar About section. They are small enough to sit
+# alongside the two above without touching the budget: 5, 8, 2, 5 and 1MB
+# against the 245 those two take between them.
+pages/Jeff Brown Yachts - Brand Page (Axopar)
+pages/Jeff Brown Yachts - Office Page
+pages/Jeff Brown Yachts - Locations Page
+pages/Jeff Brown Yachts - Listing Page
+pages/Jeff Brown Yachts - Terms Page
