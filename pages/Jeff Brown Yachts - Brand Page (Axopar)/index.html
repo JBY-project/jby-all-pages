@@ -822,9 +822,20 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
    pale. Over white it lands at about #708b9c, still clearly the family blue,
    and it holds its line weight at 16px where the lighter tint was starting to
    break up. */
-.ax-stat .k{display:flex;align-items:center;gap:10px;
+/* The mark sits on the first line of the label, not in the middle of it.
+   Models in production is the one label that wraps, and centred against two
+   lines the mark floated into the gap between them.
+
+   flex-start puts the two items' tops together; the inherited line-height is
+   what makes that an alignment rather than an approximation. The label's text
+   is an anonymous flex item with a 24px line box and its glyphs centred in it,
+   so the mark needs the same 24 to centre its own glyph the same way — at
+   line-height:1 its box was 16 and it rode high by four. Inherited rather than
+   written out, so the phone's 20px line carries through without a second rule
+   for it. */
+.ax-stat .k{display:flex;align-items:flex-start;gap:10px;
   font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;color:#3c3c46}
-.ax-stat .k i{font-size:16px;line-height:1;color:rgba(65,100,123,0.75);flex:0 0 auto}
+.ax-stat .k i{font-size:16px;line-height:inherit;color:rgba(65,100,123,0.75);flex:0 0 auto}
 /* Pinned to the foot of the card. Models in production is the one label
    that wraps, and where it does the figure under it would otherwise sit a
    line lower than the figure beside it. The cards are already the same
