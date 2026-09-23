@@ -951,13 +951,21 @@ document.querySelectorAll('.expo-list').forEach(list=>{
 (function(){
   var show=document.querySelector('.showcase');if(!show)return;
   var GAL={
+    /* Re-cut from the largest originals in this repository rather than the
+       1800px set this section arrived with. That set was both small and
+       heavily compressed — riva-run.jpg was 156KB for 1.8 megapixels — and
+       the stage is full-bleed, so on a retina screen every frame was being
+       blown up about 1.7 times. These come from the model page's exterior
+       and interior stills, which are PNGs at 2160px and carry no JPEG
+       artifacts at all, from the 3840px original of the running shot, and
+       from the Axopar brand page's 4094px hero. */
     photo:{word:'Photography',items:[
-      {type:'img',src:'assets/gallery/promo.jpg',cap:'Underway at golden hour'},
-      {type:'img',src:'assets/gallery/riva-profile.jpg',cap:'Profile at anchor'},
-      {type:'img',src:'assets/gallery/riva-aerial.jpg',cap:'Aerial off the coast'},
-      {type:'img',src:'assets/gallery/riva-run.jpg',cap:'Running shot'},
-      {type:'img',src:'assets/gallery/tahoe-riva.jpg',cap:'Classic Riva at Lake Tahoe'},
-      {type:'img',src:'assets/gallery/riva-bow.jpg',cap:'Sculpted Italian bow'}
+      {type:'img',src:'assets/gallery/riva-running.jpg',cap:'Riva 112&rsquo; Dolcevita Super under way'},
+      {type:'img',src:'assets/gallery/riva-foredeck.jpg',cap:'Foredeck at sunset'},
+      {type:'img',src:'assets/gallery/riva-salon.jpg',cap:'Main salon'},
+      {type:'img',src:'assets/gallery/riva-aft-dining.jpg',cap:'Aft deck dining'},
+      {type:'img',src:'assets/gallery/riva-owners-suite.jpg',cap:'Owner&rsquo;s suite'},
+      {type:'img',src:'assets/gallery/axopar-running.jpg',cap:'Axopar under way'}
     ]},
     video:{word:'Video',items:[
       {type:'video',src:'assets/cine.mp4',poster:'assets/cine-poster.jpg',cap:'Cinematic walkthrough'},
