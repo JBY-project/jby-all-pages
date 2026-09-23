@@ -67,7 +67,12 @@ EXTRA = {".voices-sub", ".section-title", ".ci-title", ".about-title",
          # .step .no is not a heading at all — it is the 1, 2, 3 over each
          # step — but the client wants those in the blue with the titles
          # they belong to, and they read as part of the heading.
-         ".scene-cap h3", ".step h4", ".step .no"}
+         ".scene-cap h3", ".step h4", ".step .no",
+         # Sell your yacht, all three versions: the four assurance cards
+         # and the numbered steps. .step .num and .step .tag are the same
+         # shape as yacht management's .no and h4 — a big figure over the
+         # word it belongs to — and go blue for the same reason.
+         ".feat h3", ".step .num", ".step .tag"}
 
 # Dark colours that become the blue. Everything else in a heading rule — white,
 # a variable that is not one of these — is left as it is.
