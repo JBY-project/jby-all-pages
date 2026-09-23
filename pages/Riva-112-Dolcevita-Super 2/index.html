@@ -973,7 +973,7 @@ window.addEventListener('resize',invUpdate);
 invUpdate();
 
 /* Back to top */
-document.getElementById('to-top').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+;(document.getElementById('to-top')||{addEventListener:function(){}}).addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
 /* Luxury cascade — photos & cards unveil one after another as they enter view */
 (function(){

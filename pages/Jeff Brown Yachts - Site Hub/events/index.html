@@ -403,7 +403,7 @@ document.querySelectorAll('[data-scroll]').forEach(function(b){
     if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
   });
 });
-document.getElementById('to-top').addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+;(document.getElementById('to-top')||{addEventListener:function(){}}).addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
 
 /* "Drive-up" scroll reveal */
 var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;

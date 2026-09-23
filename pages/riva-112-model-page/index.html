@@ -359,7 +359,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* CONTACT */
 .brand{padding:48px 0 96px}
-.brand-title{color:var(--c0);margin-bottom:14px}
+.brand-title{color:var(--navy);margin-bottom:14px}
 .brand-services{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:1.65;color:var(--c2);max-width:680px;margin-bottom:40px}
 .svc-tags{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin:0 0 40px;padding:0}
 .svc-tags li{font-family:'Mesmerize',sans-serif;font-weight:300;text-transform:uppercase;letter-spacing:.04em;font-size:13px;
@@ -379,7 +379,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .leaflet-container{font-family:inherit}.map-pop b{font-family:'Mesmerize',sans-serif}
 
 /* AVAILABLE INVENTORY */
-.inventory{padding:0 0 96px}
+.inventory{padding:56px 0 96px}
 .inv-head{display:flex;align-items:center;margin-bottom:32px}
 .inv-head h2{color:var(--navy)}
 .inv-body{position:relative}
@@ -996,13 +996,14 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
       </nav>
     </div>
   </div>
-  <!-- id="to-top" as well as the class: seven pages carry a script that does
-       document.getElementById('to-top').addEventListener(...)
-  unguarded, and that id lived on the button in the footer this block
-  replaced. Without it those scripts throw, and everything after the throw
-  never runs — on the model page that was the reveal observer, which is why
-  half of it stayed invisible. The inline handler stays for the pages that
-  have no such script; where both are present they do the same thing. -->
+  <!-- id="to-top" as well as the class: a dozen pages carry a script that
+       reaches for document.getElementById('to-top'), and that id lived on the
+  button in the footer this block replaced. Without it those scripts threw and
+  everything after the throw never ran — on the model page that was the reveal
+  observer, the cascade and the map, which is why half the page stayed
+  invisible. Those call sites are guarded now as well, so neither half alone
+  can do it again. The inline handler stays for the pages that have no such
+  script; where both are present they do the same thing. -->
   <button class="jf-top" id="to-top" type="button" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M13.9842 10.6509L7.7342 16.9009C7.67613 16.9589 7.60719 17.005 7.53132 17.0364C7.45545 17.0679 7.37414 17.084 7.29201 17.084C7.20989 17.084 7.12857 17.0679 7.0527 17.0364C6.97683 17.005 6.9079 16.9589 6.84983 16.9009C6.79176 16.8428 6.74569 16.7739 6.71427 16.698C6.68284 16.6221 6.66667 16.5408 6.66667 16.4587C6.66667 16.3766 6.68284 16.2952 6.71427 16.2194C6.74569 16.1435 6.79176 16.0746 6.84983 16.0165L12.6584 10.2087L6.84983 4.40087C6.73255 4.28359 6.66667 4.12453 6.66667 3.95868C6.66667 3.79283 6.73255 3.63377 6.84983 3.51649C6.9671 3.39922 7.12616 3.33333 7.29201 3.33333C7.45787 3.33333 7.61693 3.39922 7.7342 3.51649L13.9842 9.76649C14.0423 9.82454 14.0884 9.89347 14.1199 9.96934C14.1513 10.0452 14.1675 10.1265 14.1675 10.2087C14.1675 10.2908 14.1513 10.3721 14.1199 10.448C14.0884 10.5239 14.0423 10.5928 13.9842 10.6509Z"/></svg></button>
 </footer>
 
@@ -1017,6 +1018,29 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
   </div>
 </div>
 
+
+<script>
+/* Failsafe — nothing here may stay invisible because a statement threw.
+   Everything that moves in as you scroll starts at opacity:0 and is uncovered
+   by one of two IntersectionObservers further down this file. Both are built
+   by plain top-level statements, so anything above them that throws takes them
+   with it and the page keeps its photographs hidden for good. That is exactly
+   what happened when the shared footer stopped carrying id="to-top" and the
+   line reaching for it threw: the gallery, the inventory and the map went with
+   it. That call site is guarded now, but the shape of the failure belongs to
+   the file, not to that line — one throw and everything below it is dark. So
+   each observer raises a flag as it is built, and two seconds after load
+   whatever flag never went up has its elements shown outright. When nothing
+   throws, this does nothing at all. */
+window.addEventListener('load',function(){setTimeout(function(){
+  function show(sel,cls){Array.prototype.forEach.call(document.querySelectorAll(sel),function(el){
+    el.style.transition='none';el.classList.add(cls);});}
+  if(!window.__jbyRevealObs){show('.reveal','in');
+    console.warn('JBY failsafe: the reveal observer never ran; revealed outright.');}
+  if(!window.__jbyCascadeObs){show('.ed .gfig,.deckset .deck-card,.inv-track .v-card','lx-in');
+    console.warn('JBY failsafe: the cascade observer never ran; revealed outright.');}
+},2000);});
+</script>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
@@ -1062,7 +1086,7 @@ window.addEventListener('scroll',()=>{
 
 /* Reveal */
 const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));window.__jbyRevealObs=1;
 
 /* Section nav — sticky in-page menu + scroll spy */
 (function(){
@@ -1238,7 +1262,7 @@ window.addEventListener('resize',invUpdate);
 invUpdate();
 
 /* Back to top */
-document.getElementById('to-top').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+;(document.getElementById('to-top')||{addEventListener:function(){}}).addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
 /* Leaflet map */
 window.addEventListener('load',()=>{try{
@@ -1262,7 +1286,7 @@ window.addEventListener('load',()=>{try{
       el.classList.add('lx-in');
       obs.unobserve(el);
     });
-  },{threshold:0.1,rootMargin:'0px 0px -6% 0px'});
+  },{threshold:0.1,rootMargin:'0px 50% -6% 0px'});
   function scan(){
     groups.forEach(function(gsel){
       document.querySelectorAll(gsel).forEach(function(parent){
@@ -1276,7 +1300,7 @@ window.addEventListener('load',()=>{try{
       });
     });
   }
-  scan(); setTimeout(scan,300); setTimeout(scan,900);
+  scan(); setTimeout(scan,300); setTimeout(scan,900); window.__jbyCascadeObs=1;
 })();
 </script>
 </body>

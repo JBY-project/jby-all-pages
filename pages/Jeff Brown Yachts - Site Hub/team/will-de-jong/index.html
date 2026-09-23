@@ -551,7 +551,7 @@ footer{position:relative;background:var(--paper);padding:40px 40px;color:var(--m
   }
 
   // ---- Back to top ----
-  document.getElementById('to-top').addEventListener('click', function(){ window.scrollTo({top:0, behavior: reduceMotion?'auto':'smooth'}); });
+  ;(document.getElementById('to-top')||{addEventListener:function(){}}).addEventListener('click', function(){ window.scrollTo({top:0, behavior: reduceMotion?'auto':'smooth'}); });
 </script>
 </body>
 </html>

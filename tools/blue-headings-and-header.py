@@ -79,7 +79,11 @@ EXTRA = {".voices-sub", ".section-title", ".ci-title", ".about-title",
          "h1.listing-title", ".t-h1",
          # The model page's specification accordions. The chevron beside
          # them, .acc-ico, goes with the title it belongs to.
-         ".acc-head .acc-t", ".acc-ico"}
+         ".acc-head .acc-t", ".acc-ico",
+         # "Visit us in San Diego" on the model page. It is set in --c0,
+         # that page's name for black, which is in DARK; it was missed only
+         # because nothing in its selector reads as a heading.
+         ".brand-title"}
 
 # Dark colours that become the blue. Everything else in a heading rule — white,
 # a variable that is not one of these — is left as it is.
