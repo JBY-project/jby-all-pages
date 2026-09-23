@@ -62,7 +62,12 @@ EXTRA = {".voices-sub", ".section-title", ".ci-title", ".about-title",
          # The service pages lay each service out as a full row with its
          # own heading, lead and list. The h3 on those is a section title
          # doing card-title duty, which is why the rule above missed it.
-         ".card-body h3"}
+         ".card-body h3",
+         # Yacht management: the scene captions and the numbered steps.
+         # .step .no is not a heading at all — it is the 1, 2, 3 over each
+         # step — but the client wants those in the blue with the titles
+         # they belong to, and they read as part of the heading.
+         ".scene-cap h3", ".step h4", ".step .no"}
 
 # Dark colours that become the blue. Everything else in a heading rule — white,
 # a variable that is not one of these — is left as it is.
