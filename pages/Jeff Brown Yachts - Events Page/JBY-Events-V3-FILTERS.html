@@ -251,7 +251,18 @@ footer{background:var(--paper);padding:40px 40px;color:var(--mute);font-size:14p
 .lv-row.reverse .lv-media{order:2}
 .lv-row.reverse .lv-copy{order:1}
 .lv-copy .lv-title{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:28px;letter-spacing:0;text-transform:uppercase;color:var(--navy);margin:0 0 10px}
-.lv-copy .lv-meta{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:var(--mute);margin:0 0 30px}
+/* Who the event is for, as a square pill over the title. Filled navy with
+   white type, which is how this page already marks the chosen thing — see
+   .seg button.on. 2px is the corner every other button here uses. */
+.lv-copy .lv-tag{display:inline-flex;align-items:center;height:26px;padding:0 12px;margin:0 0 14px;
+  background:var(--navy);color:#fff;border-radius:2px;font-family:'Mesmerize',sans-serif;font-weight:300;
+  font-size:11px;line-height:1;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.lv-copy .lv-meta{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:var(--mute);margin:0 0 16px}
+/* The body text under the date: what the event is, and which brands are on
+   the water. The label is the only bold thing in the pair. */
+.lv-copy .lv-desc{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:26px;color:var(--mute);margin:0 0 10px}
+.lv-copy .lv-brands{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:26px;color:var(--mute);margin:0 0 26px}
+.lv-copy .lv-brands b{font-weight:600;color:var(--navy)}
 .lv-copy .lv-meta .dot{color:var(--sand);margin:0 8px}
 .lv-btn{display:inline-flex;align-items:center;height:38px;padding:0 22px;border:1px solid rgba(65,100,123,0.4);font-family:'Mesmerize',sans-serif;font-weight:300;font-size:12px;line-height:18px;letter-spacing:.04em;text-transform:uppercase;color:var(--navy);background:transparent;transition:.25s;border-radius:2px;cursor:pointer}
 .lv-btn:hover{background:rgba(65,100,123,0.18);border-color:rgba(65,100,123,0.55)}
@@ -775,12 +786,19 @@ document.querySelectorAll('[data-scroll]').forEach(function(b){b.addEventListene
 var toTop=document.getElementById('to-top');if(toTop)toTop.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
 
 var EVENTS=[
- {id:1,title:"Lake Tahoe Concours d'Elegance",start:"2026-08-07",end:"2026-08-08",loc:"Lake Tahoe, California",img:"./assets/ev_tahoe.jpg",brands:["riva"],locations:["sausalito"],desc:"Vintage wooden boats along the West Shore — a morning among the classics."},
- {id:2,title:"Riva Soir&eacute;e",start:"2026-08-09",end:"2026-08-09",loc:"Lake Tahoe, California",img:"./assets/ev_riva.jpg",brands:["riva"],locations:["sausalito"],desc:"An intimate evening aboard Riva as the sun sets over the lake."},
- {id:4,title:"BRABUS VIP Owners Party",start:"2026-08-16",end:"2026-08-17",loc:"Monterey Peninsula, California",img:"./assets/ev_brabus.jpg",brands:["brabus"],locations:["marina-del-rey","san-diego"],desc:"A private owners' celebration in the heart of Monterey Car Week."},
- {id:5,title:"Cannes Yachting Festival",start:"2026-09-08",end:"2026-09-13",loc:"Cannes, France",img:"./assets/ev_cannes.jpg",video:"./assets/past_1.mp4",brands:["riva","axopar","brabus"],locations:[],allLocations:true,desc:"First looks at the season's new launches in the Vieux Port."},
- {id:6,title:"Sausalito Boat Show",start:"2026-09-25",end:"2026-09-27",loc:"Sausalito, California",img:"./assets/ev_sausalito.jpg",video:"./assets/past_2.mp4",brands:["axopar"],locations:[],allLocations:true,desc:"Bay-side premieres and sea trials beneath the Golden Gate."}
+ {id:1,title:"Lake Tahoe Concours d'Elegance",start:"2026-08-07",end:"2026-08-08",loc:"Lake Tahoe, California",img:"./assets/ev_tahoe.jpg",brands:["riva"],locations:["sausalito"],audience:"Open to all guests",desc:"Vintage wooden boats along the West Shore — a morning among the classics."},
+ {id:2,title:"Riva Soir&eacute;e",start:"2026-08-09",end:"2026-08-09",loc:"Lake Tahoe, California",img:"./assets/ev_riva.jpg",brands:["riva"],locations:["sausalito"],audience:"Exclusive to Riva owners",desc:"An intimate evening aboard Riva as the sun sets over the lake."},
+ {id:4,title:"BRABUS VIP Owners Party",start:"2026-08-16",end:"2026-08-17",loc:"Monterey Peninsula, California",img:"./assets/ev_brabus.jpg",brands:["brabus"],locations:["marina-del-rey","san-diego"],audience:"Exclusive to BRABUS owners",desc:"A private owners' celebration in the heart of Monterey Car Week."},
+ {id:5,title:"Cannes Yachting Festival",start:"2026-09-08",end:"2026-09-13",loc:"Cannes, France",img:"./assets/ev_cannes.jpg",video:"./assets/past_1.mp4",brands:["riva","axopar","brabus"],locations:[],allLocations:true,audience:"Open to all guests",desc:"First looks at the season's new launches in the Vieux Port."},
+ {id:6,title:"Sausalito Boat Show",start:"2026-09-25",end:"2026-09-27",loc:"Sausalito, California",img:"./assets/ev_sausalito.jpg",video:"./assets/past_2.mp4",brands:["axopar"],locations:[],allLocations:true,audience:"Open to all guests",desc:"Bay-side premieres and sea trials beneath the Golden Gate."}
 ];
+/* The slugs the filters use, in the spelling the brands themselves use. */
+var BRAND_LABEL={riva:'Riva',axopar:'Axopar',brabus:'BRABUS'};
+function brandLine(e){
+  if(!e.brands||!e.brands.length) return '';
+  var names=e.brands.map(function(b){return BRAND_LABEL[b]||b;});
+  return '<p class="lv-brands"><b>Brands represented:</b> '+names.join(', ')+'</p>';
+}
 var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 var MONL=['January','February','March','April','May','June','July','August','September','October','November','December'];
 var WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -840,8 +858,12 @@ function renderList(){
   var alt=e.title.replace(/&[a-z]+;/g,'');
   return '<article class="lv-row'+(i%2?' reverse':'')+'" data-id="'+e.id+'">'+
     '<div class="lv-media lv-reveal"><img src="'+e.img+'" alt="'+alt+'"></div>'+
-    '<div class="lv-copy lv-reveal"><h3 class="lv-title">'+e.title+'</h3>'+
+    '<div class="lv-copy lv-reveal">'+
+    (e.audience?'<span class="lv-tag">'+e.audience+'</span>':'')+
+    '<h3 class="lv-title">'+e.title+'</h3>'+
     '<p class="lv-meta">'+fmtRange(e)+' <span class="dot">|</span> '+e.loc+'</p>'+
+    (e.desc?'<p class="lv-desc">'+e.desc+'</p>':'')+
+    brandLine(e)+
     '<button class="lv-btn">See details</button></div>'+
   '</article>';}).join('') : '<div class="lv-empty">No events match these filters. Try \u201cAll\u201d.</div>';
  /* List of Events: 'See Details' does not open the modal (modal is calendar-only) */
