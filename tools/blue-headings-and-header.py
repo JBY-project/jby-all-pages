@@ -124,7 +124,28 @@ CARD_TITLES = {
     ".e2-slide .nm", ".e3-slide .nm", ".e4-main .nm", ".t10 .nm",
     ".v9-name", ".t-name", ".team-card .t-name",
 }
-EXTRA = EXTRA | CARD_TITLES
+
+# The value half of a row inside a card. A card row is a pair — a grey label
+# on the left, the answer in bold on the right — and the client asked for the
+# bold half in the blue. The labels stay grey: it is the difference between
+# the two that makes the pair read as a pair.
+#
+# Found the same way as the titles, by loading all forty pages and collecting
+# every element at weight 500 or more whose colour is black or near it on a
+# light ground, with the brand blue and the greys excluded so only what is
+# actually black comes back. Across the whole site that is these four rules.
+#
+# Deliberately not included, because none of them is in a card: the listing
+# page's own price in .price-row, and the two figures the finance calculator
+# writes, .loan-out .amt and .ml-amt.
+CARD_VALUES = {
+    # Listing: the live-stream and in-person tour cards. The second rule is
+    # the in-person card's own override of the first and has to move with it.
+    ".ev-row b", ".ip .ev-row b",
+    # Home V1: the value in an event card row, and the price on a vessel card.
+    ".event-row dd", ".vessel-price",
+}
+EXTRA = EXTRA | CARD_TITLES | CARD_VALUES
 
 # Dark colours that become the blue. Everything else in a heading rule — white,
 # a variable that is not one of these — is left as it is.
@@ -133,9 +154,11 @@ EXTRA = EXTRA | CARD_TITLES
 # Every page that defines them defines them dark (#000, #000, #1d1d1b); it was
 # checked across the whole of pages/ rather than assumed, because a token named
 # --text is exactly the sort of thing that is white on a dark page somewhere.
+# #2f2f39 joined with the card values: it is what --ink resolves to on most of
+# these pages, written out longhand in one rule instead of through the token.
 DARK = {"var(--ink)", "#111", "#1d1d1b", "var(--c0)", "#000", "#000000",
         "var(--text)", "var(--lm-text)", "var(--lm-ink)", "#14141b", "#23232a",
-        "rgb(17, 17, 17)", "#111111"}
+        "rgb(17, 17, 17)", "#111111", "#2f2f39"}
 
 # The nine pages measured as: no video, no image, and a light ground behind the
 # header. The note is what the probe read at the top of the page.
