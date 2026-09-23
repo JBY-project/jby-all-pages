@@ -4,8 +4,10 @@
 # and Filter-Explorations exist to compare versions of the thing this script
 # standardises, Marketing/Testimonials Variants and the calendar-mobile files
 # are the same, and chat-widget-preview and Site Hub's view.html are not pages.
-# The Events page keeps its V2/V3/V4 explorations out of this too; its
-# index.html is the one that ships.
+# The Events page keeps its V2/V3/V4 explorations out of this too, with one
+# exception: v3-filters.html, the list-and-calendar version, is the one the
+# client chose and is now what the repo serves at its root. Its twin
+# JBY-Events-V3-FILTERS.html is here for the same reason.
 #
 # The Site Hub is not here either, and cannot be: build.py assembles it by
 # fetching the deployed pages off GitHub Pages. It picks all of this up on its
@@ -26,6 +28,8 @@ pages/Jeff Brown Yachts - Contact Page/contact.html
 pages/Jeff Brown Yachts - Events Page/JBY-Events.html
 pages/Jeff Brown Yachts - Events Page/index.html
 pages/Jeff Brown Yachts - Events Page/office.html
+pages/Jeff Brown Yachts - Events Page/v3-filters.html
+pages/Jeff Brown Yachts - Events Page/JBY-Events-V3-FILTERS.html
 pages/Jeff Brown Yachts - FAQ Page/index.html
 pages/Jeff Brown Yachts - Home Page (Crisp Chat V2)/JBY-Home.html
 pages/Jeff Brown Yachts - Home Page (Crisp Chat)/JBY-Home.html
