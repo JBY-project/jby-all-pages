@@ -14,10 +14,10 @@ because it stands on a photograph or a dark band, and "headings should be blue"
 cannot mean the ones nobody could then read. Headings with no colour of their
 own are left alone for the same reason: they inherit, usually from a dark band.
 
-HEADER. The blue header the locations page carries, on the pages whose hero has
-no photograph, no video and no dark ground of its own. Measured in a browser
-rather than read out of the CSS: nine pages qualify, and they are listed in
-HEADER_PAGES below with what was measured.
+HEADER. The blue header the locations page carries, on every page. It began as
+the nine whose hero had no photograph, no video and no dark ground of its own,
+on the reasoning that a blue bar would fight a photographic hero; the client
+has since asked for it everywhere, so that exception is gone.
 
 The header goes in as a block appended after the page's own styles rather than
 by rewriting each page's .nav rules, which are all slightly different. Same
@@ -160,21 +160,19 @@ DARK = {"var(--ink)", "#111", "#1d1d1b", "var(--c0)", "#000", "#000000",
         "var(--text)", "var(--lm-text)", "var(--lm-ink)", "#14141b", "#23232a",
         "rgb(17, 17, 17)", "#111111", "#2f2f39"}
 
-# The nine pages measured as: no video, no image, and a light ground behind the
-# header. The note is what the probe read at the top of the page.
-HEADER_PAGES = [
-    ("Jeff Brown Yachts - 404 Page", "index.html"),                      # paper
-    ("Jeff Brown Yachts - 404 Page", "404.html"),                        # twin
-    ("Jeff Brown Yachts - FAQ Page", "index.html"),                      # paper
-    ("Jeff Brown Yachts - Listing Page", "index.html"),                  # #e9eef2
-    ("Jeff Brown Yachts - Office Page", "index.html"),                   # paper
-    ("Jeff Brown Yachts - Office Page", "JBY-Office.html"),              # twin
-    ("Jeff Brown Yachts - Privacy Policy Page", "index.html"),           # paper
-    ("Jeff Brown Yachts - Statement of Information Page", "index.html"), # paper
-    ("Jeff Brown Yachts - Team Page", "index.html"),                     # paper
-    ("Jeff Brown Yachts - Team Member Page", "index.html"),              # paper
-    ("Jeff Brown Yachts - Terms Page", "index.html"),                    # paper
-]
+# Every page, not a chosen few.
+#
+# This started as the pages whose hero had no photograph, no video and no dark
+# ground of its own — nine of them, measured in a browser — on the reasoning
+# that a blue bar over a photographic hero would fight the picture. The client
+# has since asked for the blue header everywhere, photograph and video heroes
+# included, so the measuring is gone and the block goes on every file this
+# script walks.
+#
+# It is CSS only and every selector begins .nav, so a page with no .nav header
+# takes the block and nothing happens. Three of the variant pages have no fixed
+# header at all and are in that position; the event page has a header of its
+# own shape and is handled by EVENT_HEADER_CSS below.
 
 # Copied from the locations page, which is where this treatment was settled.
 HEADER_CSS = """<style>
@@ -481,17 +479,21 @@ def main():
 
     if a.header:
         print("\n== blue header")
-        for folder, entry in HEADER_PAGES:
-            f = os.path.join(ROOT, "pages", folder, entry)
-            if not os.path.exists(f):
-                print("  missing: %s/%s" % (folder, entry), file=sys.stderr)
+        added = same = 0
+        for repo, f in targets():
+            if not f.endswith(".html"):
                 continue
             t = read(f)
             out, did = blue_header(t)
-            print("  %-52s %s" % (entry + " — " + folder[:34], "added" if did else "already there"))
-            if did and not a.dry_run:
-                write(f, out)
-                touched += 1
+            if did:
+                added += 1
+                print("  %-44s added" % repo[:44])
+                if not a.dry_run:
+                    write(f, out)
+                    touched += 1
+            else:
+                same += 1
+        print("  %d added, %d already had it" % (added, same))
 
     print("\n%d file write(s)%s" % (touched, " (dry run — nothing written)" if a.dry_run else ""))
 
