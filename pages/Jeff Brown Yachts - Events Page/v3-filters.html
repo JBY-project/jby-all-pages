@@ -251,16 +251,19 @@ footer{background:var(--paper);padding:40px 40px;color:var(--mute);font-size:14p
 .lv-row.reverse .lv-media{order:2}
 .lv-row.reverse .lv-copy{order:1}
 .lv-copy .lv-title{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:28px;letter-spacing:0;text-transform:uppercase;color:var(--navy);margin:0 0 10px}
-/* Who the event is for, as a square pill over the title. Filled navy with
-   white type, which is how this page already marks the chosen thing — see
-   .seg button.on. 2px is the corner every other button here uses. */
-.lv-copy .lv-tag{display:inline-flex;align-items:center;height:26px;padding:0 12px;margin:0 0 14px;
-  background:var(--navy);color:#fff;border-radius:2px;font-family:'Mesmerize',sans-serif;font-weight:300;
+/* Who the event is for, as a square outlined marker over the title. The
+   border is the full navy rather than the 0.4 the button below it uses,
+   so the two do not read as the same thing — only one of them is
+   clickable. 2px is the corner every other button here uses. */
+.lv-copy .lv-tag{display:inline-flex;align-items:center;height:26px;padding:0 11px;margin:0 0 14px;
+  background:transparent;color:var(--navy);border:1px solid var(--navy);border-radius:2px;
+  font-family:'Mesmerize',sans-serif;font-weight:300;
   font-size:11px;line-height:1;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
 .lv-copy .lv-meta{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:var(--mute);margin:0 0 16px}
-/* The body text under the date: what the event is, and which brands are on
-   the water. The label is the only bold thing in the pair. */
-.lv-copy .lv-desc{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:26px;color:var(--mute);margin:0 0 10px}
+/* Which brands are on the water. The label is the only bold thing in the
+   pair. The one-line description that sat above this was taken out of the
+   list on the client's word; it is still in the data and still shown in
+   the calendar modal. */
 .lv-copy .lv-brands{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:26px;color:var(--mute);margin:0 0 26px}
 .lv-copy .lv-brands b{font-weight:600;color:var(--navy)}
 .lv-copy .lv-meta .dot{color:var(--sand);margin:0 8px}
@@ -862,7 +865,6 @@ function renderList(){
     (e.audience?'<span class="lv-tag">'+e.audience+'</span>':'')+
     '<h3 class="lv-title">'+e.title+'</h3>'+
     '<p class="lv-meta">'+fmtRange(e)+' <span class="dot">|</span> '+e.loc+'</p>'+
-    (e.desc?'<p class="lv-desc">'+e.desc+'</p>':'')+
     brandLine(e)+
     '<button class="lv-btn">See details</button></div>'+
   '</article>';}).join('') : '<div class="lv-empty">No events match these filters. Try \u201cAll\u201d.</div>';
