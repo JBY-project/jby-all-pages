@@ -842,9 +842,16 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
    --section was the page's ready-made quiet surface but it sat heavier than
    this band wants: the cards above it are the thing to look at, and the lists
    are the thing to look down. Four steps off the paper is enough to say a
-   panel is there and not enough to make it a slab. */
+   panel is there and not enough to make it a slab.
+
+   Four steps is not enough to draw the edge, though, so the edge is drawn.
+   0.10 rather than the --line the pills carry: the panel and the pills inside
+   it at the same weight would be sixteen outlines of equal strength and no
+   order between them. One step over puts the container first and the pills
+   inside it, which is the order they are read in. The page is border-box, so
+   the line costs no width. */
 .ax-panels{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
-.ax-panel{background:#f8f9fb;border-radius:2px;padding:24px}
+.ax-panel{background:#f8f9fb;border:0.5px solid rgba(0,0,0,0.10);border-radius:2px;padding:24px}
 .ax-panel-h{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:12px;line-height:18px;
   letter-spacing:0.14em;text-transform:uppercase;color:var(--mute);margin:0 0 16px}
 .ax-chips{display:flex;flex-wrap:wrap;gap:10px}
