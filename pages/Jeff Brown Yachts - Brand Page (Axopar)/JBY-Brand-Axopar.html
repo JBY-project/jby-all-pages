@@ -807,12 +807,18 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .ax-stat{background:var(--white);box-shadow:0 4px 20px rgba(0,0,0,0.05);border-radius:2px;padding:24px;
   display:flex;flex-direction:column;gap:10px}
 /* The label keeps the top of the card, where it already was, and takes its
-   mark beside it. The mark is the blue, which is the one colour on this page
-   that is not type or photograph — it is what makes the row read as a label
-   and not as the first line of the figure. */
+   mark beside it.
+
+   The mark is set at the size of the type it labels and in the blue at 0.55,
+   a tint rather than the full colour. Both are for the same reason: at 20px
+   and full strength the mark was the first thing read in the card, ahead of
+   the figure it is only there to name. Sized to the label and lightened, it
+   reads as part of that label. The blue is still the blue — this page has no
+   colour but type and photograph, and a grey mark would have been a fifth
+   grey rather than a quieter blue. */
 .ax-stat .k{display:flex;align-items:center;gap:10px;
   font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;color:#3c3c46}
-.ax-stat .k i{font-size:20px;line-height:1;color:var(--navy);flex:0 0 auto}
+.ax-stat .k i{font-size:16px;line-height:1;color:rgba(65,100,123,0.55);flex:0 0 auto}
 /* Pinned to the foot of the card. Models in production is the one label
    that wraps, and where it does the figure under it would otherwise sit a
    line lower than the figure beside it. The cards are already the same
@@ -839,7 +845,11 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   display:inline-flex;align-items:center;gap:8px;
   font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:14px;line-height:20px;color:var(--ink);
   white-space:nowrap}
-.ax-chip i{font-size:17px;line-height:1;color:var(--navy);flex:0 0 auto}
+/* The same tint on the pills, for the same reason: fifteen marks at full
+   strength made a field of blue out of a list of words. One step over the 14px
+   the pill is set in, where the card's mark sits level with its 16 — the pill
+   is the smaller thing and its mark needs the extra pixel to stay legible. */
+.ax-chip i{font-size:15px;line-height:1;color:rgba(65,100,123,0.55);flex:0 0 auto}
 
 /* MODELS */
 .ax-models-head{text-align:center;margin-bottom:40px}
@@ -1026,7 +1036,7 @@ body.cx-lock{overflow:hidden}
   .ax-tab{font-size:20px}
   .ax-stat{padding:16px;gap:8px}
   .ax-stat .k{font-size:14px;line-height:20px;gap:8px}
-  .ax-stat .k i{font-size:18px}
+  .ax-stat .k i{font-size:14px}
   .ax-stat .v{font-size:17px;line-height:24px}
   .ax-panel{padding:20px}
   .ax-chip{height:32px;padding:0 12px;gap:7px}
