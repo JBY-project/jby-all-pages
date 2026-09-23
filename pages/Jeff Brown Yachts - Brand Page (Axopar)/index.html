@@ -844,14 +844,15 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
    are the thing to look down. Four steps off the paper is enough to say a
    panel is there and not enough to make it a slab.
 
-   Four steps is not enough to draw the edge, though, so the edge is drawn.
-   0.10 rather than the --line the pills carry: the panel and the pills inside
-   it at the same weight would be sixteen outlines of equal strength and no
-   order between them. One step over puts the container first and the pills
-   inside it, which is the order they are read in. The page is border-box, so
-   the line costs no width. */
+   Four steps is not enough to draw the edge, though, so the edge is drawn —
+   in --line, the same rule the pills inside it carry and the same one this
+   page draws everywhere else. It went in a step darker than that to put the
+   container ahead of the pills in reading order, and a step darker was simply
+   a darker line: at this length it reads as a drawn box rather than as an
+   edge. The order comes from the panel being the shape the pills sit inside,
+   which needs no help. The page is border-box, so the line costs no width. */
 .ax-panels{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
-.ax-panel{background:#f8f9fb;border:0.5px solid rgba(0,0,0,0.10);border-radius:2px;padding:24px}
+.ax-panel{background:#f8f9fb;border:0.5px solid var(--line);border-radius:2px;padding:24px}
 .ax-panel-h{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:12px;line-height:18px;
   letter-spacing:0.14em;text-transform:uppercase;color:var(--mute);margin:0 0 16px}
 .ax-chips{display:flex;flex-wrap:wrap;gap:10px}
