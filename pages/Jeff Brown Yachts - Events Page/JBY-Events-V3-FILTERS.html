@@ -599,6 +599,25 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
   .nav.nav{padding-top:12px;padding-bottom:12px}
   .nav.nav .logo{width:50px;height:50px}
 }
+
+/* ---- Section spacing on a phone --------------------------------------
+   The gaps between the calendar, Past Events and the band were the desktop
+   ones: --section-pad is 120px and it shows up three times between those
+   three sections, so the page ran 164px and then 208px of empty column on a
+   375px screen.
+
+   The token carries most of it, so it is the token that moves — 120px to
+   56px below 760px — and the two figures written out longhand rather than
+   through it come down with it: .ev3's 48px top margin and the band's 88px.
+
+   Measured after: 100px between the calendar and Past Events, 88px between
+   Past Events and the band, against 164 and 208. */
+@media (max-width:760px){
+  :root{--section-pad:56px}
+  .ev3{margin-top:32px}
+  .past{padding-top:32px}
+  section.jby-band{margin-top:32px}
+}
 </style>
 </head>
 <body>
