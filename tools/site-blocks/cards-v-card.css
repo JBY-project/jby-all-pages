@@ -4,6 +4,11 @@
    the same card, and it had the same drift the rest of the site had: the sand
    pill, the 24px bold price, the white slab of a chevron. The values are the
    home page's, moved onto these selectors.
+
+   The client asked for three times the blur under the chip and for the panel's
+   gradient to stand 40px higher. The panel is anchored to the bottom of the
+   card, so the 40 is top padding: the gradient's top edge rises and the chip,
+   the name and the price stay where they were. 2026-09-24.
    ========================================================================== */
 
 /* The top veil the home card carries as its own layer. There is no such layer
@@ -14,7 +19,7 @@
 
 /* Bottom info — the navy gradient a step under --navy, per the client's note
    that the listing gradients should be a darker JBY blue than #41647b. */
-.v-overlay{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:16px 20px 20px;
+.v-overlay{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:56px 20px 20px;
   background:linear-gradient(179.96deg,rgba(54,84,102,0) 22%,rgba(54,84,102,0.82) 62%,rgba(54,84,102,0.94) 100%);
   backdrop-filter:blur(1px);display:flex;flex-direction:column;gap:12px;color:#fff}
 
@@ -23,7 +28,7 @@
    photograph still comes through, over a blur heavy enough to settle what
    texture there is. */
 .v-loc{align-self:flex-start;background:linear-gradient(180deg,rgba(255,255,255,0.34),rgba(255,255,255,0.20));
-  -webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);
+  -webkit-backdrop-filter:blur(84px);backdrop-filter:blur(84px);
   color:#fff;padding:5px 12px 4px;font-family:'Mesmerize',sans-serif;
   font-weight:300;font-size:10px;line-height:15px;letter-spacing:0.07em;text-transform:uppercase;
   border-radius:2px;display:inline-block}

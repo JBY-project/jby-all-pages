@@ -3,13 +3,18 @@
    own, copied across without a word changed, so running the applier over the
    home page itself does nothing. One rule per selector: the applier swaps each
    of these over a page's copy and leaves the rest of its card block alone.
+
+   The client asked for three times the blur under the chip and for the panel's
+   gradient to stand 40px higher. The panel is anchored to the bottom of the
+   card, so the 40 is top padding: the gradient's top edge rises and the chip,
+   the name and the price stay where they were. 2026-09-24.
    ========================================================================== */
 
 .vessel-card .v-img-veil{position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(180deg,rgba(54,84,102,0.42) 0%,rgba(54,84,102,0) 38%)}
 
 /* Bottom info — NAVY gradient (original) + white text */
-.vessel-card .info{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:16px 20px 20px;
+.vessel-card .info{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:56px 20px 20px;
   /* --navy-d #365466, a step under --navy, per the client's note that the
      listing gradients should be a darker JBY blue than #41647b */
   background:linear-gradient(179.96deg,rgba(54,84,102,0) 22%,rgba(54,84,102,0.82) 62%,rgba(54,84,102,0.94) 100%);
@@ -29,7 +34,7 @@
    for definition against the water, easing to 0.20 so the photograph still
    comes through, over a blur heavy enough to settle what texture there is. */
 .vessel-card .chip-loc{background:linear-gradient(180deg,rgba(255,255,255,0.34),rgba(255,255,255,0.20));
-  -webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);
+  -webkit-backdrop-filter:blur(84px);backdrop-filter:blur(84px);
   color:#fff;padding:5px 12px 4px;font-family:'Mesmerize',sans-serif;
   font-weight:300;font-size:10px;line-height:15px;letter-spacing:0.07em;text-transform:uppercase;
   border-radius:2px;align-self:flex-start;display:inline-block}
