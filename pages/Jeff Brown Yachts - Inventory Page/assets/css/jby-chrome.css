@@ -510,3 +510,77 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
    20/30, as on the home page and the journal. The catalogue drew it at 28/40.
    Matched selector for selector — theirs is an id and two classes. */
 #jb_body.yacht-catalog-v2 .yacht-catalog-v2__title{font-size:20px;line-height:30px}
+
+/* ---- the phone gives the search the whole line ----
+   The rule above hands the field 240px so that on the desktop filter row it
+   sits beside "Clear all filters" instead of pushing it down. It sits after
+   the 760px block, so it was winning there too and the field stopped a third
+   of the way across the phone. Here it takes the full row of the wrapping
+   flex container, under the filter buttons. */
+@media (max-width:760px){
+  #jb_body .catalog-search{flex:1 1 100%;width:100%;max-width:none;min-width:0;margin:0}
+}
+
+/* ---- the header on a phone ----
+   The mark is drawn at 72px at every width, and with 16px of padding either
+   side that is a 104px bar — a quarter of the screen's height before the page
+   begins, on the one screen that can least afford it. The mark comes down to
+   56 and the padding to 12: an 80px bar, and 68 once it shrinks on scroll.
+   Above 600px nothing changes; the tablet keeps the full-size mark. */
+@media (max-width:600px){
+  main{padding-top:80px}
+  .nav{padding:12px 20px}
+  .nav.scrolled{padding:10px 20px}
+  .nav .logo{width:56px;height:56px}
+  .nav.scrolled .logo{width:48px;height:48px}
+}
+
+/* ---- nothing matched ----
+   The grid is three columns and the message is one child of it, so it is told
+   to span the whole row; without that it sat in the first cell, left of two
+   empty ones, and read as a listing that had failed to load. */
+#jb_body .catalog-empty{
+  grid-column:1 / -1;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  gap:0;padding:72px 24px 80px}
+#jb_body .catalog-empty-mark{width:64px;height:64px;color:var(--navy);opacity:.55}
+#jb_body .catalog-empty-title{
+  margin:20px 0 0;color:var(--navy);
+  font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:22px;line-height:32px}
+#jb_body .catalog-empty-note{
+  margin:8px 0 0;max-width:38ch;color:var(--mute);
+  font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:15px;line-height:24px}
+#jb_body .catalog-empty-btn{
+  margin-top:24px;padding:11px 26px;cursor:pointer;
+  background:var(--navy);color:#fff;border:1px solid var(--navy);border-radius:2px;
+  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;
+  letter-spacing:0.08em;text-transform:uppercase;
+  transition:background .2s,border-color .2s}
+#jb_body .catalog-empty-btn:hover{background:#355366;border-color:#355366}
+
+@media (max-width:600px){
+  #jb_body .catalog-empty{padding:48px 20px 56px}
+  #jb_body .catalog-empty-mark{width:56px;height:56px}
+  #jb_body .catalog-empty-title{font-size:20px;line-height:30px}
+}
+
+/* ---- All locations stands apart ----
+   It is not one of the places; it is the absence of them, and the only tick in
+   the list that cannot be held alongside another. A rule under it says so. */
+#jb_body .location-filter-option--all{
+  padding-bottom:20px;
+  border-bottom:1px solid rgba(255,255,255,0.18)}
+
+/* ---- the range sliders keep inside their field ----
+   noUiSlider hangs each handle half its own width past the point it marks, so
+   at the ends of the range the two 32px grips stood 16px outside the panel's
+   text column and the bar looked crooked against everything above it. The
+   track gives up that 16px at either side instead: the handle's outer edge now
+   lands exactly where the field begins and ends, and the bar runs between
+   them. Both panels, both widths — the overhang was never a phone problem. */
+#jb_body .length-filter-panel .noUi-target,
+#jb_body .price-filter-panel .noUi-target{margin:0 16px}
+/* and the wrap's own 4px, which held the pair 4px short of the two fields
+   under them — the slider is meant to measure the same column they do */
+#jb_body .length-filter-slider-wrap,
+#jb_body .price-filter-slider-wrap{padding-left:0;padding-right:0}

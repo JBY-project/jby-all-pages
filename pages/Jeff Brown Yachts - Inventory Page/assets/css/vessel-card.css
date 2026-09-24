@@ -104,3 +104,14 @@
   .vessel-card:hover .v-img{transform:none}#jb_body .vessel-card:hover .v-cta{width:auto;padding:0}#jb_body .vessel-card:hover .v-cta-text{opacity:1;max-width:none}#jb_body .vessel-card .v-cta:hover{background:var(--jby-veil);color:#fff}#jb_body .cards-scroll-arr:hover{background:rgba(0,0,0,0.5);transform:translateY(-50%)}
 
 }
+
+@media (hover:none),(pointer:coarse){
+  /* The name reserved two lines (min-height:56px) so every card in a desktop
+     row put its price on the same line. On the phone the cards are one per
+     row and nothing needs to line up across them, so a one-line name was
+     leaving a whole empty line — 12px of flex gap plus 28px of unused box —
+     between it and the price. The box drops to its natural height and the
+     price takes 8px of its own on top of the 12px gap: 20px, flat. */
+  #jb_body .vessel-card .name{min-height:0}
+  #jb_body .vessel-card .price{margin:8px 0 0}
+}

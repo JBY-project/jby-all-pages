@@ -38,7 +38,7 @@ if i >= 0:
 t = t.replace(SITE + "/assets/", "assets/")
 t = t.replace('href="/assets/', 'href="assets/').replace('src="/assets/', 'src="assets/')
 for sheet in ("fonts.css", "yacht_catalog.css", "custom_yacht_style.css"):
-    t = t.replace('href="assets/css/%s"' % sheet, 'href="assets/css/%s?v=33"' % sheet)
+    t = t.replace('href="assets/css/%s"' % sheet, 'href="assets/css/%s?v=45"' % sheet)
 
 # 4. the page's own links still point at the deployed site, which is where they go
 t = re.sub(r'href="/(?!/)(?!assets)', 'href="%s/' % SITE, t)
@@ -100,6 +100,15 @@ t = t[:fi] + band + "\n\n" + footer + t[fe:]
 #     ranges on the right — and the typed search leaves it for a field of its own,
 #     to the right of the filter row. inventory.js fills both.
 MM_PANEL = """<div id="makeModelFilter" class="filter-dropdown make-model-filter-panel hidden">
+            <div class="condition-filter-header">
+                <button type="button" class="mm-back" aria-label="Back to all makes">
+                    <span class="mm-back-chev" aria-hidden="true"></span>
+                </button>
+                <span class="condition-filter-title" id="mmTitle">Make or Model</span>
+                <button type="button" class="condition-filter-close" onclick="toggleFilterDropdown('makeModelFilter')" aria-label="Close">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
             <div class="mm-browse">
                 <div class="mm-makes" id="mmMakes" role="listbox" aria-label="Makes"></div>
                 <div class="mm-models" id="mmModels" aria-live="polite"></div>
@@ -118,6 +127,16 @@ SEARCH = """<div class="faq-search catalog-search">
                     <input id="catalogSearchInput" type="search" placeholder="Search the listings" autocomplete="off" aria-label="Search the listings"/>
                     <div class="catalog-suggest" id="catalogSuggest" role="listbox" aria-label="Matching vessels" hidden></div>
                 </div>"""
+# 5d. the sort panel is a sheet on a phone, and a sheet is closed by its own ✕
+SORT_HEAD = '''<div class="catalog-sort-dropdown-header">
+            <span>Sort by:</span>
+            <button type="button" class="catalog-sort-close" onclick="closeSortDropdown()" aria-label="Close">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+        </div>'''
+assert t.count('<div class="catalog-sort-dropdown-header">Sort by:</div>') == 1
+t = t.replace('<div class="catalog-sort-dropdown-header">Sort by:</div>', SORT_HEAD, 1)
+
 CLEAR_ALL = '<button type="button" id="clearAllFiltersBtn" class="filter-clear-all" hidden onclick="clearAllFilters()">Clear all filters</button>'
 assert t.count(CLEAR_ALL) == 1
 t = t.replace(CLEAR_ALL, CLEAR_ALL + "\n                " + SEARCH)
@@ -178,13 +197,14 @@ t = re.sub(r'(<p class="catalog-results-count">\s*All vessels:\s*)<strong>\d+</s
 CAT = '<script src="assets/js/yacht_catalog.js"></script>'
 assert t.count(CAT) == 1
 t = t.replace(CAT,
-              '<link rel="stylesheet" href="./jby-system.css?v=33">\n'
-              '<link rel="stylesheet" href="assets/css/jby-chrome.css?v=33">\n'
-              '<link rel="stylesheet" href="assets/css/vessel-card.css?v=33">\n'
+              '<link rel="stylesheet" href="./jby-system.css?v=45">\n'
+              '<link rel="stylesheet" href="assets/css/jby-chrome.css?v=45">\n'
+              '<link rel="stylesheet" href="assets/css/vessel-card.css?v=45">\n'
+              '<link rel="stylesheet" href="assets/css/filter-sheet.css?v=45">\n'
               '<script src="assets/js/band.js"></script>\n'
-              '<script src="assets/js/listings.js?v=33"></script>\n'
-              '<script src="assets/js/inventory.js?v=33"></script>\n'
-              + CAT)
+              '<script src="assets/js/listings.js?v=45"></script>\n'
+              '<script src="assets/js/inventory.js?v=45"></script>\n'
+              + CAT.replace('.js"', '.js?v=45"'))
 
 io.open(OUT, "w", encoding="utf-8").write(t)
 print("wrote", OUT, len(t), "bytes")

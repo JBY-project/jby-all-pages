@@ -57,6 +57,10 @@
     var minPrice = num(p.get("minPrice")), maxPrice = num(p.get("maxPrice"));
     var minLength = num(p.get("minLength")), maxLength = num(p.get("maxLength"));
     var city = p.get("locationCity"), country = p.get("locationCountry");
+    /* Locations are a list now — "City|Country,City|Country" — and a vessel
+       need only be in one of them. locationCity is the old single-place param,
+       still honoured so an old link keeps working. */
+    var places = list(p.get("locations"));
     var search = (p.get("search") || "").toLowerCase().trim();
     var makeIds = list(p.get("makeIds")), modelIds = list(p.get("modelIds"));
 
@@ -72,6 +76,7 @@
       }
       if (minLength !== null && !(v.length >= minLength)) return false;
       if (maxLength !== null && !(v.length <= maxLength)) return false;
+      if (places.length && places.indexOf(v.city + "|" + v.country) < 0) return false;
       if (city && v.city !== city) return false;
       if (country && v.country !== country) return false;
       /* Makes and ranges add up rather than override each other: All Models on
@@ -187,6 +192,30 @@
   }
 
   /* ---------- render ---------- */
+  /* ---- nothing matched ----
+     A bare line of text in the first cell of a three-column grid read as a
+     listing that had failed to draw. It spans the grid instead and sits on the
+     page's centre line: the mark, the navy title, the line that says what to
+     do, and the button that does it. clearAllFilters is the catalogue's own —
+     the same one behind "Clear all filters" above the grid. */
+  function emptyHTML() {
+    return '' +
+      '<div class="catalog-empty">' +
+        /* A hull on an empty stretch of water. A magnifier with a boat inside
+           it was two marks fighting over 64px and read as neither. */
+        '<svg class="catalog-empty-mark" viewBox="0 0 64 64" fill="none" ' +
+             'stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" ' +
+             'stroke-linecap="round" aria-hidden="true">' +
+          '<path d="M11 33h42l-6.6 11.4a4 4 0 0 1-3.5 2H21.1a4 4 0 0 1-3.5-2L11 33Z"/>' +
+          '<path d="M24 32.5V22h12l6.5 10.5"/>' +
+          '<path d="M8 54c4.5-3.6 9-3.6 13.5 0s9 3.6 13.5 0 9-3.6 13.5 0"/>' +
+        '</svg>' +
+        '<p class="catalog-empty-title">No vessels match these filters</p>' +
+        '<p class="catalog-empty-note">Try widening the price or length range, or clear the filters to see the whole fleet.</p>' +
+        '<button type="button" class="catalog-empty-btn" onclick="clearAllFilters()">Clear all filters</button>' +
+      '</div>';
+  }
+
   function render() {
     var rows = sorted(filtered());
     var pages = Math.max(1, Math.ceil(rows.length / PER_PAGE));
@@ -197,7 +226,7 @@
       var slice = rows.slice((page - 1) * PER_PAGE, page * PER_PAGE);
       grid.innerHTML = slice.length
         ? slice.map(cardHTML).join("")
-        : '<p class="catalog-empty">No vessels match these filters.</p>';
+        : emptyHTML();
     }
 
     var count = document.getElementById("catalogCount");
@@ -353,7 +382,7 @@
     if (!wrap) return;
     var m = makesIndex().filter(function (x) { return x.name === make; })[0];
     if (!m) { wrap.innerHTML = '<p class="mm-hint">Hover a make to see its ranges.</p>'; return; }
-    /* nothing else: the head and the rows follow */
+    /* nothing else: the head, the way back, and the rows follow */
     var all = mmPending.makes.indexOf(m.name) >= 0;
     wrap.innerHTML = '<p class="mm-models-head">' + esc(m.name) + '</p>' +
       '<label class="mm-model mm-all">' +
@@ -410,6 +439,7 @@
       minLength: over.minLength !== undefined ? over.minLength : p.get("minLength"),
       maxLength: over.maxLength !== undefined ? over.maxLength : p.get("maxLength"),
       locationCity: over.locationCity !== undefined ? over.locationCity : p.get("locationCity"),
+      locations: over.locations !== undefined ? over.locations : p.get("locations"),
       makeIds: over.makeIds !== undefined ? over.makeIds : p.get("makeIds"),
       modelIds: over.modelIds !== undefined ? over.modelIds : p.get("modelIds"),
       search: over.search !== undefined ? over.search : p.get("search")
@@ -417,6 +447,7 @@
     var minPrice = num(q.minPrice), maxPrice = num(q.maxPrice);
     var minLength = num(q.minLength), maxLength = num(q.maxLength);
     var makeIds = list(q.makeIds), modelIds = list(q.modelIds);
+    var places = list(q.locations);
     var search = (q.search || "").toLowerCase().trim();
     return listings.filter(function (v) {
       if (q.vesselCondition && v.condition !== q.vesselCondition) return false;
@@ -428,6 +459,7 @@
       }
       if (minLength !== null && !(v.length >= minLength)) return false;
       if (maxLength !== null && !(v.length <= maxLength)) return false;
+      if (places.length && places.indexOf(v.city + "|" + v.country) < 0) return false;
       if (q.locationCity && v.city !== q.locationCity) return false;
       /* Makes and ranges add up rather than override each other: All Models on
          Axopar and one Riva range means both, which is what ticking them says.
@@ -466,8 +498,11 @@
       return sliderRange("lengthSlider", "minLength", "maxLength");
     }
     if (panel.id === "locationFilter") {
-      var c = panel.querySelector('input[name="locationCheckbox"]:checked:not([data-all="true"])');
-      return { locationCity: c ? c.dataset.city : "" };
+      var ticked = [].map.call(
+        panel.querySelectorAll('input[name="locationCheckbox"]:checked:not([data-all="true"])'),
+        function (i) { return i.value; }
+      );
+      return { locations: ticked.join(","), locationCity: "" };
     }
     if (panel.id === "makeModelFilter") {
       mmReadPending();
@@ -579,24 +614,43 @@
     mmRenderModels(null);
 
     var mmWrap = document.getElementById("makeModelFilter");
+
+    /* Both columns are on screen at once on the desktop, so choosing a make is
+       just a matter of which ranges the right one shows. In the phone's sheet
+       the two are stacked and the ranges land a screen and a half below the
+       fold: tapping a make looked like it did nothing at all. The sheet goes
+       one level in instead — .mm-drilled hides the makes, the ranges take the
+       sheet, and the row's own chevron finally means what it looks like. */
+    function mmShow(make) {
+      mmActive = make;
+      mmRenderMakes(make);
+      mmRenderModels(make);
+      if (mmWrap) {
+        mmWrap.classList.toggle("mm-drilled", !!make);
+        mmWrap.scrollTop = 0;
+        /* the title bar carries the way back and says where back is from */
+        var title = document.getElementById("mmTitle");
+        if (title) title.textContent = make || "Make or Model";
+      }
+    }
+
     if (mmWrap) {
-      /* hovering a make only changes what the right column shows */
+      /* Hovering a make only changes what the right column shows — and only
+         where there are two columns. In the sheet a make is a step, taken by
+         tapping; a cursor that happens to be resting where the list comes
+         back after Back would otherwise take that step again by itself. */
       mmWrap.addEventListener("mouseover", function (e) {
+        if (window.matchMedia("(max-width:760px)").matches) return;
         var row = e.target.closest && e.target.closest(".mm-make");
         if (!row || row.dataset.make === mmActive) return;
-        mmActive = row.dataset.make;
-        mmRenderMakes(mmActive);
-        mmRenderModels(mmActive);
+        mmShow(row.dataset.make);
       });
       /* a tap does the same thing on a phone, where there is no hover */
       mmWrap.addEventListener("click", function (e) {
+        if (e.target.closest && e.target.closest(".mm-back")) { mmShow(null); return; }
         var row = e.target.closest && e.target.closest(".mm-make");
         if (row && !e.target.closest("input")) {
-          if (row.dataset.make !== mmActive) {
-            mmActive = row.dataset.make;
-            mmRenderMakes(mmActive);
-            mmRenderModels(mmActive);
-          }
+          if (row.dataset.make !== mmActive) mmShow(row.dataset.make);
         }
       });
       mmWrap.addEventListener("change", function (e) {

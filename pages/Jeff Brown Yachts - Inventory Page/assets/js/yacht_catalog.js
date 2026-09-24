@@ -366,7 +366,14 @@ function clearLengthFilter() {
 }
 
 function clearLocationFilter() {
-    updateUrlAndReload({}, ['locationSearch', 'locationCity', 'locationCountry']);
+    updateUrlAndReload({}, ['locations', 'locationSearch', 'locationCity', 'locationCountry']);
+}
+
+/* the ✕ on one pill drops that place and leaves the others filtering */
+function clearOneLocation(value) {
+    const rest = chosenLocations().filter(v => v !== value);
+    if (!rest.length) return clearLocationFilter();
+    updateUrlAndReload({ locations: rest.join(',') }, ['locationSearch', 'locationCity', 'locationCountry']);
 }
 
 function clearMakeModelFilter() {
@@ -507,6 +514,7 @@ function hasActiveFilters() {
         params.get('maxPrice') ||
         params.get('minLength') ||
         params.get('maxLength') ||
+        params.get('locations') ||
         params.get('locationSearch') ||
         params.get('locationCity')
     );
@@ -528,6 +536,7 @@ function clearAllFilters() {
         'maxPrice',
         'minLength',
         'maxLength',
+        'locations',
         'locationSearch',
         'locationCity',
         'locationCountry',
@@ -621,10 +630,16 @@ function updateLengthActiveDisplay() {
 }
 
 function updateLocationActiveDisplay() {
-    const locationSearch = getUrlParams().get('locationSearch');
-    const pills = locationSearch
-        ? [createFilterPill(locationSearch, clearLocationFilter, 'Remove location filter')]
-        : [];
+    const labelOf = value => {
+        const box = document.querySelector(
+            'input[name="locationCheckbox"][value="' + (window.CSS && CSS.escape ? CSS.escape(value) : value) + '"]'
+        );
+        /* before the list has loaded there is no box to read the label off */
+        return (box && box.dataset.label) || value.split('|')[0];
+    };
+    const pills = chosenLocations().map(value =>
+        createFilterPill(labelOf(value), () => clearOneLocation(value), 'Remove ' + labelOf(value))
+    );
 
     setFilterButtonState({
         valuesId: 'locationActive',
@@ -999,7 +1014,9 @@ function renderLocationOptions(locations) {
 
 function createLocationOptionElement({ label, city = '', country = '', isAll = false, checked = false }) {
     const option = document.createElement('label');
-    option.className = 'location-filter-option';
+    option.className = isAll
+        ? 'location-filter-option location-filter-option--all'
+        : 'location-filter-option';
 
     const input = document.createElement('input');
     input.type = 'checkbox';
@@ -1030,6 +1047,12 @@ function createLocationOptionElement({ label, city = '', country = '', isAll = f
     return option;
 }
 
+/* These are tick boxes and they add up: a buyer looking in San Diego is just as
+   likely to look in Sausalito. Ticking one used to clear the rest, which made a
+   column of boxes behave like a column of radios. The one exclusive tick is All
+   locations, which means no filter at all and so cannot be held alongside a
+   place; and unticking the last place falls back to it rather than leaving the
+   panel with nothing chosen. */
 function bindLocationCheckboxEvents() {
     document.querySelectorAll('input[name="locationCheckbox"]').forEach(checkbox => {
         checkbox.addEventListener('change', () => {
@@ -1049,9 +1072,6 @@ function bindLocationCheckboxEvents() {
 
             if (checkbox.checked) {
                 if (allCheckbox) allCheckbox.checked = false;
-                locationCheckboxes.forEach(item => {
-                    if (item !== checkbox) item.checked = false;
-                });
             } else if (!document.querySelector('input[name="locationCheckbox"]:checked:not([data-all="true"])')) {
                 if (allCheckbox) allCheckbox.checked = true;
             }
@@ -1059,9 +1079,17 @@ function bindLocationCheckboxEvents() {
     });
 }
 
+/* "City|Country,City|Country" — the same comma-separated shape makeIds and
+   modelIds already use, because one locationCity could only ever hold one. */
+function chosenLocations() {
+    return (getUrlParams().get('locations') || '')
+        .split(',')
+        .map(v => v.trim())
+        .filter(Boolean);
+}
+
 function syncLocationCheckboxesFromUrl() {
-    const city = getUrlParams().get('locationCity');
-    const country = getUrlParams().get('locationCountry');
+    const chosen = chosenLocations();
     const allCheckbox = document.querySelector('input[name="locationCheckbox"][data-all="true"]');
     const locationCheckboxes = document.querySelectorAll('input[name="locationCheckbox"]:not([data-all="true"])');
 
@@ -1069,9 +1097,7 @@ function syncLocationCheckboxesFromUrl() {
 
     let matched = false;
     locationCheckboxes.forEach(checkbox => {
-        const isSelected = city && country
-            && checkbox.dataset.city === city
-            && checkbox.dataset.country === country;
+        const isSelected = chosen.indexOf(checkbox.value) >= 0;
         checkbox.checked = isSelected;
         if (isSelected) matched = true;
     });
@@ -1101,18 +1127,23 @@ function loadLocations() {
 }
 
 function applyLocationFilter() {
-    const selected = document.querySelector('input[name="locationCheckbox"]:checked:not([data-all="true"])');
+    const selected = [].slice.call(
+        document.querySelectorAll('input[name="locationCheckbox"]:checked:not([data-all="true"])')
+    );
 
-    if (!selected) {
-        updateUrlAndReload({}, ['locationSearch', 'locationCity', 'locationCountry']);
+    /* locationSearch / locationCity / locationCountry were the single-place
+       shape and go with it, so a link carrying the old ones cannot leave a
+       place filtering the grid that no box is ticked for. */
+    const legacy = ['locationSearch', 'locationCity', 'locationCountry'];
+
+    if (!selected.length) {
+        updateUrlAndReload({}, legacy.concat(['locations']));
         return;
     }
 
     updateUrlAndReload({
-        locationSearch: selected.dataset.label,
-        locationCity: selected.dataset.city,
-        locationCountry: selected.dataset.country
-    }, []);
+        locations: selected.map(i => i.value).join(',')
+    }, legacy);
 }
 
 function closeLocationFilter() {
@@ -1130,6 +1161,12 @@ function initLocationFilter() {
 // ============================================
 
 document.addEventListener('click', (event) => {
+    // A panel that redraws itself under the finger — the make list stepping into
+    // a make's ranges, and back out of them — hands this listener a node that is
+    // no longer in the document by the time the click reaches it. closest() then
+    // walks a detached chain, finds no .filter-group, and reads a tap inside the
+    // panel as a tap outside it, closing the panel the tap had just opened up.
+    if (!event.target.isConnected) return;
     if (!event.target.closest('.filter-group')) {
         closeAllFilterDropdowns();
     }

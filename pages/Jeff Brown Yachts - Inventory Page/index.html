@@ -15,7 +15,7 @@
 <link rel="preload" href="assets/fonts/myriad_pro/MyriadPro-Light.otf" as="font" type="font/otf" crossorigin>
 <link rel="preload" href="assets/fonts/mesmerize/mesmerize-ex-lt-.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="preload" href="assets/fonts/mesmerize/mesmerize-rg.ttf" as="font" type="font/ttf" crossorigin>
-<link rel="stylesheet" href="assets/css/fonts.css?v=33">
+<link rel="stylesheet" href="assets/css/fonts.css?v=45">
 <link rel="stylesheet" href="assets/css/contact-expert-modal.css">
 
 <style>
@@ -32,9 +32,9 @@
     font-family: "Mesmerize-rg", system-ui, sans-serif;
   }
 </style>
-    <link rel="stylesheet" href="assets/css/yacht_catalog.css?v=33">
+    <link rel="stylesheet" href="assets/css/yacht_catalog.css?v=45">
     <link rel="stylesheet" href="assets/css/yacht_style.css">
-    <link rel="stylesheet" href="assets/css/custom_yacht_style.css?v=33">
+    <link rel="stylesheet" href="assets/css/custom_yacht_style.css?v=45">
 </head>
 <body
     id="jb_body"
@@ -72,6 +72,15 @@
             <i class="fas fa-chevron-down filter-chevron" aria-hidden="true"></i>
         </button>
         <div id="makeModelFilter" class="filter-dropdown make-model-filter-panel hidden">
+            <div class="condition-filter-header">
+                <button type="button" class="mm-back" aria-label="Back to all makes">
+                    <span class="mm-back-chev" aria-hidden="true"></span>
+                </button>
+                <span class="condition-filter-title" id="mmTitle">Make or Model</span>
+                <button type="button" class="condition-filter-close" onclick="toggleFilterDropdown('makeModelFilter')" aria-label="Close">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
             <div class="mm-browse">
                 <div class="mm-makes" id="mmMakes" role="listbox" aria-label="Makes"></div>
                 <div class="mm-models" id="mmModels" aria-live="polite"></div>
@@ -290,7 +299,12 @@
     </button>
 
     <div class="catalog-sort-dropdown" id="sortDropdown">
-        <div class="catalog-sort-dropdown-header">Sort by:</div>
+        <div class="catalog-sort-dropdown-header">
+            <span>Sort by:</span>
+            <button type="button" class="catalog-sort-close" onclick="closeSortDropdown()" aria-label="Close">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
 
         <div class="catalog-sort-group">
             <a href="https://jb.apdstack.com/yachts?orderBy=Price&amp;order=DESC&amp;page=1"
@@ -564,12 +578,13 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
     <script src="assets/js/yacht-card-hover.js"></script>
-    <link rel="stylesheet" href="./jby-system.css?v=33">
-<link rel="stylesheet" href="assets/css/jby-chrome.css?v=33">
-<link rel="stylesheet" href="assets/css/vessel-card.css?v=33">
+    <link rel="stylesheet" href="./jby-system.css?v=45">
+<link rel="stylesheet" href="assets/css/jby-chrome.css?v=45">
+<link rel="stylesheet" href="assets/css/vessel-card.css?v=45">
+<link rel="stylesheet" href="assets/css/filter-sheet.css?v=45">
 <script src="assets/js/band.js"></script>
-<script src="assets/js/listings.js?v=33"></script>
-<script src="assets/js/inventory.js?v=33"></script>
-<script src="assets/js/yacht_catalog.js"></script>
+<script src="assets/js/listings.js?v=45"></script>
+<script src="assets/js/inventory.js?v=45"></script>
+<script src="assets/js/yacht_catalog.js?v=45"></script>
 </body>
 </html>
