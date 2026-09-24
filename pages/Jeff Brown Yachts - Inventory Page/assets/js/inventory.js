@@ -111,7 +111,7 @@
       '<a class="vessel-card" href="' + esc(v.href) + '" target="_blank" rel="noopener">' +
         '<div class="v-img" style="background-image:url(\'' + esc(v.image) + '\')"></div>' +
         '<div class="v-img-veil"></div>' +
-        (v.brand ? '<div class="brand"><img src="' + esc(v.brand) + '" alt="' + esc(v.brandAlt) + '"/></div>' : '') +
+        (v.brand ? '<div class="brand"><img src="' + esc(v.brand) + '" alt="' + esc(v.brandAlt) + '" loading="lazy"/></div>' : '') +
         '<div class="info">' +
           '<div class="chip-loc">' + esc(v.location) + '</div>' +
           '<p class="name">' + esc(v.name) + '</p>' +

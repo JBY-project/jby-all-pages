@@ -100,12 +100,12 @@ t = re.sub(r'(<p class="catalog-results-count">\s*All vessels:\s*)<strong>\d+</s
 CAT = '<script src="assets/js/yacht_catalog.js"></script>'
 assert t.count(CAT) == 1
 t = t.replace(CAT,
-              '<link rel="stylesheet" href="./jby-system.css?v=12">\n'
-              '<link rel="stylesheet" href="assets/css/jby-chrome.css?v=12">\n'
-              '<link rel="stylesheet" href="assets/css/vessel-card.css?v=12">\n'
+              '<link rel="stylesheet" href="./jby-system.css?v=14">\n'
+              '<link rel="stylesheet" href="assets/css/jby-chrome.css?v=14">\n'
+              '<link rel="stylesheet" href="assets/css/vessel-card.css?v=14">\n'
               '<script src="assets/js/band.js"></script>\n'
-              '<script src="assets/js/listings.js?v=12"></script>\n'
-              '<script src="assets/js/inventory.js?v=12"></script>\n'
+              '<script src="assets/js/listings.js?v=14"></script>\n'
+              '<script src="assets/js/inventory.js?v=14"></script>\n'
               + CAT)
 
 io.open(OUT, "w", encoding="utf-8").write(t)
