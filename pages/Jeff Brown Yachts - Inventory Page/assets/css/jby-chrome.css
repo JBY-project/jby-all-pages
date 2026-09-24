@@ -270,3 +270,243 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
   .jby-footer .jf-legal{flex-direction:column;gap:10px}
   .jby-footer .jf-top{right:24px;top:28px;width:40px;height:40px}
 }
+
+/* ==========================================================================
+   Black -> the brand navy.
+
+   The deployed catalogue draws its whole control layer in #000: the filter
+   buttons and their chevrons, the panels inside them, the two sliders, the
+   results count, the sort menu and the pagination. Every selector below is the
+   deployed one, repeated at the same weight — #jb_body and one class — so this
+   file, which loads last, carries it.
+   ========================================================================== */
+
+/* filter bar */
+#jb_body .filter-group .filter-button{color:var(--navy)}
+#jb_body .filter-group .filter-button:hover{border-color:var(--navy)}
+#jb_body .filter-group .filter-button.is-open{border:1px solid var(--navy)}
+#jb_body .filter-group .filter-chevron{color:var(--navy)}
+
+/* make or model */
+#jb_body .make-model-filter-input{border-bottom:1px solid var(--navy);color:var(--navy)}
+#jb_body .make-model-filter-input:focus{border-bottom-color:var(--navy)}
+#jb_body .make-model-filter-label{color:var(--navy)}
+
+/* condition */
+#jb_body .condition-filter-close{color:var(--navy)}
+#jb_body .condition-filter-radio{border:1px solid var(--navy)}
+#jb_body .condition-filter-option input[type="radio"]:checked + .condition-filter-radio::after{background:var(--navy)}
+#jb_body .condition-filter-label{color:var(--navy)}
+#jb_body .condition-filter-btn-clear{color:var(--navy);border:1px solid var(--navy)}
+
+/* the two sliders */
+#jb_body .length-filter-panel .noUi-connect,
+#jb_body .price-filter-panel .noUi-connect{background:var(--navy)}
+#jb_body .length-filter-panel .noUi-handle,
+#jb_body .price-filter-panel .noUi-handle{border:1px solid var(--navy)}
+#jb_body .length-filter-field input,
+#jb_body .price-filter-field input{color:var(--navy)}
+#jb_body .length-filter-field input:focus,
+#jb_body .price-filter-field input:focus{border-bottom-color:var(--navy)}
+
+/* location */
+#jb_body .location-filter-option input[type="checkbox"]:checked + .location-filter-checkbox{border-color:var(--navy);background:var(--navy)}
+#jb_body .location-filter-label,
+#jb_body .brand-filter-label{color:var(--navy)}
+
+/* the count, the sort menu */
+#jb_body .catalog-results-count{color:var(--navy)}
+#jb_body .catalog-sort-button{color:var(--navy)}
+#jb_body .catalog-sort-option{color:var(--navy)}
+
+/* pagination — the numbers beside the current one */
+#jb_body .catalog-pagination-page{color:var(--navy)}
+
+/* the contact modal's ink, which is its own token */
+#jb_body #jby-ce{--lm-text:#41647b;--lm-ink:#41647b}
+
+/* ==========================================================================
+   The filter panels, in the burger menu's blue
+
+   Same veil as the mega menu: the navy at 0.82 easing to 0.92, blurred and
+   saturated, with a hairline of white around it. Everything inside goes white,
+   which is why the black-to-navy block above stops at the trigger buttons.
+   ========================================================================== */
+#jb_body .filter-dropdown{
+  /* The burger menu's own values, not the header's: the menu panel is a flat
+     rgba(65,100,123,0.68) over a 26px blur, with no gradient and no saturate.
+     Copied as they are written in JBY-Menu-V3-Dark-NoPhoto.html. */
+  background:rgba(65,100,123,0.68);
+  -webkit-backdrop-filter:blur(26px);backdrop-filter:blur(26px);
+  border:0.5px solid rgba(255,255,255,0.18);
+  box-shadow:0 18px 50px rgba(15,32,45,0.22);
+  color:#fff}
+/* The menu's own rule for the line between its two columns, same weight. */
+#jb_body .mm-makes{border-right-color:rgba(255,255,255,0.18)}
+#jb_body .filter-dropdown .condition-filter-title,
+#jb_body .filter-dropdown .condition-filter-label,
+#jb_body .filter-dropdown .location-filter-label,
+#jb_body .filter-dropdown .brand-filter-label,
+#jb_body .filter-dropdown .make-model-filter-label,
+#jb_body .filter-dropdown .length-filter-scale span,
+#jb_body .filter-dropdown .price-filter-scale span,
+#jb_body .filter-dropdown .make-model-filter-status,
+#jb_body .filter-dropdown .location-filter-status{color:#fff}
+#jb_body .filter-dropdown .condition-filter-close{color:#fff}
+#jb_body .filter-dropdown .condition-filter-close:hover{color:#fff;opacity:.7}
+#jb_body .filter-dropdown .condition-filter-header{border-bottom-color:rgba(255,255,255,0.18)}
+#jb_body .filter-dropdown .condition-filter-footer{border-top:1px solid rgba(255,255,255,0.18)}
+
+/* the tick boxes and the radio */
+#jb_body .filter-dropdown .condition-filter-radio,
+#jb_body .filter-dropdown .location-filter-checkbox,
+#jb_body .filter-dropdown .mm-box{border:1px solid rgba(255,255,255,0.7);background:transparent}
+#jb_body .filter-dropdown .condition-filter-option input[type="radio"]:checked + .condition-filter-radio::after{background:#fff}
+#jb_body .filter-dropdown .location-filter-option input[type="checkbox"]:checked + .location-filter-checkbox{
+  background:#fff;border-color:#fff}
+#jb_body .filter-dropdown .location-filter-option input[type="checkbox"]:checked + .location-filter-checkbox::after{border-color:var(--navy)}
+
+/* the fields */
+#jb_body .filter-dropdown input[type="text"],
+#jb_body .filter-dropdown input[type="search"],
+#jb_body .filter-dropdown .make-model-filter-input,
+#jb_body .filter-dropdown .length-filter-field input,
+#jb_body .filter-dropdown .price-filter-field input{
+  color:#fff;background:transparent;border-bottom:1px solid rgba(255,255,255,0.5)}
+#jb_body .filter-dropdown input::placeholder{color:rgba(255,255,255,0.65)}
+#jb_body .filter-dropdown .length-filter-field input:focus,
+#jb_body .filter-dropdown .price-filter-field input:focus,
+#jb_body .filter-dropdown .make-model-filter-input:focus{border-bottom-color:#fff}
+
+/* the two sliders */
+#jb_body .filter-dropdown .noUi-target{background:rgba(255,255,255,0.28);border:0;box-shadow:none}
+#jb_body .length-filter-panel .noUi-connect,
+#jb_body .price-filter-panel .noUi-connect{background:#fff}
+/* The handles were white on the white bar they ride — invisible. Deep navy,
+   with a hairline of white so they keep an edge against the panel as well. */
+#jb_body .length-filter-panel .noUi-handle,
+#jb_body .price-filter-panel .noUi-handle{background:var(--navy-d,#365466);
+  border:1px solid rgba(255,255,255,0.9);box-shadow:0 1px 4px rgba(15,32,45,0.35)}
+#jb_body .length-filter-panel .noUi-handle:hover,
+#jb_body .price-filter-panel .noUi-handle:hover,
+#jb_body .length-filter-panel .noUi-handle.noUi-active,
+#jb_body .price-filter-panel .noUi-handle.noUi-active{background:#22333f}
+
+/* Clear, and the Apply that now carries the count */
+#jb_body .filter-dropdown .condition-filter-btn-clear{
+  color:#fff;border:1px solid rgba(255,255,255,0.7);background:transparent}
+#jb_body .filter-dropdown .condition-filter-btn-clear:hover{background:rgba(255,255,255,0.14)}
+#jb_body .filter-dropdown .condition-filter-btn-apply{
+  background:#fff;color:var(--navy);border:1px solid #fff}
+#jb_body .filter-dropdown .condition-filter-btn-apply:hover{background:rgba(255,255,255,0.86)}
+
+/* ---- Make or Model: makes on the left, that make's ranges on the right ---- */
+#jb_body .make-model-filter-panel{min-width:560px;padding:0}
+#jb_body .mm-browse{display:grid;grid-template-columns:232px 1fr;min-height:260px}
+#jb_body .mm-makes{border-right:1px solid rgba(255,255,255,0.18);padding:10px 0;max-height:320px;overflow:auto}
+#jb_body .mm-models{padding:14px 20px 10px;max-height:320px;overflow:auto}
+/* The box sits on the first line, not in the middle of the row: a name that
+   wraps to two lines — XC Cross Cabin Signature Edition, Brabus Marine — used to
+   push the tick half a line down. The margin is half the difference between the
+   line and the box, so a one-line row still reads as centred. */
+#jb_body .mm-make,
+#jb_body .mm-model{display:flex;align-items:flex-start;gap:10px;padding:9px 20px;cursor:pointer;
+  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;line-height:20px;
+  letter-spacing:0.06em;text-transform:uppercase;color:#fff;transition:background .2s}
+#jb_body .mm-make{width:100%;text-align:left;background:transparent;border:0;position:relative}
+/* a make with something chosen inside it, seen while another make is on screen */
+#jb_body .mm-make.is-chosen .mm-label::before{content:"";display:inline-block;width:5px;height:5px;
+  border-radius:50%;background:#fff;margin-right:8px;vertical-align:middle}
+#jb_body .mm-make .mm-chev{width:6px;height:6px;flex:0 0 6px;margin-top:6px;
+  border-right:1px solid rgba(255,255,255,0.65);border-bottom:1px solid rgba(255,255,255,0.65);
+  transform:rotate(-45deg)}
+#jb_body .mm-model{padding:8px 0;text-transform:none;letter-spacing:0;
+  font-family:'Myriad Pro',sans-serif;font-size:15px}
+#jb_body .mm-make:hover,
+#jb_body .mm-make.is-active{background:rgba(255,255,255,0.14)}
+#jb_body .mm-make input,
+#jb_body .mm-model input{position:absolute;opacity:0;width:0;height:0}
+#jb_body .mm-box{width:15px;height:15px;border-radius:2px;flex:0 0 15px;position:relative;margin-top:3px}
+#jb_body .mm-make input:checked + .mm-box,
+#jb_body .mm-model input:checked + .mm-box{background:#fff;border-color:#fff}
+#jb_body .mm-make input:checked + .mm-box::after,
+#jb_body .mm-model input:checked + .mm-box::after{content:"";position:absolute;left:4px;top:1px;
+  width:5px;height:9px;border:solid var(--navy);border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
+#jb_body .mm-label{flex:1 1 auto;min-width:0}
+#jb_body .mm-n{opacity:.7;font-size:13px;flex:0 0 auto}
+#jb_body .mm-model.mm-all{padding-bottom:12px;margin-bottom:8px;
+  border-bottom:1px solid rgba(255,255,255,0.22)}
+/* a range that the whole make already covers: ticked, but not a choice of its own */
+#jb_body .mm-model.is-implied{opacity:.55;cursor:default}
+#jb_body .mm-models-head{margin:0 0 10px;font-family:'Mesmerize',sans-serif;font-weight:300;
+  font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.7)}
+#jb_body .mm-hint{margin:0;color:rgba(255,255,255,0.7);font-family:'Myriad Pro',sans-serif;font-size:15px}
+#jb_body .make-model-filter-footer{padding:16px 20px;margin:0}
+
+/* ---- the search field ----
+   The FAQ page's field, rule for rule, so the two pages carry one search box:
+   48 tall, hairline border that goes navy on focus, the magnifier inset on the
+   left, and the native clear button dressed grey rather than browser blue. Only
+   the placing is this page's — it stands at the right end of the filter row. */
+#jb_body .faq-search{margin-top:24px;position:relative;max-width:520px}
+#jb_body .faq-search input{width:100%;height:48px;border:0.5px solid rgba(0,0,0,0.28);background:#fff;border-radius:2px;
+  padding:0 16px 0 46px;font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;color:var(--ink);outline:none;transition:border-color .2s}
+#jb_body .faq-search input:focus{border-color:var(--navy)}
+#jb_body .faq-search input::placeholder{color:#71717a}
+#jb_body .faq-search svg{position:absolute;left:16px;top:14px;width:20px;height:20px;color:#71717a;pointer-events:none}
+#jb_body .faq-search input[type="search"]::-webkit-search-cancel-button{
+  -webkit-appearance:none;appearance:none;height:15px;width:15px;margin:0 2px;cursor:pointer;
+  background-color:#71717a;transition:background-color .2s;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 6l12 12M18 6 6 18' stroke='black' stroke-width='2.2' fill='none'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 6l12 12M18 6 6 18' stroke='black' stroke-width='2.2' fill='none'/%3E%3C/svg%3E") center/contain no-repeat}
+#jb_body .faq-search input[type="search"]::-webkit-search-cancel-button:hover{background-color:var(--ink)}
+#jb_body .catalog-search{margin:0 0 0 auto;width:min(360px,100%);max-width:360px}
+
+@media (max-width:760px){
+  #jb_body .make-model-filter-panel{min-width:0;width:calc(100vw - 48px)}
+  #jb_body .mm-browse{grid-template-columns:1fr;min-height:0}
+  #jb_body .mm-makes{border-right:0;border-bottom:1px solid rgba(255,255,255,0.18);max-height:200px}
+  /* No hover on a phone, so the hint says what to do there instead. */
+  #jb_body .mm-hint{font-size:14px}
+  #jb_body .mm-hint::after{content:" Tap one."}
+  #jb_body .catalog-search{margin:0;width:100%;max-width:none}
+}
+
+/* ---- what the search field drops while you type ---- */
+#jb_body .catalog-search{position:relative}
+#jb_body .catalog-suggest{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:60;
+  background:#fff;border:0.5px solid rgba(0,0,0,0.18);border-radius:2px;
+  box-shadow:0 18px 40px rgba(15,32,45,0.16);overflow:hidden}
+#jb_body .catalog-suggest[hidden]{display:none}
+#jb_body .cs-row{display:flex;flex-direction:column;gap:2px;padding:10px 16px;
+  font-family:'Myriad Pro',sans-serif;font-weight:300;color:var(--ink);text-decoration:none;
+  border-bottom:0.5px solid rgba(0,0,0,0.08)}
+#jb_body .cs-row:hover{background:var(--section)}
+#jb_body .cs-name{font-size:15px;line-height:20px}
+#jb_body .cs-meta{font-size:13px;line-height:18px;color:var(--mute)}
+#jb_body .cs-all{display:block;width:100%;padding:11px 16px;border:0;background:transparent;cursor:pointer;
+  font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--navy);text-align:left}
+#jb_body .cs-all:hover{background:var(--section)}
+#jb_body .cs-empty{margin:0;padding:12px 16px;font-family:'Myriad Pro',sans-serif;font-weight:300;
+  font-size:15px;color:var(--mute)}
+
+/* ---- the filter row holds its line ----
+   A pill inside a trigger made that button 40px against its neighbours' 38, so
+   the label lifted as soon as a filter was set. The button keeps one height in
+   both states and centres what is in it; the pill is sized to sit inside that. */
+#jb_body .filter-group .filter-button{height:38px;min-height:38px;padding:0 12px;
+  display:inline-flex;align-items:center}
+#jb_body .filter-button-label{line-height:20px}
+#jb_body .filter-value-pill{height:24px;display:inline-flex;align-items:center;line-height:1}
+
+/* The search shares the line with Clear all filters rather than pushing it onto
+   a second one. */
+#jb_body .catalog-search{flex:0 1 240px;max-width:240px;min-width:160px}
+#jb_body .catalog-search input{height:38px;font-size:15px;padding:0 14px 0 42px}
+#jb_body .catalog-search svg{top:9px;left:14px;width:18px;height:18px}
+
+/* The page title at the size the rest of the site sets its section titles:
+   20/30, as on the home page and the journal. The catalogue drew it at 28/40.
+   Matched selector for selector — theirs is an id and two classes. */
+#jb_body.yacht-catalog-v2 .yacht-catalog-v2__title{font-size:20px;line-height:30px}

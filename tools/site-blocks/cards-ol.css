@@ -3,10 +3,15 @@
    Other Listings rail at the foot of that page. Same values as the home card,
    moved onto .ol / .ol-in.
 
-   The client asked for three times the blur under the chip and for the panel's
-   gradient to stand 40px higher. The panel is anchored to the bottom of the
-   card, so the 40 is top padding: the gradient's top edge rises and the chip,
-   the name and the price stay where they were. 2026-09-24.
+   Three times the blur under the location chip, so it reads on a light
+   photograph, and the panel's gradient standing 20px higher. The panel is
+   anchored to the bottom of the card, so the 20 is top padding: the gradient's
+   top edge rises and the chip, the name and the price stay where they were.
+
+   The panel's own backdrop-filter:blur(1px) is gone with it. It was there
+   before any of this, but a panel 20px taller spread it further up the
+   photograph, where the gradient is still transparent, and it read as the
+   picture itself being soft. The chip does the blurring now. 2026-09-24.
    ========================================================================== */
 
 /* The top veil, drawn where the page already had a full-height scrim. */
@@ -15,9 +20,9 @@
 
 /* Bottom info — the navy gradient a step under --navy, edge to edge rather
    than an inset block, which is what gives the card its weighted foot. */
-.ol-in{position:absolute;left:0;right:0;bottom:0;z-index:2;color:#fff;padding:56px 20px 20px;
+.ol-in{position:absolute;left:0;right:0;bottom:0;z-index:2;color:#fff;padding:36px 20px 20px;
   background:linear-gradient(179.96deg,rgba(54,84,102,0) 22%,rgba(54,84,102,0.82) 62%,rgba(54,84,102,0.94) 100%);
-  backdrop-filter:blur(1px);display:flex;flex-direction:column;gap:12px}
+  display:flex;flex-direction:column;gap:12px}
 
 /* A light veil the photograph shows through, in place of the plain line. */
 .ol-in .loc{align-self:flex-start;background:linear-gradient(180deg,rgba(255,255,255,0.34),rgba(255,255,255,0.20));

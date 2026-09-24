@@ -22,7 +22,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 115.91,
-  "added": 65
+  "added": 65,
+  "availability": "inStock"
  },
  {
   "id": "ff9b17a6-e6d1-47fc-b497-314141396a9c",
@@ -43,7 +44,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 71.4,
-  "added": 64
+  "added": 64,
+  "availability": "inStock"
  },
  {
   "id": "bfaaa6ed-64ae-4757-9c27-c5cfc002d1e4",
@@ -64,7 +66,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 48.9,
-  "added": 63
+  "added": 63,
+  "availability": "inStock"
  },
  {
   "id": "d21d93c5-5544-433c-9ed6-46a7beb86917",
@@ -85,7 +88,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 43.3,
-  "added": 62
+  "added": 62,
+  "availability": "inStock"
  },
  {
   "id": "d8e1215c-840d-41e6-84f3-c78f53e66cc5",
@@ -106,7 +110,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 49.0,
-  "added": 61
+  "added": 61,
+  "availability": "inStock"
  },
  {
   "id": "a639b7a3-7a7f-4020-b1ea-cf4319e0de54",
@@ -127,7 +132,8 @@ window.JBY_LISTINGS = [
   "priceValue": 340780,
   "condition": "new",
   "length": 30.55,
-  "added": 60
+  "added": 60,
+  "availability": "comingSoon"
  },
  {
   "id": "79136f02-3b04-4f10-b830-7df31f06281b",
@@ -148,7 +154,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 118.0,
-  "added": 59
+  "added": 59,
+  "availability": "toOrder"
  },
  {
   "id": "0c6d6e04-c2d5-4d9c-a823-444313246a3a",
@@ -169,7 +176,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 47.9,
-  "added": 58
+  "added": 58,
+  "availability": "inStock"
  },
  {
   "id": "8148c8cd-50a9-4117-aa11-c0e54d18b3d2",
@@ -190,7 +198,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 38.9,
-  "added": 57
+  "added": 57,
+  "availability": "toOrder"
  },
  {
   "id": "12200ba6-d499-44a9-8f77-d959be86ff01",
@@ -211,7 +220,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 38.06,
-  "added": 56
+  "added": 56,
+  "availability": "toOrder"
  },
  {
   "id": "9ccf1ba7-e6c8-44da-a3f0-6efcfb4d9802",
@@ -232,7 +242,8 @@ window.JBY_LISTINGS = [
   "priceValue": 335830,
   "condition": "new",
   "length": 30.55,
-  "added": 55
+  "added": 55,
+  "availability": "comingSoon"
  },
  {
   "id": "cf060417-877f-4173-8c33-169137ada788",
@@ -253,7 +264,8 @@ window.JBY_LISTINGS = [
   "priceValue": 348480,
   "condition": "new",
   "length": 30.54,
-  "added": 54
+  "added": 54,
+  "availability": "comingSoon"
  },
  {
   "id": "bce5f0be-2e22-46a8-b5dd-a51b8a4f3f06",
@@ -274,7 +286,8 @@ window.JBY_LISTINGS = [
   "priceValue": 716405,
   "condition": "new",
   "length": 33.0,
-  "added": 53
+  "added": 53,
+  "availability": "inStock"
  },
  {
   "id": "2fe77e3f-9433-4d7c-baab-cdf7e88657cd",
@@ -295,7 +308,8 @@ window.JBY_LISTINGS = [
   "priceValue": 387960,
   "condition": "new",
   "length": 27.0,
-  "added": 52
+  "added": 52,
+  "availability": "inStock"
  },
  {
   "id": "4db88d60-9a95-4150-ac61-e3ba3472a886",
@@ -316,7 +330,8 @@ window.JBY_LISTINGS = [
   "priceValue": 2185000,
   "condition": "preOwned",
   "length": 62.83,
-  "added": 51
+  "added": 51,
+  "availability": "inStock"
  },
  {
   "id": "c6b5162e-accb-4a51-b7a9-8008d33f1b9f",
@@ -337,7 +352,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 36.5,
-  "added": 50
+  "added": 50,
+  "availability": "inStock"
  },
  {
   "id": "7d54bfdb-a07f-4bc4-9768-21fc85713911",
@@ -358,7 +374,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 45.6,
-  "added": 49
+  "added": 49,
+  "availability": "toOrder"
  },
  {
   "id": "dac5e6f3-4abc-485e-b7ca-987115346ea2",
@@ -379,7 +396,8 @@ window.JBY_LISTINGS = [
   "priceValue": 309000,
   "condition": "preOwned",
   "length": 37.75,
-  "added": 48
+  "added": 48,
+  "availability": "inStock"
  },
  {
   "id": "d70a580c-05ae-4fc8-b736-dfee96ea89ad",
@@ -400,7 +418,8 @@ window.JBY_LISTINGS = [
   "priceValue": 339000,
   "condition": "new",
   "length": 31.0,
-  "added": 47
+  "added": 47,
+  "availability": "inStock"
  },
  {
   "id": "d3aae005-b88a-4db7-b8da-9065b86f0ddf",
@@ -421,7 +440,8 @@ window.JBY_LISTINGS = [
   "priceValue": 580730,
   "condition": "new",
   "length": 38.11,
-  "added": 46
+  "added": 46,
+  "availability": "inStock"
  },
  {
   "id": "fe6f5e42-a456-4e9a-b107-5dd58381ca24",
@@ -442,7 +462,8 @@ window.JBY_LISTINGS = [
   "priceValue": 579860,
   "condition": "new",
   "length": 38.11,
-  "added": 45
+  "added": 45,
+  "availability": "inStock"
  },
  {
   "id": "1a88801b-bbdd-4218-ae84-11b2a16307ba",
@@ -463,7 +484,8 @@ window.JBY_LISTINGS = [
   "priceValue": 129000,
   "condition": "new",
   "length": 22.0,
-  "added": 44
+  "added": 44,
+  "availability": "inStock"
  },
  {
   "id": "c53fe95d-6f14-4ed8-afa0-17ed4f9f661d",
@@ -484,7 +506,8 @@ window.JBY_LISTINGS = [
   "priceValue": 79000,
   "condition": "new",
   "length": 20.08,
-  "added": 43
+  "added": 43,
+  "availability": "inStock"
  },
  {
   "id": "a20c2d05-2138-44c2-a90a-a4b886060f47",
@@ -505,7 +528,8 @@ window.JBY_LISTINGS = [
   "priceValue": 4199000,
   "condition": "preOwned",
   "length": 72.2,
-  "added": 42
+  "added": 42,
+  "availability": "inStock"
  },
  {
   "id": "c6d05a9f-bd30-4a12-9eb3-26231c04320f",
@@ -526,7 +550,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 45.6,
-  "added": 41
+  "added": 41,
+  "availability": "inStock"
  },
  {
   "id": "61a9b4ac-610f-487b-8034-f6d7f1a6a20a",
@@ -547,7 +572,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 52.6,
-  "added": 40
+  "added": 40,
+  "availability": "inStock"
  },
  {
   "id": "8f8e1286-e32d-4e16-a195-71d4cef2fdba",
@@ -568,7 +594,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 37.75,
-  "added": 39
+  "added": 39,
+  "availability": "inStock"
  },
  {
   "id": "0cb4a203-158d-421e-8ea6-307ab994c226",
@@ -589,7 +616,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 45.6,
-  "added": 38
+  "added": 38,
+  "availability": "inStock"
  },
  {
   "id": "0323c0ea-d589-4f69-ab16-eb696036182b",
@@ -610,7 +638,8 @@ window.JBY_LISTINGS = [
   "priceValue": 329000,
   "condition": "new",
   "length": 30.55,
-  "added": 37
+  "added": 37,
+  "availability": "inStock"
  },
  {
   "id": "e1a5c434-8f4a-40b4-8e78-e63ea3c8bb24",
@@ -631,7 +660,8 @@ window.JBY_LISTINGS = [
   "priceValue": 305521,
   "condition": "new",
   "length": 30.54,
-  "added": 36
+  "added": 36,
+  "availability": "inStock"
  },
  {
   "id": "6d8514a4-8567-43b0-a1b5-52cadccabc72",
@@ -652,7 +682,8 @@ window.JBY_LISTINGS = [
   "priceValue": 320256,
   "condition": "new",
   "length": 30.54,
-  "added": 35
+  "added": 35,
+  "availability": "inStock"
  },
  {
   "id": "23833315-4e46-466a-bf43-f4dfb2ea4fbe",
@@ -673,7 +704,8 @@ window.JBY_LISTINGS = [
   "priceValue": 279950,
   "condition": "preOwned",
   "length": 38.2,
-  "added": 34
+  "added": 34,
+  "availability": "inStock"
  },
  {
   "id": "7f9c771a-cbd9-455a-8c75-32aacce1d02a",
@@ -694,7 +726,8 @@ window.JBY_LISTINGS = [
   "priceValue": 325000,
   "condition": "preOwned",
   "length": 35.93,
-  "added": 33
+  "added": 33,
+  "availability": "inStock"
  },
  {
   "id": "b5b29707-9602-4f2e-ab7b-ec1b6f79470c",
@@ -715,7 +748,8 @@ window.JBY_LISTINGS = [
   "priceValue": 499900,
   "condition": "preOwned",
   "length": 59.67,
-  "added": 32
+  "added": 32,
+  "availability": "inStock"
  },
  {
   "id": "ca28bd03-fb35-48a2-8b4b-49299b166e0f",
@@ -736,7 +770,8 @@ window.JBY_LISTINGS = [
   "priceValue": 299000,
   "condition": "preOwned",
   "length": 65.0,
-  "added": 31
+  "added": 31,
+  "availability": "inStock"
  },
  {
   "id": "e78477d1-7baa-4e14-9806-a6ecaca3e94a",
@@ -757,7 +792,8 @@ window.JBY_LISTINGS = [
   "priceValue": 75000,
   "condition": "preOwned",
   "length": 24.0,
-  "added": 30
+  "added": 30,
+  "availability": "inStock"
  },
  {
   "id": "70251be7-4306-4de0-9d3d-fb4329bce203",
@@ -778,7 +814,8 @@ window.JBY_LISTINGS = [
   "priceValue": 359000,
   "condition": "preOwned",
   "length": 59.2,
-  "added": 29
+  "added": 29,
+  "availability": "inStock"
  },
  {
   "id": "af9570c2-8a40-4364-8869-f0dbc28ed59d",
@@ -799,7 +836,8 @@ window.JBY_LISTINGS = [
   "priceValue": 374000,
   "condition": "preOwned",
   "length": 51.77,
-  "added": 28
+  "added": 28,
+  "availability": "inStock"
  },
  {
   "id": "8c765379-b9a6-4b37-9853-9027124b1fcd",
@@ -820,7 +858,8 @@ window.JBY_LISTINGS = [
   "priceValue": 601030,
   "condition": "new",
   "length": 38.9,
-  "added": 27
+  "added": 27,
+  "availability": "inStock"
  },
  {
   "id": "18829029-e097-4a93-ad77-7eb170e65732",
@@ -841,7 +880,8 @@ window.JBY_LISTINGS = [
   "priceValue": 597000,
   "condition": "new",
   "length": 38.11,
-  "added": 26
+  "added": 26,
+  "availability": "inStock"
  },
  {
   "id": "546a891f-d817-4fad-9163-6f849e3540ca",
@@ -862,7 +902,8 @@ window.JBY_LISTINGS = [
   "priceValue": 567590,
   "condition": "new",
   "length": 38.9,
-  "added": 25
+  "added": 25,
+  "availability": "inStock"
  },
  {
   "id": "d407908a-153a-4173-b9a3-4088681bb07a",
@@ -883,7 +924,8 @@ window.JBY_LISTINGS = [
   "priceValue": 599000,
   "condition": "preOwned",
   "length": 37.9,
-  "added": 24
+  "added": 24,
+  "availability": "inStock"
  },
  {
   "id": "d3ac3144-58ae-41af-bcfd-3181f5e47077",
@@ -904,7 +946,8 @@ window.JBY_LISTINGS = [
   "priceValue": 290000,
   "condition": "preOwned",
   "length": 29.33,
-  "added": 23
+  "added": 23,
+  "availability": "inStock"
  },
  {
   "id": "ff25e4d6-11d6-4ddd-a45a-ed22276f84a2",
@@ -925,7 +968,8 @@ window.JBY_LISTINGS = [
   "priceValue": 331787,
   "condition": "new",
   "length": 30.55,
-  "added": 22
+  "added": 22,
+  "availability": "inStock"
  },
  {
   "id": "44c1864e-750d-4c1b-beca-0e6067db0254",
@@ -946,7 +990,8 @@ window.JBY_LISTINGS = [
   "priceValue": 297000,
   "condition": "new",
   "length": 30.55,
-  "added": 21
+  "added": 21,
+  "availability": "inStock"
  },
  {
   "id": "2e9f9af1-4530-46f1-bbe4-4f9848e27202",
@@ -967,7 +1012,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 33.0,
-  "added": 20
+  "added": 20,
+  "availability": "inStock"
  },
  {
   "id": "28bfd65a-ac0f-407f-ac60-e0c57c3d3cac",
@@ -988,7 +1034,8 @@ window.JBY_LISTINGS = [
   "priceValue": 339000,
   "condition": "new",
   "length": 37.75,
-  "added": 19
+  "added": 19,
+  "availability": "inStock"
  },
  {
   "id": "8e79b34b-e978-4fa5-b9f7-345686cdac22",
@@ -1009,7 +1056,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 47.6,
-  "added": 18
+  "added": 18,
+  "availability": "inStock"
  },
  {
   "id": "e3b4d6bb-ce96-4a18-9911-c844f562532e",
@@ -1030,7 +1078,8 @@ window.JBY_LISTINGS = [
   "priceValue": 329000,
   "condition": "new",
   "length": 31.3,
-  "added": 17
+  "added": 17,
+  "availability": "inStock"
  },
  {
   "id": "0bcfd0aa-a56f-4c2c-ae41-68a7170c7fd8",
@@ -1051,7 +1100,8 @@ window.JBY_LISTINGS = [
   "priceValue": 179000,
   "condition": "new",
   "length": 30.02,
-  "added": 16
+  "added": 16,
+  "availability": "inStock"
  },
  {
   "id": "5fdfaba0-94ea-49aa-bd66-fce457c489d7",
@@ -1072,7 +1122,8 @@ window.JBY_LISTINGS = [
   "priceValue": 369000,
   "condition": "new",
   "length": 37.75,
-  "added": 15
+  "added": 15,
+  "availability": "inStock"
  },
  {
   "id": "d0c7b6f6-1759-454b-b7cc-0ea2daa2efc2",
@@ -1093,7 +1144,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 45.6,
-  "added": 14
+  "added": 14,
+  "availability": "inStock"
  },
  {
   "id": "28d6205b-c206-41d0-9faa-b37d1bcab220",
@@ -1114,7 +1166,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 45.0,
-  "added": 13
+  "added": 13,
+  "availability": "inStock"
  },
  {
   "id": "36b81f9e-08d1-4fcc-9a44-7808c48e239b",
@@ -1135,7 +1188,8 @@ window.JBY_LISTINGS = [
   "priceValue": 319000,
   "condition": "new",
   "length": 30.54,
-  "added": 12
+  "added": 12,
+  "availability": "inStock"
  },
  {
   "id": "b3a4dbd1-4808-46ae-9be4-c36d1317d1eb",
@@ -1156,7 +1210,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 45.7,
-  "added": 11
+  "added": 11,
+  "availability": "inStock"
  },
  {
   "id": "ceb360e7-55be-4265-a608-7ae4fc1d855f",
@@ -1177,7 +1232,8 @@ window.JBY_LISTINGS = [
   "priceValue": 269000,
   "condition": "new",
   "length": 30.54,
-  "added": 10
+  "added": 10,
+  "availability": "inStock"
  },
  {
   "id": "65ee2589-2680-4350-a62e-b8dbd83d6a47",
@@ -1198,7 +1254,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 67.8,
-  "added": 9
+  "added": 9,
+  "availability": "inStock"
  },
  {
   "id": "5be700fe-0c19-4af2-aa5f-927308166e08",
@@ -1219,7 +1276,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 52.6,
-  "added": 8
+  "added": 8,
+  "availability": "toOrder"
  },
  {
   "id": "23c94edc-d25a-4dff-aab6-558c07c3b54b",
@@ -1240,7 +1298,8 @@ window.JBY_LISTINGS = [
   "priceValue": 305000,
   "condition": "new",
   "length": 31.0,
-  "added": 7
+  "added": 7,
+  "availability": "inStock"
  },
  {
   "id": "f9d7a43f-a1b0-4c60-b184-593a82996514",
@@ -1261,7 +1320,8 @@ window.JBY_LISTINGS = [
   "priceValue": 382000,
   "condition": "new",
   "length": 37.75,
-  "added": 6
+  "added": 6,
+  "availability": "inStock"
  },
  {
   "id": "cb2fb796-1a96-4cb8-8c53-c998fa39c54b",
@@ -1282,7 +1342,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 57.0,
-  "added": 5
+  "added": 5,
+  "availability": "inStock"
  },
  {
   "id": "6da6bab3-9620-4204-bd5a-367303c02f80",
@@ -1303,7 +1364,8 @@ window.JBY_LISTINGS = [
   "priceValue": 279000,
   "condition": "new",
   "length": 30.54,
-  "added": 4
+  "added": 4,
+  "availability": "inStock"
  },
  {
   "id": "129faffb-a7e6-49e3-9e30-ba86c8c0ea3e",
@@ -1324,7 +1386,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 82.08,
-  "added": 3
+  "added": 3,
+  "availability": "inStock"
  },
  {
   "id": "b4380d35-013b-4f5c-8d3e-c9c8eb8d0588",
@@ -1345,7 +1408,8 @@ window.JBY_LISTINGS = [
   "priceValue": null,
   "condition": "new",
   "length": 38.06,
-  "added": 2
+  "added": 2,
+  "availability": "inStock"
  },
  {
   "id": "e55cce12-c0c5-4640-a69f-bacacf5ba812",
@@ -1366,52 +1430,11 @@ window.JBY_LISTINGS = [
   "priceValue": 325000,
   "condition": "preOwned",
   "length": 35.93,
-  "added": 1
+  "added": 1,
+  "availability": "inStock"
  }
 ];
 window.JBY_LOCATIONS = [
- {
-  "city": "Charleston",
-  "country": "US",
-  "state": "South Carolina",
-  "locationType": "city"
- },
- {
-  "city": "Fort Lauderdale",
-  "country": "US",
-  "state": "Florida",
-  "locationType": "city"
- },
- {
-  "city": "Huntington",
-  "country": "US",
-  "state": "New York",
-  "locationType": "city"
- },
- {
-  "city": "Kailua-Kona",
-  "country": "US",
-  "state": "Hawaii",
-  "locationType": "city"
- },
- {
-  "city": "Newport Beach",
-  "country": "US",
-  "state": "California",
-  "locationType": "city"
- },
- {
-  "city": "Oxnard",
-  "country": "US",
-  "state": "California",
-  "locationType": "city"
- },
- {
-  "city": "Palm Beach",
-  "country": "US",
-  "state": "Florida",
-  "locationType": "city"
- },
  {
   "city": "San Diego",
   "country": "US",
@@ -1419,27 +1442,15 @@ window.JBY_LOCATIONS = [
   "locationType": "city"
  },
  {
-  "city": "Sausalito",
-  "country": "US",
-  "state": "California",
-  "locationType": "city"
- },
- {
-  "city": "Seattle",
-  "country": "US",
-  "state": "Washington",
-  "locationType": "city"
- },
- {
-  "city": "Wilmington",
-  "country": "US",
-  "state": "North Carolina",
-  "locationType": "city"
- },
- {
   "city": "Wrightsville Beach",
   "country": "US",
   "state": "North Carolina",
+  "locationType": "city"
+ },
+ {
+  "city": "Sausalito",
+  "country": "US",
+  "state": "California",
   "locationType": "city"
  }
 ];

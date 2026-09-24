@@ -51,3 +51,47 @@
   src:url("../fonts/myriad_pro/MYRIADPRO-REGULAR.OTF") format("opentype")}
 @font-face{font-family:'Myriad Pro';font-weight:600;font-style:normal;font-display:swap;
   src:url("../fonts/myriad_pro/MYRIADPRO-SEMIBOLD.OTF") format("opentype")}
+
+/* ---------------------------------------------------------------------------
+   The five more faces the page actually asks for. The first cut of this file
+   kept only what the catalogue's own markup used; the filter panels ask for
+   Mesmerize-lt and Myriad-Pro-Bold as well, and an undeclared family falls back
+   to the browser's default serif — which is where the serif in the buttons came
+   from. Nothing here is a new typeface; they are the same two families in
+   weights the panels use.
+   --------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Mesmerize-lt";
+  src: url("../fonts/mesmerize/mesmerize-lt.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mesmerize-ex-bk";
+  src: url("../fonts/mesmerize/mesmerize-ex-bk.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mesmerize-ex-rg";
+  src: url("../fonts/mesmerize/mesmerize-ex-rg.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mesmerize-ex";
+  src: url("../fonts/mesmerize/mesmerize-ex-rg.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Myriad-Pro-Bold";
+  src: url("../fonts/myriad_pro/MYRIADPRO-BOLD.OTF") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

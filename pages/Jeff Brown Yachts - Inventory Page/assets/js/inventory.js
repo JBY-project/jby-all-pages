@@ -53,6 +53,7 @@
   function filtered() {
     var p = params();
     var condition = p.get("vesselCondition");
+    var availability = p.get("availability");
     var minPrice = num(p.get("minPrice")), maxPrice = num(p.get("maxPrice"));
     var minLength = num(p.get("minLength")), maxLength = num(p.get("maxLength"));
     var city = p.get("locationCity"), country = p.get("locationCountry");
@@ -61,6 +62,7 @@
 
     return listings.filter(function (v) {
       if (condition && v.condition !== condition) return false;
+      if (availability && v.availability !== availability) return false;
       /* Contact for Price has no number to compare; a price filter excludes it,
          as it does on the deployed page. */
       if ((minPrice !== null || maxPrice !== null)) {
@@ -72,8 +74,15 @@
       if (maxLength !== null && !(v.length <= maxLength)) return false;
       if (city && v.city !== city) return false;
       if (country && v.country !== country) return false;
-      if (modelIds.length && modelIds.indexOf("model:" + v.make + "|" + v.model) < 0) return false;
-      if (!modelIds.length && makeIds.length && makeIds.indexOf("make:" + v.make) < 0) return false;
+      /* Makes and ranges add up rather than override each other: All Models on
+         Axopar and one Riva range means both, which is what ticking them says.
+         The deployed page could not be asked this — it sent one list or the
+         other — so this is ours. */
+      if (makeIds.length || modelIds.length) {
+        var byMake = makeIds.indexOf("make:" + v.make) >= 0;
+        var byModel = modelIds.indexOf("model:" + v.make + "|" + family(v)) >= 0;
+        if (!byMake && !byModel) return false;
+      }
       if (search && (v.name + " " + v.location).toLowerCase().indexOf(search) < 0) return false;
       return true;
     });
@@ -202,6 +211,56 @@
        URL; here the same job is done by the functions that already exist. */
     if (typeof window.updateAllActiveDisplays === "function") window.updateAllActiveDisplays();
     if (typeof window.syncLocationCheckboxesFromUrl === "function") window.syncLocationCheckboxesFromUrl();
+
+    /* The deployed page keeps the typed query inside Make or Model and shows it
+       as a pill on that button. The field stands on its own here, so the button
+       speaks for makes and models only. */
+    var mmValues = document.getElementById("makeModelActive");
+    if (mmValues && !params().get("makeIds") && !params().get("modelIds")) {
+      mmValues.innerHTML = "";
+      var divider = document.getElementById("makeModelDivider");
+      if (divider) divider.hidden = true;
+      var trigger = document.getElementById("makeModelTrigger");
+      if (trigger) trigger.classList.remove("has-values");
+    }
+
+    /* Availability's own pill and radio, since yacht_catalog.js does not know it */
+    (function () {
+      var value = params().get("availability") || "";
+      var labels = { inStock: "In-Stock", comingSoon: "Coming Soon", toOrder: "To-Order" };
+      var holder = document.getElementById("availabilityActive");
+      var divider = document.getElementById("availabilityDivider");
+      var trigger = holder && holder.closest(".filter-button");
+      document.querySelectorAll('input[name="availabilityRadio"]').forEach(function (r) {
+        r.checked = r.value === value;
+      });
+      if (!holder) return;
+      holder.innerHTML = "";
+      if (value && labels[value]) {
+        var pill = document.createElement("span");
+        pill.className = "filter-value-pill";
+        pill.appendChild(document.createTextNode(labels[value]));
+        var x = document.createElement("button");
+        x.type = "button";
+        x.className = "filter-value-pill-remove";
+        x.setAttribute("aria-label", "Remove availability filter");
+        x.innerHTML = '<i class="fas fa-times" aria-hidden="true"></i>';
+        x.addEventListener("click", function (ev) {
+          ev.preventDefault(); ev.stopPropagation();
+          setParams({ availability: "" });
+        });
+        pill.appendChild(x);
+        holder.appendChild(pill);
+        if (divider) divider.hidden = false;
+        if (trigger) trigger.classList.add("has-values");
+      } else {
+        if (divider) divider.hidden = true;
+        if (trigger) trigger.classList.remove("has-values");
+      }
+    })();
+
+    /* every Apply says what it would leave behind, against the filters now in force */
+    if (typeof refreshApplyLabels === "function") refreshApplyLabels();
   }
 
   /* ---------- the sort dropdown ----------
@@ -227,6 +286,232 @@
   document.addEventListener("click", function (e) {
     if (!e.target.closest || !e.target.closest("#sortContainer")) window.closeSortDropdown();
   });
+
+  /* =====================================================================
+     Make or Model — the two-column menu
+
+     Brands down the left, that brand's ranges on the right, both of them
+     tickable and both multiple. Hovering a brand only changes what the right
+     column shows; ticking is what filters.
+
+     The ranges are read off the listings' own names, with the leading size
+     taken out: "29 XC Cross Cabin" and "38 XC Cross Cabin" are one range, XC
+     Cross Cabin. That is a guess at what the client means by a model, and it is
+     only as tidy as the names are — Sirena's listings are named "Sirena Yachts
+     118", which reads as a range called Yachts. A list of the real ranges, per
+     brand, would replace this function and nothing else.
+     ===================================================================== */
+  function family(v) {
+    var m = String(v.model || "").replace(/-/g, " ").replace(/\s+/g, " ").trim();
+    var words = m.split(" ").filter(function (w) { return !/^\d+('|ft)?$/.test(w); });
+    return words.join(" ") || m || v.model;
+  }
+
+  function makesIndex() {
+    var out = {}, order = [];
+    listings.forEach(function (v) {
+      if (!out[v.make]) { out[v.make] = { name: v.make, count: 0, fams: {}, order: [] }; order.push(v.make); }
+      var e = out[v.make];
+      e.count++;
+      var f = family(v);
+      if (!e.fams[f]) { e.fams[f] = 0; e.order.push(f); }
+      e.fams[f]++;
+    });
+    order.sort(function (a, b) { return out[b].count - out[a].count || a.localeCompare(b); });
+    return order.map(function (k) {
+      out[k].order.sort(function (a, b) { return out[k].fams[b] - out[k].fams[a] || a.localeCompare(b); });
+      return out[k];
+    });
+  }
+
+  /* what the panel has ticked, before Apply */
+  var mmPending = { makes: [], models: [] };
+
+  /* A make is a way into its ranges, not a tick of its own: ticking Axopar on
+     the left while its ranges sat unticked on the right read as a contradiction.
+     The choosing happens in the right column, where All Models stands for the
+     whole make. The dot marks a make that has something chosen inside it, so it
+     is visible while another make's ranges are on screen. */
+  function mmRenderMakes(active) {
+    var wrap = document.getElementById("mmMakes");
+    if (!wrap) return;
+    var idx = makesIndex();
+    wrap.innerHTML = idx.map(function (m) {
+      var chosen = mmPending.makes.indexOf(m.name) >= 0 ||
+        mmPending.models.some(function (id) { return id.indexOf(m.name + "|") === 0; });
+      return '<button type="button" class="mm-make' + (m.name === active ? " is-active" : "") +
+               (chosen ? " is-chosen" : "") + '" data-make="' + esc(m.name) + '">' +
+               '<span class="mm-label">' + esc(m.name) + '</span>' +
+               '<span class="mm-n">' + m.count + '</span>' +
+               '<span class="mm-chev" aria-hidden="true"></span>' +
+             '</button>';
+    }).join("");
+  }
+
+  function mmRenderModels(make) {
+    var wrap = document.getElementById("mmModels");
+    if (!wrap) return;
+    var m = makesIndex().filter(function (x) { return x.name === make; })[0];
+    if (!m) { wrap.innerHTML = '<p class="mm-hint">Hover a make to see its ranges.</p>'; return; }
+    /* nothing else: the head and the rows follow */
+    var all = mmPending.makes.indexOf(m.name) >= 0;
+    wrap.innerHTML = '<p class="mm-models-head">' + esc(m.name) + '</p>' +
+      '<label class="mm-model mm-all">' +
+        '<input type="checkbox" name="mmMake" value="' + esc(m.name) + '"' + (all ? " checked" : "") + '>' +
+        '<span class="mm-box" aria-hidden="true"></span>' +
+        '<span class="mm-label">All Models</span>' +
+        '<span class="mm-n">' + m.count + '</span>' +
+      '</label>' +
+      m.order.map(function (f) {
+        var id = m.name + "|" + f;
+        /* with the whole make chosen the ranges are all in it, and say so */
+        var on = all || mmPending.models.indexOf(id) >= 0;
+        return '<label class="mm-model' + (all ? " is-implied" : "") + '">' +
+                 '<input type="checkbox" name="mmModel" value="' + esc(id) + '"' +
+                   (on ? " checked" : "") + (all ? " disabled" : "") + '>' +
+                 '<span class="mm-box" aria-hidden="true"></span>' +
+                 '<span class="mm-label">' + esc(f) + '</span>' +
+                 '<span class="mm-n">' + m.fams[f] + '</span>' +
+               '</label>';
+      }).join("");
+  }
+
+  function mmReadPending() {
+    /* The make's box lives in the right column now, as All Models, and only the
+       make on screen is there — the others keep what they had. */
+    var shown = [].map.call(document.querySelectorAll('input[name="mmMake"]'), function (i) { return i.value; });
+    var onNow = [].map.call(document.querySelectorAll('input[name="mmMake"]:checked'), function (i) { return i.value; });
+    mmPending.makes = mmPending.makes.filter(function (m) { return shown.indexOf(m) < 0; }).concat(onNow);
+    var shownModels = [].map.call(document.querySelectorAll('input[name="mmModel"]'), function (i) { return i.value; });
+    var modelsNow = [].map.call(document.querySelectorAll('input[name="mmModel"]:checked:not(:disabled)'), function (i) { return i.value; });
+    mmPending.models = mmPending.models.filter(function (m) { return shownModels.indexOf(m) < 0; }).concat(modelsNow);
+  }
+
+  function mmSyncFromUrl() {
+    var p = params();
+    mmPending.makes = list(p.get("makeIds")).map(function (s) { return s.replace(/^make:/, ""); });
+    mmPending.models = list(p.get("modelIds")).map(function (s) { return s.replace(/^model:/, ""); });
+  }
+
+  /* =====================================================================
+     "Show N results" — every panel's Apply says what it would leave on the page
+
+     The count is the filter the panel is holding, not the one in the URL, so it
+     answers while the ticking is going on. previewCount takes the same shape
+     the URL does, with whatever the open panel has instead.
+     ===================================================================== */
+  function previewCount(over) {
+    var p = params();
+    var q = {
+      vesselCondition: over.vesselCondition !== undefined ? over.vesselCondition : p.get("vesselCondition"),
+      availability: over.availability !== undefined ? over.availability : p.get("availability"),
+      minPrice: over.minPrice !== undefined ? over.minPrice : p.get("minPrice"),
+      maxPrice: over.maxPrice !== undefined ? over.maxPrice : p.get("maxPrice"),
+      minLength: over.minLength !== undefined ? over.minLength : p.get("minLength"),
+      maxLength: over.maxLength !== undefined ? over.maxLength : p.get("maxLength"),
+      locationCity: over.locationCity !== undefined ? over.locationCity : p.get("locationCity"),
+      makeIds: over.makeIds !== undefined ? over.makeIds : p.get("makeIds"),
+      modelIds: over.modelIds !== undefined ? over.modelIds : p.get("modelIds"),
+      search: over.search !== undefined ? over.search : p.get("search")
+    };
+    var minPrice = num(q.minPrice), maxPrice = num(q.maxPrice);
+    var minLength = num(q.minLength), maxLength = num(q.maxLength);
+    var makeIds = list(q.makeIds), modelIds = list(q.modelIds);
+    var search = (q.search || "").toLowerCase().trim();
+    return listings.filter(function (v) {
+      if (q.vesselCondition && v.condition !== q.vesselCondition) return false;
+      if (q.availability && v.availability !== q.availability) return false;
+      if (minPrice !== null || maxPrice !== null) {
+        if (v.priceValue === null) return false;
+        if (minPrice !== null && v.priceValue < minPrice) return false;
+        if (maxPrice !== null && v.priceValue > maxPrice) return false;
+      }
+      if (minLength !== null && !(v.length >= minLength)) return false;
+      if (maxLength !== null && !(v.length <= maxLength)) return false;
+      if (q.locationCity && v.city !== q.locationCity) return false;
+      /* Makes and ranges add up rather than override each other: All Models on
+         Axopar and one Riva range means both, which is what ticking them says.
+         The deployed page could not be asked this — it sent one list or the
+         other — so this is ours. */
+      if (makeIds.length || modelIds.length) {
+        var byMake = makeIds.indexOf("make:" + v.make) >= 0;
+        var byModel = modelIds.indexOf("model:" + v.make + "|" + family(v)) >= 0;
+        if (!byMake && !byModel) return false;
+      }
+      if (search && (v.name + " " + v.location).toLowerCase().indexOf(search) < 0) return false;
+      return true;
+    }).length;
+  }
+
+  function setApplyLabel(panel, n) {
+    var btn = panel && panel.querySelector(".condition-filter-btn-apply");
+    if (btn) btn.textContent = "Show " + n + " result" + (n === 1 ? "" : "s");
+  }
+
+  /* what each panel is holding at this moment */
+  function pendingOf(panel) {
+    if (!panel) return {};
+    if (panel.id === "conditionFilter") {
+      var r = panel.querySelector('input[name="conditionRadio"]:checked');
+      return { vesselCondition: r ? r.value : "" };
+    }
+    if (panel.id === "availabilityFilter") {
+      var a = panel.querySelector('input[name="availabilityRadio"]:checked');
+      return { availability: a ? a.value : "" };
+    }
+    if (panel.id === "priceFilter") {
+      return sliderRange("priceSlider", "minPrice", "maxPrice");
+    }
+    if (panel.id === "lengthFilter") {
+      return sliderRange("lengthSlider", "minLength", "maxLength");
+    }
+    if (panel.id === "locationFilter") {
+      var c = panel.querySelector('input[name="locationCheckbox"]:checked:not([data-all="true"])');
+      return { locationCity: c ? c.dataset.city : "" };
+    }
+    if (panel.id === "makeModelFilter") {
+      mmReadPending();
+      return {
+        makeIds: mmPending.makes.map(function (m) { return "make:" + m; }).join(","),
+        modelIds: mmPending.models.map(function (m) { return "model:" + m; }).join(",")
+      };
+    }
+    return {};
+  }
+
+  /* The panel's two fields read $1K and $18.3M+, which is a label rather than a
+     number; the slider beside them holds the real ones. At either extreme the
+     filter is off, which is how the deployed page treats it too. */
+  function sliderRange(sliderId, minKey, maxKey) {
+    var out = {};
+    var el = document.getElementById(sliderId);
+    if (!el || !el.noUiSlider) return out;
+    var v = el.noUiSlider.get();
+    var lo = parseFloat(v[0]), hi = parseFloat(v[1]);
+    var range = el.noUiSlider.options.range || {};
+    var floor = Array.isArray(range.min) ? range.min[0] : range.min;
+    var ceil = Array.isArray(range.max) ? range.max[0] : range.max;
+    out[minKey] = (floor !== undefined && lo <= floor) ? "" : String(Math.round(lo));
+    out[maxKey] = (ceil !== undefined && hi >= ceil) ? "" : String(Math.round(hi));
+    return out;
+  }
+
+  function refreshApplyLabels() {
+    ["conditionFilter", "availabilityFilter", "priceFilter", "lengthFilter", "locationFilter", "makeModelFilter"].forEach(function (id) {
+      var panel = document.getElementById(id);
+      if (panel) setApplyLabel(panel, previewCount(pendingOf(panel)));
+    });
+  }
+
+  /* ---------- the search field, which is its own control now ---------- */
+  window.applyCatalogSearch = function (e) {
+    if (e && e.preventDefault) e.preventDefault();
+    var input = document.getElementById("catalogSearchInput");
+    /* The field stands beside the filters rather than inside them, so it narrows
+       what they leave rather than replacing it. */
+    setParams({ search: input ? input.value.trim() : "" });
+    return false;
+  };
 
   /* ---------- what the panels call ---------- */
   function setParams(set, del) {
@@ -269,8 +554,174 @@
       }
     });
 
+    /* ---- Make or Model: the panel's own behaviour, in place of the type-ahead
+            yacht_catalog.js binds. Defined here rather than at the top of this
+            file because that script loads after it and would take the names
+            back. ---- */
+    window.applyMakeModelFilter = function () {
+      mmReadPending();
+      setParams({
+        makeIds: mmPending.makes.map(function (m) { return "make:" + m; }).join(","),
+        modelIds: mmPending.models.map(function (m) { return "model:" + m; }).join(",")
+      }, ["search"]);
+      if (typeof window.closeAllFilterDropdowns === "function") window.closeAllFilterDropdowns();
+    };
+    window.clearMakeModelFilterPanel = function () {
+      mmPending = { makes: [], models: [] };
+      mmRenderMakes(mmActive);
+      mmRenderModels(mmActive);
+      refreshApplyLabels();
+    };
+
+    var mmActive = null;
+    mmSyncFromUrl();
+    mmRenderMakes(null);
+    mmRenderModels(null);
+
+    var mmWrap = document.getElementById("makeModelFilter");
+    if (mmWrap) {
+      /* hovering a make only changes what the right column shows */
+      mmWrap.addEventListener("mouseover", function (e) {
+        var row = e.target.closest && e.target.closest(".mm-make");
+        if (!row || row.dataset.make === mmActive) return;
+        mmActive = row.dataset.make;
+        mmRenderMakes(mmActive);
+        mmRenderModels(mmActive);
+      });
+      /* a tap does the same thing on a phone, where there is no hover */
+      mmWrap.addEventListener("click", function (e) {
+        var row = e.target.closest && e.target.closest(".mm-make");
+        if (row && !e.target.closest("input")) {
+          if (row.dataset.make !== mmActive) {
+            mmActive = row.dataset.make;
+            mmRenderMakes(mmActive);
+            mmRenderModels(mmActive);
+          }
+        }
+      });
+      mmWrap.addEventListener("change", function (e) {
+        mmReadPending();
+        /* All Models carries the ranges with it, so the column is redrawn */
+        if (e.target && e.target.name === "mmMake") mmRenderModels(mmActive);
+        mmRenderMakes(mmActive);
+        refreshApplyLabels();
+      });
+    }
+
+    /* every panel's Apply carries the count it would leave behind */
+    ["conditionFilter", "availabilityFilter", "priceFilter", "lengthFilter", "locationFilter"].forEach(function (id) {
+      var panel = document.getElementById(id);
+      if (panel) panel.addEventListener("change", refreshApplyLabels);
+      if (panel) panel.addEventListener("input", refreshApplyLabels);
+    });
+    /* the two sliders move without firing either, so ask again while one is dragged */
+    ["lengthSlider", "priceSlider"].forEach(function (id) {
+      var s = document.getElementById(id);
+      if (s && s.noUiSlider) s.noUiSlider.on("update", refreshApplyLabels);
+    });
+
+    /* The field is the FAQ page's, and that one filters as you type rather than
+       waiting for a submit; the same here, with a breath between keystrokes so
+       the grid is not redrawn on every letter.
+
+       Under it, the vessels the query names — the site's search overlay drops a
+       list the same way. A row goes to that listing; the last one hands the
+       query to the grid. */
+    var searchInput = document.getElementById("catalogSearchInput");
+    var drop = document.getElementById("catalogSuggest");
+
+    function suggestions(q) {
+      q = q.toLowerCase().trim();
+      if (!q) return [];
+      return listings.filter(function (v) {
+        return (v.name + " " + v.location).toLowerCase().indexOf(q) >= 0;
+      });
+    }
+
+    function drawSuggest() {
+      if (!drop || !searchInput) return;
+      var q = searchInput.value;
+      var hits = suggestions(q);
+      if (!q.trim() || !hits.length) {
+        drop.innerHTML = q.trim()
+          ? '<p class="cs-empty">Nothing matches &ldquo;' + esc(q.trim()) + '&rdquo;.</p>'
+          : "";
+        drop.hidden = !q.trim();
+        return;
+      }
+      drop.innerHTML = hits.slice(0, 6).map(function (v) {
+        return '<a class="cs-row" href="' + esc(v.href) + '" target="_blank" rel="noopener">' +
+                 '<span class="cs-name">' + esc(v.name) + '</span>' +
+                 '<span class="cs-meta">' + esc(v.location) + '</span>' +
+               '</a>';
+      }).join("") +
+      '<button type="button" class="cs-all" data-search-all>Show all ' + hits.length +
+        ' result' + (hits.length === 1 ? "" : "s") + '</button>';
+      drop.hidden = false;
+    }
+
+    function closeSuggest() { if (drop) { drop.hidden = true; } }
+
+    if (searchInput) {
+      searchInput.value = params().get("search") || "";
+      var typing = null;
+      searchInput.addEventListener("input", function () {
+        drawSuggest();
+        clearTimeout(typing);
+        typing = setTimeout(function () { window.applyCatalogSearch(); }, 250);
+      });
+      searchInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") { e.preventDefault(); clearTimeout(typing); closeSuggest(); window.applyCatalogSearch(); }
+        if (e.key === "Escape") closeSuggest();
+      });
+      searchInput.addEventListener("focus", drawSuggest);
+      document.addEventListener("click", function (e) {
+        if (!e.target.closest || !e.target.closest(".catalog-search")) closeSuggest();
+      });
+      if (drop) {
+        drop.addEventListener("click", function (e) {
+          if (e.target.closest("[data-search-all]")) {
+            clearTimeout(typing);
+            closeSuggest();
+            window.applyCatalogSearch();
+          }
+        });
+      }
+      /* the native clear (the X) fires input with an empty value, which the
+         handler above already answers */
+    }
+
+    /* Availability is ours — the deployed page has no such filter, so nothing in
+       yacht_catalog.js knows these three names. */
+    var AVAIL_LABEL = { inStock: "In-Stock", comingSoon: "Coming Soon", toOrder: "To-Order" };
+    window.applyAvailabilityFilter = function () {
+      var r = document.querySelector('input[name="availabilityRadio"]:checked');
+      setParams({ availability: r ? r.value : "" });
+      if (typeof window.closeAllFilterDropdowns === "function") window.closeAllFilterDropdowns();
+    };
+    window.clearAvailabilityFilter = function () {
+      var all = document.querySelector('input[name="availabilityRadio"][value=""]');
+      if (all) all.checked = true;
+      setParams({ availability: "" });
+    };
+    window.closeAvailabilityFilter = function () {
+      if (typeof window.closeAllFilterDropdowns === "function") window.closeAllFilterDropdowns();
+    };
+
+    /* The deployed clearAllFilters() names the parameters it knows; availability
+       is not among them, so it is added on top of whatever that does. */
+    var theirClearAll = window.clearAllFilters;
+    window.clearAllFilters = function () {
+      var url = new URL(window.location.href);
+      url.searchParams.delete("availability");
+      window.history.replaceState({}, "", url.pathname + url.search);
+      if (typeof theirClearAll === "function") theirClearAll();
+      else setParams({}, ["availability"]);
+    };
+
     window.addEventListener("popstate", render);
     render();
+    refreshApplyLabels();
   }
 
   /* yacht_catalog.js sets its panels up on DOMContentLoaded; this runs after it. */

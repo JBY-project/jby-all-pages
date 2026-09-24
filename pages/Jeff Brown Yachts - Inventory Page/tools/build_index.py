@@ -31,9 +31,14 @@ if i >= 0:
     j = t.index("</script>", t.index("jby-intro-lock", i + 40)) + len("</script>")
     t = t[:i] + t[j:]
 
-# 3. every asset is local now
+# 3. every asset is local now, and this page's own stylesheets carry a version:
+#    a browser that has held fonts.css since the first build would keep serving
+#    it without the faces added later
+
 t = t.replace(SITE + "/assets/", "assets/")
 t = t.replace('href="/assets/', 'href="assets/').replace('src="/assets/', 'src="assets/')
+for sheet in ("fonts.css", "yacht_catalog.css", "custom_yacht_style.css"):
+    t = t.replace('href="assets/css/%s"' % sheet, 'href="assets/css/%s?v=33"' % sheet)
 
 # 4. the page's own links still point at the deployed site, which is where they go
 t = re.sub(r'href="/(?!/)(?!assets)', 'href="%s/' % SITE, t)
@@ -91,6 +96,79 @@ t = t[:fi] + band + "\n\n" + footer + t[fe:]
 
 #    the stylesheets for all of it, last so they outrank the deployed ones
 
+# 5b. Make or Model becomes a two-column menu — brands on the left, that brand's
+#     ranges on the right — and the typed search leaves it for a field of its own,
+#     to the right of the filter row. inventory.js fills both.
+MM_PANEL = """<div id="makeModelFilter" class="filter-dropdown make-model-filter-panel hidden">
+            <div class="mm-browse">
+                <div class="mm-makes" id="mmMakes" role="listbox" aria-label="Makes"></div>
+                <div class="mm-models" id="mmModels" aria-live="polite"></div>
+            </div>
+            <div class="condition-filter-footer make-model-filter-footer">
+                <button type="button" class="condition-filter-btn-clear" onclick="clearMakeModelFilterPanel()">Clear</button>
+                <button type="button" class="condition-filter-btn-apply" onclick="applyMakeModelFilter()">Show results</button>
+            </div>
+        </div>"""
+mi = t.index('<div id="makeModelFilter"')
+me = t.index('</div>\n    </div>\n\n    \n        <div class="filter-group relative">', mi)
+t = t[:mi] + MM_PANEL + t[me + len("</div>"):]
+
+SEARCH = """<div class="faq-search catalog-search">
+                    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="9" cy="9" r="6.25" stroke="currentColor" stroke-width="1.3"/><line x1="13.6" y1="13.6" x2="17.5" y2="17.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                    <input id="catalogSearchInput" type="search" placeholder="Search the listings" autocomplete="off" aria-label="Search the listings"/>
+                    <div class="catalog-suggest" id="catalogSuggest" role="listbox" aria-label="Matching vessels" hidden></div>
+                </div>"""
+CLEAR_ALL = '<button type="button" id="clearAllFiltersBtn" class="filter-clear-all" hidden onclick="clearAllFilters()">Clear all filters</button>'
+assert t.count(CLEAR_ALL) == 1
+t = t.replace(CLEAR_ALL, CLEAR_ALL + "\n                " + SEARCH)
+
+# 5c. Availability — the sixth filter the brief asks for, between Location and the
+#     search field, built on the Condition panel's own markup so it inherits every
+#     rule that panel has.
+AVAIL = """<div class="filter-group relative">
+        <button type="button" class="filter-button" onclick="toggleFilterDropdown('availabilityFilter')" aria-expanded="false" aria-controls="availabilityFilter">
+            <span class="filter-button-label">Availability</span>
+            <span class="filter-button-divider" id="availabilityDivider" hidden></span>
+            <span id="availabilityActive" class="filter-button-values"></span>
+            <i class="fas fa-chevron-down filter-chevron" aria-hidden="true"></i>
+        </button>
+        <div id="availabilityFilter" class="filter-dropdown condition-filter-panel hidden">
+            <div class="condition-filter-header">
+                <span class="condition-filter-title">Availability</span>
+                <button type="button" class="condition-filter-close" onclick="closeAvailabilityFilter()" aria-label="Close">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="condition-filter-options">
+                <label class="condition-filter-option">
+                    <input type="radio" name="availabilityRadio" value="" checked>
+                    <span class="condition-filter-radio"></span>
+                    <span class="condition-filter-label">All vessels</span>
+                </label>
+                <label class="condition-filter-option">
+                    <input type="radio" name="availabilityRadio" value="inStock">
+                    <span class="condition-filter-radio"></span>
+                    <span class="condition-filter-label">In-Stock</span>
+                </label>
+                <label class="condition-filter-option">
+                    <input type="radio" name="availabilityRadio" value="comingSoon">
+                    <span class="condition-filter-radio"></span>
+                    <span class="condition-filter-label">Coming Soon</span>
+                </label>
+                <label class="condition-filter-option">
+                    <input type="radio" name="availabilityRadio" value="toOrder">
+                    <span class="condition-filter-radio"></span>
+                    <span class="condition-filter-label">To-Order</span>
+                </label>
+            </div>
+            <div class="condition-filter-footer">
+                <button type="button" class="condition-filter-btn-clear" onclick="clearAvailabilityFilter()">Clear</button>
+                <button type="button" class="condition-filter-btn-apply" onclick="applyAvailabilityFilter()">Show results</button>
+            </div>
+        </div>
+    </div>"""
+t = t.replace(CLEAR_ALL, AVAIL + "\n                " + CLEAR_ALL, 1)
+
 # 6. the count is the filtered count
 t = re.sub(r'(<p class="catalog-results-count">\s*All vessels:\s*)<strong>\d+</strong>',
            r'\1<strong id="catalogCount">65</strong>', t)
@@ -100,12 +178,12 @@ t = re.sub(r'(<p class="catalog-results-count">\s*All vessels:\s*)<strong>\d+</s
 CAT = '<script src="assets/js/yacht_catalog.js"></script>'
 assert t.count(CAT) == 1
 t = t.replace(CAT,
-              '<link rel="stylesheet" href="./jby-system.css?v=14">\n'
-              '<link rel="stylesheet" href="assets/css/jby-chrome.css?v=14">\n'
-              '<link rel="stylesheet" href="assets/css/vessel-card.css?v=14">\n'
+              '<link rel="stylesheet" href="./jby-system.css?v=33">\n'
+              '<link rel="stylesheet" href="assets/css/jby-chrome.css?v=33">\n'
+              '<link rel="stylesheet" href="assets/css/vessel-card.css?v=33">\n'
               '<script src="assets/js/band.js"></script>\n'
-              '<script src="assets/js/listings.js?v=14"></script>\n'
-              '<script src="assets/js/inventory.js?v=14"></script>\n'
+              '<script src="assets/js/listings.js?v=33"></script>\n'
+              '<script src="assets/js/inventory.js?v=33"></script>\n'
               + CAT)
 
 io.open(OUT, "w", encoding="utf-8").write(t)
