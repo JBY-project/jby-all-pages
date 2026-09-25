@@ -37,6 +37,9 @@ jby-home-intro               | Jeff Brown Yachts - Home Page (Intro Animation)
 jby-home-intro-v2            | Jeff Brown Yachts - Home Page (Intro V2 Logo Only)
 jby-home-intro-v3            | Jeff Brown Yachts - Home Page (Intro V3 Arc)
 jby-home-v1                  | Jeff Brown Yachts - Home Page V1
+# Created 2026-09-25, the fortieth-first: the catalogue had no repository of
+# its own until there was a link to give for it.
+jby-inventory                | Jeff Brown Yachts - Inventory Page
 jby-knowledge-center         | Jeff Brown Yachts - Knowledge Center V2
 jby-knowledge-center-v3      | Jeff Brown Yachts - Knowledge Center V3
 jby-knowledge-center-v4      | Jeff Brown Yachts - Knowledge Center V4
