@@ -866,23 +866,23 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .ax-panel-h{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:12px;line-height:18px;
   letter-spacing:0.14em;text-transform:uppercase;color:var(--mute);margin:0 0 16px}
 .ax-chips{display:flex;flex-wrap:wrap;gap:10px}
-/* White on the panel, where these were grey on white. The pill is doing more
-   work now that it carries a mark as well as a word, and it needs to hold its
-   own shape.
+/* White on the panel, where these were grey on white: white on #f8f9fb is four
+   steps of difference and the pills had started to dissolve into the band, so
+   the hairline is what pays for the lighter panel. --line is the rule this
+   page already draws everywhere else.
 
-   The hairline came with the lighter panel and is what pays for it: white on
-   #f4f6f9 was a shape on its own, white on #f8f9fb is four steps of difference
-   and the pills had started to dissolve into the band. --line is the rule this
-   page already draws everywhere else. */
-.ax-chip{background:var(--white);border:0.5px solid var(--line);border-radius:20px;height:34px;padding:0 14px;
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:14px;line-height:20px;color:var(--ink);
+   The marks are gone. Fifteen pills carried fifteen little pictograms, and at
+   15px next to a 14px word each was more decoration than sign — a fish, a
+   compass, a gauge, a triangle for Monohull. The word does the work, so the
+   word is the pill: 16/24, and the pill grown to hold it. */
+.ax-chip{background:var(--white);border:0.5px solid var(--line);border-radius:20px;height:38px;padding:0 18px;
+  display:inline-flex;align-items:center;
+  font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;color:var(--ink);
   white-space:nowrap}
 /* The same tint on the pills, for the same reason: fifteen marks at full
    strength made a field of blue out of a list of words. One step over the 14px
    the pill is set in, where the card's mark sits level with its 16 — the pill
    is the smaller thing and its mark needs the extra pixel to stay legible. */
-.ax-chip i{font-size:15px;line-height:1;color:rgba(65,100,123,0.75);flex:0 0 auto}
 
 /* MODELS */
 .ax-models-head{text-align:center;margin-bottom:40px}
@@ -1072,7 +1072,7 @@ body.cx-lock{overflow:hidden}
   .ax-stat .k i{font-size:14px}
   .ax-stat .v{font-size:17px;line-height:24px}
   .ax-panel{padding:20px}
-  .ax-chip{height:32px;padding:0 12px;gap:7px}
+  .ax-chip{height:36px;padding:0 15px;font-size:15px}
   /* Header CTA doesn't fit on phones (caused horizontal scroll) — hamburger + hero CTAs cover contact */
   .nav .cta{display:none}
 }
@@ -1357,26 +1357,26 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
       <div class="ax-panel reveal">
         <p class="ax-panel-h">Great for</p>
         <div class="ax-chips">
-          <span class="ax-chip"><i class="ti ti-fish" aria-hidden="true"></i>Fishing</span>
-          <span class="ax-chip"><i class="ti ti-scuba-mask" aria-hidden="true"></i>Scuba diving</span>
-          <span class="ax-chip"><i class="ti ti-compass" aria-hidden="true"></i>Exploring</span>
-          <span class="ax-chip"><i class="ti ti-route" aria-hidden="true"></i>Cruising</span>
-          <span class="ax-chip"><i class="ti ti-ripple" aria-hidden="true"></i>Watersports</span>
-          <span class="ax-chip"><i class="ti ti-users" aria-hidden="true"></i>Socialising</span>
-          <span class="ax-chip"><i class="ti ti-gauge" aria-hidden="true"></i>Performance</span>
-          <span class="ax-chip"><i class="ti ti-mountain" aria-hidden="true"></i>Adventure</span>
+          <span class="ax-chip">Fishing</span>
+          <span class="ax-chip">Scuba diving</span>
+          <span class="ax-chip">Exploring</span>
+          <span class="ax-chip">Cruising</span>
+          <span class="ax-chip">Watersports</span>
+          <span class="ax-chip">Socialising</span>
+          <span class="ax-chip">Performance</span>
+          <span class="ax-chip">Adventure</span>
         </div>
       </div>
       <div class="ax-panel reveal d1">
         <p class="ax-panel-h">Vessel types</p>
         <div class="ax-chips">
-          <span class="ax-chip"><i class="ti ti-speedboat" aria-hidden="true"></i>Center console</span>
-          <span class="ax-chip"><i class="ti ti-ship" aria-hidden="true"></i>Express cruiser</span>
-          <span class="ax-chip"><i class="ti ti-stairs-up" aria-hidden="true"></i>Flybridge</span>
-          <span class="ax-chip"><i class="ti ti-fish-hook" aria-hidden="true"></i>Sport fishing</span>
-          <span class="ax-chip"><i class="ti ti-sailboat-2" aria-hidden="true"></i>Browrider</span>
-          <span class="ax-chip"><i class="ti ti-gauge" aria-hidden="true"></i>Performance</span>
-          <span class="ax-chip"><i class="ti ti-triangle-inverted" aria-hidden="true"></i>Monohull</span>
+          <span class="ax-chip">Center console</span>
+          <span class="ax-chip">Express cruiser</span>
+          <span class="ax-chip">Flybridge</span>
+          <span class="ax-chip">Sport fishing</span>
+          <span class="ax-chip">Browrider</span>
+          <span class="ax-chip">Performance</span>
+          <span class="ax-chip">Monohull</span>
         </div>
       </div>
     </div>
