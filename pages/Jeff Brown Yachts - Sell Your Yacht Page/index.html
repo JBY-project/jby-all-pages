@@ -425,7 +425,10 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
 .show-word{position:absolute;left:0;right:0;bottom:132px;z-index:3;text-align:center;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:28px;letter-spacing:.06em;text-transform:uppercase;color:#fff;text-shadow:0 2px 22px rgba(0,0,0,.45)}
 .show-count{position:absolute;top:20px;right:26px;z-index:5;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;letter-spacing:.12em;color:rgba(255,255,255,.6);text-shadow:0 2px 14px rgba(0,0,0,.55)}
 .show-count b{color:#fff;font-weight:300}
-.show-thumbs{position:absolute;left:0;right:0;bottom:24px;z-index:5;display:flex;gap:12px;justify-content:center;padding:0 24px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+/* safe center: the strip scrolls, and a plain centred flex row that overflows
+   puts its first items past the scroll origin where they cannot be reached.
+   With eleven frames in Photography it overflows below about 1600px. */
+.show-thumbs{position:absolute;left:0;right:0;bottom:24px;z-index:5;display:flex;gap:12px;justify-content:safe center;padding:0 24px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
 .show-thumbs::-webkit-scrollbar{display:none}
 .show-thumb{flex:0 0 128px;height:78px;border-radius:2px;overflow:hidden;cursor:pointer;position:relative;opacity:.6;transition:opacity .25s,box-shadow .25s;background:#0a1218;border:1px solid rgba(255,255,255,.25);padding:0}
 .show-thumb img{width:100%;height:100%;object-fit:cover;display:block}
@@ -1016,36 +1019,40 @@ document.querySelectorAll('.expo-list').forEach(list=>{
 (function(){
   var show=document.querySelector('.showcase');if(!show)return;
   var GAL={
-    /* Re-cut from the largest originals in this repository rather than the
-       1800px set this section arrived with. That set was both small and
-       heavily compressed — riva-run.jpg was 156KB for 1.8 megapixels — and
-       the stage is full-bleed, so on a retina screen every frame was being
-       blown up about 1.7 times. These come from the model page's exterior
-       and interior stills, which are PNGs at 2160px and carry no JPEG
-       artifacts at all, from the 3840px original of the running shot, and
-       from the Axopar brand page's 4094px hero.
+    /* The client's own set, September 2026, from assets/3d tour, videos, photos
+       at the root of this repository. Thirteen frames: six exteriors and a
+       detail, four rooms, and two that go to the tour tab below.
 
-       Frames two, three and four are the client's own photographs, dropped
-       into assets/ at the root of this repository: two Rivas and the Axopar
-       29 Cabin. The Riva on its trailer, Riva33-08.jpg, was left out on the
-       client's instruction. The two Rivas came in at 6489 and 5811 pixels
-       wide and are cut to 3840; the Axopar arrived at 1920 and stays there,
-       which makes it the one frame here that cannot be made any larger. */
-    photo:{word:'Photography',items:[
-      {type:'img',src:'assets/gallery/riva-running.jpg',cap:'Riva 112&rsquo; Dolcevita Super under way'},
-      {type:'img',src:'assets/gallery/riva-aquariva-run.jpg',cap:'Riva Aquariva under way, San Diego'},
-      {type:'img',src:'assets/gallery/riva-skyline-run.jpg',cap:'Riva off the San Diego skyline'},
-      {type:'img',src:'assets/gallery/axopar-29-cabin.jpg',cap:'Axopar 29 Cabin under way'},
-      {type:'img',src:'assets/gallery/riva-owners-suite.jpg',cap:'Owner&rsquo;s suite'},
-      {type:'img',src:'assets/gallery/axopar-running.jpg',cap:'Axopar under way'}
+       The originals are between 4240 and 9598 pixels wide and 1.5 to 13MB
+       each — camera files, not web ones. Every frame here is cut to 3200px
+       and re-encoded at quality 70, which lands between 500KB and 1.6MB and
+       still has more than twice the pixels the full-bleed stage asks for on
+       a retina screen.
+
+       The captions say only what is known. Palm Beach 55, Sirena 118 and the
+       Brabus 1000 are named in the client's filenames; the two aerials, the
+       Fort Lauderdale profile and the four rooms are not, so they are
+       described rather than named. */
+        photo:{word:'Photography',items:[
+      {type:'img',src:'assets/gallery/ph-aerial-run-silver.jpg',cap:'Under way, from the air'},
+      {type:'img',src:'assets/gallery/ph-aerial-run-blue.jpg',cap:'Open water, from the air'},
+      {type:'img',src:'assets/gallery/ph-profile-fort-lauderdale.jpg',cap:'On the water, Fort Lauderdale'},
+      {type:'img',src:'assets/gallery/ph-palm-beach-55-sunset.jpg',cap:'Palm Beach 55 at sunset'},
+      {type:'img',src:'assets/gallery/ph-aquariva-newport.jpg',cap:'Riva Aquariva, Newport Harbor'},
+      {type:'img',src:'assets/gallery/ph-brabus-1000-detail.jpg',cap:'Brabus 1000, along the hull'},
+      {type:'img',src:'assets/gallery/ph-sirena-118-sundeck.jpg',cap:'Sirena 118 sundeck, Cannes'},
+      {type:'img',src:'assets/gallery/ph-saloon.jpg',cap:'Main saloon'},
+      {type:'img',src:'assets/gallery/ph-helm.jpg',cap:'At the helm'},
+      {type:'img',src:'assets/gallery/ph-stateroom.jpg',cap:'Owner&rsquo;s stateroom'},
+      {type:'img',src:'assets/gallery/ph-cabin.jpg',cap:'Guest cabin'}
     ]},
     video:{word:'Video',items:[
       {type:'video',src:'assets/cine.mp4',poster:'assets/cine-poster.jpg',cap:'Cinematic walkthrough'},
       {type:'video',src:'assets/hero.mp4',poster:'assets/hero-poster.jpg',cap:'On the water'}
     ]},
     tour:{items:[
-      {type:'img',src:'assets/gallery/interior.jpg',title:'Step aboard the Riva 112&rsquo; Dolcevita Super.',cap:"Riva 112' Dolcevita Super"},
-      {type:'img',src:'assets/gallery/tour-2.jpg',title:'Step aboard the Riva 88&rsquo; Folgore.',cap:"Riva 88' Folgore"}
+      {type:'img',src:'assets/gallery/tour-sirena-118-saloon.jpg',title:'Step aboard the Sirena 118.',cap:'Sirena 118'},
+      {type:'img',src:'assets/gallery/tour-palm-beach-55-aft-deck.jpg',title:'Step aboard the Palm Beach 55.',cap:'Palm Beach 55'}
     ]}
   };
   var stage=document.getElementById('showStage');
