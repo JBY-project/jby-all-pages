@@ -572,6 +572,28 @@ a{color:inherit;text-decoration:none}
   transition:max-height .55s cubic-bezier(0.22,1,0.36,1), opacity .35s ease .1s}
 .v-thumb:hover .v-body p{max-height:160px;opacity:1}
 
+/* Between the phone's strip and a full desktop the grid still holds three
+   cards, and at 700px each is about 210 by 118. A testimonial of 160
+   characters wants nine lines in that width: it cannot be revealed inside the
+   card at any size worth reading, and .v-thumb clips, so the hover cut the top
+   off it. In this band the card gives up the overlay and does what it does on
+   a phone — photograph, then the name and the quote underneath it, open. The
+   photograph stops growing on hover too, since it is its own box now and would
+   grow out of the column. */
+@media (min-width:641px) and (max-width:1000px){
+  .v-thumb{aspect-ratio:auto;background:transparent;overflow:visible;
+    display:flex;flex-direction:column;cursor:default}
+  .v-thumb .bg{position:relative;inset:auto;width:100%;aspect-ratio:16/9;
+    border-radius:2px;flex:0 0 auto;transition:none}
+  .v-thumb:hover .bg{transform:none}
+  .v-thumb .veil{display:none}
+  .v-thumb .v-body{position:static;inset:auto;transform:none;padding:10px 0 0}
+  .v-thumb:hover .v-body{transform:none}
+  .v-thumb .v-body h4{color:var(--ink);font-size:17px;line-height:24px}
+  .v-thumb .v-body p{color:var(--mute);max-height:none;opacity:1;overflow:visible;
+    transition:none;margin-top:4px;font-size:14px;line-height:21px}
+}
+
 /* AFTERCARE BENTO */
 .aftercare{padding-top:var(--section-pad);background:var(--paper)}
 .aftercare .s-title{padding:0 24px 40px}
@@ -1114,8 +1136,13 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .video-hero .meta,.v-thumb .v-body{position:static;transform:none;inset:auto;padding:10px 0 0;text-align:left}
   .video-hero .meta .who,.v-thumb .v-body h4{color:var(--ink)}
   .video-hero .meta .vessel,.v-thumb .v-body p{color:var(--mute)}
-  .v-thumb .v-body .v-vessel{display:block;font-family:'Myriad Pro',sans-serif;font-weight:300;
-    font-size:14px;line-height:20px;color:var(--mute);margin-top:2px}
+  /* The quote is the card on a phone. On the desktop it is held at max-height:0
+     and let out on hover, which is a state a finger never reaches — so the
+     three cards stood there as a photograph and a name with the testimonial
+     itself unreachable. Here it is simply open, in the place the vessel line
+     used to take. */
+  .v-thumb .v-body p{max-height:none;opacity:1;overflow:visible;transition:none;
+    margin-top:4px;font-size:14px;line-height:21px}
   .v-thumb .v-body h4{font-size:17px;line-height:24px}
   .cards-scroll-arr.vid{top:100px}
   .bento-body{left:24px;right:24px;top:0;bottom:0;display:flex;flex-direction:column;
@@ -1516,27 +1543,24 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <div class="bg" style="background-image:url('./JBY-V3.3-assets/clean_bento_sell.jpg')"></div>
         <div class="veil"></div>
         <div class="v-body">
-          <h4>Eleanor Harker</h4>
-          <span class="v-vessel">Riva 56</span>
-          <p>&ldquo;Buying a Riva should feel special. With Jeff Brown Yachts, it did.&rdquo;</p>
+          <h4>Fran K.</h4>
+          <p>&ldquo;We purchased a pre-owned Axopar 28 from Jeff, and we had a great experience. He was very knowledgeable and committed to making the purchase process easy.&rdquo;</p>
         </div>
       </article>
       <article class="v-thumb reveal d1">
         <div class="bg" style="background-image:url('./JBY-V3.3-assets/clean_bento_financing.jpg')"></div>
         <div class="veil"></div>
         <div class="v-body">
-          <h4>David Aoki</h4>
-          <span class="v-vessel">Axopar 37</span>
-          <p>&ldquo;Third boat with Jeff Brown Yachts. Every time smoother than the last.&rdquo;</p>
+          <h4>John L.</h4>
+          <p>&ldquo;I have known Jeff Brown for well over 20 years and bought 2 boats from him. I have found him to be extremely knowledgeable, service-oriented, and a pleasure to work with.&rdquo;</p>
         </div>
       </article>
       <article class="v-thumb reveal d2">
         <div class="bg" style="background-image:url('./JBY-V3.3-assets/clean_bento_ym.jpg')"></div>
         <div class="veil"></div>
         <div class="v-body">
-          <h4>Hill Family</h4>
-          <span class="v-vessel">Four Winns H4</span>
-          <p>&ldquo;We came looking for a boat. We left with a team that treats our first summer like it&rsquo;s their fifth.&rdquo;</p>
+          <h4>Jim M.</h4>
+          <p>&ldquo;I trust Jeff&rsquo;s integrity and professional counsel in all boating needs. I recommend him to anyone needing sound and professional advice in buying or selling boats.&rdquo;</p>
         </div>
       </article>
     </div>
