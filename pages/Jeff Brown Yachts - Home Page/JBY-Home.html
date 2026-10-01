@@ -46,7 +46,13 @@ a{color:inherit;text-decoration:none}
 .s-title-row{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:1440px;margin:0 auto}
 /* The section's link reads better after the cards than between the title and
    them, where it sat between the reader and the thing it points at. */
-.s-link-row{display:flex;justify-content:center;margin-top:28px}
+.s-link-row{display:flex;justify-content:center}
+/* The space under the cards is one and a half times the space over them: 20px
+   above the vessels, 56px above the events. The strip already carries some of
+   it as its own bottom padding — 30px under the vessels and 40px under the
+   events — so the row only adds what is left. */
+.vessels .s-link-row{margin-top:0}
+.events-grid-wrap .s-link-row{margin-top:44px}
 .s-title-row h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   color:var(--navy);text-transform:uppercase;margin:0}
 .s-link{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
@@ -427,7 +433,7 @@ a{color:inherit;text-decoration:none}
    nothing on top of the strip. The strip used to add 24px of its own, which
    was what made this section sit so much lower than the others. */
 .vessels-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
-  padding:0 40px 32px;align-items:stretch}
+  padding:0 40px 30px;align-items:stretch}
 .vessels-arr{display:none}
 
 /* Cards fill their grid column — no flex needed */
@@ -559,7 +565,7 @@ a{color:inherit;text-decoration:none}
 .video-hero .meta .vessel{font-family:'Myriad Pro',sans-serif;font-weight:300;font-style:normal;font-size:14px;
   line-height:20px;color:rgba(255,255,255,0.85)}
 .voices-sub{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:28px;
-  letter-spacing:0;text-transform:uppercase;color:var(--navy);margin:64px 0 20px}
+  letter-spacing:0;text-transform:uppercase;color:var(--navy);margin:64px 0 20px;text-align:center}
 .video-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:0}
 .v-thumb{position:relative;aspect-ratio:16/9;background:#0a1620;border-radius:2px;overflow:hidden;cursor:pointer}
 .v-thumb .bg{position:absolute;inset:0;background-size:cover;background-position:center;
@@ -640,6 +646,7 @@ a{color:inherit;text-decoration:none}
 .visit-head-row h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   color:var(--navy);text-transform:uppercase;margin:0}
 .visit-grid{display:grid;grid-template-columns:409px 1fr;gap:88px;align-items:stretch}
+.visit-link-row{margin-top:40px}
 /* Visit list scrolls within map height — fixed section height */
 .visit-list{max-height:580px;overflow-y:auto;padding-right:16px;scrollbar-width:thin}
 .visit-list::-webkit-scrollbar{width:6px}
@@ -991,7 +998,10 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   transform:scaleX(0);transform-origin:left;transition:transform .28s cubic-bezier(0.22,1,0.36,1)}
 .sec-filter button.on{color:var(--ink)}
 .sec-filter button.on::after{transform:scaleX(1)}
-.sec-filter-visit{max-width:none;padding:0;margin:0 0 28px}
+/* The locations tabs filter the list below them, which is the left column —
+   so they belong over it, not in the middle of a section whose content is a
+   list and a map side by side. */
+.sec-filter-visit{max-width:none;padding:0;margin:0 0 28px;justify-content:flex-start}
 .region-hide{display:none !important}
 .magnetic{transform:none!important}
 /* The View button on the vessel cards, on every device.
@@ -1658,7 +1668,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 <section class="visit" id="visit">
   <div class="visit-head-row reveal">
     <h2><span class="ttl-desktop">Locations, Marinas &amp; Boatyards</span><span class="ttl-mobile">Locations</span></h2>
-    <a class="s-link" href="#">View all</a>
   </div>
   <div class="sec-filter sec-filter-visit reveal" role="tablist" aria-label="Filter locations by region">
     <button class="on" data-region="all">All</button>
@@ -1708,6 +1717,9 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
       </div>
         </div>
     <div id="leaflet-map" class="reveal d1"></div>
+  </div>
+  <div class="s-link-row visit-link-row reveal">
+    <a class="s-link" href="#">View all</a>
   </div>
 </section>
 
