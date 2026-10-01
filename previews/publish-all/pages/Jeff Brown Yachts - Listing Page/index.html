@@ -368,8 +368,16 @@ h1.listing-title{font-family:var(--mes);font-weight:400;font-size:24px;line-heig
 .ol-in .name{font-family:var(--myr);font-weight:300;font-size:18px;line-height:28px;color:#fff;
   margin:0;max-width:82%;min-height:56px;text-wrap:balance;
   display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+
+/* No reserved second line on a phone. The two lines are reserved so the cards
+   in a row line their names and chips up with each other; at this width there
+   is one card to a row, or one of them in the eye, and a one-line name was
+   leaving an empty line between itself and the price. */
+@media (max-width:640px){
+  .ol-in .name{min-height:0}
+}
 .ol-in .prc{font-family:var(--myr);font-weight:300;font-size:18px;line-height:28px;color:#fff;
-  margin:-8px 0 0}
+  margin:-12px 0 0}
 /* CTA — the "View" plate, at rest. A span rather than a button: the whole card
    is an <a>, and a button inside a link is not markup a browser is obliged to
    make sense of. It used to be a chevron that widened into the word on hover,

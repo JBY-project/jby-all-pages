@@ -54,7 +54,11 @@ a{color:inherit;text-decoration:none}
 /* PAGE HEAD */
 main{padding-top:128px}
 .wrap{max-width:1440px;margin:0 auto;padding:0 var(--page-pad)}
-.loc-head{padding-top:48px}
+/* The page's own title, centred like every other section head on the site.
+   .split-words sets the heading to inline-block to animate word by word, so
+   the centring has to come from the row around it rather than from the
+   heading's own text-align. */
+.loc-head{padding-top:48px;text-align:center}
 .loc-head h1{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:26px;line-height:38px;letter-spacing:0;text-transform:uppercase;color:var(--navy);margin:0}
 .loc-head p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:20px;line-height:28px;color:var(--mute);margin:8px 0 0;max-width:none;white-space:nowrap}
 
@@ -99,7 +103,14 @@ main{padding-top:128px}
   scrollbar-width:thin;scrollbar-color:rgba(65,100,123,0.35) transparent}
 .loc-stick{flex:0 0 auto}
 .loc-map-wrap{position:static;height:100%}
-#loc-map{height:100%;border-radius:2px;overflow:hidden;background:#e9eef2}
+/* z-index:0 on a positioned box, so the map is one layer rather than a dozen.
+   Leaflet numbers its own panes from 200 to 1000 — tiles, markers, controls —
+   and with nothing between them and the page they were measured against the
+   root, where the fixed header sits at 100. The map scrolled over the header.
+   A stacking context here keeps all of Leaflet's numbering inside the map,
+   and the map itself sits below the header at 0. */
+#loc-map{height:100%;border-radius:2px;overflow:hidden;background:#e9eef2;
+  position:relative;z-index:0}
 .loc-note{font-family:'Myriad Pro',sans-serif;font-size:14px;line-height:20px;color:#a2a2a9;margin:14px 2px 0}
 
 /* Compact address cards (Figma style — no photos) */
