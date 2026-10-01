@@ -38,7 +38,12 @@ a{color:inherit;text-decoration:none}
 /* Section titles — uppercase Mesmerize Expanded Light navy */
 .s-title{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   color:var(--navy);text-transform:uppercase;text-align:center;margin:0}
-.s-title-row{display:flex;justify-content:space-between;align-items:center;gap:24px;max-width:1440px;margin:0 auto}
+/* The word-by-word reveal sets .split-words to inline-block, which shrinks the
+   heading to its text — so text-align:center above had nothing to centre and the
+   box simply sat at the left of its section. Block gives it the full width back;
+   the reveal is unaffected, it animates the spans inside. */
+.s-title.split-words{display:block}
+.s-title-row{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:1440px;margin:0 auto}
 .s-title-row h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   color:var(--navy);text-transform:uppercase;margin:0}
 .s-link{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
@@ -396,7 +401,7 @@ a{color:inherit;text-decoration:none}
 /* Active flex-grow 1.5, others 1 → active ~33% / others ~22% — gentle */
 /* ====================================================================== */
 .vessels{padding-top:96px;max-width:1500px;margin:0 auto}
-.vessels-head-row{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:0 40px 20px;
+.vessels-head-row{display:flex;flex-direction:column;align-items:center;gap:16px;padding:0 40px 20px;
   max-width:1500px;margin:0 auto}
 .vessels-head-row h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   color:var(--navy);text-transform:uppercase;margin:0}
@@ -628,7 +633,7 @@ a{color:inherit;text-decoration:none}
 
 /* VISIT */
 .visit{padding:var(--section-pad) 40px 0;max-width:1440px;margin:0 auto}
-.visit-head-row{display:flex;justify-content:space-between;align-items:flex-start;padding:0 0 40px;gap:24px}
+.visit-head-row{display:flex;flex-direction:column;align-items:center;padding:0 0 40px;gap:16px}
 .visit-head-row h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   color:var(--navy);text-transform:uppercase;margin:0}
 .visit-grid{display:grid;grid-template-columns:409px 1fr;gap:88px;align-items:stretch}
@@ -975,7 +980,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 
 
 /* SECTION REGION FILTER — underline pills (Events + Locations) */
-.sec-filter{display:flex;gap:28px;align-items:center;max-width:1440px;margin:20px auto 6px;padding:0 40px}
+.sec-filter{display:flex;justify-content:center;gap:28px;align-items:center;max-width:1440px;margin:20px auto 6px;padding:0 40px}
 .sec-filter button{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;letter-spacing:0.04em;
   text-transform:uppercase;color:var(--mute);background:transparent;border:0;padding:6px 2px 10px;cursor:pointer;
   position:relative;transition:color .2s}
@@ -1154,7 +1159,10 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .loc-modal-body h3{font-size:18px;line-height:26px}
   /* Section head-rows: title + button on one row (mobile) */
   .vessels-head-row{flex-direction:row;align-items:center;justify-content:space-between;gap:14px}
-  .s-title-row{flex-wrap:nowrap;align-items:center;gap:14px}
+  /* The narrow widths keep the head on one row to save the height; the
+     centred column is the desktop arrangement. Spelled out here because
+     the base rule is a column now and this block only used to adjust it. */
+  .s-title-row{flex-direction:row;flex-wrap:nowrap;align-items:center;gap:14px}
   .s-title-row h2{white-space:nowrap}
   .loc-modal-body{padding:20px 24px 24px}
   /* --- CONSISTENT 24px LEFT GUTTER for all section content --- */
