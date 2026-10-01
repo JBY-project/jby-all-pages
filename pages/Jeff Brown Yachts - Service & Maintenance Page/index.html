@@ -261,15 +261,23 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
   background:#0a1620;color:#fff;display:flex;align-items:center}
 .band-media{position:absolute;inset:0;overflow:hidden}
 .band-media video,.band-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.band-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,10,16,.82) 0%,rgba(4,10,16,.55) 34%,rgba(4,10,16,.12) 64%,rgba(4,10,16,0) 100%)}
+/* The veil used to be darkest at the left and clear by the right edge, which
+   was right while the text stood in the left third. Centred, the last half of
+   every line would have run onto open water, so the wash is symmetrical now:
+   heavier at both edges, lighter through the middle where the photograph is
+   worth seeing. */
+.band-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,10,16,.78) 0%,rgba(4,10,16,.62) 32%,rgba(4,10,16,.62) 68%,rgba(4,10,16,.78) 100%)}
 .band-inner{position:relative;z-index:3;width:100%;max-width:1440px;margin:0 auto;padding:0 40px}
-.band-text{max-width:700px}
-.band-ctas{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+/* The band reads from the middle, like the section heads above it. */
+.band-text{max-width:700px;margin:0 auto;text-align:center}
+.band-ctas{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;align-items:center}
 .band-text .sec-eyebrow{color:var(--sand)}
 .band-text h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   text-transform:uppercase;white-space:nowrap;margin:0 0 18px}
-.band-text .lede{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:20px;line-height:30px;color:rgba(255,255,255,.92);margin:0 0 28px;max-width:600px}
-.band-facts{list-style:none;margin:0 0 32px;padding:0;display:flex;flex-direction:column;width:max-content;max-width:100%}
+.band-text .lede{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:20px;line-height:30px;color:rgba(255,255,255,.92);margin:0 auto 28px;max-width:600px}
+/* width:max-content keeps the hairlines to the longest fact rather than the
+   full column; auto margins then put that block on the centre line. */
+.band-facts{list-style:none;margin:0 auto 32px;padding:0;display:flex;flex-direction:column;width:max-content;max-width:100%}
 .band-facts li{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:26px;letter-spacing:0;
   color:#fff;white-space:nowrap;padding:14px 0}
 .band-facts li + li{border-top:.5px solid rgba(255,255,255,.2)}
