@@ -218,7 +218,7 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
 
 /* ============================== SERVICES GRID ============================== */
 .offer{max-width:1440px;margin:0 auto;padding:var(--section-pad) 40px 0}
-.offer-rows{display:flex;flex-direction:column;gap:clamp(56px,6vw,88px);margin:clamp(48px,6vw,72px) auto 0}
+.offer-rows{display:flex;flex-direction:column;gap:clamp(56px,6vw,88px);margin:clamp(32px,4vw,48px) auto 0}
 .offer-row{display:grid;grid-template-columns:1.357fr 1fr;gap:clamp(40px,3vw,56px);align-items:center}
 .offer-row:nth-child(even){grid-template-columns:1fr 1.357fr}
 .offer-row:nth-child(even) .card-media{order:2}
@@ -229,6 +229,23 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
 .card-body{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
 .card-body h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:clamp(19px,1.8vw,20px);line-height:1.24;letter-spacing:.01em;text-transform:uppercase;color:var(--navy);margin:0;white-space:nowrap}
 .card-body p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:1.62;color:var(--mute);margin:0;max-width:460px}
+/* The copy deck names the four and then lists what each one covers. The list
+   is the specific half of the promise — AC descaling, shrink wrap, Starlink —
+   so it is set in the body face at a step down, not as a second paragraph. */
+.card-list{list-style:none;margin:0;padding:0;max-width:460px;display:flex;flex-direction:column;gap:8px}
+.card-list li{position:relative;padding-left:18px;font-family:'Myriad Pro',sans-serif;font-weight:300;
+  font-size:16px;line-height:1.5;color:var(--mute)}
+.card-list li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;
+  background:var(--navy);opacity:.55}
+/* The label the deck puts over the four. */
+.offer-kicker{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;line-height:20px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--mute);text-align:center;
+  margin:clamp(40px,4vw,56px) 0 0}
+/* Certified to service what we sell — the one line of proof under the four. */
+.certs{text-align:center;max-width:920px;margin:clamp(56px,6vw,80px) auto 0;padding:0 40px}
+.certs h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
+  text-transform:uppercase;color:var(--navy);margin:0 0 12px}
+.certs p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:1.62;color:var(--mute);margin:0}
 @media (max-width:1024px){
   .offer{padding:80px 24px 0}
   .sec-head h2{font-size:18px;line-height:26px}
@@ -269,14 +286,18 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
 /* ============================== HOME PORTS + MAP ============================== */
 .ports{max-width:1440px;margin:0 auto;padding:88px 40px 0}
 .ports-inner{max-width:1360px;margin:0 auto}
-.ports-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:8px}
+/* Title down the middle and the link under the thing it points at, the same
+   arrangement the home page and the sell page carry: 32px of white between
+   the content and the link row on every width. */
+.ports-head{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;margin-bottom:8px}
+.ports-link-row{display:flex;justify-content:center;margin-top:32px}
 .ports-head h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   text-transform:uppercase;color:var(--navy);margin:0;max-width:none;white-space:nowrap}
-.ports-head .s-link{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
+.ports .s-link{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
   text-transform:uppercase;color:var(--navy);padding:0 24px;height:40px;border:0.5px solid rgba(65,100,123,0.18);
   display:inline-flex;align-items:center;transition:.25s;white-space:nowrap;background:transparent}
-.ports-head .s-link:hover{background:rgba(65,100,123,0.05)}
-.ports-filter{display:flex;gap:24px;margin:22px 0 30px}
+.ports .s-link:hover{background:rgba(65,100,123,0.05)}
+.ports-filter{display:flex;justify-content:center;gap:24px;margin:22px 0 30px}
 .ports-filter button{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--ink);padding:0 0 6px;border:0;border-bottom:1px solid transparent;
   background:transparent;transition:.25s}
@@ -346,7 +367,7 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
 .loc-modal-cta:hover{background:#2c4a5c}
 @media (max-width:980px){
   .ports{padding:80px 24px 0}
-  .ports-head{flex-direction:column;align-items:flex-start;gap:10px}
+  .ports-head{flex-direction:column;align-items:center;gap:10px}
   .ports-head h2{font-size:18px;line-height:26px;white-space:normal}
   .ports-grid{grid-template-columns:1fr;gap:28px}
   .visit-list{max-height:none;overflow:visible}
@@ -600,7 +621,7 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
   <div class="hero-veil"></div>
   <div class="hero-text">
     <h1>Service &amp; Maintenance</h1>
-    <p>Confident technicians come to you or to your slip, so your yacht is cared for without a boatyard trip, backed by a certified service network coast to coast.</p>
+    <p>Full-service marinas and boatyards, coast to coast &mdash; with certified technicians available at your slip for eligible services.</p>
     <div class="hero-cta">
       <button class="btn-solid" data-scroll="#help">Request a Consultation</button>
     </div>
@@ -613,36 +634,70 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
     <h2>The Art of Yacht Care</h2>
     <p>From the boatyard to bluewater, a single standard of craftsmanship, delivered by specialists who look after every detail so you never have to.</p>
   </div>
+  <h3 class="offer-kicker rise">The four service categories</h3>
   <div class="offer-rows">
+    <div class="offer-row rise">
+      <figure class="card-media"><img src="./assets/card_service.jpg" alt="Jeff Brown Yachts technicians servicing an outboard"/></figure>
+      <div class="card-body">
+        <h3>Scheduled Service &amp; Maintenance</h3>
+        <p>Mercury Certified and ABYC-certified technicians deliver mobile service at your slip or complete work dockside, tracking every interval so nothing gets missed.</p>
+        <ul class="card-list">
+          <li>Engine service and diagnostics</li>
+          <li>AC descaling, systems care, and Marbru air conditioning service and installation</li>
+          <li>Winterization</li>
+          <li>Mobile service at your slip or dockside, with full interval tracking</li>
+        </ul>
+      </div>
+    </div>
     <div class="offer-row rise">
       <figure class="card-media"><img src="./assets/card_boatyard.jpg" alt="Jeff Brown Yachts marine and boatyard services"/></figure>
       <div class="card-body">
         <h3>Marine &amp; Boatyard Services</h3>
-        <p>Haul-outs, refits, rigging, and repairs at our full-service San Diego marina and boatyard, handled end to end by our own team. From routine bottom jobs to major structural work, your vessel stays in expert hands from the moment she arrives to the day she splashes.</p>
-      </div>
-    </div>
-    <div class="offer-row rise">
-      <figure class="card-media"><img src="./assets/card_service.jpg" alt="Jeff Brown Yachts technicians servicing an outboard"/></figure>
-      <div class="card-body">
-        <h3>Service &amp; Maintenance</h3>
-        <p>Scheduled servicing, engine care, and diagnostics, delivered mobile at your slip or completed dockside by certified technicians. We track every service interval and handle the details, so your yacht stays reliable and ready whenever you want to head out.</p>
+        <p>Haul-outs, refits, and repairs at our full service marinas and boatyards, handled end to end by our own team.</p>
+        <ul class="card-list">
+          <li>Haul-outs and bottom paint</li>
+          <li>Rigging and structural repairs</li>
+          <li>Full-service refits</li>
+          <li>Full detailing</li>
+          <li>Yard storage, with washdown packages available</li>
+          <li>Shrink wrap for transport or winter storage</li>
+          <li>Trailers</li>
+        </ul>
       </div>
     </div>
     <div class="offer-row rise">
       <figure class="card-media"><img src="./assets/card_warranty.jpg" alt="Jeff Brown Yachts specialist working on a vessel"/></figure>
       <div class="card-body">
         <h3>Warranty &amp; Upgrades</h3>
-        <p>Manufacturer warranty work, electronics, and finish upgrades, handled by certified specialists who know your vessel inside out. We coordinate parts, claims, and installations directly with the builders, so every improvement is seamless and fully covered.</p>
+        <p>Certified specialists coordinate parts, claims, and installations directly with builders, so every upgrade is tracked from order to install.</p>
+        <ul class="card-list">
+          <li>Manufacturer warranty work</li>
+          <li>Electronics upgrades, including Starlink and boat monitoring systems</li>
+          <li>Solar panel installation</li>
+          <li>Fishing aftermarket upgrades</li>
+          <li>Cook top and grill installation</li>
+          <li>Finish and cosmetic upgrades</li>
+        </ul>
       </div>
     </div>
     <div class="offer-row rise">
       <figure class="card-media"><img src="./assets/card_survey.jpg" alt="A Jeff Brown Yachts technician inspecting a drive"/></figure>
       <div class="card-body">
         <h3>Survey</h3>
-        <p>Pre-purchase and insurance surveys, sea trials, and detailed condition reports you can rely on before you commit. Our surveyors document every finding clearly and walk you through it, so you know exactly what you are buying and what it needs.</p>
+        <p>Pre-purchase and insurance surveys, sea trials, and detailed reports, walked through clearly so you know exactly what you&rsquo;re buying.</p>
+        <ul class="card-list">
+          <li>Pre-purchase surveys</li>
+          <li>Insurance surveys</li>
+          <li>Sea trials and condition reports</li>
+        </ul>
       </div>
     </div>
   </div>
+  <div class="certs rise">
+    <h3>Certified to service what we sell</h3>
+    <p>Mercury Certified &middot; ABYC Certified &middot; Webasto Certified &middot; Seakeeper Certified</p>
+  </div>
+</div>
 </section>
 
 <!-- HOME PORTS + MAP -->
@@ -650,7 +705,6 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
   <div class="ports-inner">
     <div class="ports-head rise">
       <h2>Our Offices, Marinas &amp; Boatyards</h2>
-      <a class="s-link" href="#">View all offices</a>
     </div>
     <div class="ports-filter rise" role="tablist" aria-label="Filter locations by region">
       <button class="on" data-region="all">All</button>
@@ -660,45 +714,48 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
     <div class="ports-grid">
       <div class="visit-list rise">
         <h4>Marinas &amp; Boatyards</h4>
-        <div class="visit-item" data-loc="san-diego-boatyard" data-region="west" data-city="San Diego, CA" data-address="2614 Shelter Island Drive, Suite A, San Diego, CA 92106" data-hours="Mon &ndash; Sat, 8am &ndash; 5pm">
-          <div class="visit-item-l"><h5>San Diego Marina &amp; Boatyard</h5><small>Mon &ndash; Sat, 8am &ndash; 5pm &middot; By appointment anytime</small></div>
+        <div class="visit-item" data-loc="san-diego-boatyard" data-region="west" data-city="San Diego, CA" data-address="2614 Shelter Island Drive, Suite A, San Diego, CA 92106" data-hours="Mon &ndash; Fri, 7am &ndash; 3:30pm (PT)">
+          <div class="visit-item-l"><h5>San Diego Marina &amp; Boatyard</h5><small>Mon &ndash; Fri, 7am &ndash; 3:30pm (PT) &middot; By appointment anytime</small></div>
           <div class="visit-item-r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></div>
         </div>
         <h4>Sales Offices</h4>
-        <div class="visit-item" data-loc="san-diego" data-region="west" data-city="San Diego, CA" data-address="2330 Shelter Island Drive, Suite 105, San Diego, CA 92106" data-hours="Mon &ndash; Sat, 8am &ndash; 5pm">
-          <div class="visit-item-l"><h5>San Diego</h5><small>Mon &ndash; Sat, 8am &ndash; 5pm &middot; By appointment anytime</small></div>
+        <div class="visit-item" data-loc="san-diego" data-region="west" data-city="San Diego, CA" data-address="2330 Shelter Island Drive, Suite 105, San Diego, CA 92106" data-hours="Mon &ndash; Fri, 8am &ndash; 5pm (PT)">
+          <div class="visit-item-l"><h5>San Diego</h5><small>Mon &ndash; Fri, 8am &ndash; 5pm (PT) &middot; By appointment anytime</small></div>
           <div class="visit-item-r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></div>
         </div>
-        <div class="visit-item" data-loc="newport-harbor" data-region="west" data-type="maritime" data-city="Newport Beach, CA" data-address="3101 West Coast Highway, Suite 130, Newport Beach, CA 92663" data-hours="Mon &ndash; Sat, 8am &ndash; 5pm">
-          <div class="visit-item-l"><span class="brow-maritime">Maritime</span><h5>Newport Harbor</h5><small>Mon &ndash; Sat, 8am &ndash; 5pm &middot; By appointment anytime</small></div>
+        <div class="visit-item" data-loc="newport-harbor" data-region="west" data-type="maritime" data-city="Newport Beach, CA" data-address="3101 West Coast Highway, Suite 130, Newport Beach, CA 92663" data-hours="Mon &ndash; Fri, 8am &ndash; 5pm (PT)">
+          <div class="visit-item-l"><span class="brow-maritime">Maritime</span><h5>Newport Harbor</h5><small>Mon &ndash; Fri, 8am &ndash; 5pm (PT) &middot; By appointment anytime</small></div>
           <div class="visit-item-r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></div>
         </div>
-        <div class="visit-item" data-loc="marina-del-rey" data-region="west" data-city="Marina del Rey, CA" data-address="13900 Marquesas Way, Marina del Rey, CA 90292" data-hours="Mon &ndash; Sat, 8am &ndash; 5pm">
-          <div class="visit-item-l"><h5>Marina del Rey</h5><small>Mon &ndash; Sat, 8am &ndash; 5pm &middot; By appointment anytime</small></div>
+        <div class="visit-item" data-loc="marina-del-rey" data-region="west" data-city="Marina del Rey, CA" data-address="13900 Marquesas Way, Marina del Rey, CA 90292" data-hours="Mon &ndash; Fri, 8am &ndash; 5pm (PT)">
+          <div class="visit-item-l"><h5>Marina del Rey</h5><small>Mon &ndash; Fri, 8am &ndash; 5pm (PT) &middot; By appointment anytime</small></div>
           <div class="visit-item-r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></div>
         </div>
-        <div class="visit-item" data-loc="sausalito" data-region="west" data-city="Sausalito, CA" data-address="300B Harbor Drive, Sausalito, CA 94965" data-hours="Mon &ndash; Sat, 8am &ndash; 5pm">
-          <div class="visit-item-l"><h5>Sausalito</h5><small>Mon &ndash; Sat, 8am &ndash; 5pm &middot; By appointment anytime</small></div>
+        <div class="visit-item" data-loc="sausalito" data-region="west" data-city="Sausalito, CA" data-address="300B Harbor Drive, Sausalito, CA 94965" data-hours="Mon &ndash; Fri, 8am &ndash; 5pm (PT)">
+          <div class="visit-item-l"><h5>Sausalito</h5><small>Mon &ndash; Fri, 8am &ndash; 5pm (PT) &middot; By appointment anytime</small></div>
           <div class="visit-item-r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></div>
         </div>
-        <div class="visit-item" data-loc="seattle" data-region="west" data-city="Seattle, WA" data-address="2288 W Commodore Way, Suite 110, Seattle, WA 98199" data-hours="Mon &ndash; Sat, 8am &ndash; 5pm">
-          <div class="visit-item-l"><h5>Seattle</h5><small>Mon &ndash; Sat, 8am &ndash; 5pm &middot; By appointment anytime</small></div>
+        <div class="visit-item" data-loc="seattle" data-region="west" data-city="Seattle, WA" data-address="2288 W Commodore Way, Suite 110, Seattle, WA 98199" data-hours="Mon &ndash; Fri, 8am &ndash; 5pm (PT)">
+          <div class="visit-item-l"><h5>Seattle</h5><small>Mon &ndash; Fri, 8am &ndash; 5pm (PT) &middot; By appointment anytime</small></div>
           <div class="visit-item-r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></div>
         </div>
-        <div class="visit-item" data-loc="kona" data-region="west" data-city="Kailua-Kona, HI" data-address="73-4539 Iki Place, Kailua-Kona, HI 96740" data-hours="By appointment">
-          <div class="visit-item-l"><h5>Kona</h5><small>By appointment</small></div>
+        <div class="visit-item" data-loc="kona" data-region="west" data-city="Kailua-Kona, HI" data-address="73-4539 Iki Place, Kailua-Kona, HI 96740" data-hours="By appointment (HST)">
+          <div class="visit-item-l"><h5>Kona</h5><small>(HST) &middot; By appointment</small></div>
           <div class="visit-item-r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></div>
         </div>
-        <div class="visit-item" data-loc="wrightsville-beach" data-region="east" data-city="Wrightsville Beach, NC" data-address="100 Keel Street, Wrightsville Beach, NC 28480" data-hours="Mon &ndash; Sat, 8am &ndash; 5pm">
-          <div class="visit-item-l"><h5>Wrightsville Beach</h5><small>Mon &ndash; Sat, 8am &ndash; 5pm &middot; By appointment anytime</small></div>
+        <div class="visit-item" data-loc="wrightsville-beach" data-region="east" data-city="Wrightsville Beach, NC" data-address="100 Keel Street, Wrightsville Beach, NC 28480" data-hours="Mon &ndash; Fri, 8am &ndash; 5pm (ET)">
+          <div class="visit-item-l"><h5>Wrightsville Beach</h5><small>Mon &ndash; Fri, 8am &ndash; 5pm (ET) &middot; By appointment anytime</small></div>
           <div class="visit-item-r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></div>
         </div>
-        <div class="visit-item" data-loc="charleston" data-region="east" data-city="Charleston, SC" data-address="49 Immigration Street, Suite 101F, Charleston, SC 29403" data-hours="Mon &ndash; Sat, 8am &ndash; 5pm">
-          <div class="visit-item-l"><h5>Charleston</h5><small>Mon &ndash; Sat, 8am &ndash; 5pm &middot; By appointment anytime</small></div>
+        <div class="visit-item" data-loc="charleston" data-region="east" data-city="Charleston, SC" data-address="49 Immigration Street, Suite 101F, Charleston, SC 29403" data-hours="Mon &ndash; Fri, 8am &ndash; 5pm (ET)">
+          <div class="visit-item-l"><h5>Charleston</h5><small>Mon &ndash; Fri, 8am &ndash; 5pm (ET) &middot; By appointment anytime</small></div>
           <div class="visit-item-r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></div>
         </div>
       </div>
       <div id="leaflet-map" class="rise d1"></div>
+    </div>
+    <div class="ports-link-row rise">
+      <a class="s-link" href="#">View all offices</a>
     </div>
   </div>
 </section>
