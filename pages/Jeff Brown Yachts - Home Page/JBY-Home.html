@@ -47,12 +47,12 @@ a{color:inherit;text-decoration:none}
 /* The section's link reads better after the cards than between the title and
    them, where it sat between the reader and the thing it points at. */
 .s-link-row{display:flex;justify-content:center}
-/* The space under the cards is one and a half times the space over them: 20px
-   above the vessels, 56px above the events. The strip already carries some of
-   it as its own bottom padding — 30px under the vessels and 40px under the
-   events — so the row only adds what is left. */
-.vessels .s-link-row{margin-top:0}
-.events-grid-wrap .s-link-row{margin-top:44px}
+/* 32px under the cards in both strips. The strip carries part of it as its own
+   bottom padding — 30px under the vessels, 40px under the events — so the row
+   adds the remainder, and the events strip gives up 8px of padding to land on
+   the same number. */
+.vessels .s-link-row{margin-top:2px}
+.events-grid-wrap .s-link-row{margin-top:0}
 .s-title-row h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   color:var(--navy);text-transform:uppercase;margin:0}
 .s-link{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
@@ -225,7 +225,7 @@ a{color:inherit;text-decoration:none}
 /* Horizontal auto-scrolling strip with 6 cards */
 .events-strip-wrap{position:relative;margin-top:40px;overflow:hidden;padding:8px 0}
 .events-strip{display:flex;gap:24px;overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;
-  padding:8px 40px 32px;scrollbar-width:none}
+  padding:8px 40px 24px;scrollbar-width:none}
 .events-strip::-webkit-scrollbar{display:none}
 .event-card{flex:0 0 420px;background:#fff;border-radius:2px;overflow:hidden;cursor:pointer;
   transition:transform .55s cubic-bezier(0.22,1,0.36,1), box-shadow .55s ease;
@@ -504,21 +504,18 @@ a{color:inherit;text-decoration:none}
 .vessel-card .price{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
   margin:-8px 0 0}
 
-/* CTA — rounded square (4px) chevron → wider "View" rounded square on hover */
+/* CTA — the "View" plate, at rest. It used to be a 36px chevron that widened
+   into the word on hover, which is a state a finger never reaches: on a phone
+   the card offered a bare arrow and nothing that said what it did. */
 .v-cta{position:absolute;bottom:24px;right:24px;z-index:4;
-  height:36px;width:36px;border-radius:0;
+  height:36px;width:92px;border-radius:0;
   color:#fff;
   font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;
   letter-spacing:0;text-transform:uppercase;
   display:flex;align-items:center;justify-content:center;
-  padding:0;border:0;cursor:pointer;overflow:hidden;white-space:nowrap;
-  transition:width 1.5s cubic-bezier(0.16, 1, 0.3, 1),
-             padding 1.5s cubic-bezier(0.16, 1, 0.3, 1)}
-.v-cta-text{opacity:0;max-width:0;overflow:hidden;
-  transition:opacity .6s ease 0.4s, max-width 1.4s cubic-bezier(0.16, 1, 0.3, 1)}
-.v-cta-icon{display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;
-  opacity:1;max-width:18px;
-  transition:opacity .5s ease, max-width .9s cubic-bezier(0.16, 1, 0.3, 1)}
+  padding:0 16px;border:0;cursor:pointer;overflow:hidden;white-space:nowrap}
+.v-cta-text{opacity:1;max-width:none;overflow:hidden}
+.v-cta-icon{display:none}
 .vessel-card:hover .v-cta{width:92px;padding:0 16px}
 .vessel-card:hover .v-cta-text{opacity:1;max-width:80px}
 .vessel-card:hover .v-cta-icon{opacity:0;max-width:0}

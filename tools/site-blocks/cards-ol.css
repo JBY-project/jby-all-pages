@@ -38,24 +38,20 @@
 .ol-in .prc{font-family:var(--myr);font-weight:300;font-size:18px;line-height:28px;color:#fff;
   margin:-8px 0 0}
 
-/* CTA — a square chevron that widens into "View". A span rather than a
-   button: the whole card is an <a>, and a button inside a link is not markup
-   a browser is obliged to make sense of. */
+/* CTA — the "View" plate, at rest. A span rather than a button: the whole card
+   is an <a>, and a button inside a link is not markup a browser is obliged to
+   make sense of. It used to be a chevron that widened into the word on hover,
+   which a finger never reaches. */
 .ol-cta{position:absolute;bottom:24px;right:24px;z-index:4;
-  height:36px;width:36px;color:#fff;
+  height:36px;width:92px;color:#fff;
   font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;
   letter-spacing:0;text-transform:uppercase;
   display:flex;align-items:center;justify-content:center;
-  padding:0;overflow:hidden;white-space:nowrap;
+  padding:0 16px;overflow:hidden;white-space:nowrap;
   background:var(--jby-veil,rgba(255,255,255,0.28));
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
-  transition:width 1.5s cubic-bezier(0.16, 1, 0.3, 1),
-             padding 1.5s cubic-bezier(0.16, 1, 0.3, 1)}
-.ol-cta .t{opacity:0;max-width:0;overflow:hidden;
-  transition:opacity .6s ease 0.4s, max-width 1.4s cubic-bezier(0.16, 1, 0.3, 1)}
-.ol-cta .i{display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;
-  opacity:1;max-width:18px;
-  transition:opacity .5s ease, max-width .9s cubic-bezier(0.16, 1, 0.3, 1)}
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.ol-cta .t{opacity:1;max-width:none;overflow:hidden}
+.ol-cta .i{display:none}
 .ol:hover .ol-cta{width:92px;padding:0 16px}
 .ol:hover .ol-cta .t{opacity:1;max-width:80px}
 .ol:hover .ol-cta .i{opacity:0;max-width:0}
