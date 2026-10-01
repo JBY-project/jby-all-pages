@@ -52,7 +52,11 @@ a{color:inherit;text-decoration:none}
 /* PAGE HEAD */
 main{padding-top:128px}
 .wrap{max-width:1440px;margin:0 auto;padding:0 var(--page-pad)}
-.team-head{padding-top:48px}
+/* The page's own title, centred like every other section head on the site.
+   .split-words sets the heading to inline-block to animate word by word, so
+   the centring has to come from the row around it rather than from the
+   heading's own text-align. The line under it follows. */
+.team-head{padding-top:48px;text-align:center}
 .team-head h1{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:26px;line-height:38px;letter-spacing:0;text-transform:uppercase;color:var(--navy);margin:0}
 .team-head p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:20px;line-height:28px;color:var(--mute);margin:8px 0 0;max-width:none}
 
