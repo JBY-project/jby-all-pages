@@ -1,0 +1,71 @@
+/* ==========================================================================
+   The same listing card once more, under the event page's names for it — the
+   What vessels will be on display rail. It was built by hand from the home
+   page and then drifted: the name went uppercase Mesmerize at 15px where the
+   site reads it in sentence-case Myriad Pro at 18, the price went a step
+   lighter and a step smaller, and the View plate shrank to a 30px pill with a
+   chevron beside the word. Same values as the home card now, moved onto
+   .ev-card and its parts.
+
+   Two things cannot be copied across verbatim.
+
+   The selectors carry #jb_body.page-event, which is this page's body. It
+   shares nine thousand lines of the old site's stylesheet with pages that know
+   nothing about this card, and an id outranks anything that sheet can say.
+
+   The fonts are named differently. This page loads one family per weight —
+   Mesmerize-ex-lt is what the rest of the site writes as 'Mesmerize' at
+   font-weight 300, and Myriad-Pro-Light is 'Myriad Pro' at 300. The faces are
+   the same files; only the names differ.
+   ========================================================================== */
+
+#jb_body.page-event .ev-card__veil{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(54,84,102,0.42) 0%,rgba(54,84,102,0) 38%)}
+
+/* Bottom info — the navy gradient a step under --navy, per the client's note
+   that the listing gradients should be a darker JBY blue than #41647b. */
+#jb_body.page-event .ev-card__info{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:36px 20px 20px;
+  background:linear-gradient(179.96deg,rgba(54,84,102,0) 22%,rgba(54,84,102,0.82) 62%,rgba(54,84,102,0.94) 100%);
+  display:flex;flex-direction:column;gap:12px}
+
+/* The chip's own values, not the button's: it sits where the navy gradient is
+   still transparent, so it veils open water and needs more white and a heavier
+   blur to read at all. The note in cards.css works this out in full. */
+#jb_body.page-event .ev-card__chip{align-self:flex-start;
+  background:linear-gradient(180deg,rgba(255,255,255,0.34),rgba(255,255,255,0.20));
+  -webkit-backdrop-filter:blur(84px);backdrop-filter:blur(84px);
+  color:#fff;padding:5px 12px 4px;font-family:"Mesmerize-ex-lt";
+  font-size:10px;line-height:15px;letter-spacing:0.07em;text-transform:uppercase;
+  border-radius:2px;display:inline-block}
+
+/* Two lines, with the second one reserved whether it is used or not, so the
+   chip and the first line sit level across the rail. 82% keeps the second line
+   clear of the View plate in the corner, and text-wrap:balance evens the two
+   lines rather than filling one and dropping the remainder onto the other. */
+#jb_body.page-event .ev-card__name{font-family:"Myriad-Pro-Light";font-size:18px;line-height:28px;color:#fff;
+  margin:0;text-transform:none;letter-spacing:0;padding-right:0;max-width:82%;min-height:56px;text-wrap:balance;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+
+/* The panel's gap is 12px between every pair; -12 closes the space under the
+   name entirely, leaving the chip where it is. The price then falls on the
+   name's own 28px line rhythm — the next line of that block rather than a
+   separate thing floating under it. */
+#jb_body.page-event .ev-card__price{font-family:"Myriad-Pro-Light";font-size:18px;line-height:28px;color:#fff;
+  margin:-12px 0 0}
+
+/* CTA — the "View" plate, at rest, 92 by 36 in the corner. It was a 30px pill
+   with a chevron that slid on hover, which is a state a finger never reaches.
+   The veil and its blur are rule 4 of jby-system.css, which this page does not
+   link, written out. */
+#jb_body.page-event .ev-card__cta{position:absolute;bottom:24px;right:24px;z-index:4;
+  height:36px;width:92px;border-radius:0;color:#fff;
+  font-family:"Mesmerize-ex-lt";font-size:13px;
+  letter-spacing:0;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;gap:0;
+  padding:0 16px;border:0;cursor:pointer;overflow:hidden;white-space:nowrap;
+  background:var(--jby-veil,rgba(255,255,255,0.28));
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  transition:background .25s}
+#jb_body.page-event .ev-card__cta-text{opacity:1;max-width:none;overflow:hidden}
+#jb_body.page-event .ev-card__cta-icon{display:none}
+#jb_body.page-event .ev-card:hover .ev-card__cta{width:92px;padding:0 16px}

@@ -64,6 +64,10 @@ pages/Jeff Brown Yachts - Yacht Management Page/index.html
 pages/Riva-112-Dolcevita-Super/index.html
 pages/jby-event-page-live/index.html
 pages/jby-event-page-live/locations.html
+# The event page's What vessels will be on display rail keeps its card in
+# a stylesheet beside the page, so the sheet is a target of its own. The
+# band and footer passes find nothing in a .css file and leave it alone.
+pages/jby-event-page-live/assets/css/event-page-edits.css
 pages/jby-search/index.html
 pages/jby-search/search.html
 # The two search pages keep their card rules in a stylesheet rather than in

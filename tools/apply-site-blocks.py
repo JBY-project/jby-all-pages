@@ -104,7 +104,7 @@ def parse_rules(css):
     i = 0
     while i < len(lines):
         line = lines[i]
-        if not re.match(r"[.\w][^{]*\{", line):
+        if not re.match(r"[.#\w][^{]*\{", line):
             i += 1
             continue
         sel = line.split("{", 1)[0].strip()
@@ -137,6 +137,7 @@ FAMILIES = [
     ("cards.css", ".vessel-card{"),
     ("cards-v-card.css", ".v-overlay{"),
     ("cards-ol.css", ".ol-in{"),
+    ("cards-ev.css", "#jb_body.page-event .ev-card{"),
 ]
 
 
@@ -201,8 +202,15 @@ def apply_cards(text, report):
 # about the card, which includes the page's own phone rules.
 PHONE_HEAD = "@media (hover:none),(pointer:coarse){"
 
+# (what says the family is here, what says a block already belongs to it,
+#  which sheet to lay down). One page carries one of these.
+PHONE_FAMILIES = [
+    (".vessel-card{", ".vessel-card", "cards-phone.css"),
+    ("#jb_body.page-event .ev-card{", ".ev-card", "cards-ev-phone.css"),
+]
 
-def phone_span(css):
+
+def phone_span(css, mark):
     """Where the phone card block sits in `css`, its comment and all, or None.
 
     Matched on the media query rather than on a marker, so that the block the
@@ -220,7 +228,7 @@ def phone_span(css):
                 if depth == 0:
                     end = j + 1
                     break
-        if ".vessel-card" in css[i:end]:
+        if mark in css[i:end]:
             # The comment block directly above goes with it, both ways — same
             # rule as rule_span, and for the same reason.
             head = i
@@ -238,13 +246,16 @@ def phone_span(css):
 
 def apply_cards_phone(text, report):
     """Lay the phone card over the page, at the end of its last stylesheet."""
-    if ".vessel-card{" not in text:
+    for marker, mark, name in PHONE_FAMILIES:
+        if marker in text:
+            break
+    else:
         return text, False
-    sheet = read(os.path.join(BLOCKS, "cards-phone.css"))
+    sheet = read(os.path.join(BLOCKS, name))
     # The sheet's own header explains the file; the block carries its own
     # comments and is what goes across.
     block = sheet[sheet.index("*/\n") + 3:].strip("\n")
-    span = phone_span(text)
+    span = phone_span(text, mark)
     if span:
         if text[span[0]:span[1]] == block:
             return text, False

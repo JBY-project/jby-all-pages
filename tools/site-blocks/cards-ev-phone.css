@@ -1,0 +1,49 @@
+/* ==========================================================================
+   The event page's card on a phone — cards-phone.css moved onto .ev-card, for
+   the same reasons and with the same values. See that file for why each number
+   is what it is; what follows is only what differs here.
+
+   The selectors carry #jb_body.page-event, this page's body, so that the old
+   site's shared stylesheet cannot reach past them. The card's own height lives
+   in the page's sheet, as it does everywhere, so the rule that grows it names
+   the card alone.
+   ========================================================================== */
+
+/* The View button on the vessel cards, on every device. On a phone it leaves
+   the corner and runs the full width under the price, carrying the label
+   rather than the chevron — there is no hover to widen it there, so a
+   collapsed chevron would be the only thing a tap ever showed. The panel's
+   bottom padding grows by the button's height plus its gap, since the button
+   is positioned against the card and not laid out in the panel's flow, and the
+   name gets the full width back: 82% was reserving the corner the button no
+   longer sits in.
+
+   Nothing on the card answers :hover here. A tap leaves :hover latched on a
+   touch screen, so every rule that listens to it is a state the finger can
+   switch on and not switch off. These repeat the hover selectors verbatim so
+   they win on equal specificity from further down the sheet. */
+@media (hover:none),(pointer:coarse){
+  #jb_body.page-event .ev-card{height:430px}
+  #jb_body.page-event .ev-card__info{padding-bottom:72px}
+  /* Full width means the line fills it, and the reserved second line goes:
+     there is one card in the eye at this width, so there is no row for the
+     names to line up across, and a one-line name was leaving an empty line
+     between itself and the price. */
+  #jb_body.page-event .ev-card__name{max-width:100%;min-height:0;text-wrap:wrap}
+  /* The card growing moves the panel's top edge down the photograph, which
+     lands the city chip on water rather than on sky. The rest is a second
+     veil layer that starts darkening well above the panel's top edge and
+     hands over to the panel's own gradient below it. */
+  #jb_body.page-event .ev-card__veil{background:
+    linear-gradient(180deg,rgba(54,84,102,0.42) 0%,rgba(54,84,102,0) 38%),
+    linear-gradient(180deg,rgba(54,84,102,0) 34%,rgba(54,84,102,0.5) 48%,rgba(54,84,102,0.5) 100%)}
+  #jb_body.page-event .ev-card__cta{left:20px;right:20px;bottom:20px;width:auto;height:36px;padding:0;
+    justify-content:center;transition:none}
+  #jb_body.page-event .ev-card__cta-text{display:inline;opacity:1;max-width:none}
+  #jb_body.page-event .ev-card__cta-icon{display:none}
+  #jb_body.page-event .ev-card:hover .ev-card__img{transform:none}
+  #jb_body.page-event .ev-card:hover .ev-card__cta{width:auto;padding:0}
+  #jb_body.page-event .ev-card__cta:hover{background:var(--jby-veil,rgba(255,255,255,0.28));color:#fff}
+  /* The rail's own chevrons latch the same way. */
+  #jb_body.page-event .ev-rail-nav:hover{background:var(--navy)}
+}
