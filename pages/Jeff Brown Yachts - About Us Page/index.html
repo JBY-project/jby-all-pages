@@ -99,6 +99,16 @@ a{color:inherit;text-decoration:none}
 .story-copy p:last-child{margin-bottom:0}
 .story-media{position:relative;aspect-ratio:540/430;border-radius:2px;overflow:hidden;background:var(--section)}
 .story-media img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+/* 720 of that grid is a fixed column and the photograph takes what is left:
+   100px wide in a 1000px window, a postage stamp beside four paragraphs. The
+   two columns only hold where the photograph has room to be one, so the
+   section stacks below 1200 — the arrangement it already used under 980,
+   reached earlier. This sits above that block so the narrow widths keep their
+   own spacing. */
+@media (max-width:1200px){
+  .story-grid{grid-template-columns:1fr;gap:40px}
+  .story-media{aspect-ratio:16/11}
+}
 @media (max-width:980px){
   .story{padding:80px 24px 0}
   .story-grid{grid-template-columns:1fr;gap:32px}
@@ -113,6 +123,12 @@ a{color:inherit;text-decoration:none}
 .stats-head h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   text-transform:uppercase;color:var(--navy);margin:0 0 8px}
 .stats-head p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:20px;line-height:28px;color:var(--mute);margin:0 auto;max-width:640px}
+/* The document gives the four figures a title of their own, under the line
+   about personal guidance rather than instead of it. At the stat card's own
+   16px rather than the 20 the line above it takes, so that the two read as a
+   sentence and the label under it, not as two headings. */
+.stats-label{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:24px;letter-spacing:0;
+  text-transform:uppercase;color:var(--navy);text-align:center;margin:0 0 20px}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .stat-card{background:var(--section);border-radius:2px;padding:24px;min-height:140px;display:flex;flex-direction:column;
   align-items:center;justify-content:center;text-align:center;gap:16px}
@@ -472,7 +488,7 @@ section.jby-band{margin-top:0}
   <div class="hero-veil"></div>
   <div class="hero-text">
     <h1>A boutique yacht dealership with coast-to-coast reach</h1>
-    <p>Jeff Brown Yachts brings new yacht sales, brokerage, service, and yacht management together through a team of specialists in leading boating markets.</p>
+    <p>Jeff Brown Yachts brings new yacht sales, brokerage, service, and yacht management together through a team of specialists in the country&rsquo;s leading boating markets.</p>
     <div class="hero-cta">
       <button class="btn-solid" data-scroll="#team">Meet the Team</button>
       <button class="btn-ghost" data-scroll="#locations">Find an Office</button>
@@ -485,9 +501,10 @@ section.jby-band{margin-top:0}
   <div class="story-grid">
     <div class="story-copy rise">
       <p class="eyebrow">Our Story</p>
-      <p>After decades of experience in the marine industry, Jeff Brown Yachts was built around a more personal approach to yacht sales and brokerage, combining boutique-level service with deep market expertise.</p>
-      <p>Today, JBY represents an elite lineup of brands, including Riva, Wally, Pershing, Sirena, BRABUS, Axopar, Jeanneau, and Four Winns, across seven home ports, while maintaining the personal, one-on-one approach the company is known for.</p>
-      <p>Every client is supported by experienced sales professionals, licensed brokers, bonded agents, and a dedicated Service &amp; Warranty Department, delivering a seamless experience before, during, and after the sale.</p>
+      <p>Jeff Brown Yachts has spent three decades building a reputation defined not by volume, but by the relationships we keep. That same personal approach to yacht sales and brokerage &mdash; pairing boutique-level attention with the kind of market knowledge that only comes from years on the water &mdash; still defines how we work today. It&rsquo;s the reason clients come back to JBY, and the reason they send us the people they trust most.</p>
+      <p>Our portfolio is chosen with the same care we bring to every client. We are a boutique firm, deliberately so: on the West Coast, we hold exclusive representation for Axopar, BRABUS Marine, Pershing, Riva, Sirena, and Wally. On the East Coast, our team represents Axopar, BRABUS Marine, and Everglades. Every brand in our portfolio has earned its place.</p>
+      <p>Each client works with an experienced sales professional &mdash; many of them licensed captains who have actually run the boats they sell, not just sold them &mdash; supported by bonded brokers and a dedicated Service &amp; Warranty team, guiding you before the sale, during it, and for as long as you own the boat. With home ports in San Diego, Newport Beach, Marina del Rey, Sausalito, Seattle, Kailua Kona, Wrightsville Beach, and Charleston, the same personal attention travels with every client we serve.</p>
+      <p>Selling a yacht is where the relationship begins, not where it ends. Over three decades, that&rsquo;s meant owner gatherings, sea trials, and quiet access to some of the country&rsquo;s largest boat shows &mdash; simply part of what it means to be part of the JBY family.</p>
     </div>
     <div class="story-media rise d1 zoom-in">
       <img src="./assets/story.jpg" alt="Jeff Brown in the Jeff Brown Yachts office"/>
@@ -499,14 +516,15 @@ section.jby-band{margin-top:0}
 <section class="stats" id="why">
   <div class="stats-inner">
     <div class="stats-head rise">
-      <h2>Built around personal guidance, local knowledge, and serious inventory.</h2>
-      <p>We helps clients buy, sell, service, and enjoy premium yachts through experienced local teams and a carefully selected portfolio of leading marine brands.</p>
+      <h2>Built around personal guidance, local knowledge, and a carefully curated portfolio.</h2>
+      <p>We help clients buy, sell, service, and enjoy their yachts through experienced local teams and a lineup of leading marine brands &mdash; with the same standard of care continuing long after the sale.</p>
     </div>
+    <p class="stats-label rise">JBY at a glance</p>
     <div class="stats-grid">
-      <div class="stat-card rise"><p class="k">Fastest Growing</p><p class="v">Luxury yacht dealership in the United States</p></div>
-      <div class="stat-card rise d1"><p class="k">8 Offices</p><p class="v">Across key coastal markets and premier yachting destinations</p></div>
-      <div class="stat-card rise d2"><p class="k">Coast to Coast</p><p class="v">California, Pacific Northwest, Hawaii &amp; Carolinas</p></div>
-      <div class="stat-card rise d3"><p class="k">Exclusive</p><p class="v">Mid-Atlantic dealer for Axopar &amp; BRABUS Marine</p></div>
+      <div class="stat-card rise"><p class="k">Three decades</p><p class="v">in the marine industry, built one relationship at a time.</p></div>
+      <div class="stat-card rise d1"><p class="k">Eight home ports</p><p class="v">across California, the Pacific Northwest, Hawaii, and the Carolinas.</p></div>
+      <div class="stat-card rise d2"><p class="k">Seven brands</p><p class="v">Axopar, BRABUS Marine, Everglades, Pershing, Riva, Sirena, and Wally</p></div>
+      <div class="stat-card rise d3"><p class="k">Mercury &amp; ABYC certified</p><p class="v">A dedicated Service &amp; Warranty Department, staffed by technicians holding both credentials under one roof.</p></div>
     </div>
   </div>
 </section>
@@ -518,9 +536,9 @@ section.jby-band{margin-top:0}
   <div class="promo-text rise">
     <div class="tg">
       <h2>Our Team</h2>
-      <p>Meet the brokers, technicians, and managers behind JBY.</p>
+      <p>The licensed brokers, certified technicians, and specialists behind every JBY relationship.</p>
     </div>
-    <button class="btn-ghost">View Team Members</button>
+    <button class="btn-ghost">Meet the Team</button>
   </div>
 </section>
 
@@ -531,9 +549,9 @@ section.jby-band{margin-top:0}
   <div class="promo-text rise">
     <div class="tg">
       <h2>Locations</h2>
-      <p>Seven home ports, from Seattle to Charleston.</p>
+      <p>Eight home ports, from San Diego to Charleston.</p>
     </div>
-    <button class="btn-ghost">View Our Offices</button>
+    <button class="btn-ghost">Find an Office</button>
   </div>
 </section>
 
@@ -549,8 +567,8 @@ section.jby-band{margin-top:0}
   <div class="jb-veil" aria-hidden="true"></div>
   <div class="jb-body">
     <h2 data-rise="0">How can we help?</h2>
-    <p data-rise="1">Connect with our yacht brokerage and sales team to find your perfect yacht.</p>
-    <button class="jb-btn" type="button" data-rise="2">Contact us</button>
+    <p data-rise="1">Connect with our sales and brokerage team &mdash; whenever you&rsquo;re ready to start looking.</p>
+    <button class="jb-btn" type="button" data-rise="2">Start a Conversation</button>
   </div>
 </section>
 
