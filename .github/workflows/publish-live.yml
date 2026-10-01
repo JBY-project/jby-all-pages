@@ -1,0 +1,95 @@
+name: Publish live pages
+
+# The live link a client holds is https://jby-project.github.io/<repo>/, and each
+# of those repos is its own site. Editing a page here used to move nothing: the
+# pages went out only when somebody remembered to run the script by hand, and the
+# round of edits before this workflow existed sat unpublished for six days.
+#
+# Now the push does it. tools/live-pages.txt says which folder serves which repo;
+# tools/publish-live-pages.py lays the folder over the repo and pushes.
+
+on:
+  push:
+    branches:
+      - publish/all
+  workflow_dispatch:
+    inputs:
+      all:
+        description: Publish every page, not only the ones the push changed
+        type: boolean
+        default: false
+
+# Two pushes must not race into the same repositories, and a half-finished
+# publish must never be cancelled — so runs queue rather than replace each other.
+concurrency:
+  group: publish-live
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the source
+        uses: actions/checkout@v4
+        with:
+          # The script works out what moved by diffing two commits, so the
+          # single-commit checkout Actions gives by default is not enough.
+          fetch-depth: 0
+
+      - name: Authenticate to the page repositories
+        env:
+          TOKEN: ${{ secrets.PUBLISH_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${TOKEN}" ]; then
+            echo "::error::PUBLISH_TOKEN is not set. It needs Contents: read and write on the JBY-project page repositories; without it this workflow can read the source but not move a single live page."
+            exit 1
+          fi
+          # The script clones over https. Rewriting the prefix lets it push
+          # without knowing anything about how it was authenticated.
+          git config --global url."https://x-access-token:${TOKEN}@github.com/".insteadOf "https://github.com/"
+
+      - name: Publish
+        id: publish
+        run: |
+          set -euo pipefail
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.all }}" = "true" ]; then
+            echo "publishing every page"
+            python3 tools/publish-live-pages.py --all | tee result.txt
+            exit 0
+          fi
+
+          BEFORE="${{ github.event.before }}"
+
+          # A first push to the branch, or a force-push, leaves `before` pointing
+          # at nothing this checkout holds. One commit back is the honest reading
+          # then: publish what the push itself changed rather than all forty.
+          if [ -z "${BEFORE}" ] \
+            || [ "${BEFORE}" = "0000000000000000000000000000000000000000" ] \
+            || ! git cat-file -e "${BEFORE}^{commit}" 2>/dev/null; then
+            echo "no usable previous commit; falling back to HEAD~1"
+            BEFORE=$(git rev-parse HEAD~1)
+          fi
+
+          echo "pages changed since ${BEFORE}"
+          python3 tools/publish-live-pages.py --changed-since "${BEFORE}" | tee result.txt
+
+      - name: Say what moved
+        if: always()
+        run: |
+          {
+            echo "### Live pages"
+            echo
+            if [ -s result.txt ]; then
+              echo '```'
+              cat result.txt
+              echo '```'
+            else
+              echo "Nothing was published."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
