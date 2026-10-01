@@ -100,14 +100,16 @@ input,select,textarea{font-family:inherit}
 .ci-head p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:20px;line-height:28px;letter-spacing:0;
   color:var(--mute);margin:16px 0 0;max-width:900px}
 
-.ci-grid{display:grid;grid-template-columns:652px minmax(0,1fr);gap:188px;margin-top:0;align-items:start}
+/* ---- The section reads down the middle ------------------------------
+   It was two columns: Contact us, a list of ways to reach us and the socials
+   on the left, a sticky card with the form on the right. The reference the
+   client sent asks for one column — the question, the line under it, and the
+   form below — so the form now follows the title rather than standing beside
+   it, and the ways to reach us follow the form.
 
-/* ---- LEFT: title, a list of ways to reach us, socials ---------------- */
-/* Laid out the way the reference lays it out: the title and its line, a rule,
-   then one row per contact with a filled disc for its icon, then a rule, then
-   the social icons. The pieces are the page's own — the same labels, the same
-   numbers, the same three social glyphs. */
-.ci-left{max-width:652px;align-self:stretch;display:flex;flex-direction:column}
+   The card keeps its own heading no longer: Send us a message sat directly
+   under How can we help?, which is two headings for one thing. */
+.ci-ask{max-width:760px;margin:0 auto 40px;text-align:center}
 .ci-title{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:40px;letter-spacing:0;
   text-transform:uppercase;color:var(--navy);margin:0}
 .ci-sub{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
@@ -116,8 +118,8 @@ input,select,textarea{font-family:inherit}
 
 /* The two ways of reaching us sit side by side on one line, and wrap onto
    their own lines only when the column is too narrow to hold both. */
-.ci-list{list-style:none;margin:auto 0 0;padding:0 0 28px;display:flex;flex-wrap:wrap;gap:24px 48px;
-  align-items:center;border-bottom:1px solid var(--line)}
+.ci-list{list-style:none;margin:0;padding:0 0 28px;display:flex;flex-wrap:wrap;gap:24px 48px;
+  align-items:center;justify-content:center;border-bottom:1px solid var(--line)}
 .ci-item{display:flex;align-items:center;gap:16px}
 /* The disc: the accent at a tenth of its strength, the glyph on top of it at
    full. 44px, the size the reference uses. rgba rather than the token, since
@@ -134,7 +136,7 @@ input,select,textarea{font-family:inherit}
 .ci-item-body p a{transition:color .2s}
 .ci-item-body p a:hover{color:var(--navy)}
 
-.ci-social{margin-top:24px;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.ci-social{margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:12px}
 .ci-social h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:22px;letter-spacing:0;
   text-transform:uppercase;color:var(--navy);margin:0}
 
@@ -152,7 +154,12 @@ input,select,textarea{font-family:inherit}
 .ci-photo:hover img{transform:scale(1.06)}
 
 /* ---- RIGHT: contact form card ---- */
-.ci-form{justify-self:end;width:520px;max-width:100%;position:sticky;top:112px;align-self:start}
+/* 640 rather than the 520 it was: the card no longer has a column of its own
+   to be narrow in, and two fields to a row want the width. */
+.ci-form{width:640px;max-width:100%;margin:0 auto}
+/* The ways to reach us, under the form. The rule over the social icons is the
+   .ci-list's own bottom border, which is why the two sit in one block. */
+.ci-reach{max-width:760px;margin:56px auto 0}
 .contact-card{background:#fff;border-radius:2px;padding:28px;
   box-shadow:0 4px 32px 4px rgba(140,140,140,0.24)}
 .contact-card h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:28px;letter-spacing:0;
@@ -222,6 +229,8 @@ input,select,textarea{font-family:inherit}
 /* OUR LOCATIONS — all offices + type filter                              */
 /* ====================================================================== */
 .locations{max-width:1440px;margin:0 auto;padding:88px 40px 0}
+/* Centred, like the section above it now is. */
+.loc-head{text-align:center}
 .loc-head h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:40px;letter-spacing:0;
   color:var(--navy);text-transform:uppercase;margin:0}
 .loc-head p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:var(--mute);
@@ -350,15 +359,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
 /* ====================================================================== */
 /* RESPONSIVE                                                              */
 /* ====================================================================== */
-@media (max-width:1200px){
-  .ci-grid{gap:64px}
-}
 @media (max-width:1024px){
   .page{padding:44px 24px 0}
-  .ci-grid{grid-template-columns:1fr;gap:56px}
-  .ci-form{justify-self:stretch;width:100%;position:static;top:auto}
   .ci-photo{width:100%}
-  .ci-left{max-width:none}
   .ci-title{font-size:26px;line-height:34px}
   .foot-grid{grid-template-columns:1fr;gap:32px}
   .foot-col{padding-top:0}
@@ -368,7 +371,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
   .fields{grid-template-columns:1fr}
   .field,.field.full{grid-column:1 / -1}
   .ci-sub{font-size:18px;line-height:26px}
-  .ci-list{flex-direction:column;align-items:flex-start;gap:24px}
+  .ci-list{flex-direction:column;align-items:center;gap:24px}
   .ci-item-body p{font-size:18px}
   .ci-photo{height:auto;aspect-ratio:652/367}
 }
@@ -627,13 +630,36 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
 </section>
 
 <main class="page">
-  <div class="ci-grid">
-    <div class="ci-left">
-      <div class="ci-intro reveal">
-            <h2 class="ci-title">Contact us</h2>
-            <p class="ci-sub">Let&rsquo;s talk about your next yacht</p>
-          </div>
+  <div class="ci-ask reveal">
+    <h2 class="ci-title">How can we help?</h2>
+    <p class="ci-sub">Tell us what you&rsquo;re looking for, and we&rsquo;ll connect you with the right yacht and the right person on our team.</p>
+  </div>
 
+
+    <div class="ci-form">
+      <form class="contact-card reveal d1" novalidate>
+        <div class="fields">
+          <div class="field"><input type="text" name="name" placeholder="Full name" autocomplete="name"/></div>
+          <div class="field"><input type="email" name="email" placeholder="Email" autocomplete="email"/></div>
+          <div class="field"><input type="tel" name="phone" placeholder="Phone number" autocomplete="tel"/></div>
+          <div class="field">
+            <div class="ci-ms" id="ci-ms">
+              <button type="button" class="ci-ms-control" id="ci-ms-control" aria-haspopup="listbox" aria-expanded="false" aria-label="I am interested in">
+                <span class="ci-ms-tags" id="ci-ms-tags"></span>
+                <span class="ci-ms-ph" id="ci-ms-ph">I am interested in&hellip;</span>
+                <span class="ci-ms-caret"></span>
+              </button>
+              <input type="hidden" name="interest" id="ci-ms-input"/>
+              <div class="ci-ms-menu" id="ci-ms-menu" role="listbox"></div>
+            </div>
+          </div>
+          <div class="field full"><input type="text" name="message" placeholder="Message"/></div>
+        </div>
+        <button type="submit" class="send">Send message</button>
+      </form>
+    </div>
+
+    <div class="ci-reach reveal d2">
           <ul class="ci-list">
             <li class="ci-item reveal d1">
               <span class="ci-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v.35l-8.49 5.09a1 1 0 0 1-1.02 0L3 6.35V6a1 1 0 0 1 1-1zm17 3.52V18a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8.52l8.49 5.09a1 1 0 0 0 1.02 0L21 8.52z"/></svg></span>
@@ -659,32 +685,7 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
             <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 8.2a2.5 2.5 0 00-1.76-1.77C18.28 6 12 6 12 6s-6.28 0-7.84.43A2.5 2.5 0 002.4 8.2 26 26 0 002 12a26 26 0 00.4 3.8 2.5 2.5 0 001.76 1.77C5.72 18 12 18 12 18s6.28 0 7.84-.43A2.5 2.5 0 0021.6 15.8 26 26 0 0022 12a26 26 0 00-.4-3.8zM10 14.6V9.4l4.5 2.6-4.5 2.6z"/></svg></a>
           </div>
           </div>
-        </div>
-
-        <div class="ci-form">
-      <form class="contact-card reveal d2" novalidate>
-        <h2>Send us a message</h2>
-        <div class="fields">
-          <div class="field"><input type="text" name="name" placeholder="Full name" autocomplete="name"/></div>
-          <div class="field"><input type="email" name="email" placeholder="Email" autocomplete="email"/></div>
-          <div class="field"><input type="tel" name="phone" placeholder="Phone number" autocomplete="tel"/></div>
-          <div class="field">
-            <div class="ci-ms" id="ci-ms">
-              <button type="button" class="ci-ms-control" id="ci-ms-control" aria-haspopup="listbox" aria-expanded="false" aria-label="I am interested in">
-                <span class="ci-ms-tags" id="ci-ms-tags"></span>
-                <span class="ci-ms-ph" id="ci-ms-ph">I am interested in&hellip;</span>
-                <span class="ci-ms-caret"></span>
-              </button>
-              <input type="hidden" name="interest" id="ci-ms-input"/>
-              <div class="ci-ms-menu" id="ci-ms-menu" role="listbox"></div>
-            </div>
-          </div>
-          <div class="field full"><input type="text" name="message" placeholder="Message"/></div>
-        </div>
-        <button type="submit" class="send">Send message</button>
-      </form>
     </div>
-  </div>
 </main>
 
 <section class="locations" id="locations">
@@ -694,7 +695,7 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
   <div class="loc-filter" role="tablist" aria-label="Filter locations by type">
     <button class="active" data-filter="all" role="tab" aria-selected="true"><span class="lbl">All</span><span class="n">9</span></button>
     <button data-filter="service" role="tab" aria-selected="false"><span class="lbl">Service Center</span><span class="n">8</span></button>
-    <button data-filter="sales" role="tab" aria-selected="false"><span class="lbl">Sales Center</span><span class="n">9</span></button>
+    <button data-filter="sales" role="tab" aria-selected="false"><span class="lbl">Sales Center</span><span class="n">6</span></button>
     <button data-filter="marina" role="tab" aria-selected="false"><span class="lbl">Marina</span><span class="n">4</span></button>
     <button data-filter="full" role="tab" aria-selected="false"><span class="lbl">Full Service Location</span><span class="n">1</span></button>
   </div>
@@ -736,7 +737,7 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
       </div>
     </a>
 
-    <a class="loc-card reveal" href="#" data-slug="marina-del-rey" data-types="marina sales service">
+    <a class="loc-card reveal" href="#" data-slug="marina-del-rey" data-types="marina service">
       <div class="lc-photo">
         <div class="lc-badges"><span class="loc-badge">Service</span></div>
         <img src="./assets/office_marina_del_rey.webp" alt="Jeff Brown Yachts Marina del Rey"/>
@@ -748,7 +749,7 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
       </div>
     </a>
 
-    <a class="loc-card reveal" href="#" data-slug="sausalito" data-types="marina sales service">
+    <a class="loc-card reveal" href="#" data-slug="sausalito" data-types="marina service">
       <div class="lc-photo">
         <div class="lc-badges"><span class="loc-badge">Service</span></div>
         <img src="./assets/office_sausalito.jpg" alt="Jeff Brown Yachts Sausalito"/>
@@ -796,7 +797,7 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
       </div>
     </a>
 
-    <a class="loc-card reveal" href="#" data-slug="charleston" data-types="marina sales service">
+    <a class="loc-card reveal" href="#" data-slug="charleston" data-types="marina service">
       <div class="lc-photo">
         <div class="lc-badges"><span class="loc-badge">Service</span></div>
         <img src="./assets/office_charleston.jpg" alt="Jeff Brown Yachts Charleston"/>
@@ -1000,6 +1001,17 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
     if (!grid) return;
     var cards = Array.prototype.slice.call(grid.querySelectorAll('.loc-card'));
     var tabs = Array.prototype.slice.call(document.querySelectorAll('.loc-filter button'));
+    // The number beside each filter is counted from the cards rather than
+    // written out beside it. Sales Center said 9 while six offices carried a
+    // Sales badge, because the count was typed and the data was edited.
+    tabs.forEach(function(tab){
+      var f = tab.getAttribute('data-filter');
+      var n = tab.querySelector('.n');
+      if (!n) return;
+      n.textContent = f === 'all' ? cards.length : cards.filter(function(c){
+        return (c.getAttribute('data-types') || '').split(' ').indexOf(f) > -1;
+      }).length;
+    });
     tabs.forEach(function(tab){
       tab.addEventListener('click', function(){
         tabs.forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
