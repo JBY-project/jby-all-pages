@@ -222,10 +222,16 @@ a{color:inherit;text-decoration:none}
 
 .events-grid-wrap{padding:40px 0 0;max-width:1440px;margin:0 auto}
 .events-grid-wrap .s-title-row{padding:0 40px}
-/* Horizontal auto-scrolling strip with 6 cards */
-.events-strip-wrap{position:relative;margin-top:40px;overflow:hidden;padding:8px 0}
+/* Horizontal auto-scrolling strip with 6 cards.
+   The strip is the scroll container, so it clips at its own padding box — and
+   the card's hover shadow (0 20px 50px, under a card lifted 6px) reaches 11px
+   over the card and 39px under it, where the padding held 8 and 24. So the
+   shadow met a straight edge instead of fading out. The padding carries it
+   now, and the wrapper's margins take the surplus back on both sides: 56px
+   over the cards and 32px under them, the numbers they already were. */
+.events-strip-wrap{position:relative;margin:32px 0 -24px;overflow:hidden;padding:8px 0}
 .events-strip{display:flex;gap:24px;overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;
-  padding:8px 40px 24px;scrollbar-width:none}
+  padding:16px 40px 48px;scrollbar-width:none}
 .events-strip::-webkit-scrollbar{display:none}
 .event-card{flex:0 0 420px;background:#fff;border-radius:2px;overflow:hidden;cursor:pointer;
   transition:transform .55s cubic-bezier(0.22,1,0.36,1), box-shadow .55s ease;
@@ -499,10 +505,21 @@ a{color:inherit;text-decoration:none}
 .vessel-card .name{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
   margin:0;text-transform:none;max-width:82%;min-height:56px;text-wrap:balance;
   display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
-/* The panel's flex gap is 12px between every pair; -8 here narrows only the
-   space under the name, leaving the chip where it is. */
+
+/* No reserved second line on a phone. The two lines are reserved so the cards
+   in a row line their names and chips up with each other; at this width there
+   is one card to a row, or one of them in the eye, and a one-line name was
+   leaving an empty line between itself and the price. */
+@media (max-width:640px){
+  .vessel-card .name{min-height:0}
+}
+/* The panel's flex gap is 12px between every pair; -12 here closes the space
+   under the name entirely, leaving the chip where it is. The price then falls
+   on the name's own 28px line rhythm — the next line of that block rather
+   than a separate thing floating under it, which is what the 4px that used to
+   be left over made of it on a phone. */
 .vessel-card .price{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
-  margin:-8px 0 0}
+  margin:-12px 0 0}
 
 /* CTA — the "View" plate, at rest. It used to be a 36px chevron that widened
    into the word on hover, which is a state a finger never reaches: on a phone
@@ -960,7 +977,11 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .builders .mark img[src*="brand_brabus_raw"]     {height:100px}
   .builders-inner{padding:64px 24px 48px;min-height:600px;gap:24px}
   .builders .caption{position:static}   /* back into the flow on narrow screens */
-  .vessels-strip{padding:0 24px}.vessels-head-row{padding:0 24px 24px;flex-direction:column;align-items:flex-start;gap:16px}
+  .vessels-strip{padding:0 24px}.vessels-head-row{padding:0 24px 24px;flex-direction:column;align-items:center;gap:16px}
+  /* The strip gives up its 30px bottom padding here, and the 2px the link row
+     adds to it was all that was left under the cards. The row carries the
+     whole 32 from this width down. */
+  .vessels .s-link-row{margin-top:32px}
   /* That padding above drops the strip's 32px bottom, which the events
      section's top padding deducts. Without it the deduction eats the gap
      itself — 48px against the 80 of every other title here. */
@@ -1037,7 +1058,13 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
    .v-cta:hover lives in jby-system.css, which loads after this block, so the
    override needs the card in front of it to win on specificity. */
 @media (hover:none),(pointer:coarse){
-  .vessel-card{height:430px}
+  /* The office pages size the card through their rail — .vstrip .vessel-card,
+     two classes — and a bare .vessel-card cannot outrank that however far down
+     the sheet it sits. So the rail is named here too, and the card on those
+     pages grows with the rest. Nothing else on the card is sized that way:
+     every other rule in this block already carries the card and one of its
+     parts, which is the same two classes or more. */
+  .vessel-card,.vstrip .vessel-card{height:430px}
   .vessel-card .info{padding-bottom:72px}
   /* Full width means the line fills it. text-wrap:balance evens the two lines
      out, which is what the desktop card wants beside the corner button, but
@@ -1057,17 +1084,10 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     linear-gradient(180deg,rgba(54,84,102,0) 34%,rgba(54,84,102,0.5) 48%,rgba(54,84,102,0.5) 100%)}
   .vessel-card .v-cta{left:20px;right:20px;bottom:20px;width:auto;height:36px;padding:0;
     justify-content:center;transition:none}
-  /* The chevrons sit on the card's midline, from the wrapper's own 50% which
-     the card fills. The city chip starts 16px below the panel's top edge, so
-     the left chevron covers its top 13px and its first 20px of width once the
-     strip has been scrolled far enough for that chevron to appear; the right
-     one is clear of it.
-
-     Horizontally each keeps the base rule's 20px from its own side of the
-     screen, so the two are mirrored — the right one had been pulled in to the
-     card's right edge, which left it 67px from the screen against the left
-     one's 20. The card is 280 of the screen's width and the pair straddles it
-     from outside rather than sitting on it. */
+  /* The label, not the chevron. The team member page hid .v-cta-text outright
+     at its phone width, which left a bare arrow where the word should be.
+     Named through the card here, so this wins wherever it lands in the
+     sheet. */
   .vessel-card .v-cta .v-cta-text{display:inline;opacity:1;max-width:none}
   .vessel-card .v-cta .v-cta-icon{display:none}
   /* Nothing on the card answers :hover here. A tap leaves :hover latched on a
@@ -1079,8 +1099,14 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .vessel-card:hover .v-img{transform:none}
   .vessel-card:hover .v-cta{width:auto;padding:0}
   .vessel-card:hover .v-cta-text{opacity:1;max-width:none}
-  .vessel-card .v-cta:hover{background:var(--jby-veil);color:#fff}
+  .vessel-card .v-cta:hover{background:var(--jby-veil,rgba(255,255,255,0.28));color:#fff}
+  /* The strip's own scroll chevron latches the same way. Each page calls it
+     something different and gives it a different resting fill, so each is
+     named with the value it rests at: the home page's rail, the office rail,
+     and the team member page's. A page carries one of the three. */
   .cards-scroll-arr:hover{background:rgba(0,0,0,0.5);transform:translateY(-50%)}
+  .strip-arr:hover{background:rgba(0,0,0,0.7)}
+  .vessel-arr:hover{background:rgba(0,0,0,0.72)}
 }
 /* MOBILE-FIX-KSENIA: kill horizontal scroll on phones */
 @media (max-width:980px){html,body{overflow-x:hidden}}
@@ -1136,8 +1162,10 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   /* Bento CTAs: drop "Explore" so the label fits one line */
   .expl{display:none}
   .bento-cta{white-space:nowrap}
-  /* Locations head: short title + button on one row */
-  .visit-head-row{flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:nowrap}
+  /* The button left this head for the place under the map, so the row that
+     used to hold the two apart now holds one title at the left. It centres,
+     the way it does on a desktop. */
+  .visit-head-row{flex-direction:column;align-items:center;flex-wrap:nowrap}
   /* Client stories: one horizontal-scroll row; caption BELOW each card, no play button */
   .voices-sub{display:none}
   .video-stage{display:flex;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;gap:12px;margin-top:24px;
@@ -1167,18 +1195,21 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .event-card .body h4{font-size:16px;line-height:22px;min-height:0}
   /* Location modal: smaller title so it fits (match jby-locations look) */
   .loc-modal-body h3{font-size:18px;line-height:26px}
-  /* Section head-rows: title + button on one row (mobile) */
-  .vessels-head-row{flex-direction:row;align-items:center;justify-content:space-between;gap:14px}
-  /* The narrow widths keep the head on one row to save the height; the
-     centred column is the desktop arrangement. Spelled out here because
-     the base rule is a column now and this block only used to adjust it. */
-  .s-title-row{flex-direction:row;flex-wrap:nowrap;align-items:center;gap:14px}
-  .s-title-row h2{white-space:nowrap}
+  /* Same for the vessels and the events heads: one title each, centred. The
+     row was there to keep a title and a button side by side and save the
+     height; neither head has a button to keep company any more. */
+  .vessels-head-row{flex-direction:column;align-items:center;gap:14px}
+  .s-title-row{flex-direction:column;align-items:center;gap:14px}
   .loc-modal-body{padding:20px 24px 24px}
   /* --- CONSISTENT 24px LEFT GUTTER for all section content --- */
   .events-grid-wrap .s-title-row{padding:0}            /* events title -> 24 */
-  .events-strip-wrap{padding:8px 0}
-  .events-strip{padding:0}                             /* event cards -> 24 */
+  /* No hover here, but the resting shadow still needs 6px over the card and
+     14px under it, and the strip clipped both flush. The padding carries it,
+     and it carries the gap to the button with it: 8px of it was all that
+     stood under the cards, against the 32 a desktop holds. The gutter stays
+     the wrap's, so the cards keep their 24. */
+  .events-strip-wrap{padding:8px 0;margin-bottom:0}
+  .events-strip{padding:8px 0 24px}                    /* event cards -> 24 */
   .event-card{flex:0 0 82%}                            /* narrower so the next card peeks */
   .sec-filter{padding:0}                               /* events filter -> 24 */
   .vessels-strip{padding:0 !important}

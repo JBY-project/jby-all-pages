@@ -621,10 +621,20 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .v-name{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
   margin:0;text-transform:none;max-width:82%;min-height:56px;text-wrap:balance;
   display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
-/* The panel's gap is 12px between every pair; -8 narrows only the space under
-   the name, leaving the chip where it is. */
+
+/* No reserved second line on a phone. The two lines are reserved so the cards
+   in a row line their names and chips up with each other; at this width there
+   is one card to a row, or one of them in the eye, and a one-line name was
+   leaving an empty line between itself and the price. */
+@media (max-width:640px){
+  .v-name{min-height:0}
+}
+/* The panel's gap is 12px between every pair; -12 closes the space under the
+   name entirely, leaving the chip where it is. The price then falls on the
+   name's own 28px line rhythm — the next line of that block rather than a
+   separate thing floating under it. */
 .v-price{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
-  margin:-8px 0 0}
+  margin:-12px 0 0}
 /* CTA — a square chevron that widens into "View". A veil the photograph shows
    through with white type, not a white slab: rule 3 of jby-system.css, which
    these pages do not link, written out. */
@@ -642,7 +652,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .v-card:hover .v-cta{width:92px;padding:0 16px}
 .v-card:hover .v-cta-text{opacity:1;max-width:80px}
 .v-card:hover .v-cta-icon{opacity:0;max-width:0}
-@media(hover:none){.v-cta{width:44px}.v-cta-text{display:none}}
 
 /* PROMO */
 .promo{position:relative;height:800px;display:flex;align-items:flex-end;justify-content:center;color:#fff;overflow:hidden;padding:0 40px 40px}

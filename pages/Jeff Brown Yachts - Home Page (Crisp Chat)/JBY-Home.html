@@ -192,6 +192,9 @@ a{color:inherit;text-decoration:none}
   text-transform:uppercase;color:var(--navy);padding:0 24px;height:40px;border:0.5px solid rgba(65,100,123,0.18);
   display:inline-flex;align-items:center;transition:.25s;white-space:nowrap;background:transparent}
 .s-link:hover{background:rgba(65,100,123,0.05)}
+/* The section's link reads better after the cards than between the title and
+   them, where it sat between the reader and the thing it points at. */
+.s-link-row{display:flex;justify-content:center}
 
 /* ====================================================================== */
 /* HEADER NAV — STICKY (always visible); navy gradient #41647B + blur on scroll */
@@ -470,7 +473,11 @@ a{color:inherit;text-decoration:none}
 /* Active flex-grow 1.5, others 1 → active ~33% / others ~22% — gentle */
 /* ====================================================================== */
 .vessels{padding-top:96px;max-width:1500px;margin:0 auto}
-.vessels-head-row{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:0 40px 40px;
+/* The title alone, in the middle. It held the left of a row with See all at
+   the far end, and a title cannot sit in the middle of a row while a button
+   holds the other side of it — so the row is a column, and the link has gone
+   under the cards it points at. */
+.vessels-head-row{display:flex;flex-direction:column;align-items:center;gap:16px;padding:0 40px 40px;
   max-width:1500px;margin:0 auto}
 .vessels-head-row h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:32px;line-height:48px;letter-spacing:0;
   color:var(--navy);text-transform:uppercase;margin:0}
@@ -555,10 +562,21 @@ a{color:inherit;text-decoration:none}
 .vessel-card .name{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
   margin:0;text-transform:none;max-width:82%;min-height:56px;text-wrap:balance;
   display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
-/* The panel's flex gap is 12px between every pair; -8 here narrows only the
-   space under the name, leaving the chip where it is. */
+
+/* No reserved second line on a phone. The two lines are reserved so the cards
+   in a row line their names and chips up with each other; at this width there
+   is one card to a row, or one of them in the eye, and a one-line name was
+   leaving an empty line between itself and the price. */
+@media (max-width:640px){
+  .vessel-card .name{min-height:0}
+}
+/* The panel's flex gap is 12px between every pair; -12 here closes the space
+   under the name entirely, leaving the chip where it is. The price then falls
+   on the name's own 28px line rhythm — the next line of that block rather
+   than a separate thing floating under it, which is what the 4px that used to
+   be left over made of it on a phone. */
 .vessel-card .price{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
-  margin:-8px 0 0}
+  margin:-12px 0 0}
 
 /* CTA — the "View" plate, at rest. It used to be a 36px chevron that widened
    into the word on hover, which is a state a finger never reaches: on a phone
@@ -883,7 +901,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   .builders .mark .word{font-size:60px}
   .builders .mark img{height:90px}
   .builders-inner{padding:64px 24px 48px;min-height:600px;gap:24px}
-  .vessels-strip{padding:0 24px}.vessels-head-row{padding:0 24px 24px;flex-direction:column;align-items:flex-start;gap:16px}
+  .vessels-strip{padding:0 24px}.vessels-head-row{padding:0 24px 24px;flex-direction:column;align-items:center;gap:16px}
   .video-thumbs{gap:12px}
   .video-hero .play{width:64px;height:64px;font-size:20px}
   .bento{grid-template-columns:1fr}.bento-cell,.bento-cell.span2{grid-column:auto;height:420px}
@@ -1057,7 +1075,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   <div class="vessels">
     <div class="vessels-head-row reveal">
       <h2>Our vessels</h2>
-      <a class="s-link" href="#">See all</a>
     </div>
     <div class="vessels-strip-wrap">
       <div class="vessels-strip"><article class="vessel-card reveal">
@@ -1118,6 +1135,9 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         </button>
       </article></div>
       <button class="cards-scroll-arr" aria-label="More vessels" onclick="vesselsScroll(1)"><i class="ti ti-chevron-right"></i></button>
+    </div>
+    <div class="s-link-row reveal">
+      <a class="s-link" href="#">See all</a>
     </div>
   </div>
 </section>
@@ -2709,6 +2729,93 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 /* the dot on the launcher carries the whole 54px disc, so it is drawn a size
    up from the one beside a 27px message avatar */
 .jc-face .jc-dot{width:13px; height:13px; right:1px; bottom:1px; box-shadow:0 0 0 2.5px #fff}
+
+/* The View button on the vessel cards, on every device.
+
+   It used to be hidden on phones: tapping it latched :hover — the button
+   stayed white and the photo stayed scaled up — and hiding it was the way
+   round that. The cause was never the button, though, it was the hover rules
+   running where there is no hover to leave. So they are gated behind a real
+   pointer instead, and the button itself can stay.
+
+   On a phone it leaves the corner and runs the full width under the price,
+   carrying the label rather than the chevron — there is no hover to widen it
+   there, so the collapsed chevron would be the only thing a tap ever showed.
+   40px and the same gutters as the text put it in line with the other
+   full-width buttons on the phone layout, .bento-cta and .s-link.
+
+   36px, not the 40 the full-width buttons elsewhere use. The page's button
+   scale is 40 for the page's own buttons and 36 for this one — it is the
+   height .v-cta already has as a chevron on a pointer device, and the card is
+   280px of a phone screen, so the smaller of the two is the one that fits.
+
+   The panel's bottom padding grows by the button's height plus its gap, since
+   the button is positioned against the card and not laid out in the panel's
+   flow — that padding is what keeps the price off it. And the name gets the
+   full width back: 82% was reserving the corner the button no longer sits in.
+
+   That taller panel is what pushed the city chip up into bright water. The
+   panel's own gradient is transparent until 22% of its height and the chip
+   now sits at 11%, so there was nothing behind it — white type on a lit sea.
+   The gradient cannot be painted outside the panel it belongs to, so the
+   extension goes on .v-img-veil, which already spans the whole card: a second
+   layer that starts darkening well above the panel's top edge and hands over
+   to the panel's own gradient below it. Behind the chip the two come to about
+   0.6 of navy, which is what the type needs.
+
+   .v-cta:hover lives in jby-system.css, which loads after this block, so the
+   override needs the card in front of it to win on specificity. */
+@media (hover:none),(pointer:coarse){
+  /* The office pages size the card through their rail — .vstrip .vessel-card,
+     two classes — and a bare .vessel-card cannot outrank that however far down
+     the sheet it sits. So the rail is named here too, and the card on those
+     pages grows with the rest. Nothing else on the card is sized that way:
+     every other rule in this block already carries the card and one of its
+     parts, which is the same two classes or more. */
+  .vessel-card,.vstrip .vessel-card{height:430px}
+  .vessel-card .info{padding-bottom:72px}
+  /* Full width means the line fills it. text-wrap:balance evens the two lines
+     out, which is what the desktop card wants beside the corner button, but
+     here it was holding both lines to about 140px of the 240 available and
+     leaving a hand's width of empty panel on the right. */
+  .vessel-card .name{max-width:100%;text-wrap:wrap}
+  /* 20px taller card, and the extension pulled back off the boat.
+     The card growing moves the panel's top edge down the photograph — the
+     text and the button sit the same distance from the bottom, so the whole
+     block drops with it and the chip lands lower, on water rather than on
+     sky. That buys back most of what the panel's growth had taken, and the
+     rest is a short ramp that now starts at 34% instead of 26% and holds flat
+     at 0.5 rather than climbing to 0.74: enough behind the chip, and 38px
+     more of clear photograph above it. */
+  .vessel-card .v-img-veil{background:
+    linear-gradient(180deg,rgba(54,84,102,0.42) 0%,rgba(54,84,102,0) 38%),
+    linear-gradient(180deg,rgba(54,84,102,0) 34%,rgba(54,84,102,0.5) 48%,rgba(54,84,102,0.5) 100%)}
+  .vessel-card .v-cta{left:20px;right:20px;bottom:20px;width:auto;height:36px;padding:0;
+    justify-content:center;transition:none}
+  /* The label, not the chevron. The team member page hid .v-cta-text outright
+     at its phone width, which left a bare arrow where the word should be.
+     Named through the card here, so this wins wherever it lands in the
+     sheet. */
+  .vessel-card .v-cta .v-cta-text{display:inline;opacity:1;max-width:none}
+  .vessel-card .v-cta .v-cta-icon{display:none}
+  /* Nothing on the card answers :hover here. A tap leaves :hover latched on a
+     touch screen, so every rule that listens to it is a state the finger can
+     switch on and not switch off — which is the bug the button was hidden for
+     in the first place. These repeat the hover selectors verbatim so they win
+     on equal specificity from further down the sheet, rather than relying on
+     the unhovered rules, which .vessel-card:hover .v-cta would outrank. */
+  .vessel-card:hover .v-img{transform:none}
+  .vessel-card:hover .v-cta{width:auto;padding:0}
+  .vessel-card:hover .v-cta-text{opacity:1;max-width:none}
+  .vessel-card .v-cta:hover{background:var(--jby-veil,rgba(255,255,255,0.28));color:#fff}
+  /* The strip's own scroll chevron latches the same way. Each page calls it
+     something different and gives it a different resting fill, so each is
+     named with the value it rests at: the home page's rail, the office rail,
+     and the team member page's. A page carries one of the three. */
+  .cards-scroll-arr:hover{background:rgba(0,0,0,0.5);transform:translateY(-50%)}
+  .strip-arr:hover{background:rgba(0,0,0,0.7)}
+  .vessel-arr:hover{background:rgba(0,0,0,0.72)}
+}
 </style>
 
 <!-- ====================== EXPLORE BUTTON + LAUNCHER ====================== -->

@@ -110,12 +110,17 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* ===== SUPPORT (intro + feature cards) ===== */
 .support{padding:104px 0 96px}
-.support-head{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;margin-bottom:56px}
-.support-head .st-text{max-width:860px;display:flex;flex-direction:column;gap:18px}
+/* The head reads down the middle, like .process .p-head, and the button that
+   used to sit opposite the title now follows the cards it belongs to — a
+   reader meets the four cards first and the call to act after them, rather
+   than being asked to act before they have been told anything. */
+.support-head{display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px;margin-bottom:56px}
+.support-head .st-text{max-width:860px;display:flex;flex-direction:column;align-items:center;gap:18px}
 .support-head h2{color:var(--navy);font-size:20px;line-height:1.2;white-space:nowrap}
 @media(max-width:820px){.support-head h2{white-space:normal;font-size:18px}}
 .support-head p{color:var(--c2);font-size:17px;line-height:28px;max-width:640px}
-.support-head .btn{flex:0 0 auto}
+.support-cta{display:flex;justify-content:center;margin-top:40px}
+.support-cta .btn{flex:0 0 auto}
 .feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .feat{position:relative;background:var(--white);border:1px solid var(--border);border-radius:2px;padding:28px 24px 30px;
   display:flex;flex-direction:column;gap:18px}
@@ -124,7 +129,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .feat h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:24px;text-transform:uppercase;color:var(--navy)}
 .feat p{color:var(--c2);font-size:15px;line-height:23px}
 @media(max-width:980px){.feat-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.feat-grid{grid-template-columns:1fr}.support-head{flex-direction:column;align-items:flex-start}
+@media(max-width:560px){.feat-grid{grid-template-columns:1fr}.support-head{flex-direction:column;align-items:center}
   .h-sm{font-size:16px;line-height:24px}.support-head h2{font-size:18px}}
 
 /* ===== CINEMATIC BAND (NEW luxury section) ===== */
@@ -464,7 +469,10 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
    own .btn .btn-sm .btn-ghost, because .btn-sm here is a size modifier and
    not a button of its own. */
 .events{padding:0 0 110px}
-.events-head{margin-bottom:8px}
+/* Centred for the same reason as the support head above it: the rail under it
+   runs the full width, and a title in the corner of it read as a caption. */
+.events-head{margin-bottom:8px;text-align:center}
+.events-head p{margin-left:auto;margin-right:auto}
 /* Every section on this page colours its own heading — .expo-text h2,
    .contact-left h2, .process .p-head h2. .h-sm sets no colour of its own,
    so a heading that names nothing inherits black. */
@@ -592,7 +600,7 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
   <div class="hero-inner">
     <h1 class="hero-title reveal in">Sell your yacht</h1>
     <p class="hero-sub reveal in d1">Jeff Brown Yachts helps owners prepare, list, market, negotiate, and close with a licensed and bonded brokerage team across key coastal offices.</p>
-    <a href="#contact" class="btn btn-md btn-white reveal in d2">Get a valuation</a>
+    <a href="#contact" class="btn btn-md btn-white reveal in d2">Request a valuation</a>
   </div>
 </section>
 
@@ -604,29 +612,31 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
         <h2 class="h-lg reveal">Experience and full-service support</h2>
         <p class="reveal d1">Jeff Brown Yachts combines personalized brokerage guidance with broad market exposure, professional listing support, and hands-on coordination through the sale.</p>
       </div>
-      <a href="#contact" class="btn btn-md btn-ghost reveal d1">Request a valuation</a>
     </div>
     <div class="feat-grid casc" id="featGrid">
       <div class="feat">
         <span class="fi"><svg viewBox="0 0 23.9967 24.9966" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.997 0H1.99973C1.46937 0 0.960727 0.210685 0.585706 0.585706C0.210685 0.960727 0 1.46937 0 1.99973V8.99877C0 15.5879 3.18956 19.5811 5.86545 21.7708C8.74755 24.1279 11.6147 24.9278 11.7396 24.9616C11.9115 25.0083 12.0927 25.0083 12.2646 24.9616C12.3896 24.9278 15.2529 24.1279 18.1388 21.7708C20.8071 19.5811 23.9967 15.5879 23.9967 8.99877V1.99973C23.9967 1.46937 23.786 0.960727 23.411 0.585706C23.036 0.210685 22.5273 0 21.997 0ZM17.7076 8.70631L10.7085 15.7053C10.6157 15.7983 10.5054 15.8721 10.384 15.9224C10.2626 15.9727 10.1325 15.9986 10.0011 15.9986C9.86973 15.9986 9.73962 15.9727 9.61824 15.9224C9.49686 15.8721 9.38659 15.7983 9.29373 15.7053L6.29414 12.7058C6.10652 12.5181 6.00112 12.2637 6.00112 11.9984C6.00112 11.733 6.10652 11.4786 6.29414 11.291C6.48175 11.1033 6.73621 10.9979 7.00154 10.9979C7.26687 10.9979 7.52133 11.1033 7.70894 11.291L9.99863 13.5844L16.2903 7.2915C16.3832 7.1986 16.4935 7.12491 16.6148 7.07464C16.7362 7.02436 16.8663 6.99849 16.9977 6.99849C17.129 6.99849 17.2591 7.02436 17.3805 7.07464C17.5019 7.12491 17.6122 7.1986 17.7051 7.2915C17.798 7.3844 17.8717 7.49468 17.9219 7.61606C17.9722 7.73744 17.9981 7.86753 17.9981 7.9989C17.9981 8.13028 17.9722 8.26037 17.9219 8.38175C17.8717 8.50312 17.798 8.61341 17.7051 8.70631H17.7076Z" fill="#41647B"/></svg></span>
         <h3>Licensed</h3>
-        <p>Licensed and bonded yacht sales professionals you can trust from first consultation to closing.</p>
+        <p>Licensed and bonded yacht sales professionals, from first consultation to closing.</p>
       </div>
       <div class="feat">
         <span class="fi"><svg viewBox="0 0 26.1576 22.6636" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M25.2545 20.92H23.5403V8.71487C23.5403 8.25244 23.3566 7.80895 23.0297 7.48197C22.7027 7.15498 22.2592 6.97128 21.7968 6.97128H17.0019C16.8863 6.97128 16.7754 7.01721 16.6937 7.09895C16.6119 7.1807 16.566 7.29157 16.566 7.40718V20.92H14.8224V1.7852C14.8253 1.51362 14.7664 1.24493 14.6501 0.999494C14.5338 0.754055 14.3631 0.538291 14.1511 0.368535C13.8621 0.143217 13.5095 0.0146816 13.1433 0.00118368C12.7771 -0.0123142 12.4159 0.0899117 12.1111 0.293343L3.39319 6.09949C3.15404 6.25905 2.95805 6.47527 2.82268 6.7289C2.6873 6.98253 2.61675 7.26571 2.6173 7.5532V20.92H0.903132C0.677845 20.9166 0.459656 20.9988 0.292455 21.1498C0.125255 21.3008 0.0214473 21.5095 0.00191549 21.734C-0.00600249 21.8533 0.010683 21.9729 0.0509355 22.0854C0.0911879 22.1979 0.154148 22.301 0.235904 22.3881C0.31766 22.4753 0.416467 22.5448 0.526187 22.5921C0.635907 22.6395 0.754197 22.6638 0.873709 22.6636H25.2839C25.4034 22.6638 25.5217 22.6395 25.6315 22.5921C25.7412 22.5448 25.84 22.4753 25.9217 22.3881C26.0035 22.301 26.0664 22.1979 26.1067 22.0854C26.147 21.9729 26.1636 21.8533 26.1557 21.734C26.1362 21.5095 26.0324 21.3008 25.8652 21.1498C25.698 20.9988 25.4798 20.9166 25.2545 20.92Z" fill="#41647B"/></svg></span>
-        <h3>30 years in industry</h3>
-        <p>Three decades of yacht sales, service, refits, deliveries, and ownership support experience.</p>
+        <h3>30 Years in the Industry</h3>
+        <p>Three decades of yacht sales, service, refits, deliveries, and ownership support.</p>
       </div>
       <div class="feat">
         <span class="fi"><svg viewBox="0 0 24.3148 29.6626" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.0051 15.7039L17.3316 20.3568L21.9845 22.6832L17.3316 25.0097L15.0051 29.6626L12.6787 25.0097L8.02578 22.6832L12.6787 20.3568L15.0051 15.7039Z" fill="#41647B"/><path d="M15.5297 3.42016H16.8847C18.5121 3.4203 20.1981 4.31812 20.6279 5.89565L20.6974 6.22009L20.6988 6.22963L21.7102 13.254L23.3801 14.1169L23.3787 14.1182C23.7564 14.3049 24.0236 14.6244 24.1707 14.9579L24.228 15.1079L24.2362 15.131C24.3659 15.5531 24.3527 16.0623 24.0631 16.5174C24.0494 16.5389 24.0346 16.5597 24.0194 16.5801L22.126 19.121C21.7805 19.5846 21.1242 19.6805 20.6606 19.335C20.197 18.9895 20.1012 18.3332 20.4466 17.8696L22.0129 15.7663L20.2857 14.8748L12.1518 10.6912L4.01919 14.8734L4.02056 14.8748L2.23073 15.7976L4.73758 20.3956C5.0142 20.9031 4.82797 21.5392 4.32045 21.816C3.81289 22.0927 3.17688 21.9049 2.90004 21.3975L0.20508 16.456L0.206443 16.4547C-0.0230148 16.0334 -0.0406832 15.562 0.0537691 15.1842C0.0601987 15.1585 0.067222 15.133 0.0755796 15.1079C0.20371 14.7235 0.49209 14.3327 0.92619 14.1182L0.923463 14.1169L2.57697 13.2622L3.59116 6.23235C3.84503 4.43438 5.68321 3.42016 7.40664 3.42016H8.77388V1.46539C8.774 0.847894 9.18429 0.461149 9.46228 0.286263C9.76795 0.0941322 10.1335 0 10.4915 0H13.8135C14.1559 2.07004e-05 14.5194 0.0836108 14.8318 0.275358C15.1316 0.459563 15.5296 0.850954 15.5297 1.46539V3.42016Z" fill="#41647B"/></svg></span>
         <h3>Full service</h3>
-        <p>Brokerage, service, warranty, and delivery guidance handled with personal coordination.</p>
+        <p>End-to-end support from brokerage through delivery, service, and warranty.</p>
       </div>
       <div class="feat">
         <span class="fi"><svg viewBox="0 0 21.3304 29.0939" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.3304 10.6715C21.3315 8.87421 20.8783 7.10576 20.013 5.53045C19.1477 3.95514 17.8983 2.62407 16.3808 1.66086C14.8634 0.697646 13.1271 0.133546 11.3333 0.0209508C9.53954 -0.0916448 7.74638 0.250916 6.12041 1.01682C4.49444 1.78272 3.0884 2.94711 2.03289 4.40185C0.977369 5.85659 0.306615 7.55449 0.0829251 9.33784C-0.140765 11.1212 0.0898638 12.9322 0.75339 14.6025C1.41692 16.2729 2.49182 17.7485 3.87826 18.8922V28.1237C3.87814 28.289 3.92031 28.4517 4.00077 28.5961C4.08122 28.7406 4.19729 28.8621 4.33793 28.949C4.47857 29.036 4.63911 29.0855 4.8043 29.093C4.96949 29.1004 5.13383 29.0654 5.2817 28.9914L10.6652 26.3058L16.0499 28.9975C16.1849 29.0621 16.3329 29.0949 16.4826 29.0933C16.7397 29.0933 16.9863 28.9911 17.1682 28.8093C17.35 28.6274 17.4522 28.3808 17.4522 28.1237V18.8922C18.6652 17.8931 19.6421 16.6379 20.3126 15.2165C20.9832 13.7952 21.3307 12.2431 21.3304 10.6715ZM1.93913 10.6715C1.93913 8.94568 2.4509 7.25858 3.40974 5.82359C4.36857 4.38859 5.7314 3.27015 7.32588 2.60969C8.92036 1.94924 10.6749 1.77643 12.3676 2.11313C14.0603 2.44983 15.6151 3.28091 16.8355 4.50127C18.0558 5.72163 18.8869 7.27647 19.2236 8.96916C19.5603 10.6619 19.3875 12.4164 18.7271 14.0109C18.0666 15.6053 16.9481 16.9682 15.5132 17.927C14.0782 18.8858 12.3911 19.3976 10.6652 19.3976C8.35169 19.395 6.13367 18.4749 4.49777 16.839C2.86187 15.2031 1.9417 12.985 1.93913 10.6715ZM10.6652 4.02326C14.337 4.02326 17.3136 6.99986 17.3136 10.6717C17.3136 14.3435 14.337 17.3201 10.6652 17.3201C6.99337 17.3201 4.01677 14.3435 4.01677 10.6717C4.01677 6.99986 6.99337 4.02326 10.6652 4.02326Z" fill="#41647B"/></svg></span>
-        <h3>Premium brands</h3>
-        <p>Representing Riva, Sirena, Axopar, Pershing, Wally, and other premium yacht brands.</p>
+        <h3>Seven brands represented</h3>
+        <p>Riva, Wally, Pershing, Sirena, BRABUS Marine, Axopar, and Everglades.</p>
       </div>
+    </div>
+    <div class="support-cta">
+      <a href="#contact" class="btn btn-md btn-ghost reveal d1">Request a valuation</a>
     </div>
   </div>
 </section>
@@ -641,7 +651,7 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
   <div class="cine-inner">
     <div class="in-box">
       <h2 class="reveal">The right buyer<br/>is already looking</h2>
-      <p class="reveal d1">We prepare your yacht as a cinematic listing, then place it in front of the brokers<br/>and qualified buyers who move first.</p>
+      <p class="reveal d1">We prepare your yacht as a cinematic listing, then place it in front of the brokers<br/>and qualified buyers who are ready to act.</p>
     </div>
   </div>
 </section>
@@ -650,7 +660,7 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
 <section class="process" id="process">
   <div class="wrap">
     <div class="p-head">
-      <h2 class="h-sm reveal">A proven four-step selling process</h2>
+      <h2 class="h-sm reveal">A four-step selling process</h2>
       <p class="reveal d1">A clear, transparent path from valuation to handover,<br/>coordinated by your dedicated broker at every stage.</p>
     </div>
     <div class="steps casc" id="steps">
@@ -658,14 +668,14 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
         <span class="num">1</span>
         <div class="st-body">
           <span class="tag">Prep</span>
-          <p>Review valuation, market analysis, staging, detailing, survey recommendations, repairs, and listing agreement setup.</p>
+          <p>Valuation review, market analysis, staging, detailing, and survey follow-ups to prepare your yacht and finalize the listing agreement.</p>
         </div>
       </div>
       <div class="step">
         <span class="num">2</span>
         <div class="st-body">
           <span class="tag">Listing</span>
-          <p>Create professional photography, drone footage, 360 tours, written descriptions, MLS exposure, international listings, and website placement.</p>
+          <p>Professional photography, drone footage, 360-degree tours, and written descriptions, placed across MLS, international sites, and our website.</p>
         </div>
       </div>
       <div class="step">
@@ -679,7 +689,7 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
         <span class="num">4</span>
         <div class="st-body">
           <span class="tag">Sold</span>
-          <p>Support contract management, negotiation, taxes, duties, documentation, transport, delivery, final handover, and after-sales support.</p>
+          <p>Contract management, negotiation, tax and duty handling, documentation, transport, delivery, handover, and after-sales support.</p>
         </div>
       </div>
     </div>
@@ -699,7 +709,7 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
           <li class="slide-l"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4 10-10"/></svg></span><p>Professional photography, drone footage &amp; 360&deg; tours</p></li>
           <li class="slide-l"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4 10-10"/></svg></span><p>Featured placement on the Jeff Brown Yachts website</p></li>
           <li class="slide-l"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4 10-10"/></svg></span><p>MLS &amp; international listings: YachtWorld, Boat Trader</p></li>
-          <li class="slide-l"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4 10-10"/></svg></span><p>Digital, print &amp; social advertising with CRM follow-up</p></li>
+          <li class="slide-l"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4 10-10"/></svg></span><p>Digital, print &amp; social advertising with consistent follow-up</p></li>
         </ul>
       </div>
     </div>
