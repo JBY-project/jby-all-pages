@@ -3,7 +3,7 @@
 # Not the branch previews under jby-all-pages/previews/ — those are for showing
 # a branch to someone before it lands. The live page is its own repository
 # under the JBY-project organisation, serving from main at the root, and the
-# link people hold is https://jby-project.github.io/<repo>/. Forty of them.
+# link people hold is https://jby-project.github.io/<repo>/. Forty-one of them.
 #
 #   <repo> | <folder under pages/> | <optional file to publish as index.html>
 #

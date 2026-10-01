@@ -86,56 +86,79 @@ button the system file governs, and warns about any whose hover fill matches
 the surface behind it — a button that would vanish on hover. Do this on each
 page: the trap is invisible in the diff.
 
-The brand-blue CTA band is the reason. It runs on 22 of the 34 published pages
-under two names, `.expert` and `.help`, painted the same `#41647b` the hover
-fills with. Buttons inside it hover to `--navy-d` instead; that rule is already
+The brand-blue CTA band is the reason. It runs on 27 of the 41 live pages
+under three names — `.expert`, `.help` and the shared block's `.jby-band` —
+painted the same `#41647b` the hover fills with. Buttons inside it hover to `--navy-d` instead; that rule is already
 in the stylesheet.
 
 ## Where it is applied
 
-- [x] `Jeff Brown Yachts - Home Page`
-- [x] `Jeff Brown Yachts - 404 Page` — 2 files
-- [x] `Jeff Brown Yachts - About Us Page` — 2 files
-- [x] `Jeff Brown Yachts - All Services Page` — 2 files
-- [x] `Jeff Brown Yachts - Brand Page (Axopar)` — 2 files
-- [x] `Jeff Brown Yachts - Events Page` — 24 files
+Every page that has a live link — the forty-one folders in
+`tools/live-pages.txt` — carries the system, and the entry file each repository
+serves is one of the files that carries it. The list is not kept by hand: it was
+read off the folders, counting the HTML files in each that link
+`jby-system.css` or hold a `<style data-jby-system>` block.
+
+- [x] `jby-event-page-live` — 2 of 2 files
+- [x] `jby-search` — 2 of 2 files
+- [x] `Jeff Brown Yachts - 404 Page` — 2 of 2 files
+- [x] `Jeff Brown Yachts - About Us Page` — 2 of 2 files
+- [x] `Jeff Brown Yachts - All Services Page` — 2 of 2 files
+- [x] `Jeff Brown Yachts - Brand Page (Axopar)` — 2 of 2 files
+- [x] `Jeff Brown Yachts - Contact Page` — 2 of 2 files
+- [x] `Jeff Brown Yachts - Events Page` — 24 of 24 files
 - [x] `Jeff Brown Yachts - FAQ Page`
+- [x] `Jeff Brown Yachts - Home Page` — 1 of 3 files
+- [x] `Jeff Brown Yachts - Home Page (Crisp Chat V2)` — 1 of 2 files
+- [x] `Jeff Brown Yachts - Home Page (Crisp Chat)` — 1 of 2 files
 - [x] `Jeff Brown Yachts - Home Page (Intro Animation)`
 - [x] `Jeff Brown Yachts - Home Page (Intro V2 Logo Only)`
+- [x] `Jeff Brown Yachts - Home Page (Intro V3 Arc)`
 - [x] `Jeff Brown Yachts - Home Page V1`
-- [x] `Jeff Brown Yachts - Home Search` — 2 files
-- [x] `Jeff Brown Yachts - Knowledge Center` — 4 files
-- [x] `Jeff Brown Yachts - Knowledge Center V2` — 5 files
-- [x] `Jeff Brown Yachts - Knowledge Center V3` — 5 files
-- [x] `Jeff Brown Yachts - Knowledge Center V4` — 5 files
+- [x] `Jeff Brown Yachts - Inventory Page` — 1 of 2 files
+- [x] `Jeff Brown Yachts - Knowledge Center` — 4 of 4 files
+- [x] `Jeff Brown Yachts - Knowledge Center V2` — 5 of 5 files
+- [x] `Jeff Brown Yachts - Knowledge Center V3` — 5 of 5 files
+- [x] `Jeff Brown Yachts - Knowledge Center V4` — 5 of 5 files
 - [x] `Jeff Brown Yachts - Listing Page`
 - [x] `Jeff Brown Yachts - Locations Page`
 - [x] `Jeff Brown Yachts - Marketing Section Variants`
-- [ ] `Jeff Brown Yachts - Mega Menu`
-- [x] `Jeff Brown Yachts - Office Page` — 2 files
+- [x] `Jeff Brown Yachts - Mega Menu` — 3 of 4 files
+- [x] `Jeff Brown Yachts - Office Page` — 2 of 2 files
 - [x] `Jeff Brown Yachts - Privacy Policy Page`
 - [x] `Jeff Brown Yachts - Sell Your Yacht Page`
 - [x] `Jeff Brown Yachts - Sell Your Yacht Page V2`
 - [x] `Jeff Brown Yachts - Sell Your Yacht Page V3`
 - [x] `Jeff Brown Yachts - Service & Maintenance Page`
 - [x] `Jeff Brown Yachts - Service & Maintenance Page V2`
-- [x] `Jeff Brown Yachts - Site Hub` — 28 files
+- [x] `Jeff Brown Yachts - Site Hub` — 28 of 28 files
 - [x] `Jeff Brown Yachts - Statement of Information Page`
 - [x] `Jeff Brown Yachts - Team Member Page`
-- [x] `Jeff Brown Yachts - Team Page` — 2 files
+- [x] `Jeff Brown Yachts - Team Page` — 2 of 2 files
 - [x] `Jeff Brown Yachts - Terms Page`
 - [x] `Jeff Brown Yachts - Testimonials V2`
 - [x] `Jeff Brown Yachts - Testimonials Variants`
 - [x] `Jeff Brown Yachts - Yacht Management Page`
-- [x] `riva-112-model-page` — 7 files
+- [x] `riva-112-model-page` — 7 of 7 files
 
-The one page left out is the mega menu: it is being reworked on
-`feat/mega-menu-brand-models`, where its buttons already carry a 2px radius
-against this file's square corners. The two need reconciling before the
-system goes on it.
+Five secondary files inside those folders do not carry it, and are the only
+ones that do not:
 
-Pages outside the published list — drafts, superseded copies, the Crisp chat
-variants — were left alone.
+| File | What it is |
+|---|---|
+| `Jeff Brown Yachts - Home Page/Filter-Explorations.html` | a sketch kept beside the page |
+| `Jeff Brown Yachts - Home Page/JBY-Footer-Variants.html` | the footer options, since decided |
+| `Jeff Brown Yachts - Home Page (Crisp Chat)/chat-widget-preview.html` | the widget on its own, for looking at |
+| `Jeff Brown Yachts - Home Page (Crisp Chat V2)/chat-widget-preview.html` | the same |
+| `Jeff Brown Yachts - Inventory Page/tools/yachts.html` | a tool, not a page |
+
+The mega menu's own `index.html` is not in that table and not a gap: the folder
+publishes `JBY-Menu-V3-Dark-NoPhoto.html`, which the publish script copies over
+`index.html` in the repository, so what the live link serves is the file that
+carries the system.
+
+Pages with no live link — drafts and superseded copies such as
+`JBY-Home-V3.31-SHIPPED` — are left alone on purpose.
 
 ## Two traps this rollout walked into
 
