@@ -13,7 +13,9 @@ Three passes, each independent — a page gets the ones it has something to
 replace for:
 
   cards   the .vessel-card rules, swapped one selector at a time so a page
-          keeps its own sizing and strip layout and only the look changes.
+          keeps its own sizing and strip layout and only the look changes, and
+          the phone block as a whole, laid at the end of the page's last
+          stylesheet so it has the last word on a touch screen.
   band    the <section> that says How can we help? (or Get expert guidance),
           replaced by the photograph band, with its image copied in beside it.
   footer  the <footer>, replaced by the blue one.
@@ -180,7 +182,79 @@ def apply_cards(text, report):
         text = text.replace(".v-cta{display:none!important}", "")
         changed = True
         report.append("      card rule: dropped the display:none on .v-cta")
+
+    # The Riva pages took the word off the button on a touch screen and left a
+    # 44px chevron — the state the card no longer has anywhere else. It was
+    # there to dodge a latched :hover, which the rules above no longer have.
+    stump = "@media(hover:none){.v-cta{width:44px}.v-cta-text{display:none}}"
+    if stump in text:
+        text = text.replace(stump + "\n", "").replace(stump, "")
+        changed = True
+        report.append("      card rule: dropped the 44px chevron on touch")
     return text, changed
+
+
+# The phone card cannot travel as a rule of its own: it is a media query, and
+# the pass above replaces rules one selector at a time and steps over @media on
+# purpose, so that a page keeps its own phone layout. The whole block goes
+# across together instead, and goes in last — after everything a page says
+# about the card, which includes the page's own phone rules.
+PHONE_HEAD = "@media (hover:none),(pointer:coarse){"
+
+
+def phone_span(css):
+    """Where the phone card block sits in `css`, its comment and all, or None.
+
+    Matched on the media query rather than on a marker, so that the block the
+    home page already carried is recognised as the one this replaces.
+    """
+    i = css.find(PHONE_HEAD)
+    while i >= 0:
+        depth = 0
+        end = len(css)
+        for j in range(i, len(css)):
+            if css[j] == "{":
+                depth += 1
+            elif css[j] == "}":
+                depth -= 1
+                if depth == 0:
+                    end = j + 1
+                    break
+        if ".vessel-card" in css[i:end]:
+            # The comment block directly above goes with it, both ways — same
+            # rule as rule_span, and for the same reason.
+            head = i
+            line_end = css.rfind("\n", 0, head)
+            if line_end > 0 and css[:line_end].rstrip().endswith("*/"):
+                opener = css.rfind("/*", 0, line_end)
+                if opener >= 0 and "}" not in css[opener:line_end]:
+                    bol = css.rfind("\n", 0, opener) + 1
+                    if css[bol:opener].strip() == "":
+                        head = bol
+            return (head, end)
+        i = css.find(PHONE_HEAD, end)
+    return None
+
+
+def apply_cards_phone(text, report):
+    """Lay the phone card over the page, at the end of its last stylesheet."""
+    if ".vessel-card{" not in text:
+        return text, False
+    sheet = read(os.path.join(BLOCKS, "cards-phone.css"))
+    # The sheet's own header explains the file; the block carries its own
+    # comments and is what goes across.
+    block = sheet[sheet.index("*/\n") + 3:].strip("\n")
+    span = phone_span(text)
+    if span:
+        if text[span[0]:span[1]] == block:
+            return text, False
+        report.append("      card rule: the phone block")
+        return text[:span[0]] + block + text[span[1]:], True
+    report.append("      card rule: the phone block (added)")
+    at = text.rfind("</style>")
+    if at < 0:                       # the page keeps its card in a .css file
+        return text.rstrip("\n") + "\n\n" + block + "\n", True
+    return text[:at] + "\n" + block + "\n" + text[at:], True
 
 
 OL_CTA = ('<span class="ol-cta" aria-hidden="true"><span class="t">View</span>'
@@ -392,6 +466,7 @@ def apply_page(page, do_cards=True, do_band=True, do_footer=True):
 
     if do_cards:
         text, _ = apply_cards(text, report)
+        text, _ = apply_cards_phone(text, report)
         text, _ = apply_ol_markup(text, report)
     if do_band:
         text, touched_band = apply_band(page, text, report)

@@ -64,10 +64,21 @@
   margin:0;text-transform:none;max-width:82%;min-height:56px;text-wrap:balance;
   display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
 
-/* The panel's flex gap is 12px between every pair; -8 here narrows only the
-   space under the name, leaving the chip where it is. */
+/* No reserved second line on a phone. The two lines are reserved so the cards
+   in a row line their names and chips up with each other; at this width there
+   is one card to a row, or one of them in the eye, and a one-line name was
+   leaving an empty line between itself and the price. */
+@media (max-width:640px){
+  .vessel-card .name{min-height:0}
+}
+
+/* The panel's flex gap is 12px between every pair; -12 here closes the space
+   under the name entirely, leaving the chip where it is. The price then falls
+   on the name's own 28px line rhythm — the next line of that block rather
+   than a separate thing floating under it, which is what the 4px that used to
+   be left over made of it on a phone. */
 .vessel-card .price{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:#fff;
-  margin:-8px 0 0}
+  margin:-12px 0 0}
 
 /* CTA — the "View" plate, at rest. It used to be a 36px chevron that widened
    into the word on hover, which is a state a finger never reaches: on a phone
