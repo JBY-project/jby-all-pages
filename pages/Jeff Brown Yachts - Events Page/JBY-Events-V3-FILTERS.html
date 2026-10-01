@@ -122,7 +122,11 @@ a{color:inherit;text-decoration:none}
 
 /* ============================== PAST EVENTS CAROUSEL ============================== */
 .past{padding:var(--section-pad) 0 var(--section-pad) 40px;overflow:hidden}
-.past-head{max-width:1280px;margin:0 0 40px}
+/* The section is padded on its left only, so that the rail of cards runs off
+   the right edge of the screen. A head centred inside that box would sit
+   20px left of the middle of the page, so it takes the matching 40px back
+   as a margin and is centred on the screen rather than on the section. */
+.past-head{max-width:none;margin:0 40px 40px 0;text-align:center}
 .past-head h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   text-transform:uppercase;color:var(--navy);margin:0}
 .past-wrap{position:relative}
@@ -146,6 +150,9 @@ a{color:inherit;text-decoration:none}
 .pe-nav[hidden]{display:none}
 @media (max-width:900px){
   .past{padding:80px 0 80px 24px}
+  /* The left padding drops to 24 here; the head's margin follows it, or the
+     title sits 8px left of the middle of the screen. */
+  .past-head{margin-right:24px}
   .pe-card .pe-title{left:24px;right:24px;bottom:28px;font-size:19px;line-height:28px}
   .pe-nav{width:46px;height:46px}
   .pe-nav.next{right:16px}.pe-nav.prev{left:16px}
@@ -282,7 +289,11 @@ footer{background:var(--paper);padding:40px 40px;color:var(--mute);font-size:14p
 }
 /* ============================== PAST EVENTS CAROUSEL ============================== */
 .past{padding:44px 0 var(--section-pad) 40px;overflow:hidden}
-.past-head{max-width:1280px;margin:0 0 40px}
+/* The section is padded on its left only, so that the rail of cards runs off
+   the right edge of the screen. A head centred inside that box would sit
+   20px left of the middle of the page, so it takes the matching 40px back
+   as a margin and is centred on the screen rather than on the section. */
+.past-head{max-width:none;margin:0 40px 40px 0;text-align:center}
 .past-head h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;text-transform:uppercase;color:var(--navy);margin:0}
 .past-wrap{position:relative}
 .pe-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:40px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
@@ -299,6 +310,9 @@ footer{background:var(--paper);padding:40px 40px;color:var(--mute);font-size:14p
 .pe-nav[hidden]{display:none}
 @media (max-width:900px){
   .past{padding:40px 0 80px 24px}
+  /* The left padding drops to 24 here; the head's margin follows it, or the
+     title sits 8px left of the middle of the screen. */
+  .past-head{margin-right:24px}
   .pe-card .pe-title{left:24px;right:24px;bottom:28px;font-size:19px;line-height:28px}
   .pe-nav{width:46px;height:46px}
   .pe-nav.next{right:16px}.pe-nav.prev{left:16px}
@@ -333,7 +347,11 @@ footer{background:var(--paper);padding:40px 40px;color:var(--mute);font-size:14p
 .pe-btn svg{width:16px;height:16px;flex:0 0 auto}.pe-nav{top:clamp(150px,23vh,220px)}}
 
 /* ============================== SIDEBAR FILTERS + LAYOUT (Team-style) ============================== */
-.intro{max-width:1440px;text-align:left}
+/* Back to the middle. The base rule centres this head; the sidebar layout
+   below pulled it left so that it lined up with the LOCATION column, and
+   the title ended up reading from the edge of the page while every other
+   section title on the site reads from the middle. */
+.intro{max-width:1440px}
 .ev3{max-width:1440px}
 .ev3-body{display:grid;grid-template-columns:236px 1fr;gap:40px;align-items:start;margin-top:8px}
 .ev-facets{position:sticky;top:100px}
@@ -633,7 +651,7 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
     <h1>Private Experience with JBY</h1>
     <p>More than boat shows. Sea trials at golden hour, owner rendezvous off the islands, and first looks at the yachts before anyone else.</p>
     <div class="hero-cta">
-      <button class="btn-solid" data-scroll="#events">See What Is Coming Up</button>
+      <button class="btn-solid" data-scroll="#events">See What&rsquo;s Coming Up</button>
       <button class="btn-ghost" data-scroll="#past">See Past Events</button>
     </div>
   </div>
@@ -728,8 +746,8 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
   <div class="jb-veil" aria-hidden="true"></div>
   <div class="jb-body">
     <h2 data-rise="0">How can we help?</h2>
-    <p data-rise="1">Connect with our yacht brokerage and sales team to find your perfect yacht.</p>
-    <button class="jb-btn" type="button" data-rise="2">Contact us</button>
+    <p data-rise="1">Whatever you need &mdash; buying, selling, service, or ongoing care &mdash; we&rsquo;re ready to help.</p>
+    <button class="jb-btn" type="button" data-rise="2">Start a Conversation</button>
   </div>
 </section>
 
