@@ -44,6 +44,9 @@ a{color:inherit;text-decoration:none}
    the reveal is unaffected, it animates the spans inside. */
 .s-title.split-words{display:block}
 .s-title-row{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:1440px;margin:0 auto}
+/* The section's link reads better after the cards than between the title and
+   them, where it sat between the reader and the thing it points at. */
+.s-link-row{display:flex;justify-content:center;margin-top:28px}
 .s-title-row h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
   color:var(--navy);text-transform:uppercase;margin:0}
 .s-link{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
@@ -1336,7 +1339,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   <div class="vessels">
     <div class="vessels-head-row reveal">
       <h2>Our vessels</h2>
-      <a class="s-link" href="#">See all</a>
     </div>
     <div class="vessels-strip-wrap">
       <div class="vessels-strip" id="vessels-strip"><article class="vessel-card reveal">
@@ -1395,6 +1397,9 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
       <button class="cards-scroll-arr l" aria-label="Previous vessels" onclick="vesselsScroll(-1)"><i class="ti ti-chevron-left"></i></button>
       <button class="cards-scroll-arr" aria-label="More vessels" onclick="vesselsScroll(1)"><i class="ti ti-chevron-right"></i></button>
     </div>
+    <div class="s-link-row reveal">
+      <a class="s-link" href="#">See all</a>
+    </div>
   </div>
 </section>
 
@@ -1415,7 +1420,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   <div class="events-grid-wrap">
     <div class="s-title-row reveal">
       <h2><span class="ttl-desktop">Upcoming events &amp; private experiences</span><span class="ttl-mobile">Events</span></h2>
-      <a class="s-link" href="#"><span class="ttl-desktop">View all events</span><span class="ttl-mobile">View events</span></a>
     </div>
     <div class="sec-filter reveal" role="tablist" aria-label="Filter events by region">
       <button class="on" data-region="all">All</button>
@@ -1499,6 +1503,9 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
           <a class="cta" href="#">Request to attend</a>
         </article>
       </div>
+    </div>
+    <div class="s-link-row reveal">
+      <a class="s-link" href="#"><span class="ttl-desktop">View all events</span><span class="ttl-mobile">View events</span></a>
     </div>
   </div>
 </section>
