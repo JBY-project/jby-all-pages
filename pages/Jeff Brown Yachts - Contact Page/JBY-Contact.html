@@ -218,8 +218,18 @@ input,select,textarea{font-family:inherit}
 /* ====================================================================== */
 .hero-contact{position:relative;width:100%;height:68vh;min-height:520px;max-height:780px;
   overflow:hidden;background:#0d1b28;color:#fff}
-.hero-contact > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%;
-  transform:scale(1.06);animation:hero-drift 20s ease-out forwards}
+/* The photograph has 42px of sky over the tallest head in a 900px frame —
+   4.7%, which is all the headroom there is. The hero is far wider than the
+   picture (2.35 against 1.78), so cover throws away 198px of height, and both
+   the old object-position and the drift were taking their share off the top:
+   28% of the overflow was 55px, and scaling 1.06 about the centre lifted the
+   top edge another 18 out of frame. Together they cut 38px into the heads.
+
+   Anchoring both to the top spends the whole 198px on the bottom instead, so
+   the picture's own headroom survives: transform-origin keeps the top edge
+   still while the drift grows downward. */
+.hero-contact > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;
+  transform:scale(1.06);transform-origin:center top;animation:hero-drift 20s ease-out forwards}
 @keyframes hero-drift{to{transform:scale(1)}}
 .hero-contact .veil{position:absolute;inset:0;z-index:1;
   background:linear-gradient(180deg,rgba(13,27,40,0.55) 0%,rgba(13,27,40,0.12) 30%,rgba(13,27,40,0.30) 70%,rgba(13,27,40,0.74) 100%)}
