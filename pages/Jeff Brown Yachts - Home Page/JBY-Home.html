@@ -447,23 +447,17 @@ a{color:inherit;text-decoration:none}
 /* The gap to the cards is the events section's: 20px under the title row and
    nothing on top of the strip. The strip used to add 24px of its own, which
    was what made this section sit so much lower than the others. */
-/* Three to the row, not four. The card is 390 tall wherever it is used, and at
-   a quarter of this strip it came out 340 wide — narrow enough that the names
-   all wrapped and the card read taller than the same card on the catalogue
-   page, which shows three to the row and gives each one 443. A third of the
-   strip is 460 here, so the two match.
-   The fourth card is reached by the chevrons, which were already wired to this
-   strip (wireArrows('vessels-strip', …)) and had nothing to scroll while the
-   grid held every card in view. */
-.vessels-strip{display:flex;gap:20px;padding:0 40px 30px;align-items:stretch;
-  overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;scrollbar-width:none;
-  scroll-snap-type:x mandatory;scroll-padding-left:40px}
-.vessels-strip::-webkit-scrollbar{display:none}
+/* Three to the row, and three is all there is — no fourth card behind a
+   chevron. The card is 390 tall wherever the site uses it, and at a quarter of
+   this strip it came out 340 wide, narrow enough that every name wrapped and
+   the card read taller than the same card on the catalogue page, which shows
+   three to the row and gives each one 443. A third of this strip is 460. */
+.vessels-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+  padding:0 40px 30px;align-items:stretch}
 .vessels-arr{display:none}
 
-/* A third of the strip, the two gaps between the three taken off first. */
-.vessel-card{flex:0 0 calc((100% - 40px) / 3);scroll-snap-align:start;
-  min-width:0;height:390px;position:relative;
+/* Cards fill their grid column — no flex needed */
+.vessel-card{min-width:0;height:390px;position:relative;
   border-radius:2px;overflow:hidden;cursor:pointer;background:#0a1620;
   box-shadow:0 4px 20px rgba(0,0,0,0.05)}
 
@@ -1443,22 +1437,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
           <span class="v-cta-text">View</span>
           <span class="v-cta-icon"><i class="ti ti-chevron-right"></i></span>
         </button>
-      </article><article class="vessel-card reveal d3">
-        <div class="v-img" style="background-image:url('./JBY-V3.3-assets/06_vessel4_pershing.jpg')"></div>
-        <div class="v-img-veil"></div>
-        <div class="brand"><img src="./JBY-V3.3-assets/brand_pershing_raw.png" alt=""/></div>
-        <div class="info">
-          <div class="chip-loc">Seattle, WA</div>
-          <p class="name">2023 Pershing GT55 Sport Yacht</p>
-          <p class="price">$349,000</p>
-        </div>
-        <button class="v-cta" aria-label="View yacht">
-          <span class="v-cta-text">View</span>
-          <span class="v-cta-icon"><i class="ti ti-chevron-right"></i></span>
-        </button>
       </article></div>
-      <button class="cards-scroll-arr l" aria-label="Previous vessels" onclick="vesselsScroll(-1)"><i class="ti ti-chevron-left"></i></button>
-      <button class="cards-scroll-arr" aria-label="More vessels" onclick="vesselsScroll(1)"><i class="ti ti-chevron-right"></i></button>
     </div>
     <div class="s-link-row reveal">
       <a class="s-link" href="#">See all</a>
@@ -2419,12 +2398,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   // Brand slider — no autoscroll. Riva shown by default (init calls setBrand(0));
   // user navigates via left/right chevrons or brand tabs.
 
-  // VESSELS CAROUSEL right arrow scroll
-  window.vesselsScroll = function(dir){
-    const strip = document.getElementById('vessels-strip');
-    if (strip) strip.scrollBy({left: (dir||1) * (strip.clientWidth * 0.85 + 20), behavior: 'smooth'});
-  };
-
   // Events strip — no autoscroll, but right chevron button scrolls by one card
   window.eventsScroll = function(dir){
     const strip = document.getElementById('events-strip');
@@ -2452,7 +2425,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   }
   wireArrows('events-strip', document.querySelector('.events-strip-wrap'));
   wireArrows('video-stage', document.querySelector('.video-scroll-wrap'));
-  wireArrows('vessels-strip', document.querySelector('.vessels-strip-wrap'));
   // Event cards with video — play on hover, pause on leave
   document.querySelectorAll('.event-card.has-video').forEach(function(card){
     var v = card.querySelector('.event-video');
