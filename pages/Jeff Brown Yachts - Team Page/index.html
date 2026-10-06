@@ -95,10 +95,11 @@ main{padding-top:128px}
   font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:15px;line-height:21px;color:var(--card-ink)}
 .t-contact a{text-decoration:none;transition:color .2s}
 .t-contact a:hover{color:var(--navy-d)}
-.t-since{margin-top:6px;color:var(--card-ink)}
+.t-since{margin-top:6px;color:var(--navy)}
 /* Until the real contact details arrive these read as placeholders rather than
    as somebody's address or telephone number: a touch heavier than the lines
-   around them, and the digits are plainly zeros. Myriad Pro is cut at 300, 400
+   around them, and the digits in the address and the number are plainly zeros.
+   The year is a stand-in that reads as a year. Myriad Pro is cut at 300, 400
    and 600, so 500 lands on the 400 face — medium beside the 300 body, and a
    real face rather than a weight the browser paints on. */
 .t-placeholder,.t-placeholder a{font-weight:500}
@@ -547,7 +548,7 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
      e / ph / since are the three contact lines on the card. Where a person has
      none yet the card falls back to PLACEHOLDER, which is dimmed and plainly
      not a real number — swap the values in person by person as they arrive. */
-  var PLACEHOLDER = {e:'name@jeffbrownyachts.com', ph:'000-000-0000', since:'0000'};
+  var PLACEHOLDER = {e:'name@jeffbrownyachts.com', ph:'000-000-0000', since:'2021'};
   var TEAM = [
     /* Management */
     {n:'Jeff Brown',d:'sales',d2:'management',r:'Owner',o:'San Diego',img:'r_jeff_brown.jpg'},
