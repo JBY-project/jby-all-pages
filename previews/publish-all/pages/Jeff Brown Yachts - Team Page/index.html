@@ -8,7 +8,7 @@
 <style>
 :root{
   --ink:#2f2f39; --paper:#fcfcfd; --section:#f4f6f9; --navy:#41647b; --navy-d:#365466;
-  --sand:#bdb19d; --mute:#575760; --line:rgba(0,0,0,0.08); --white:#fff; --page-pad:40px;
+  --sand:#bdb19d; --sand-l:#d2cbbe; --mute:#575760; --line:rgba(0,0,0,0.08); --white:#fff; --page-pad:40px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -71,22 +71,33 @@ main{padding-top:128px}
 .facet-block button:hover{color:var(--navy)}
 .facet-block button.on{color:var(--navy);font-weight:400}
 .facet-block button.on .lbl{box-shadow:inset 0 -1.5px 0 currentColor;padding-bottom:3px}
-.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 20px}
-.team-card{position:relative;aspect-ratio:325/406;border-radius:2px;overflow:hidden;background:#e9edf1}
-.t-photo{position:absolute;inset:0;overflow:hidden}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 20px;align-items:stretch}
+/* The card is a photograph with a sand block under it, not a photograph with
+   the name floating on top: picture, then department, name, role, office and
+   the three contact lines, all centred. The cards in a row stretch to the
+   tallest one so the sand blocks line up along the bottom of the row. */
+.team-card{display:flex;flex-direction:column;height:100%;border-radius:2px;overflow:hidden;background:var(--sand-l)}
+.t-photo{position:relative;aspect-ratio:325/300;overflow:hidden;background:#e9edf1}
 .t-photo img{width:100%;height:100%;object-fit:cover;object-position:center 20%;transition:transform .7s cubic-bezier(0.22,1,0.36,1)}
 .team-card:hover .t-photo img{transform:scale(1.06)}
 .t-mono{width:100%;height:100%;display:flex;align-items:center;justify-content:center;
   background:linear-gradient(160deg,#5a7d94,#3a586b);color:#fff;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:40px;letter-spacing:0.04em}
-.t-foot{position:absolute;left:12px;right:12px;bottom:12px;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
-.t-tags{display:flex;flex-wrap:wrap;gap:4px}
-.t-tag{font-family:'Myriad Pro',sans-serif;font-size:14px;line-height:1;letter-spacing:0.06em;text-transform:uppercase;color:#fff;
+.t-foot{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:20px 18px 24px;background:var(--sand-l)}
+.t-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.t-tag{font-family:'Myriad Pro',sans-serif;font-size:13px;line-height:1;letter-spacing:0.06em;text-transform:uppercase;color:#fff;
   background:rgba(65,100,123,0.94);padding:6px 11px;border-radius:2px}
-.t-label{width:100%;display:flex;flex-direction:column;gap:8px;padding:16px;border-radius:2px;background:rgba(255,255,255,0.9)}
-.t-office{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:20px;color:var(--navy)}
-.t-nr{display:flex;flex-direction:column;gap:4px}
-.t-name{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:22px;letter-spacing:0;text-transform:uppercase;color:var(--navy)}
-.t-role{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:21px;color:var(--mute)}
+.t-nr{display:flex;flex-direction:column;align-items:center;gap:4px}
+.t-name{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:22px;letter-spacing:0.08em;text-transform:uppercase;color:var(--white)}
+.t-role{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:21px;color:var(--ink)}
+.t-office{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:15px;line-height:20px;color:var(--navy-d)}
+.t-contact{margin-top:2px;display:flex;flex-direction:column;align-items:center;gap:3px;
+  font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:15px;line-height:21px;color:var(--ink)}
+.t-contact a{text-decoration:underline;text-underline-offset:2px;transition:color .2s}
+.t-contact a:hover{color:var(--navy-d)}
+.t-since{margin-top:6px;color:var(--mute)}
+/* Until the real contact details arrive these read as placeholders rather than
+   as somebody's telephone number: dimmed, and the digits are plainly zeros. */
+.t-placeholder{opacity:0.55}
 .team-empty{padding-top:56px;text-align:center;font-family:'Myriad Pro',sans-serif;font-size:18px;color:var(--mute)}
 .team-empty[hidden]{display:none}
 
@@ -523,60 +534,74 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
 
 <script>
 (function(){
+  /* Order is the client's list, read group by group: Management first, then
+     Marketing / Office, Accounting, Sales, Service. Somebody who manages also
+     keeps the work they do — Jeff is Sales and Management — so the management
+     block holds them once, at the top, and the rank below puts them first
+     again inside their own department's filter, exactly as the list reads.
+
+     e / ph / since are the three contact lines on the card. Where a person has
+     none yet the card falls back to PLACEHOLDER, which is dimmed and plainly
+     not a real number — swap the values in person by person as they arrive. */
+  var PLACEHOLDER = {e:'name@jeffbrownyachts.com', ph:'000-000-0000', since:'0000'};
   var TEAM = [
+    /* Management */
     {n:'Jeff Brown',d:'sales',d2:'management',r:'Owner',o:'San Diego',img:'r_jeff_brown.jpg'},
     {n:'Karen Brown',d:'management',r:'Cruise Director',o:'San Diego',img:'r_karen_brown.jpg'},
+    {n:'Thiago',d:'sales',d2:'management',r:'',o:'',img:''},
+    {n:'Melina Monninger',d:'marketing',d2:'management',r:'Marketing Manager',o:'San Diego',img:'r_melina_monninger.jpg'},
+    {n:'Kassidy',d:'marketing',d2:'management',r:'',o:'',img:''},
     {n:'Adam Aronson',d:'accounting',d2:'management',r:'Accounting Manager',o:'San Diego',img:'r_adam_aronson.jpg'},
+    {n:'Audrey Benner',d:'marketing',d2:'management',r:'Office Manager',o:'San Diego',img:'r_audrey_benner.jpg'},
+    {n:'Chris Thompson',d:'service',d2:'management',r:'Service Manager',o:'San Diego Marina &amp; Boatyard',img:'r_chris_thompson.jpg'},
+    {n:'Paul Fecteau',d:'service',d2:'management',r:'National Service Manager',o:'Wrightsville Beach',img:'r_paul_fecteau.jpg'},
+    /* Marketing / Office */
+    {n:'Alessandro Carboni',d:'marketing',r:'Marketing Intern',o:'San Diego',img:'r_alessandro_carboni.jpg'},
+    {n:'Elise',d:'marketing',r:'',o:'',img:''},
+    /* Accounting */
     {n:'Robin Briscoe',d:'accounting',r:'Bookkeeper',o:'San Diego',img:'r_robin_briscoe.jpg'},
     {n:'Justin Puccio',d:'accounting',r:'Accounting Analyst',o:'San Diego',img:'r_justin_puccio.jpg'},
-    {n:'Audrey Benner',d:'marketing',d2:'management',r:'Office Manager',o:'San Diego',img:'r_audrey_benner.jpg'},
-    {n:'Rachelle Deal',d:'marketing',r:'Personal Assistant',o:'San Diego',img:'r_rachelle_deal.jpg'},
-    {n:'Melina Monninger',d:'marketing',d2:'management',r:'Marketing Manager',o:'San Diego',img:'r_melina_monninger.jpg'},
-    {n:'Alessandro Carboni',d:'marketing',r:'Marketing Intern',o:'San Diego',img:'r_alessandro_carboni.jpg'},
+    /* Sales */
     {n:'Wayne Racuya',d:'sales',r:'Sales Professional',o:'San Diego',img:'r_wayne_racuya.jpg'},
     {n:'Ryan Anderson',d:'sales',r:'Sales Professional',o:'San Diego',img:'r_ryan_anderson.jpg'},
     {n:'Colton Dykes',d:'sales',r:'Sales Professional',o:'San Diego',img:'r_colton_dykes.jpg'},
-    {n:'Lola Brown',d:'other',r:'Chief Happiness Officer',o:'San Diego',img:'r_lola_brown.jpg'},
-    {n:'Chris Thompson',d:'service',d2:'management',r:'Service Manager',o:'San Diego Marina &amp; Boatyard',img:'r_chris_thompson.jpg'},
-    {n:'Annie Snyder',d:'service',r:'Lead Service Technician',o:'San Diego Marina &amp; Boatyard',img:'r_annie_snyder.jpg'},
-    {n:'Ryan Heffernan-Anderson',d:'service',r:'Service Technician',o:'San Diego Marina &amp; Boatyard',img:'r_ryan_heffernan.jpg'},
-    {n:'Hailey Jones',d:'service',r:'Service Technician',o:'San Diego Marina &amp; Boatyard',img:'r_hailey_jones.jpg'},
-    {n:'Brock Passarella',d:'service',r:'Service Coordinator',o:'San Diego Marina &amp; Boatyard',img:'r_brock_passarella.jpg'},
-    {n:'Esmeralda Rivera',d:'service',r:'Chief Detailing Specialist',o:'San Diego Marina &amp; Boatyard',img:'r_esmeralda_rivera.jpg'},
-    {n:'Gabriela Pacheco',d:'service',r:'Detailing Specialist',o:'San Diego Marina &amp; Boatyard',img:'r_gabriela_pacheco.jpg'},
-    {n:'Brad Butler',d:'other',r:'In Memoriam',o:'San Diego Marina &amp; Boatyard',img:'r_brad_butler.jpg'},
-    {n:'Allen Jones',d:'sales',r:'Sales Professional &amp; Mari-Time Manager',o:'Newport Harbor',img:'r_allen_jones.jpg'},
-    {n:'Will De Jong',d:'sales',r:'Sales Professional',o:'Newport Harbor',img:'r_will_de_jong.jpg'},
-    {n:'Sailor Slonaker',d:'marketing',r:'Administrative Assistant',o:'Newport Harbor',img:'r_sailor_slonaker.jpg'},
+    {n:'Allen Jones',d:'sales',r:'Sales Professional &amp; Mari-Time Manager',o:'Newport Harbor',img:'r_allen_jones.jpg',e:'allen@jeffbrownyachts.com',ph:'949-630-2306',since:'2024'},
     {n:'Jim Ewing',d:'sales',r:'Sales Professional',o:'Marina del Rey',img:'r_jim_ewing.jpg'},
     {n:'Pete McCormick',d:'sales',r:'Sales Professional',o:'Sausalito',img:'r_pete_mccormick.jpg'},
     {n:'Max Haning',d:'sales',r:'Sales Professional',o:'Sausalito',img:'r_max_haning.jpg'},
-    {n:'Nico Colomb',d:'service',r:'Service Manager',o:'Sausalito',img:'r_nico_colomb.jpg'},
-    {n:'Jacques Guegau',d:'service',r:'Service Operations Coordinator',o:'Sausalito',img:'r_jacques_guegau.jpg'},
     {n:'Tommy Casias',d:'sales',r:'Sales Manager',o:'Seattle',img:'r_tommy_casias.jpg'},
     {n:'Connor Gray',d:'sales',d2:'service',r:'Sales &amp; Service',o:'Seattle',img:'r_connor_gray.jpg'},
-    {n:'Darik Swenson',d:'service',r:'Service Technician',o:'Seattle',img:'r_darik_swenson.jpg'},
     {n:'Andy Witherspoon',d:'sales',r:'Sales Professional',o:'Kona',img:'r_andy_witherspoon.jpg'},
     {n:'Konner Brown',d:'sales',r:'Sales Professional',o:'Wrightsville Beach',img:'r_konner_brown.jpg'},
     {n:'Matt Owens',d:'sales',r:'Sales Professional',o:'Wrightsville Beach',img:'r_matt_owens.jpg'},
-    {n:'Paul Fecteau',d:'service',d2:'management',r:'National Service Manager',o:'Wrightsville Beach',img:'r_paul_fecteau.jpg'},
+    {n:'Nate Evans',d:'sales',r:'Sales Professional',o:'Charleston',img:'r_nate_evans.jpg'},
+    {n:'Will De Jong',d:'sales',r:'Sales Professional',o:'Newport Harbor',img:'r_will_de_jong.jpg',e:'will@jeffbrownyachts.com'},
+    /* Service */
+    {n:'Brock Passarella',d:'service',r:'Service Coordinator',o:'San Diego Marina &amp; Boatyard',img:'r_brock_passarella.jpg'},
+    {n:'Annie Snyder',d:'service',r:'Lead Service Technician',o:'San Diego Marina &amp; Boatyard',img:'r_annie_snyder.jpg'},
+    {n:'Hailey Jones',d:'service',r:'Service Technician',o:'San Diego Marina &amp; Boatyard',img:'r_hailey_jones.jpg'},
+    {n:'Ryan Heffernan-Anderson',d:'service',r:'Service Technician',o:'San Diego Marina &amp; Boatyard',img:'r_ryan_heffernan.jpg'},
+    {n:'Jacques Guegau',d:'service',r:'Service Operations Coordinator',o:'Sausalito',img:'r_jacques_guegau.jpg'},
+    {n:'Darik Swenson',d:'service',r:'Service Technician',o:'Seattle',img:'r_darik_swenson.jpg'},
+    {n:'Esmeralda Rivera',d:'service',r:'Chief Detailing Specialist',o:'San Diego Marina &amp; Boatyard',img:'r_esmeralda_rivera.jpg'},
+    {n:'Gabriela Pacheco',d:'service',r:'Detailing Specialist',o:'San Diego Marina &amp; Boatyard',img:'r_gabriela_pacheco.jpg'},
     {n:'Matt Burtzel',d:'service',r:'Detail Specialist/Yard Technician',o:'Wrightsville Beach',img:'r_matt_burtzel.jpg'},
-    {n:'Nate Evans',d:'sales',r:'Sales Professional',o:'Charleston',img:'r_nate_evans.jpg'}
+    {n:'Nico Colomb',d:'service',r:'Service Manager',o:'Sausalito',img:'r_nico_colomb.jpg'}
   ];
   var OFFICES=['San Diego','San Diego Marina &amp; Boatyard','Newport Harbor','Marina del Rey','Sausalito','Seattle','Kona','Wrightsville Beach','Charleston'];
   /* The client's five classifications, in the order the list is read: management
-     first, then sales, service, accounting, marketing/office. Somebody who manages
-     also keeps the work they do — Jeff is Sales and Management — which is the d/d2
-     pair, shown on the card as 'Sales \u00b7 Management' and matched by either
+     first, then marketing / office, accounting, sales, service. Somebody who
+     manages also keeps the work they do — Jeff is Sales and Management — which
+     is the d/d2 pair, shown on the card as two plates and matched by either
      filter. */
-  var ROLES=[['management','Management'],['sales','Sales'],['service','Service'],
-             ['accounting','Accounting'],['marketing','Marketing / Office']];
+  var ROLES=[['management','Management'],['marketing','Marketing / Office'],
+             ['accounting','Accounting'],['sales','Sales'],['service','Service']];
   var DEPT_LABEL={management:'Management',sales:'Sales',service:'Service',
                   accounting:'Accounting',marketing:'Marketing / Office'};
   /* Where a person sits in the list: management together at the top, whatever else
      they do, then each classification in the order above. 'other' — the roles that
      carry no classification — comes last. */
-  var RANK={management:0,sales:1,service:2,accounting:3,marketing:4,other:9};
+  var RANK={management:0,marketing:1,accounting:2,sales:3,service:4,other:9};
   function rank(p){return (p.d==='management'||p.d2==='management')?0:(RANK[p.d]!==undefined?RANK[p.d]:9);}
   function inOffice(p,o){return o==='all'||p.o===o;}
   function inDept(p,d){return d==='all'||p.d===d||p.d2===d;}
@@ -593,12 +618,29 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
   /* One plate per classification, not one plate listing them: a person who does the
      work and manages it carries both, side by side. */
   function depts(p){if(p.d==='other')return[];return p.d2?[p.d,p.d2]:[p.d];}
+  /* A photograph, then the sand block: department plate or plates, the name,
+     the role, the office, and the three contact lines. A line the person has
+     no value for yet falls back to PLACEHOLDER and is dimmed, so nothing on
+     the page reads as somebody's real address or telephone number until it
+     is one. */
+  function line(v,fallback,cls,href){
+    var ph=!v, val=ph?fallback:v;
+    var inner=href?'<a href="'+href.replace('%s',val)+'">'+val+'</a>':val;
+    return '<span class="'+cls+(ph?' t-placeholder':'')+'">'+inner+'</span>';
+  }
   function cardHTML(p,i){
     var media=p.img?'<div class="t-photo"><img src="./assets/'+p.img+'" alt="'+p.n+'" loading="lazy"/></div>':'<div class="t-photo"><div class="t-mono">'+initials(p.n)+'</div></div>';
     var ds=depts(p);
     var tag=ds.length?'<div class="t-tags">'+ds.map(function(d){return '<span class="t-tag">'+DEPT_LABEL[d]+'</span>';}).join('')+'</div>':'';
-    return '<article class="team-card">'+media+'<div class="t-foot">'+tag+
-      '<div class="t-label"><span class="t-office">'+p.o+'</span><div class="t-nr"><span class="t-name">'+p.n+'</span><span class="t-role">'+p.r+'</span></div></div></div></article>';
+    var nr='<div class="t-nr"><span class="t-name">'+p.n+'</span>'+
+      (p.r?'<span class="t-role">'+p.r+'</span>':'')+
+      (p.o?'<span class="t-office">'+p.o+'</span>':'')+'</div>';
+    var contact='<div class="t-contact">'+
+      line(p.e,PLACEHOLDER.e,'t-mail','mailto:%s')+
+      line(p.ph,PLACEHOLDER.ph,'t-tel','tel:%s')+
+      '<span class="t-since'+(p.since?'':' t-placeholder')+'">Team Member since '+(p.since||PLACEHOLDER.since)+'</span>'+
+      '</div>';
+    return '<article class="team-card">'+media+'<div class="t-foot">'+tag+nr+contact+'</div></article>';
   }
 
   var grid=document.getElementById('team-grid');
