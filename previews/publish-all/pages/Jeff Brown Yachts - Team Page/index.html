@@ -8,7 +8,7 @@
 <style>
 :root{
   --ink:#2f2f39; --paper:#fcfcfd; --section:#f4f6f9; --navy:#41647b; --navy-d:#365466;
-  --sand:#bdb19d; --sand-l:#d2cbbe; --card-ink:#1b1b22; --sky:#8fb9d6; --mute:#575760; --line:rgba(0,0,0,0.08); --white:#fff; --page-pad:40px;
+  --sand:#bdb19d; --sand-l:#d2cbbe; --card-ink:#000; --mute:#575760; --line:rgba(0,0,0,0.08); --white:#fff; --page-pad:40px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -93,13 +93,15 @@ main{padding-top:128px}
 .t-role{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:21px;color:var(--card-ink)}
 .t-contact{margin-top:2px;display:flex;flex-direction:column;align-items:center;gap:3px;
   font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:15px;line-height:21px;color:var(--card-ink)}
-.t-contact a{text-decoration:underline;text-underline-offset:2px;transition:color .2s}
+.t-contact a{text-decoration:none;transition:color .2s}
 .t-contact a:hover{color:var(--navy-d)}
 .t-since{margin-top:6px;color:var(--card-ink)}
 /* Until the real contact details arrive these read as placeholders rather than
-   as somebody's address or telephone number: pale blue against the sand, and
-   the digits are plainly zeros. */
-.t-placeholder,.t-placeholder a{color:var(--sky)}
+   as somebody's address or telephone number: a touch heavier than the lines
+   around them, and the digits are plainly zeros. Myriad Pro is cut at 300, 400
+   and 600, so 500 lands on the 400 face — medium beside the 300 body, and a
+   real face rather than a weight the browser paints on. */
+.t-placeholder,.t-placeholder a{font-weight:500}
 .team-empty{padding-top:56px;text-align:center;font-family:'Myriad Pro',sans-serif;font-size:18px;color:var(--mute)}
 .team-empty[hidden]{display:none}
 
