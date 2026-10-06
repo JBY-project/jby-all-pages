@@ -47,6 +47,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .btn-solid:hover{background:var(--navy-d)}
 .btn-white{background:var(--white);color:var(--ink)}
 .btn-white:hover{background:var(--ink);color:var(--white)}
+/* Rule 3 of jby-system.css, the one .jby-band .jb-btn further down already
+   follows and the one the home page's hero button takes: a button standing on
+   a photograph is a veil the picture shows through, not a white slab laid over
+   it. The blur is what keeps white type legible — 28% white over a bright
+   frame is otherwise white on near-white. The hover is jby-system.css's own,
+   solid blue, which .btn-white is already named in. */
+.hero .btn-white{background:var(--jby-veil,rgba(255,255,255,0.28));color:#fff;border:0;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .btn-dark{background:var(--ink);color:var(--white)}
 .btn-dark:hover{background:var(--navy)}
 .btn-ghost{background:rgba(255,255,255,.01);color:var(--navy);border:1px solid var(--navy)}
@@ -738,9 +746,9 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
       <div class="rail" data-rail>
 
         <article class="ip">
-          <div class="ip-ph"><img src="assets/events/ev_cannes.jpg" alt="Cannes Yachting Festival in the Vieux Port" loading="lazy"/></div>
+          <div class="ip-ph"><img src="assets/events/ev_cannes.jpg" alt="The Vieux Port at the Cannes Boat Show" loading="lazy"/></div>
           <div class="ip-in">
-            <h4>Cannes Yachting Festival</h4>
+            <h4>Cannes Boat Show</h4>
             <div class="ev-row"><span>Location:</span><b>Cannes, France</b></div>
             <div class="ev-row"><span>Date:</span><b>Tue, Sep 8 &ndash; Sun, Sep 13</b></div>
             <div class="ev-row"><span>Event Time:</span><b>10:00am &ndash; 7:00pm</b></div>
@@ -749,10 +757,10 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
         </article>
 
         <article class="ip">
-          <div class="ip-ph"><img src="assets/events/ev_sausalito.jpg" alt="Sausalito Boat Show beneath the Golden Gate" loading="lazy"/></div>
+          <div class="ip-ph"><img src="assets/events/ev_sausalito.jpg" alt="A yacht under way at sunset" loading="lazy"/></div>
           <div class="ip-in">
-            <h4>Sausalito Boat Show</h4>
-            <div class="ev-row"><span>Location:</span><b>Sausalito, California</b></div>
+            <h4>Newport Beach Boat Show</h4>
+            <div class="ev-row"><span>Location:</span><b>Newport Beach, California</b></div>
             <div class="ev-row"><span>Date:</span><b>Fri, Sep 25 &ndash; Sun, Sep 27</b></div>
             <div class="ev-row"><span>Event Time:</span><b>9:00am &ndash; 6:00pm</b></div>
             <button class="btn btn-sm btn-ghost" type="button">Request to attend</button>
@@ -760,9 +768,20 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
         </article>
 
         <article class="ip">
-          <div class="ip-ph"><img src="assets/events/ev_tahoe.jpg" alt="Vintage wooden boats at the Lake Tahoe Concours" loading="lazy"/></div>
+          <div class="ip-ph"><img src="assets/events/ev_riva.jpg" alt="Guests aboard a Riva" loading="lazy"/></div>
           <div class="ip-in">
-            <h4>Lake Tahoe Concours d&rsquo;Elegance</h4>
+            <h4>San Diego Boat Show</h4>
+            <div class="ev-row"><span>Location:</span><b>San Diego, California</b></div>
+            <div class="ev-row"><span>Date:</span><b>Sun, Aug 9</b></div>
+            <div class="ev-row"><span>Event Time:</span><b>6:00pm &ndash; 10:00pm</b></div>
+            <button class="btn btn-sm btn-ghost" type="button">Request to attend</button>
+          </div>
+        </article>
+
+        <article class="ip">
+          <div class="ip-ph"><img src="assets/events/ev_tahoe.jpg" alt="Classic wooden boats on the docks at Lake Tahoe" loading="lazy"/></div>
+          <div class="ip-in">
+            <h4>Lake Tahoe</h4>
             <div class="ev-row"><span>Location:</span><b>Lake Tahoe, California</b></div>
             <div class="ev-row"><span>Date:</span><b>Fri, Aug 7 &ndash; Sat, Aug 8</b></div>
             <div class="ev-row"><span>Event Time:</span><b>8:00am &ndash; 4:00pm</b></div>
@@ -771,21 +790,10 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
         </article>
 
         <article class="ip">
-          <div class="ip-ph"><img src="assets/events/ev_riva.jpg" alt="An evening aboard Riva on Lake Tahoe" loading="lazy"/></div>
+          <div class="ip-ph"><img src="assets/events/ev_brabus.jpg" alt="Champagne poured on board" loading="lazy"/></div>
           <div class="ip-in">
-            <h4>Riva Soir&eacute;e</h4>
-            <div class="ev-row"><span>Location:</span><b>Lake Tahoe, California</b></div>
-            <div class="ev-row"><span>Date:</span><b>Sun, Aug 9</b></div>
-            <div class="ev-row"><span>Event Time:</span><b>6:00pm &ndash; 10:00pm</b></div>
-            <button class="btn btn-sm btn-ghost" type="button">Request to attend</button>
-          </div>
-        </article>
-
-        <article class="ip">
-          <div class="ip-ph"><img src="assets/events/ev_brabus.jpg" alt="BRABUS VIP owners party on the Monterey Peninsula" loading="lazy"/></div>
-          <div class="ip-in">
-            <h4>BRABUS VIP Owners Party</h4>
-            <div class="ev-row"><span>Location:</span><b>Monterey Peninsula, CA</b></div>
+            <h4>Mari-Time Kick Off Event</h4>
+            <div class="ev-row"><span>Location:</span><b>Newport Beach, California</b></div>
             <div class="ev-row"><span>Date:</span><b>Sun, Aug 16 &ndash; Mon, Aug 17</b></div>
             <div class="ev-row"><span>Event Time:</span><b>5:00pm &ndash; 11:00pm</b></div>
             <button class="btn btn-sm btn-ghost" type="button">Request to attend</button>
