@@ -258,7 +258,20 @@ input,select,textarea{font-family:inherit}
      the heads: the hero starts at the top of the document, not below the bar. */
   .hero-contact{height:auto;min-height:0;max-height:none;padding-top:75px}
   .hero-contact > img{position:static;width:100%;height:auto;transform:none;animation:none;display:block}
-  .hero-contact .veil{display:none}
+  /* The photograph's floor ends on a mid navy — around rgb(23,43,80) at the
+     left edge, rgb(8,22,49) at the right — and the block under it is
+     rgb(13,27,40), so the join read as a drawn line. A flat colour cannot
+     hide it, because the bottom row is not one colour across.
+
+     The veil earns its keep instead of being switched off: over the picture
+     only, fading from nothing to the hero's own background. Whatever the
+     colour is at any point along that edge, it arrives at the background and
+     the seam has nowhere to show. 56.25vw is the picture's height — its 900
+     over 1600 against the full width — so the veil stops exactly where the
+     photograph does, and the shoes, which reach 97% of the frame, keep their
+     shape through the last of the fade. */
+  .hero-contact .veil{top:75px;bottom:auto;height:56.25vw;
+    background:linear-gradient(180deg,transparent 58%,rgba(13,27,40,0.55) 82%,#0d1b28 100%)}
   .hero-contact .hc-inner{position:static;padding:26px 24px 40px;max-width:none}}
 
 /* ====================================================================== */
