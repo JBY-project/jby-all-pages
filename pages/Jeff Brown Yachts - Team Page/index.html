@@ -8,7 +8,7 @@
 <style>
 :root{
   --ink:#2f2f39; --paper:#fcfcfd; --section:#f4f6f9; --navy:#41647b; --navy-d:#365466;
-  --sand:#bdb19d; --sand-l:#d2cbbe; --card-ink:#1b1b22; --sky:#8fb9d6; --mute:#575760; --line:rgba(0,0,0,0.08); --white:#fff; --page-pad:40px;
+  --sand:#bdb19d; --sand-l:#d2cbbe; --card-ink:#1b1b22; --mute:#575760; --line:rgba(0,0,0,0.08); --white:#fff; --page-pad:40px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -97,9 +97,10 @@ main{padding-top:128px}
 .t-contact a:hover{color:var(--navy-d)}
 .t-since{margin-top:6px;color:var(--card-ink)}
 /* Until the real contact details arrive these read as placeholders rather than
-   as somebody's address or telephone number: pale blue against the sand, and
-   the digits are plainly zeros. */
-.t-placeholder,.t-placeholder a{color:var(--sky)}
+   as somebody's address or telephone number: deep navy, semibold against the
+   sand, and the digits are plainly zeros. 600 is a real Myriad Pro face, not a
+   weight the browser paints on. */
+.t-placeholder,.t-placeholder a{color:var(--navy-d);font-weight:600}
 .team-empty{padding-top:56px;text-align:center;font-family:'Myriad Pro',sans-serif;font-size:18px;color:var(--mute)}
 .team-empty[hidden]{display:none}
 
