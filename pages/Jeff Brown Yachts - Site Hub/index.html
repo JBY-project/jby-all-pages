@@ -2434,7 +2434,18 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     // ---- Leaflet + CARTO Positron (staging / no-token fallback) ----
     function initLeaflet(){
       var map = L.map('leaflet-map', { scrollWheelZoom:false, zoomControl:true, attributionControl:true, minZoom:MIN_ZOOM, maxZoom:MAX_ZOOM }).setView([39,-98], 4);
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { subdomains:'abcd', maxZoom:19, attribution:'&copy; OpenStreetMap &copy; CARTO' }).addTo(map);
+      // CARTO's light_all basemap now needs an API key. It does not fail loudly:
+      // every tile still answers 200, with a picture that says API KEY REQUIRED,
+      // so the console stays clean and the map just reads as broken. Esri's Light
+      // Gray Canvas is the nearest key-free match; its labels ride in a second
+      // layer, which is how Esri splits it. Esri renders to z16, so maxNativeZoom
+      // stops requesting there and Leaflet upscales past it instead of going blank.
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',{
+        maxNativeZoom:16,maxZoom:19,attribution:'Tiles &copy; Esri'
+      }).addTo(map);
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{
+        maxNativeZoom:16,maxZoom:19
+      }).addTo(map);
       var mk = [];
       OFFICES.forEach(function(o){
         var sz = o.maritime ? 22 : 16;
