@@ -8,7 +8,7 @@
 <style>
 :root{
   --ink:#2f2f39; --paper:#fcfcfd; --section:#f4f6f9; --navy:#41647b; --navy-d:#365466;
-  --sand:#bdb19d; --sand-l:#d2cbbe; --mute:#575760; --line:rgba(0,0,0,0.08); --white:#fff; --page-pad:40px;
+  --sand:#bdb19d; --sand-l:#d2cbbe; --card-ink:#1b1b22; --sky:#8fb9d6; --mute:#575760; --line:rgba(0,0,0,0.08); --white:#fff; --page-pad:40px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -78,26 +78,28 @@ main{padding-top:128px}
    tallest one so the sand blocks line up along the bottom of the row. */
 .team-card{display:flex;flex-direction:column;height:100%;border-radius:2px;overflow:hidden;background:var(--sand-l)}
 .t-photo{position:relative;aspect-ratio:325/300;overflow:hidden;background:#e9edf1}
+/* The department plates sit on the photograph, along its bottom edge, rather
+   than inside the sand block — the block starts at the name. */
+.t-tags{position:absolute;left:12px;right:12px;bottom:12px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
 .t-photo img{width:100%;height:100%;object-fit:cover;object-position:center 20%;transition:transform .7s cubic-bezier(0.22,1,0.36,1)}
 .team-card:hover .t-photo img{transform:scale(1.06)}
 .t-mono{width:100%;height:100%;display:flex;align-items:center;justify-content:center;
   background:linear-gradient(160deg,#5a7d94,#3a586b);color:#fff;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:40px;letter-spacing:0.04em}
 .t-foot{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:20px 18px 24px;background:var(--sand-l)}
-.t-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
 .t-tag{font-family:'Myriad Pro',sans-serif;font-size:13px;line-height:1;letter-spacing:0.06em;text-transform:uppercase;color:#fff;
   background:rgba(65,100,123,0.94);padding:6px 11px;border-radius:2px}
 .t-nr{display:flex;flex-direction:column;align-items:center;gap:4px}
 .t-name{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:22px;letter-spacing:0.08em;text-transform:uppercase;color:var(--white)}
-.t-role{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:21px;color:var(--ink)}
-.t-office{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:15px;line-height:20px;color:var(--navy-d)}
+.t-role{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:21px;color:var(--card-ink)}
 .t-contact{margin-top:2px;display:flex;flex-direction:column;align-items:center;gap:3px;
-  font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:15px;line-height:21px;color:var(--ink)}
+  font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:15px;line-height:21px;color:var(--card-ink)}
 .t-contact a{text-decoration:underline;text-underline-offset:2px;transition:color .2s}
 .t-contact a:hover{color:var(--navy-d)}
-.t-since{margin-top:6px;color:var(--mute)}
+.t-since{margin-top:6px;color:var(--card-ink)}
 /* Until the real contact details arrive these read as placeholders rather than
-   as somebody's telephone number: dimmed, and the digits are plainly zeros. */
-.t-placeholder{opacity:0.55}
+   as somebody's address or telephone number: pale blue against the sand, and
+   the digits are plainly zeros. */
+.t-placeholder,.t-placeholder a{color:var(--sky)}
 .team-empty{padding-top:56px;text-align:center;font-family:'Myriad Pro',sans-serif;font-size:18px;color:var(--mute)}
 .team-empty[hidden]{display:none}
 
@@ -629,18 +631,18 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
     return '<span class="'+cls+(ph?' t-placeholder':'')+'">'+inner+'</span>';
   }
   function cardHTML(p,i){
-    var media=p.img?'<div class="t-photo"><img src="./assets/'+p.img+'" alt="'+p.n+'" loading="lazy"/></div>':'<div class="t-photo"><div class="t-mono">'+initials(p.n)+'</div></div>';
     var ds=depts(p);
     var tag=ds.length?'<div class="t-tags">'+ds.map(function(d){return '<span class="t-tag">'+DEPT_LABEL[d]+'</span>';}).join('')+'</div>':'';
+    var inner=p.img?'<img src="./assets/'+p.img+'" alt="'+p.n+'" loading="lazy"/>':'<div class="t-mono">'+initials(p.n)+'</div>';
+    var media='<div class="t-photo">'+inner+tag+'</div>';
     var nr='<div class="t-nr"><span class="t-name">'+p.n+'</span>'+
-      (p.r?'<span class="t-role">'+p.r+'</span>':'')+
-      (p.o?'<span class="t-office">'+p.o+'</span>':'')+'</div>';
+      (p.r?'<span class="t-role">'+p.r+'</span>':'')+'</div>';
     var contact='<div class="t-contact">'+
       line(p.e,PLACEHOLDER.e,'t-mail','mailto:%s')+
       line(p.ph,PLACEHOLDER.ph,'t-tel','tel:%s')+
       '<span class="t-since'+(p.since?'':' t-placeholder')+'">Team Member since '+(p.since||PLACEHOLDER.since)+'</span>'+
       '</div>';
-    return '<article class="team-card">'+media+'<div class="t-foot">'+tag+nr+contact+'</div></article>';
+    return '<article class="team-card">'+media+'<div class="t-foot">'+nr+contact+'</div></article>';
   }
 
   var grid=document.getElementById('team-grid');
