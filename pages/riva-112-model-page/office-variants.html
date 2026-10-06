@@ -236,7 +236,17 @@
     function make(id){
       if(!window.L||!document.getElementById(id))return;
       var m=L.map(id,{scrollWheelZoom:false,zoomControl:true,attributionControl:false}).setView(jby,14);
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(m);
+      // CARTO's light_all basemap now needs an API key, and fails silently:
+      // every tile answers 200 with a picture that says API KEY REQUIRED.
+      // Esri's Light Gray Canvas is the nearest key-free match; its labels
+      // are a second layer. Esri renders to z16, so maxNativeZoom stops
+      // requesting there and Leaflet upscales instead of going blank.
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',{
+        maxNativeZoom:16,maxZoom:19,attribution:'Tiles &copy; Esri'
+      }).addTo(m);
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{
+        maxNativeZoom:16,maxZoom:19
+      }).addTo(m);
       var icon=L.divIcon({className:'',html:'<div style="width:20px;height:20px;background:#1d1d1b;border:3px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 6px 14px -4px rgba(0,0,0,.5)"></div>',iconSize:[20,20],iconAnchor:[10,20]});
       L.marker(jby,{icon:icon}).addTo(m);
       setTimeout(function(){m.invalidateSize();},200);

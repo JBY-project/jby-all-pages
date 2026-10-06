@@ -1806,9 +1806,16 @@ section.jby-band{margin-top:0}
                   wheelPxPerZoomLevel:90, minZoom:MAP_MIN_ZOOM, maxZoom:MAP_MAX_ZOOM })
                 .setView([current.coords[1], current.coords[0]], MAP_ZOOM);
     // CARTO Positron = grayscale light basemap, the closest match to Mapbox light-v11 (prod)
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      subdomains:'abcd', maxZoom:19,
-      attribution:'&copy; OpenStreetMap &copy; CARTO'
+    // CARTO's light_all basemap now needs an API key, and fails silently:
+    // every tile answers 200 with a picture that says API KEY REQUIRED.
+    // Esri's Light Gray Canvas is the nearest key-free match; its labels
+    // are a second layer. Esri renders to z16, so maxNativeZoom stops
+    // requesting there and Leaflet upscales instead of going blank.
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',{
+      maxNativeZoom:16,maxZoom:19,attribution:'Tiles &copy; Esri'
+    }).addTo(map);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{
+      maxNativeZoom:16,maxZoom:19
     }).addTo(map);
     OFFICES.forEach(function(o){
       var sz = o.current ? 22 : 16;

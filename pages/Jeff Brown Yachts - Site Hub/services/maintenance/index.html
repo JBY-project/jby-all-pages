@@ -1123,7 +1123,17 @@ else{
   function frame(animate){if(!map)return;var vis=cards.filter(function(c){return !c.classList.contains('hide');});if(!vis.length)return;var pts=vis.map(coordsOf);if(pts.length===1){map.flyTo(pts[0],9,{animate:!!animate,duration:.7});return;}if(animate)map.flyToBounds(pts,{padding:[54,44],maxZoom:5,duration:.7});else map.fitBounds(pts,{padding:[54,44],maxZoom:5});}
   function initMap(){
     map=L.map('loc-map',{scrollWheelZoom:false,zoomControl:true,attributionControl:true,minZoom:2,maxZoom:16});
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(map);
+    // CARTO's light_all basemap now needs an API key, and fails silently:
+    // every tile answers 200 with a picture that says API KEY REQUIRED.
+    // Esri's Light Gray Canvas is the nearest key-free match; its labels
+    // are a second layer. Esri renders to z16, so maxNativeZoom stops
+    // requesting there and Leaflet upscales instead of going blank.
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',{
+      maxNativeZoom:16,maxZoom:19,attribution:'Tiles &copy; Esri'
+    }).addTo(map);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{
+      maxNativeZoom:16,maxZoom:19
+    }).addTo(map);
     map.setView(US_VIEW.center,US_VIEW.zoom);
     cards.forEach(function(c){var ll=coordsOf(c);if(isNaN(ll[0]))return;var mk=L.marker(ll,{icon:iconFor(c),title:c.querySelector('h5').textContent}).addTo(map);mk.on('click',function(){openModal(c);});mk.on('mouseover',function(){setActive(c,true);});mk.on('mouseout',function(){setActive(c,false);});markers[slugOf(c)]=mk;});
     frame(false);setTimeout(function(){map.invalidateSize();frame(false);},280);

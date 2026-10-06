@@ -2376,9 +2376,16 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   if (window.L){
     var map = L.map('leaflet-map', {scrollWheelZoom:false, zoomControl:true, attributionControl:true, minZoom:2, maxZoom:15})
       .setView([39, -98], 3.05);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      subdomains:'abcd', maxZoom:19,
-      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    // CARTO's light_all basemap now needs an API key, and fails silently:
+    // every tile answers 200 with a picture that says API KEY REQUIRED.
+    // Esri's Light Gray Canvas is the nearest key-free match; its labels
+    // are a second layer. Esri renders to z16, so maxNativeZoom stops
+    // requesting there and Leaflet upscales instead of going blank.
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',{
+      maxNativeZoom:16,maxZoom:19,attribution:'Tiles &copy; Esri'
+    }).addTo(map);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{
+      maxNativeZoom:16,maxZoom:19
     }).addTo(map);
     var locs = [
       {slug:'san-diego-boatyard', coords:[32.7100,-117.2300], region:'west'},

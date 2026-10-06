@@ -667,8 +667,16 @@ footer .back-top.back-top:hover{background:var(--navy-d);color:#fff}
     // Exact same zoom settings as the Office page map (zoomSnap default 1 => each
     // scroll tick rounds up to a full level, so trackpad zoom feels punchy).
     map=L.map('loc-map',{scrollWheelZoom:true,wheelPxPerZoomLevel:90,zoomControl:true,attributionControl:true,minZoom:2,maxZoom:16});
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
-      subdomains:'abcd',maxZoom:19,attribution:'&copy; OpenStreetMap &copy; CARTO'
+    // CARTO's light_all basemap now needs an API key, and fails silently:
+    // every tile answers 200 with a picture that says API KEY REQUIRED.
+    // Esri's Light Gray Canvas is the nearest key-free match; its labels
+    // are a second layer. Esri renders to z16, so maxNativeZoom stops
+    // requesting there and Leaflet upscales instead of going blank.
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',{
+      maxNativeZoom:16,maxZoom:19,attribution:'Tiles &copy; Esri'
+    }).addTo(map);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{
+      maxNativeZoom:16,maxZoom:19
     }).addTo(map);
     map.setView(US_VIEW.center,US_VIEW.zoom);
     cards.forEach(function(c){
