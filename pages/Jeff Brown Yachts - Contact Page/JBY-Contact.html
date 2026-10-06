@@ -239,8 +239,27 @@ input,select,textarea{font-family:inherit}
   text-transform:uppercase;margin:0;color:#fff}
 .hero-contact p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:20px;line-height:30px;
   color:rgba(255,255,255,0.92);margin:18px 0 0;max-width:640px}
-@media(max-width:1024px){.hero-contact{height:58vh;min-height:420px}.hero-contact h1{font-size:30px;line-height:38px}
-  .hero-contact p{font-size:18px;line-height:27px}.hero-contact .hc-inner{padding:0 24px 44px}}
+@media(max-width:1024px){.hero-contact h1{font-size:30px;line-height:38px}
+  .hero-contact p{font-size:18px;line-height:27px}
+
+  /* On a phone the band is taller than it is wide relative to the picture —
+     0.80 against 1.78 — so cover has to throw away 462px of width, and there
+     are only 116px of wall to the left of the group and 203px to the right.
+     Whichever way it is nudged, the people on the ends lose an arm. No height
+     between 420 and 780 avoids it: the whole group fits only below about 250px
+     tall, which is too short to put a title in.
+
+     So the phone stops cropping. The photograph goes into the flow at its own
+     ratio, the whole team in 211px, and the title sits under it on the hero's
+     own navy instead of over the picture — which is also why the veil goes:
+     there is no longer any text on top of the photograph to protect.
+
+     The padding clears the nav, which is fixed and would otherwise stand on
+     the heads: the hero starts at the top of the document, not below the bar. */
+  .hero-contact{height:auto;min-height:0;max-height:none;padding-top:75px}
+  .hero-contact > img{position:static;width:100%;height:auto;transform:none;animation:none;display:block}
+  .hero-contact .veil{display:none}
+  .hero-contact .hc-inner{position:static;padding:26px 24px 40px;max-width:none}}
 
 /* ====================================================================== */
 /* OUR LOCATIONS — all offices + type filter                              */
