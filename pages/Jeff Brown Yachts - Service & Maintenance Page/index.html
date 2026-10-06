@@ -69,6 +69,14 @@ a{color:inherit;text-decoration:none}
 .btn-solid{background:#fff;color:#000;height:48px;padding:0 24px;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;
   line-height:20px;text-transform:uppercase;display:inline-flex;align-items:center;border-radius:2px;transition:.25s}
 .btn-solid:hover{background:#000;color:#fff}
+/* Rule 3 of jby-system.css, which the band at the foot of this page already
+   follows: a button standing on a photograph is a veil the picture shows
+   through with white type, not a white slab laid over it. The blur is what
+   keeps the type legible - 28% white over a bright frame is otherwise white
+   on near-white. */
+.hero .btn-solid{background:var(--jby-veil,rgba(255,255,255,0.28));color:#fff;border:0;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.hero .btn-solid:hover{background:var(--jby-blue,var(--navy,#41647b));color:#fff}
 .btn-ghost{background:rgba(255,255,255,0.01);color:#fff;height:48px;padding:0 24px;border:1px solid rgba(255,255,255,0.9);
   backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;
   line-height:20px;text-transform:uppercase;display:inline-flex;align-items:center;border-radius:2px;transition:.25s}
@@ -232,20 +240,42 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
 /* The copy deck names the four and then lists what each one covers. The list
    is the specific half of the promise — AC descaling, shrink wrap, Starlink —
    so it is set in the body face at a step down, not as a second paragraph. */
-.card-list{list-style:none;margin:0;padding:0;max-width:460px;display:flex;flex-direction:column;gap:8px}
-.card-list li{position:relative;padding-left:18px;font-family:'Myriad Pro',sans-serif;font-weight:300;
+.card-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px 28px}
+/* An odd count leaves the last item alone on its row rather than stretched
+   across both columns. */
+.card-list li{position:relative;padding-left:26px;font-family:'Myriad Pro',sans-serif;font-weight:300;
   font-size:16px;line-height:1.5;color:var(--mute)}
-.card-list li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;
-  background:var(--navy);opacity:.55}
+/* A check rather than a dot: these are what the category covers, and a tick
+   reads as a thing provided. Drawn in --navy, the same mark the certification
+   lists use, as a background image so no glyph or icon font is needed. */
+.card-list li::before{content:'';position:absolute;left:0;top:3px;width:16px;height:16px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2341647b' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") no-repeat center/16px 16px}
+@media (max-width:760px){.card-list{grid-template-columns:1fr}}
 /* The label the deck puts over the four. */
 .offer-kicker{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;line-height:20px;
   letter-spacing:.12em;text-transform:uppercase;color:var(--mute);text-align:center;
   margin:clamp(40px,4vw,56px) 0 0}
-/* Certified to service what we sell — the one line of proof under the four. */
-.certs{text-align:center;max-width:920px;margin:clamp(56px,6vw,80px) auto 0;padding:0 40px}
+/* Certified to service what we sell. This was one line of proof under the
+   four categories; it is the section the client's mockup shows — the promise,
+   a sentence of what it means, and the two certifications as tiles with a
+   caption each. The tiles are --navy, and the logos are supplied white so
+   they sit on it. The deck's own four-certification line is kept underneath
+   as the note, since the tiles name only two of them. */
+.certs{text-align:center;max-width:1000px;margin:clamp(56px,6vw,80px) auto 0;padding:0 40px}
 .certs h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;
-  text-transform:uppercase;color:var(--navy);margin:0 0 12px}
-.certs p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:1.62;color:var(--mute);margin:0}
+  text-transform:uppercase;color:var(--navy);margin:0 0 16px}
+.certs-sub{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:1.62;color:var(--mute);
+  max-width:660px;margin:0 auto 42px}
+.certs-logos{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:40px}
+.cert{display:flex;flex-direction:column;gap:18px;width:360px;max-width:100%}
+.cert-logo{display:flex;align-items:center;justify-content:center;width:100%;height:136px;padding:0 36px;
+  border-radius:4px;background:var(--navy)}
+.cert-img{max-width:180px;max-height:42px;width:auto;height:auto;display:block}
+.cert-cap{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:1.6;color:var(--mute);
+  margin:0;text-align:left}
+.certs-note{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:13px;line-height:1.5;color:var(--mute);
+  opacity:.85;margin:26px auto 0;max-width:560px}
+@media (max-width:600px){.cert-logo{height:82px}}
 @media (max-width:1024px){
   .offer{padding:80px 24px 0}
   .sec-head h2{font-size:18px;line-height:26px}
@@ -363,6 +393,9 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
   color:var(--ink);margin:0 0 18px;text-transform:none;opacity:0.85}
 .loc-modal-info{margin:0 0 16px;padding:12px 0;border-top:0.5px solid var(--line);border-bottom:0.5px solid var(--line)}
 .loc-modal-row{display:grid;grid-template-columns:100px 1fr;gap:32px;padding:6px 0;margin:0}
+/* display:grid above outranks what [hidden] gives an element, so a row the
+   panel has nothing for needs saying twice. Same for the photograph. */
+.loc-modal-row[hidden],.loc-modal-photo[hidden]{display:none}
 .loc-modal-row dt{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;line-height:20px;
   letter-spacing:0.08em;text-transform:uppercase;color:var(--mute);margin:0}
 .loc-modal-row dd{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:24px;color:var(--ink);margin:0}
@@ -419,7 +452,10 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
    the window and pans either side of that. The layer is inset -55% top and
    bottom, more than the furthest extreme reaches, so no edge comes into view.
    The handler is in the script beside this. */
-section.jby-band{position:relative;overflow:hidden;margin-top:88px;
+/* No margin above it. The band and the footer under it are one blue foot to
+   the page, and 88px of white between the dark band and that foot read as a
+   gap left by mistake. */
+section.jby-band{position:relative;overflow:hidden;margin-top:0;
   background:var(--navy,#41647b);color:#fff;padding:0 40px;text-align:center;min-height:315px;
   display:flex;flex-direction:column;align-items:center;justify-content:center}
 .jby-band .jb-bg{position:absolute;inset:-55% 0;z-index:0;will-change:transform}
@@ -703,7 +739,23 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
   </div>
   <div class="certs rise">
     <h3>Certified to service what we sell</h3>
-    <p>Mercury Certified &middot; ABYC Certified &middot; Webasto Certified &middot; Seakeeper Certified</p>
+    <p class="certs-sub">An authorized warranty and repair center for the brands we represent, with factory-certified technicians and genuine parts, so every job is done to spec and stays covered.</p>
+    <div class="certs-logos">
+      <div class="cert">
+        <div class="cert-logo"><img class="cert-img" src="./assets/mercury-marine-logo.svg" alt="Mercury" loading="lazy"></div>
+        <p class="cert-cap">Authorized Mercury service &amp; warranty center, with genuine parts supplied direct.</p>
+      </div>
+      <div class="cert">
+        <div class="cert-logo"><img class="cert-img" src="./assets/seakeeper-logo-white.png" alt="Seakeeper" loading="lazy"></div>
+        <p class="cert-cap">Certified Seakeeper installation, service, and warranty support.</p>
+      </div>
+      <!-- Webasto and ABYC stood here as two more tiles until the client's mockup
+           showed this section as two. They are real certifications and nobody has
+           said they lapsed, so both logos are in assets/ and a tile drops back in
+           beside these and works as it did. The line under the tiles names all
+           four, which is what the copy deck carries. -->
+    </div>
+    <p class="certs-note">Mercury Certified &middot; ABYC Certified &middot; Webasto Certified &middot; Seakeeper Certified</p>
   </div>
 </div>
 </section>
@@ -724,6 +776,13 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
         <h4>Marinas &amp; Boatyards</h4>
         <div class="visit-item" data-loc="san-diego-boatyard" data-region="west" data-city="San Diego, CA" data-address="2614 Shelter Island Drive, Suite A, San Diego, CA 92106" data-hours="Mon &ndash; Fri, 7am &ndash; 3:30pm (PT)">
           <div class="visit-item-l"><h5>San Diego Marina &amp; Boatyard</h5><small>Mon &ndash; Fri, 7am &ndash; 3:30pm (PT) &middot; By appointment anytime</small></div>
+          <div class="visit-item-r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></div>
+        </div>
+        <!-- The copy deck lists two marinas and boatyards; this is the second.
+             It has no address, phone or photograph yet, so it carries no map
+             pin and its panel shows the name and the hours only. -->
+        <div class="visit-item" data-loc="north-carolina-boatyard" data-region="east" data-city="North Carolina" data-hours="Mon &ndash; Fri, 7am &ndash; 4:00pm (ET)">
+          <div class="visit-item-l"><h5>North Carolina Marina &amp; Boatyard</h5><small>Mon &ndash; Fri, 7am &ndash; 4:00pm (ET) &middot; By appointment anytime</small></div>
           <div class="visit-item-r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></div>
         </div>
         <h4>Sales Offices</h4>
@@ -1000,18 +1059,32 @@ else{
     m.on('click',function(){if(item)openModal(l,item);focus(l.slug);});
     markers[l.slug]={marker:m,coords:l.coords,region:l.region,item:item};
   });
+  /* A row the map has no record for - an office whose address has not reached
+     us yet - still opens its panel, with the name and the hours it carries in
+     the markup and the rows it has nothing for left out. Without this it would
+     wear a chevron and answer nothing. */
+  document.querySelectorAll('.visit-item').forEach(function(item){
+    if(markers[item.getAttribute('data-loc')])return;
+    item.addEventListener('click',function(e){if(e.target.closest('a'))return;openModal(null,item);});
+    item.addEventListener('mouseenter',function(){setActive(item);});
+  });
   function setActive(item){document.querySelectorAll('.visit-item.active').forEach(function(x){x.classList.remove('active');});if(item)item.classList.add('active');}
   function openModal(l,item){
     var mp=document.getElementById('loc-modal-photo');
-    mp.style.backgroundImage=l.photo?"url('./assets/"+l.photo+"')":'';
+    mp.style.backgroundImage=(l&&l.photo)?"url('./assets/"+l.photo+"')":'';
+    mp.hidden=!(l&&l.photo);
     var name=item.querySelector('h5').textContent.trim();
-    document.getElementById('loc-modal-title').textContent=name+(l.type==='maritime'?': Maritime':'');
-    document.getElementById('loc-modal-subtitle').textContent=l.fact||'';
+    document.getElementById('loc-modal-title').textContent=name+((l&&l.type==='maritime')?': Maritime':'');
+    document.getElementById('loc-modal-subtitle').textContent=(l&&l.fact)||'';
     var addr=item.getAttribute('data-address')||'';
     var al=document.getElementById('loc-modal-address-link');
     al.textContent=addr;al.setAttribute('href','https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(addr));
     var ph=document.getElementById('loc-modal-phone');
-    ph.textContent=l.phone||'';ph.setAttribute('href',l.phoneHref||'');
+    ph.textContent=(l&&l.phone)||'';ph.setAttribute('href',(l&&l.phoneHref)||'');
+    /* An office whose address or telephone we do not hold yet drops that row
+       rather than showing the label over an empty line. */
+    al.closest('.loc-modal-row').hidden=!addr;
+    ph.closest('.loc-modal-row').hidden=!ph.textContent;
     var hrs=item.getAttribute('data-hours')||'';
     document.getElementById('loc-modal-hours').textContent=hrs+(hrs!=='By appointment'?'  \u00b7 By appointment anytime':'');
     var md=document.getElementById('loc-modal');md.classList.add('open');md.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
@@ -1026,11 +1099,18 @@ else{
     b.addEventListener('click',function(){
       btns.forEach(function(x){x.classList.remove('on');});b.classList.add('on');
       var region=b.getAttribute('data-region');var pts=[];
+      /* The map first, then the list. These used to be one loop over the
+         markers, which meant a row with no pin was never shown or hidden by
+         the filter and stayed on screen under every region. The list is
+         filtered on its own data-region now, so a row keeps answering the
+         filter whether or not the map knows where it is. */
       Object.keys(markers).forEach(function(k){
         var r=markers[k];var show=(region==='all'||r.region===region);
         if(show){if(!map.hasLayer(r.marker))r.marker.addTo(map);pts.push(r.coords);}
         else if(map.hasLayer(r.marker))map.removeLayer(r.marker);
-        if(r.item)r.item.style.display=show?'':'none';
+      });
+      document.querySelectorAll('.visit-item').forEach(function(it){
+        it.style.display=(region==='all'||it.getAttribute('data-region')===region)?'':'none';
       });
       map.closePopup();setActive(null);
       if(region==='all'||!pts.length)map.setView(DEFAULT_VIEW.center,DEFAULT_VIEW.zoom);
