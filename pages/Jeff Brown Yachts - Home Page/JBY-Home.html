@@ -444,17 +444,26 @@ a{color:inherit;text-decoration:none}
 .cards-scroll-arr:hover{background:rgba(0,0,0,0.7);transform:translateY(-50%)}
 .cards-scroll-arr.l{left:20px;right:auto}
 .video-scroll-wrap{position:relative}
-/* Grid template columns transition — buttery smooth, browser optimizes better
-   than flex-grow (no layout thrashing per card). :has() lets each card control the row. */
 /* The gap to the cards is the events section's: 20px under the title row and
    nothing on top of the strip. The strip used to add 24px of its own, which
    was what made this section sit so much lower than the others. */
-.vessels-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
-  padding:0 40px 30px;align-items:stretch}
+/* Three to the row, not four. The card is 390 tall wherever it is used, and at
+   a quarter of this strip it came out 340 wide — narrow enough that the names
+   all wrapped and the card read taller than the same card on the catalogue
+   page, which shows three to the row and gives each one 443. A third of the
+   strip is 460 here, so the two match.
+   The fourth card is reached by the chevrons, which were already wired to this
+   strip (wireArrows('vessels-strip', …)) and had nothing to scroll while the
+   grid held every card in view. */
+.vessels-strip{display:flex;gap:20px;padding:0 40px 30px;align-items:stretch;
+  overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;scrollbar-width:none;
+  scroll-snap-type:x mandatory;scroll-padding-left:40px}
+.vessels-strip::-webkit-scrollbar{display:none}
 .vessels-arr{display:none}
 
-/* Cards fill their grid column — no flex needed */
-.vessel-card{min-width:0;height:390px;position:relative;
+/* A third of the strip, the two gaps between the three taken off first. */
+.vessel-card{flex:0 0 calc((100% - 40px) / 3);scroll-snap-align:start;
+  min-width:0;height:390px;position:relative;
   border-radius:2px;overflow:hidden;cursor:pointer;background:#0a1620;
   box-shadow:0 4px 20px rgba(0,0,0,0.05)}
 
