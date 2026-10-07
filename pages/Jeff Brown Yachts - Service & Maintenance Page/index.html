@@ -417,6 +417,27 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
 /* MOBILE-FIX-KSENIA: kill horizontal scroll on phones */
 @media (max-width:980px){html,body{overflow-x:hidden}}
 @media (max-width:600px){.nav .cta{display:none}}
+/* CLIENT REVIEWS — the slider the V2 page carries */
+.tmon{padding:clamp(80px,10vw,120px) 0;background:var(--section)}
+.tmon-inner{max-width:1440px;margin:0 auto;padding:0 40px}
+.tmon-head{text-align:center;margin:0 auto 44px}
+.tmon-head h2{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:20px;line-height:30px;letter-spacing:0;text-transform:uppercase;color:var(--navy);margin:0}
+.tmon-view{position:relative;overflow:hidden}
+.tmon-q:nth-child(even){border-left:1px solid var(--line)}
+.tmon-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none}
+.tmon-track::-webkit-scrollbar{display:none}
+.tmon-q{flex:0 0 50%;margin:0;scroll-snap-align:start;padding:0 clamp(28px,3.5vw,60px);display:flex;flex-direction:column;gap:22px}
+.tmon-q blockquote{margin:0;font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:19px;line-height:31px;color:var(--ink)}
+.tmon-q .who{display:flex;flex-direction:column;gap:4px;margin-top:auto}
+.tmon-q .who .nm{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;letter-spacing:.04em;text-transform:uppercase;color:var(--navy)}
+.tmon-q .who .bt{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;color:var(--mute)}
+.tmon-nav{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:44px}
+.tmon-btn{width:48px;height:48px;border:1px solid rgba(65,100,123,.18);border-radius:2px;display:inline-flex;align-items:center;justify-content:center;color:var(--navy);background:none;cursor:pointer;padding:0;line-height:0;transition:border-color .25s,color .25s,opacity .25s}
+.tmon-btn:hover{border-color:var(--navy);color:var(--navy)}
+.tmon-btn:disabled{opacity:.32;cursor:default}
+.tmon-btn:disabled:hover{border-color:rgba(65,100,123,.18);color:var(--navy)}
+.tmon-btn svg{width:20px;height:20px;display:block}
+@media(max-width:760px){.tmon-q{flex-basis:100%;padding:0}.tmon-q:nth-child(even){border-left:0}}
 </style>
 <style>/* MOBILE-HELP-ONELINE: help/expert title one line + full-width CTA (site-wide) */
 @media (max-width:680px){
@@ -722,7 +743,7 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
       </div>
     </div>
     <div class="offer-row rise">
-      <figure class="card-media"><img src="./assets/card_survey.jpg" alt="A Jeff Brown Yachts technician inspecting a drive"/></figure>
+      <figure class="card-media"><img src="./assets/card_survey_reading.jpg" alt="A Jeff Brown Yachts surveyor going through an inspection report on board"/></figure>
       <div class="card-body">
         <h3>Survey</h3>
         <p>Pre-purchase and insurance surveys, sea trials, and detailed reports, walked through clearly so you know exactly what you&rsquo;re buying.</p>
@@ -755,6 +776,31 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
     <p class="certs-note">Mercury Certified &middot; ABYC Certified &middot; Webasto Certified &middot; Seakeeper Certified</p>
   </div>
 </div>
+</section>
+
+<!-- BESPOKE SERVICE — FULL-WIDTH VIDEO BAND -->
+<section class="band" id="expertise">
+  <div class="band-media">
+    <video id="band-video" autoplay muted loop playsinline preload="auto" poster="./assets/hero_poster.jpg" aria-label="A Jeff Brown Yachts yacht underway">
+      <source src="./assets/band_cinematic.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="band-veil"></div>
+  <div class="band-inner">
+    <div class="band-text rise">
+      <h2>30+ Years of Expertise</h2>
+      <p class="lede">For over three decades, Jeff Brown has lived every side of the marine industry, from refit and maintenance to global deliveries.</p>
+      <ul class="band-facts">
+        <li>Service &amp; Warranty Department on staff</li>
+        <li>Licensed brokers and bonded agents</li>
+        <li>Mobile service &amp; full boatyard capability</li>
+      </ul>
+      <div class="band-ctas">
+        <button class="btn-solid" data-scroll="#help">Request a Service</button>
+        <button class="btn-ghost" data-scroll="#help">Meet the Team</button>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- HOME PORTS + MAP -->
@@ -824,27 +870,49 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
   </div>
 </section>
 
-<!-- BESPOKE SERVICE — FULL-WIDTH VIDEO BAND -->
-<section class="band" id="expertise">
-  <div class="band-media">
-    <video id="band-video" autoplay muted loop playsinline preload="auto" poster="./assets/hero_poster.jpg" aria-label="A Jeff Brown Yachts yacht underway">
-      <source src="./assets/band_cinematic.mp4" type="video/mp4">
-    </video>
-  </div>
-  <div class="band-veil"></div>
-  <div class="band-inner">
-    <div class="band-text rise">
-      <h2>30+ Years of Expertise</h2>
-      <p class="lede">For over three decades, Jeff Brown has lived every side of the marine industry, from refit and maintenance to global deliveries.</p>
-      <ul class="band-facts">
-        <li>Service &amp; Warranty Department on staff</li>
-        <li>Licensed brokers and bonded agents</li>
-        <li>Mobile service &amp; full boatyard capability</li>
-      </ul>
-      <div class="band-ctas">
-        <button class="btn-solid" data-scroll="#help">Request a Service</button>
-        <button class="btn-ghost" data-scroll="#help">Meet the Team</button>
+<!-- CUSTOMER REVIEWS -->
+<section class="tmon" id="reviews">
+  <div class="tmon-inner">
+    <div class="tmon-head rise"><h2>What our clients say</h2></div>
+    <div class="tmon-view rise">
+      <div class="tmon-track" id="tmonTrack">
+        <figure class="tmon-q">
+          <blockquote>They treat my boat like it&rsquo;s their own. Whatever it needs is handled before I even ask.</blockquote>
+          <figcaption class="who"><span class="nm">Michael R.</span><span class="bt">Annual service &middot; San Diego</span></figcaption>
+        </figure>
+        <figure class="tmon-q">
+          <blockquote>Haul-out, full service, and back in the water without me lifting a finger. That&rsquo;s the whole point.</blockquote>
+          <figcaption class="who"><span class="nm">David &amp; Anne L.</span><span class="bt">Refit &amp; haul-out &middot; Newport Harbor</span></figcaption>
+        </figure>
+        <figure class="tmon-q">
+          <blockquote>The mobile team came straight to my slip and had everything sorted the same afternoon.</blockquote>
+          <figcaption class="who"><span class="nm">Tom H.</span><span class="bt">Mobile service &middot; Seattle</span></figcaption>
+        </figure>
+        <figure class="tmon-q">
+          <blockquote>In fifteen years of ownership I&rsquo;ve never had service this seamless. One call, and it&rsquo;s done.</blockquote>
+          <figcaption class="who"><span class="nm">Robert K.</span><span class="bt">Full-service program &middot; Charleston</span></figcaption>
+        </figure>
+        <figure class="tmon-q">
+          <blockquote>Engine service, electronics, and bottom paint, all coordinated in one visit. Effortless.</blockquote>
+          <figcaption class="who"><span class="nm">Elena V.</span><span class="bt">Scheduled maintenance &middot; Marina del Rey</span></figcaption>
+        </figure>
+        <figure class="tmon-q">
+          <blockquote>Warranty work handled directly with the builder. I never had to chase a single thing.</blockquote>
+          <figcaption class="who"><span class="nm">James P.</span><span class="bt">Warranty service &middot; Sausalito</span></figcaption>
+        </figure>
+        <figure class="tmon-q">
+          <blockquote>Certified techs, genuine parts, and honest advice. I trust them completely with the boat.</blockquote>
+          <figcaption class="who"><span class="nm">Caroline B.</span><span class="bt">Repeat client &middot; San Diego</span></figcaption>
+        </figure>
+        <figure class="tmon-q">
+          <blockquote>They keep her in perfect shape season after season. It&rsquo;s genuine peace of mind.</blockquote>
+          <figcaption class="who"><span class="nm">Andrew M.</span><span class="bt">Ongoing care &middot; Kona</span></figcaption>
+        </figure>
       </div>
+    </div>
+    <div class="tmon-nav">
+      <button class="tmon-btn prev" aria-label="Previous reviews"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m15 18-6-6 6-6"/></svg></button>
+      <button class="tmon-btn next" aria-label="More reviews"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 6 6 6-6 6"/></svg></button>
     </div>
   </div>
 </section>
@@ -1118,6 +1186,29 @@ else{
   // Leaflet needs a size recalc once the section reveals
   setTimeout(function(){map.invalidateSize();},400);
   window.addEventListener('resize',function(){map.invalidateSize();});
+})();
+
+/* Reviews slider — seamless infinite loop (3 copies + idle re-centering) */
+(function(){
+  var track=document.getElementById('tmonTrack');if(!track)return;
+  var prev=document.querySelector('.tmon-btn.prev'),next=document.querySelector('.tmon-btn.next');
+  var count=track.children.length;
+  var originals=[].slice.call(track.children);
+  // duplicate the set twice so there is a full copy of runway on each side
+  for(var c=0;c<2;c++){originals.forEach(function(n){track.appendChild(n.cloneNode(true));});}
+  function step(){var c=track.querySelector('.tmon-q');return c?Math.round(c.getBoundingClientRect().width):320;}
+  function loopW(){return step()*count;}            // width of one full copy
+  function page(){return (window.innerWidth<=760?1:2)*step();}
+  function centre(){track.scrollLeft=loopW();}       // sit in the middle copy
+  function wrap(){var W=loopW(),x=track.scrollLeft;
+    if(x<W*0.5)track.scrollLeft=x+W;                  // drifted too far left → hop forward one copy
+    else if(x>W*1.5)track.scrollLeft=x-W;}            // too far right → hop back one copy
+  var idle;
+  track.addEventListener('scroll',function(){clearTimeout(idle);idle=setTimeout(wrap,120);},{passive:true});
+  if(prev)prev.addEventListener('click',function(){track.scrollBy({left:-page(),behavior:'smooth'});});
+  if(next)next.addEventListener('click',function(){track.scrollBy({left:page(),behavior:'smooth'});});
+  window.addEventListener('resize',centre);
+  centre();
 })();
 </script>
 <script>
