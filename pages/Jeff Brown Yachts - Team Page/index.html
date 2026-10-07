@@ -93,7 +93,10 @@ main{padding-top:128px}
 /* The role keeps its line even when there is no role yet, so the contact lines
    and the year sit at the same height on every card in the row. */
 .t-role{display:block;min-height:21px;font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:21px;color:var(--card-ink)}
-.t-contact{margin-top:2px;display:flex;flex-direction:column;align-items:center;gap:3px;
+/* Pinned to the foot of the sand block. The cards in a row are already the
+   same height, so the email, the telephone and the year meet along a line
+   across the row whether or not a name ran to two lines. */
+.t-contact{margin-top:auto;padding-top:8px;display:flex;flex-direction:column;align-items:center;gap:3px;
   font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:15px;line-height:21px;color:var(--card-ink)}
 .t-contact a{text-decoration:none;transition:color .2s}
 .t-contact a:hover{color:var(--navy-d)}
