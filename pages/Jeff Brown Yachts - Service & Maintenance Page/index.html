@@ -319,7 +319,7 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
 }
 
 /* ============================== HOME PORTS + MAP ============================== */
-.ports{max-width:1440px;margin:0 auto;padding:88px 40px 0}
+.ports{max-width:1440px;margin:0 auto;padding:88px 40px}
 .ports-inner{max-width:1360px;margin:0 auto}
 /* Title down the middle and the link under the thing it points at, the same
    arrangement the home page and the sell page carry: 32px of white between
@@ -331,7 +331,7 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
 .ports .s-link{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:20px;letter-spacing:0;
   text-transform:uppercase;color:var(--navy);padding:0 24px;height:40px;border:0.5px solid rgba(65,100,123,0.18);
   display:inline-flex;align-items:center;transition:.25s;white-space:nowrap;background:transparent}
-.ports .s-link:hover{background:rgba(65,100,123,0.05)}
+.ports .s-link:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
 .ports-filter{display:flex;justify-content:center;gap:24px;margin:22px 0 30px}
 .ports-filter button{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:13px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--ink);padding:0 0 6px;border:0;border-bottom:1px solid transparent;
@@ -404,7 +404,7 @@ footer{background:var(--paper);padding:40px 40px 80px;color:var(--mute);font-siz
 .loc-modal-cta svg{width:16px;height:16px}
 .loc-modal-cta:hover{background:#2c4a5c}
 @media (max-width:980px){
-  .ports{padding:80px 24px 0}
+  .ports{padding:80px 24px}
   .ports-head{flex-direction:column;align-items:center;gap:10px}
   .ports-head h2{font-size:18px;line-height:26px;white-space:normal}
   .ports-grid{grid-template-columns:1fr;gap:28px}
