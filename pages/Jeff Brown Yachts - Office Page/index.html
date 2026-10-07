@@ -20,7 +20,7 @@
 
 :root{
   --ink:#2f2f39; --paper:#fcfcfd; --section:#f4f6f9; --navy:#41647b; --navy-d:#365466;
-  --sand:#bdb19d; --mute:#575760; --line:rgba(0,0,0,0.08); --white:#fff;
+  --sand:#bdb19d; --sand-l:#d2cbbe; --card-ink:#000; --mute:#575760; --line:rgba(0,0,0,0.08); --white:#fff;
   --section-pad: 120px;
 }
 *{box-sizing:border-box}
@@ -923,21 +923,35 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .team-wrap .strip-arr{display:none}   /* team is a full grid on desktop — no rail, no arrow */
 
 /* --- TEAM CARDS --- */
-.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.team-card{position:relative;aspect-ratio:325/406;border-radius:2px;overflow:hidden;background:#e9edf1}
-.team-card .t-photo{position:absolute;inset:0;overflow:hidden}
+/* The card the team page carries: a photograph with the department plates along
+   its bottom edge, then a sand block — name, role, and the three contact lines
+   pinned to the foot of it so they meet across a row whatever the name above
+   them does. The office line the old card had is gone: every one of these
+   people works at this office, which is what the page is about. */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-items:stretch}
+.team-card{display:flex;flex-direction:column;height:100%;border-radius:2px;overflow:hidden;background:var(--sand-l)}
+.team-card .t-photo{position:relative;aspect-ratio:325/300;overflow:hidden;background:#e9edf1}
 .team-card .t-photo img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;
   transition:transform .7s cubic-bezier(.22,1,.36,1)}
 .team-card:hover .t-photo img{transform:scale(1.06)}
-.team-card .t-foot{position:absolute;left:12px;right:12px;bottom:12px;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
-.team-card .t-tag{font-family:'Myriad Pro',sans-serif;font-size:14px;line-height:1;letter-spacing:0.06em;text-transform:uppercase;
+.team-card .t-tags{position:absolute;left:12px;right:12px;bottom:12px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.team-card .t-tag{font-family:'Myriad Pro',sans-serif;font-size:13px;line-height:1;letter-spacing:0.06em;text-transform:uppercase;
   color:#fff;background:rgba(65,100,123,0.94);padding:6px 11px;border-radius:2px}
-.team-card .t-label{width:100%;display:flex;flex-direction:column;gap:8px;padding:16px;border-radius:2px;background:rgba(255,255,255,0.9)}
-.team-card .t-office{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:20px;color:var(--navy)}
-.team-card .t-nr{display:flex;flex-direction:column;gap:4px}
-.team-card .t-name{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:22px;letter-spacing:0;
-  text-transform:uppercase;color:var(--navy);margin:0}
-.team-card .t-role{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:21px;color:var(--mute);margin:0}
+.team-card .t-foot{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;
+  padding:20px 18px 24px;background:var(--sand-l)}
+.team-card .t-nr{display:flex;flex-direction:column;align-items:center;gap:4px}
+.team-card .t-name{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:22px;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--white);margin:0}
+/* The role keeps its line even where there is none, so the lines below it hold. */
+.team-card .t-role{display:block;min-height:21px;font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;
+  line-height:21px;color:var(--card-ink);margin:0}
+.team-card .t-contact{margin-top:auto;padding-top:8px;display:flex;flex-direction:column;align-items:center;gap:3px;
+  font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:15px;line-height:21px;color:var(--card-ink)}
+.team-card .t-contact a{text-decoration:none;transition:color .2s}
+.team-card .t-contact a:hover{color:var(--navy-d)}
+.team-card .t-since{margin-top:6px;color:var(--navy)}
+/* The lines still waiting for real values: a step heavier, and plainly zeros. */
+.team-card .t-placeholder,.team-card .t-placeholder a{font-weight:500}
 
 /* --- PAGINATION --- */
 .pager{display:flex;gap:16px;align-items:center;justify-content:center;margin-top:40px}
@@ -1471,36 +1485,36 @@ section.jby-band{margin-top:0}
     <div class="strip-wrap team-wrap">
       <div class="team-grid">
       <article class="team-card reveal d1">
-        <div class="t-photo"><img src="./JBY-V3.3-assets/r_chris_thompson.jpg" alt="Chris Thompson" loading="lazy"/></div>
-        <div class="t-foot"><span class="t-tag">Service</span><div class="t-label"><span class="t-office">San Diego Marina &amp; Boatyard</span><div class="t-nr"><span class="t-name">Chris Thompson</span><span class="t-role">Service Manager</span></div></div></div>
+        <div class="t-photo"><img src="./JBY-V3.3-assets/r_chris_thompson.jpg" alt="Chris Thompson" loading="lazy"/><div class="t-tags"><span class="t-tag">Service</span><span class="t-tag">Management</span></div></div>
+        <div class="t-foot"><div class="t-nr"><span class="t-name">Chris Thompson</span><span class="t-role">Service Manager</span></div><div class="t-contact"><span class="t-mail t-placeholder"><a href="mailto:name@jeffbrownyachts.com">name@jeffbrownyachts.com</a></span><span class="t-tel t-placeholder"><a href="tel:000-000-0000">000-000-0000</a></span><span class="t-since t-placeholder">Team Member since 2021</span></div></div>
       </article>
       <article class="team-card reveal d2">
-        <div class="t-photo"><img src="./JBY-V3.3-assets/r_annie_snyder.jpg" alt="Annie Snyder" loading="lazy"/></div>
-        <div class="t-foot"><span class="t-tag">Service</span><div class="t-label"><span class="t-office">San Diego Marina &amp; Boatyard</span><div class="t-nr"><span class="t-name">Annie Snyder</span><span class="t-role">Lead Service Technician</span></div></div></div>
+        <div class="t-photo"><img src="./JBY-V3.3-assets/r_brock_passarella.jpg" alt="Brock Passarella" loading="lazy"/><div class="t-tags"><span class="t-tag">Service</span></div></div>
+        <div class="t-foot"><div class="t-nr"><span class="t-name">Brock Passarella</span><span class="t-role">Service Coordinator</span></div><div class="t-contact"><span class="t-mail t-placeholder"><a href="mailto:name@jeffbrownyachts.com">name@jeffbrownyachts.com</a></span><span class="t-tel t-placeholder"><a href="tel:000-000-0000">000-000-0000</a></span><span class="t-since t-placeholder">Team Member since 2021</span></div></div>
       </article>
       <article class="team-card reveal d3">
-        <div class="t-photo"><img src="./JBY-V3.3-assets/r_ryan_heffernan.jpg" alt="Ryan Heffernan-Anderson" loading="lazy"/></div>
-        <div class="t-foot"><span class="t-tag">Service</span><div class="t-label"><span class="t-office">San Diego Marina &amp; Boatyard</span><div class="t-nr"><span class="t-name">Ryan Heffernan-Anderson</span><span class="t-role">Service Technician</span></div></div></div>
+        <div class="t-photo"><img src="./JBY-V3.3-assets/r_annie_snyder.jpg" alt="Annie Snyder" loading="lazy"/><div class="t-tags"><span class="t-tag">Service</span></div></div>
+        <div class="t-foot"><div class="t-nr"><span class="t-name">Annie Snyder</span><span class="t-role">Lead Service Technician</span></div><div class="t-contact"><span class="t-mail t-placeholder"><a href="mailto:name@jeffbrownyachts.com">name@jeffbrownyachts.com</a></span><span class="t-tel t-placeholder"><a href="tel:000-000-0000">000-000-0000</a></span><span class="t-since t-placeholder">Team Member since 2021</span></div></div>
       </article>
       <article class="team-card reveal d4">
-        <div class="t-photo"><img src="./JBY-V3.3-assets/r_hailey_jones.jpg" alt="Hailey Jones" loading="lazy"/></div>
-        <div class="t-foot"><span class="t-tag">Service</span><div class="t-label"><span class="t-office">San Diego Marina &amp; Boatyard</span><div class="t-nr"><span class="t-name">Hailey Jones</span><span class="t-role">Service Technician</span></div></div></div>
+        <div class="t-photo"><img src="./JBY-V3.3-assets/r_hailey_jones.jpg" alt="Hailey Jones" loading="lazy"/><div class="t-tags"><span class="t-tag">Service</span></div></div>
+        <div class="t-foot"><div class="t-nr"><span class="t-name">Hailey Jones</span><span class="t-role">Service Technician</span></div><div class="t-contact"><span class="t-mail t-placeholder"><a href="mailto:name@jeffbrownyachts.com">name@jeffbrownyachts.com</a></span><span class="t-tel t-placeholder"><a href="tel:000-000-0000">000-000-0000</a></span><span class="t-since t-placeholder">Team Member since 2021</span></div></div>
       </article>
       <article class="team-card reveal d1">
-        <div class="t-photo"><img src="./JBY-V3.3-assets/r_brock_passarella.jpg" alt="Brock Passarella" loading="lazy"/></div>
-        <div class="t-foot"><span class="t-tag">Service</span><div class="t-label"><span class="t-office">San Diego Marina &amp; Boatyard</span><div class="t-nr"><span class="t-name">Brock Passarella</span><span class="t-role">Service Coordinator</span></div></div></div>
+        <div class="t-photo"><img src="./JBY-V3.3-assets/r_ryan_heffernan.jpg" alt="Ryan Heffernan-Anderson" loading="lazy"/><div class="t-tags"><span class="t-tag">Service</span></div></div>
+        <div class="t-foot"><div class="t-nr"><span class="t-name">Ryan Heffernan-Anderson</span><span class="t-role">Service Technician</span></div><div class="t-contact"><span class="t-mail t-placeholder"><a href="mailto:name@jeffbrownyachts.com">name@jeffbrownyachts.com</a></span><span class="t-tel t-placeholder"><a href="tel:000-000-0000">000-000-0000</a></span><span class="t-since t-placeholder">Team Member since 2021</span></div></div>
       </article>
       <article class="team-card reveal d2">
-        <div class="t-photo"><img src="./JBY-V3.3-assets/r_esmeralda_rivera.jpg" alt="Esmeralda Rivera" loading="lazy"/></div>
-        <div class="t-foot"><span class="t-tag">Service</span><div class="t-label"><span class="t-office">San Diego Marina &amp; Boatyard</span><div class="t-nr"><span class="t-name">Esmeralda Rivera</span><span class="t-role">Chief Detailing Specialist</span></div></div></div>
+        <div class="t-photo"><img src="./JBY-V3.3-assets/r_esmeralda_rivera.jpg" alt="Esmeralda Rivera" loading="lazy"/><div class="t-tags"><span class="t-tag">Service</span></div></div>
+        <div class="t-foot"><div class="t-nr"><span class="t-name">Esmeralda Rivera</span><span class="t-role">Chief Detailing Specialist</span></div><div class="t-contact"><span class="t-mail t-placeholder"><a href="mailto:name@jeffbrownyachts.com">name@jeffbrownyachts.com</a></span><span class="t-tel t-placeholder"><a href="tel:000-000-0000">000-000-0000</a></span><span class="t-since t-placeholder">Team Member since 2021</span></div></div>
       </article>
       <article class="team-card reveal d3">
-        <div class="t-photo"><img src="./JBY-V3.3-assets/r_gabriela_pacheco.jpg" alt="Gabriela Pacheco" loading="lazy"/></div>
-        <div class="t-foot"><span class="t-tag">Service</span><div class="t-label"><span class="t-office">San Diego Marina &amp; Boatyard</span><div class="t-nr"><span class="t-name">Gabriela Pacheco</span><span class="t-role">Detailing Specialist</span></div></div></div>
+        <div class="t-photo"><img src="./JBY-V3.3-assets/r_gabriela_pacheco.jpg" alt="Gabriela Pacheco" loading="lazy"/><div class="t-tags"><span class="t-tag">Service</span></div></div>
+        <div class="t-foot"><div class="t-nr"><span class="t-name">Gabriela Pacheco</span><span class="t-role">Detailing Specialist</span></div><div class="t-contact"><span class="t-mail t-placeholder"><a href="mailto:name@jeffbrownyachts.com">name@jeffbrownyachts.com</a></span><span class="t-tel t-placeholder"><a href="tel:000-000-0000">000-000-0000</a></span><span class="t-since t-placeholder">Team Member since 2021</span></div></div>
       </article>
       <article class="team-card reveal d4">
         <div class="t-photo"><img src="./JBY-V3.3-assets/r_brad_butler.jpg" alt="Brad Butler" loading="lazy"/></div>
-        <div class="t-foot"><div class="t-label"><span class="t-office">San Diego Marina &amp; Boatyard</span><div class="t-nr"><span class="t-name">Brad Butler</span><span class="t-role">In Memoriam</span></div></div></div>
+        <div class="t-foot"><div class="t-nr"><span class="t-name">Brad Butler</span><span class="t-role">In Memoriam</span></div><div class="t-contact"><span class="t-mail t-placeholder"><a href="mailto:name@jeffbrownyachts.com">name@jeffbrownyachts.com</a></span><span class="t-tel t-placeholder"><a href="tel:000-000-0000">000-000-0000</a></span><span class="t-since t-placeholder">Team Member since 2021</span></div></div>
       </article>
       </div>
       <button class="strip-arr" type="button" aria-label="Scroll team" onclick="stripScroll(this)"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
