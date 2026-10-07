@@ -72,6 +72,13 @@ a{color:inherit;text-decoration:none}
 .btn-solid{background:#fff;color:var(--navy);height:48px;padding:0 24px;font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;
   line-height:20px;text-transform:uppercase;display:inline-flex;align-items:center;border-radius:2px;transition:.25s}
 .btn-solid:hover{background:rgba(255,255,255,0.7);color:var(--navy)}
+/* Rule 3 of jby-system.css: a button standing on a photograph or a video is a
+   veil the picture shows through with white type, not a white slab over it.
+   The blur is what keeps the type legible - 28% white over a bright frame is
+   otherwise white on near-white. */
+.hero .btn-solid{background:var(--jby-veil,rgba(255,255,255,0.28));color:#fff;border:0;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.hero .btn-solid:hover{background:var(--jby-blue,var(--navy,#41647b));color:#fff}
 .btn-ghost{background:rgba(255,255,255,0.01);color:#fff;height:48px;padding:0 24px;border:1px solid rgba(255,255,255,0.9);
   backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-family:'Mesmerize',sans-serif;font-weight:300;font-size:14px;
   line-height:20px;text-transform:uppercase;display:inline-flex;align-items:center;border-radius:2px;transition:.25s}
@@ -258,14 +265,14 @@ footer{background:var(--paper);padding:40px 40px;color:var(--mute);font-size:14p
 .lv-row.reverse .lv-media{order:2}
 .lv-row.reverse .lv-copy{order:1}
 .lv-copy .lv-title{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:18px;line-height:28px;letter-spacing:0;text-transform:uppercase;color:var(--navy);margin:0 0 10px}
-/* Who the event is for, as a square outlined marker over the title. The
-   border is navy at 0.3, quieter than the 0.4 on the See Details button
-   below it: the marker is a label and the button is the thing you click,
-   so the edge that matters should be the stronger of the two. The type
-   stays the full navy and carries the contrast. 2px is the corner every
-   other button here uses. */
+/* Who the event is for, as a filled marker over the title. It was a navy
+   outline, quiet enough that it read as a second, smaller button rather than
+   a label; filled in --sand with white type it is the one warm thing in the
+   row and it is unmistakably not something to click. Sand with white type is
+   the site's own pairing - the vessel card's location chip is the same. 2px
+   is the corner every button here uses. */
 .lv-copy .lv-tag{display:inline-flex;align-items:center;height:26px;padding:0 11px;margin:0 0 14px;
-  background:transparent;color:var(--navy);border:1px solid rgba(65,100,123,0.3);border-radius:2px;
+  background:var(--sand);color:#fff;border:0;border-radius:2px;
   font-family:'Mesmerize',sans-serif;font-weight:300;
   font-size:11px;line-height:1;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
 .lv-copy .lv-meta{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:18px;line-height:28px;color:var(--mute);margin:0 0 16px}
