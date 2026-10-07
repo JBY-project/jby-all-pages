@@ -90,7 +90,9 @@ main{padding-top:128px}
   background:rgba(65,100,123,0.94);padding:6px 11px;border-radius:2px}
 .t-nr{display:flex;flex-direction:column;align-items:center;gap:4px}
 .t-name{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:16px;line-height:22px;letter-spacing:0.08em;text-transform:uppercase;color:var(--white)}
-.t-role{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:21px;color:var(--card-ink)}
+/* The role keeps its line even when there is no role yet, so the contact lines
+   and the year sit at the same height on every card in the row. */
+.t-role{display:block;min-height:21px;font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:21px;color:var(--card-ink)}
 .t-contact{margin-top:2px;display:flex;flex-direction:column;align-items:center;gap:3px;
   font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:15px;line-height:21px;color:var(--card-ink)}
 .t-contact a{text-decoration:none;transition:color .2s}
@@ -639,7 +641,7 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
     var inner=p.img?'<img src="./assets/'+p.img+'" alt="'+p.n+'" loading="lazy"/>':'<div class="t-mono">'+initials(p.n)+'</div>';
     var media='<div class="t-photo">'+inner+tag+'</div>';
     var nr='<div class="t-nr"><span class="t-name">'+p.n+'</span>'+
-      (p.r?'<span class="t-role">'+p.r+'</span>':'')+'</div>';
+      '<span class="t-role">'+(p.r||'')+'</span></div>';
     var contact='<div class="t-contact">'+
       line(p.e,PLACEHOLDER.e,'t-mail','mailto:%s')+
       line(p.ph,PLACEHOLDER.ph,'t-tel','tel:%s')+
