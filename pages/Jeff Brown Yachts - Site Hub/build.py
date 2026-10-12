@@ -20,7 +20,7 @@ PAGES = [
     ("services/",                    "jby-all-services/"),
     ("services/maintenance/",        "jby-service-maintenance-2/"),
     ("services/yacht-management/",   "jby-yacht-management/"),
-    ("services/sell-your-yacht/",    "jby-sell-your-yacht-v2/"),
+    ("services/sell-your-yacht/",    "jby-sell-your-yacht/"),
     ("team/",                        "jby-team/"),
     ("team/will-de-jong/",           "jby-team-member/"),
     ("locations/",                   "jby-locations/"),
