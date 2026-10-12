@@ -434,8 +434,6 @@ a{color:inherit;text-decoration:none}
 .builders-inner{position:relative;z-index:5;padding:64px 64px 64px;min-height:760px;
   display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:32px}
 .builders-top{display:flex;flex-direction:column;align-items:center;gap:24px;width:100%}
-.builders .caption{color:rgba(255,255,255,0.92);font-family:'Myriad Pro',sans-serif;font-weight:300;
-  font-size:16px;line-height:24px;margin:0;font-style:italic;text-align:center}
 .builders .mark{display:flex;align-items:center;justify-content:center;min-height:140px}
 .builders .mark img{height:130px;width:auto;filter:drop-shadow(0 4px 24px rgba(0,0,0,0.55));max-width:600px;object-fit:contain}
 .builders .mark .word{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:96px;line-height:1;color:#fff;
@@ -1352,7 +1350,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     <button class="builders-arr r" aria-label="Next brand" onclick="brandStep(1)"><svg class="ti-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
     <div class="builders-inner">
       <div class="builders-top">
-        <div class="caption" id="brand-caption">Where the history of yachting lives</div>
         <div class="mark" id="brand-mark"><img src="./JBY-V3.3-assets/riva_real.png" alt="Riva"/></div>
         <div class="actions">
           <button class="a solid" id="brand-cta">Explore Riva</button>
@@ -2209,13 +2206,13 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   // BRAND SLIDER (Builders) — all brands now use SVG/PNG logos
   // cta field per brand (BRABUS uppercase per brand guidelines)
   const brands = [
-    {name:"Riva",          cta:"Explore Riva",       caption:"Where the history of yachting lives",  img:"brand_riva.webp",      logo:"riva_real.png", video:"brand_riva_video.mp4"},
-    {name:"Axopar",        cta:"Explore Axopar",     caption:"Built for adventure on every coast",   img:"brand_axopar.jpeg",    logo:"brand_axopar_raw.png",    video:"brand_axopar_video.mp4"},
-    {name:"Brabus",        cta:"Explore BRABUS",     caption:"Performance, engineered on the water", img:"brand_brabus.webp",    logo:"brand_brabus_raw.png",    video:"brand_brabus_video.mp4"},
-    {name:"Pershing",      cta:"Explore Pershing",   caption:"Italian speed, unmistakable presence", img:"brand_pershing.jpg",   logo:"brand_pershing_raw.png", video:"brand_pershing_video.mp4"},
-    {name:"Wally",         cta:"Explore Wally",      caption:"Form follows the horizon",             img:"brand_wally.jpg",      logo:"brand_wally_logo.svg"},
-    {name:"Sirena Yachts", cta:"Explore Sirena",     caption:"Refined long-range cruising",          img:"brand_sirena.jpeg",    logo:"brand_sirena_logo.svg"},
-    {name:"Everglades",    cta:"Explore Everglades", caption:"Offshore capability, built to last",   img:"brand_everglades.jpg", logo:"brand_everglades_logo.png"},
+    {name:"Riva",          cta:"Explore Riva",  img:"brand_riva.webp",      logo:"riva_real.png", video:"brand_riva_video.mp4"},
+    {name:"Axopar",        cta:"Explore Axopar",   img:"brand_axopar.jpeg",    logo:"brand_axopar_raw.png",    video:"brand_axopar_video.mp4"},
+    {name:"Brabus",        cta:"Explore BRABUS", img:"brand_brabus.webp",    logo:"brand_brabus_raw.png",    video:"brand_brabus_video.mp4"},
+    {name:"Pershing",      cta:"Explore Pershing", img:"brand_pershing.jpg",   logo:"brand_pershing_raw.png", video:"brand_pershing_video.mp4"},
+    {name:"Wally",         cta:"Explore Wally",             img:"brand_wally.jpg",      logo:"brand_wally_logo.svg"},
+    {name:"Sirena Yachts", cta:"Explore Sirena",          img:"brand_sirena.jpeg",    logo:"brand_sirena_logo.svg"},
+    {name:"Everglades",    cta:"Explore Everglades",   img:"brand_everglades.jpg", logo:"brand_everglades_logo.png"},
   ];
   let bi = 0;
   function setBrand(i){
@@ -2225,7 +2222,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     const bgv = document.getElementById('builders-bg-video');
     const fade = document.getElementById('brand-fade');
     const mark = document.getElementById('brand-mark');
-    const cap = document.getElementById('brand-caption');
     // Trigger a soft dim between brand switches so the swap is noticeable
     if (fade){
       fade.classList.add('active');
@@ -2272,7 +2268,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         mark.innerHTML = '<span class="word">' + (b.logoText || b.name) + '</span>';
       }
     }
-    if (cap) cap.textContent = b.caption;
     const brandCta = document.getElementById('brand-cta');
     if (brandCta && b.cta) brandCta.textContent = b.cta;
     document.querySelectorAll('.b-tab').forEach((t,k) => t.classList.toggle('active', k === bi));
