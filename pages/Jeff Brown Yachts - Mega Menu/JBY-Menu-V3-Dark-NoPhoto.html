@@ -640,7 +640,7 @@ a{color:inherit;text-decoration:none}
   line-height:20px;color:rgba(255,255,255,0.85)}
 .voices-sub{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:22px;line-height:32px;
   letter-spacing:0;text-transform:uppercase;color:var(--navy);margin:64px 0 20px}
-.video-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:0}
+.video-thumbs{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:24px;margin-top:0}
 .v-thumb{position:relative;aspect-ratio:16/9;background:#0a1620;border-radius:2px;overflow:hidden;cursor:pointer}
 .v-thumb .bg{position:absolute;inset:0;background-size:cover;background-position:center;
   transition:transform 1s cubic-bezier(0.22,1,0.36,1)}
@@ -1393,7 +1393,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
             <a href="#" data-brand="brabus">Brabus</a>
             <a href="#" data-brand="sirena">Sirena Yachts</a>
             <a href="#" data-brand="riva">Riva</a>
-            <a href="#" data-brand="fourwinns">Four Winns</a>
             <a href="#" data-brand="jeanneau">Jeanneau</a>
             <a href="#" data-brand="wally">Wally</a>
             <a href="#" data-brand="pershing">Pershing</a>
@@ -1777,14 +1776,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <div class="v-body">
           <h4>David Aoki &middot; Axopar 37</h4>
           <p>&ldquo;Third boat with Jeff Brown Yachts. Every time smoother than the last.&rdquo;</p>
-        </div>
-      </article>
-      <article class="v-thumb reveal d2">
-        <div class="bg" style="background-image:url('./JBY-V3.3-assets/clean_bento_ym.jpg')"></div>
-        <div class="veil"></div>
-        <div class="v-body">
-          <h4>Hill Family &middot; Four Winns H4</h4>
-          <p>&ldquo;We came looking for a boat. We left with a team that treats our first summer like it&rsquo;s their fifth.&rdquo;</p>
         </div>
       </article>
     </div>
@@ -2783,7 +2774,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
     brabus:    ['Shadow 500 Cabin', 'Shadow 700 Cabin', 'Shadow 900 XC', 'Shadow 1200 Black Ops'],
     pershing:  ['Pershing 5X', 'Pershing 7X', 'Pershing 8X', 'Pershing GTX116'],
     riva:      ["Rivale 56'", "Diable 68'", "Perseo Super 76'", "Folgore 88'"],
-    fourwinns: ['Four Winns H2', 'Four Winns H4', 'Four Winns HD5', 'Four Winns TH36'],
     jeanneau:  ['Cap Camarat 7.5 WA', 'Merry Fisher 895', 'DB/43', 'Leader 10.5'],
     sirena:    ['Sirena 48', 'Sirena 58', 'Sirena 68', 'Sirena 88'],
     wally:     ['Wallytender 43X', 'Wallywhy 100', 'Wallypower 58', 'Wallywind 110'],
