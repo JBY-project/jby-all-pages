@@ -338,7 +338,7 @@ a{color:inherit;text-decoration:none}
 .cards-scroll-arr:hover{background:rgba(0,0,0,0.7);transform:translateY(-50%) scale(1.06)}
 /* Grid template columns transition — buttery smooth, browser optimizes better
    than flex-grow (no layout thrashing per card). :has() lets each card control the row. */
-.vessels-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+.vessels-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;
   padding:24px 40px 32px;align-items:stretch}
 .vessels-arr{display:none}
 
@@ -811,8 +811,13 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
    empty blue to its right and the whole row the widest thing on a page whose
    text is an 880px column. max-content sizes each tile to its own figure, and
    the row comes out around 950 — the text's measure, near enough. */
-.ax-stats{display:grid;grid-template-columns:repeat(4,max-content);
-  justify-content:center;gap:20px;margin:48px auto 0}
+/* Four columns of one width, not four measured to their own words: with the
+   figures centred, four boxes of four different widths read as a row that did
+   not line up rather than as four figures. The row keeps its own measure
+   instead of running the full band — a stat box as wide as a paragraph is a
+   panel, and these are figures. */
+.ax-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  justify-content:center;gap:20px;margin:48px auto 0;max-width:1000px}
 /* Filled in the family blue rather than white cards floating on near-white.
    The band they sit in is --paper and the cards were --white with a soft
    shadow: four steps of difference, which on a bright screen is four cards you
@@ -823,7 +828,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
    to break up a pale card; on the blue the label is already the lighter thing
    and a mark beside it only crowds the one line it has. */
 .ax-stat{background:var(--navy);border-radius:2px;padding:20px 22px;
-  display:flex;flex-direction:column;gap:12px}
+  display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
 .ax-stat .k{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:14px;line-height:20px;
   color:rgba(255,255,255,0.78)}
 /* The figure in the display face, as the mock sets it: it is the thing being
@@ -834,35 +839,6 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .ax-stat .v{margin-top:auto;font-family:'Mesmerize',sans-serif;font-weight:300;
   font-size:22px;line-height:30px;letter-spacing:0.04em;color:#fff}
 
-/* Great for and Vessel types: two centred rows, not two panels side by side.
-
-   They were a panel each — a tinted box with a hairline, one on the left and
-   one on the right. That gave each list a container the width of half the
-   page, and eight short words then sat in a box built for a paragraph: the
-   boxes read as the thing and the words as filling. Down the middle, with the
-   label over the row it names, the words are the thing and nothing is drawn
-   around them.
-
-   Stacked rather than side by side for the same reason the section's text is:
-   each row gets the full measure and wraps where the words run out, instead of
-   wrapping early to keep out of the other list's half. */
-.ax-lists{margin-top:40px;display:flex;flex-direction:column;gap:28px}
-.ax-list{text-align:center}
-.ax-list-h{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:14px;line-height:20px;
-  color:var(--mute);margin:0 0 12px}
-.ax-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
-/* Filled, with no hairline. On white a pill needs its edge drawn; here the
-   fill is the edge, which is one less line in a band that already holds
-   fifteen of these.
-
-   The marks are gone. Fifteen pills carried fifteen little pictograms, and at
-   15px next to a 14px word each was more decoration than sign — a fish, a
-   compass, a gauge, a triangle for Monohull. The word does the work, so the
-   word is the pill. */
-.ax-chip{background:#eef0f3;border:0;border-radius:20px;height:32px;padding:0 16px;
-  display:inline-flex;align-items:center;
-  font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:14px;line-height:20px;color:var(--ink);
-  white-space:nowrap}
 
 /* MODELS */
 .ax-models-head{text-align:center;margin-bottom:40px}
@@ -1036,8 +1012,7 @@ body.cx-lock{overflow:hidden}
   .ax-hero-btns .ax-btn{width:100%}
   /* Four across needs more room than a tablet has: the figures fall to 2x2
      and the two panels stack, each keeping the full width. */
-  .ax-stats{grid-template-columns:1fr 1fr;gap:12px;margin-top:32px}
-  .ax-lists{margin-top:32px;gap:24px}
+  .ax-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:32px}
   .ax-h2{font-size:18px;line-height:26px}
   .ax-model-stage{height:300px}
   .ax-model-stage img{width:92%}
@@ -1056,7 +1031,6 @@ body.cx-lock{overflow:hidden}
   .ax-stat{padding:16px;gap:8px}
   .ax-stat .k{font-size:13px;line-height:18px}
   .ax-stat .v{font-size:19px;line-height:26px}
-  .ax-chip{height:30px;padding:0 14px;font-size:13px}
   /* Header CTA doesn't fit on phones (caused horizontal scroll) — hamburger + hero CTAs cover contact */
   .nav .cta{display:none}
 }
@@ -1418,37 +1392,6 @@ footer.jby-footer{background:var(--navy,#41647b);padding:36px 40px 32px;
       <div class="ax-stat"><span class="k">Year Range</span><span class="v">2014 - 2026</span></div>
       <div class="ax-stat"><span class="k">Models in production</span><span class="v">42</span></div>
       <div class="ax-stat"><span class="k">Official Website</span><span class="v">axopar.com</span></div>
-    </div>
-
-    <!-- GREAT FOR: multifunction use cases ("the ultimate Swiss Army knife of
-         boats"). Eco dropped per feedback. Final copy to come from Melina — the
-         row wraps to any count, and a chip without a mark still sits straight. -->
-    <div class="ax-lists">
-      <div class="ax-list reveal">
-        <p class="ax-list-h">Great for:</p>
-        <div class="ax-chips">
-          <span class="ax-chip">Fishing</span>
-          <span class="ax-chip">Scuba diving</span>
-          <span class="ax-chip">Exploring</span>
-          <span class="ax-chip">Cruising</span>
-          <span class="ax-chip">Watersports</span>
-          <span class="ax-chip">Socialising</span>
-          <span class="ax-chip">Performance</span>
-          <span class="ax-chip">Adventure</span>
-        </div>
-      </div>
-      <div class="ax-list reveal d1">
-        <p class="ax-list-h">Vessel types:</p>
-        <div class="ax-chips">
-          <span class="ax-chip">Center console</span>
-          <span class="ax-chip">Express cruiser</span>
-          <span class="ax-chip">Flybridge</span>
-          <span class="ax-chip">Sport fishing</span>
-          <span class="ax-chip">Browrider</span>
-          <span class="ax-chip">Performance</span>
-          <span class="ax-chip">Monohull</span>
-        </div>
-      </div>
     </div>
   </div>
 </section>
