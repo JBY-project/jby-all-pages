@@ -21,7 +21,11 @@
 :root{
   --ink:#2f2f39; --paper:#fcfcfd; --section:#f4f6f9; --navy:#41647b; --navy-d:#365466;
   --sand:#bdb19d; --mute:#575760; --line:rgba(0,0,0,0.08); --white:#fff;
-  --section-pad: 120px;
+  /* The air between sections. Every other vertical gap on the page is written
+     as a fraction of this one, so the whole rhythm moves with it: the client
+     asked for more room, and 160 is the step that reads as deliberate rather
+     than as a page that failed to fill. */
+  --section-pad: 160px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -974,7 +978,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 .loc-modal-close:focus-visible,.back-top:focus-visible{outline-offset:3px}
 
 @media (max-width:1100px){
-  :root{--section-pad: 80px}
+  :root{--section-pad: 104px}
   .nav{grid-template-columns:auto auto auto}
   .hero h1{font-size:20px;line-height:30px}.hero-text{left:24px;right:24px;bottom:64px}
   .events-zone .s-title,.aftercare .s-title,.portfolio .s-title{font-size:18px;line-height:26px}
@@ -1154,7 +1158,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
   /* Events strip title: short label on mobile */
   .ttl-desktop{display:none}.ttl-mobile{display:inline}
   /* --- CONSISTENT VERTICAL SPACING (single rule for phones) --- */
-  :root{--section-pad:64px}
+  :root{--section-pad:80px}
   /* The events section shortens its top padding by what the vessels strip
      carries below its cards. On a phone that strip is flush, so the deduction
      would come out of the gap itself: 32px against the 64 of the sections
