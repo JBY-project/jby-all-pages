@@ -10,9 +10,10 @@
   --ink:#2f2f39; --paper:#fcfcfd; --section:#f4f6f9; --navy:#41647b; --navy-d:#365466;
   --sand:#bdb19d; --sand-l:#d2cbbe;
   /* The card block is a wash of the site navy rather than the beige it was:
-     beige appears almost nowhere else here, and at 10% the navy lands on the
-     same pale blue-grey as --section and the photo placeholder. */
-  --card-wash:rgba(65,100,123,0.10); --card-line:rgba(65,100,123,0.14);
+     beige appears almost nowhere else here. At 20% it carries the brand blue
+     plainly while staying a wash — one step further and "Team Member since",
+     which is --navy on it, drops under 4.5:1. */
+  --card-wash:rgba(65,100,123,0.20);
   --card-ink:#2f2f39; --mute:#575760; --line:rgba(0,0,0,0.08); --white:#fff; --page-pad:40px;
 }
 *{box-sizing:border-box}
@@ -81,8 +82,7 @@ main{padding-top:128px}
    the name floating on top: picture, then department, name, role, office and
    the three contact lines, all centred. The cards in a row stretch to the
    tallest one so the sand blocks line up along the bottom of the row. */
-.team-card{display:flex;flex-direction:column;height:100%;border-radius:2px;overflow:hidden;
-  background:var(--card-wash);box-shadow:inset 0 0 0 1px var(--card-line)}
+.team-card{display:flex;flex-direction:column;height:100%;border-radius:2px;overflow:hidden;background:var(--card-wash)}
 .t-photo{position:relative;aspect-ratio:325/300;overflow:hidden;background:#e9edf1}
 /* The department plates sit on the photograph, along its bottom edge, rather
    than inside the sand block — the block starts at the name. */
