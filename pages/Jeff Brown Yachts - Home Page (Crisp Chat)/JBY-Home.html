@@ -673,6 +673,9 @@ a{color:inherit;text-decoration:none}
 .bento-body{position:absolute;left:40px;right:40px;bottom:40px;z-index:5;
   transition:transform .55s cubic-bezier(0.22,1,0.36,1)}
 .bento-cell:hover .bento-body{transform:translateY(-8px)}
+/* The client asked for this section to stand still: no rise on scroll, no
+   drift, and no zoom or lift under the pointer. 2026-10-23. */
+.aftercare .bento-cell:hover .bento-img-inner,.aftercare .bento-cell:hover .bento-body{transform:none}
 .bento-body h3{font-family:'Mesmerize',sans-serif;font-weight:300;font-size:24px;line-height:36px;color:#fff;
   letter-spacing:0;text-transform:uppercase;margin:0 0 12px}
 .bento-body p{font-family:'Myriad Pro',sans-serif;font-weight:300;font-size:16px;line-height:20px;
@@ -1290,9 +1293,9 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
 </section>
 
 <section class="aftercare" id="services">
-  <h2 class="s-title reveal split-words" data-split>Support for every stage of ownership</h2>
+  <h2 class="s-title">Support for every stage of ownership</h2>
   <div class="bento">
-    <div class="bento-cell span2 reveal" data-parallax-bg="0.20">
+    <div class="bento-cell span2">
       <div class="bento-img">
         <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/service_yacht_management.jpg')"></div>
       </div>
@@ -1303,7 +1306,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <button class="bento-cta">Explore yacht management <i class="ti ti-chevron-right"></i></button>
       </div>
     </div>
-    <div class="bento-cell reveal d2" data-parallax-bg="0.20">
+    <div class="bento-cell">
       <div class="bento-img">
         <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/service_maintenance.jpg')"></div>
       </div>
@@ -1314,7 +1317,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <button class="bento-cta">Explore service &amp; maintenance <i class="ti ti-chevron-right"></i></button>
       </div>
     </div>
-    <div class="bento-cell reveal d1" data-parallax-bg="0.20">
+    <div class="bento-cell">
       <div class="bento-img">
         <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/clean_bento_sell.jpg')"></div>
       </div>
@@ -1325,7 +1328,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <button class="bento-cta">Explore selling services <i class="ti ti-chevron-right"></i></button>
       </div>
     </div>
-    <div class="bento-cell span2 reveal" data-parallax-bg="0.20">
+    <div class="bento-cell span2">
       <div class="bento-img">
         <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/bento_coownership_riva.png')"></div>
       </div>
@@ -1336,7 +1339,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <button class="bento-cta">Explore Mari-Time <i class="ti ti-chevron-right"></i></button>
       </div>
     </div>
-    <div class="bento-cell reveal d1" data-parallax-bg="0.20">
+    <div class="bento-cell">
       <div class="bento-img">
         <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/clean_bento_financing.jpg')"></div>
       </div>
@@ -1347,7 +1350,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-v
         <button class="bento-cta">Continue to YachtWay <i class="ti ti-chevron-right"></i></button>
       </div>
     </div>
-    <div class="bento-cell reveal d2" data-parallax-bg="0.20">
+    <div class="bento-cell">
       <div class="bento-img">
         <div class="bento-img-inner" style="background-image:url('./JBY-V3.3-assets/bento_insurance_riva.png')"></div>
       </div>
