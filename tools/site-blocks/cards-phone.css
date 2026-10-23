@@ -65,6 +65,9 @@
      here it was holding both lines to about 140px of the 240 available and
      leaving a hand's width of empty panel on the right. */
   .vessel-card .name{max-width:100%;text-wrap:wrap}
+  /* The plate runs full width under the price here, so the price has the
+     line to itself and goes back to the name's rhythm. */
+  .vessel-card .price{line-height:22px;margin:-6px 0 0;max-width:100%}
   /* 20px taller card, and the extension pulled back off the boat.
      The card growing moves the panel's top edge down the photograph — the
      text and the button sit the same distance from the bottom, so the whole
